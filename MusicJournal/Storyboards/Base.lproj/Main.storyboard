@@ -294,8 +294,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="ycY-5k-kV5">
-                                <rect key="frame" x="20" y="220.5" width="335" height="290"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="ycY-5k-kV5" userLabel="Whole Stack View">
+                                <rect key="frame" x="20" y="84" width="335" height="290"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Record Music:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q0t-CA-DhO">
                                         <rect key="frame" x="64.5" y="0.0" width="206" height="42"/>
@@ -381,9 +381,8 @@
                         <color key="backgroundColor" red="0.91764705879999997" green="0.90588235289999997" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="ycY-5k-kV5" firstAttribute="leading" secondItem="nNC-sV-xkN" secondAttribute="leading" constant="20" id="3Ne-dY-s6r"/>
-                            <constraint firstItem="ycY-5k-kV5" firstAttribute="centerY" secondItem="nNC-sV-xkN" secondAttribute="centerY" id="715-8a-N2S"/>
+                            <constraint firstItem="ycY-5k-kV5" firstAttribute="top" secondItem="nNC-sV-xkN" secondAttribute="top" constant="20" id="FT4-jm-nJJ"/>
                             <constraint firstItem="nNC-sV-xkN" firstAttribute="trailing" secondItem="ycY-5k-kV5" secondAttribute="trailing" constant="20" id="KDW-sC-IRz"/>
-                            <constraint firstItem="ycY-5k-kV5" firstAttribute="centerX" secondItem="nNC-sV-xkN" secondAttribute="centerX" id="WuD-aG-WuW"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="nNC-sV-xkN"/>
                     </view>

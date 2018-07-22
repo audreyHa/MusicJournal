@@ -71,10 +71,23 @@ class RecordMusicViewController: UIViewController{
         self.songText.layer.cornerRadius=8
         self.composerText.layer.cornerRadius=8
         self.eventText.layer.cornerRadius=8
+        self.hideKeyboardWhenTappedAround()
+        
     }
     
     override func didReceiveMemoryWarning(){
         super.didReceiveMemoryWarning()
     }
     
+}
+
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action:    #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
 }
