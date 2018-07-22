@@ -18,7 +18,6 @@
 		F6EB02BB2103D759006CD141 /* MusicJournal.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F6EB02B92103D759006CD141 /* MusicJournal.xcdatamodeld */; };
 		F6EB02BD2103D75A006CD141 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F6EB02BC2103D75A006CD141 /* Assets.xcassets */; };
 		F6EB02C02103D75A006CD141 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6EB02BE2103D75A006CD141 /* LaunchScreen.storyboard */; };
-		F6EB02CE2103E044006CD141 /* myRecordings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6EB02CD2103E044006CD141 /* myRecordings.storyboard */; };
 		F6EB02D22103EABC006CD141 /* OrganizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6EB02D12103EABC006CD141 /* OrganizationViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -36,7 +35,6 @@
 		F6EB02BC2103D75A006CD141 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F6EB02BF2103D75A006CD141 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F6EB02C12103D75A006CD141 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F6EB02CD2103E044006CD141 /* myRecordings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = myRecordings.storyboard; sourceTree = "<group>"; };
 		F6EB02D12103EABC006CD141 /* OrganizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -103,7 +101,6 @@
 			isa = PBXGroup;
 			children = (
 				F6EB02B62103D759006CD141 /* Main.storyboard */,
-				F6EB02CD2103E044006CD141 /* myRecordings.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -178,7 +175,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F6EB02CE2103E044006CD141 /* myRecordings.storyboard in Resources */,
 				F6EB02C02103D75A006CD141 /* LaunchScreen.storyboard in Resources */,
 				F6EB02BD2103D75A006CD141 /* Assets.xcassets in Resources */,
 				F6EB02B82103D759006CD141 /* Main.storyboard in Resources */,
