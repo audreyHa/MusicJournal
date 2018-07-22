@@ -20,7 +20,6 @@
 		F6EB02BB2103D759006CD141 /* MusicJournal.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F6EB02B92103D759006CD141 /* MusicJournal.xcdatamodeld */; };
 		F6EB02BD2103D75A006CD141 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F6EB02BC2103D75A006CD141 /* Assets.xcassets */; };
 		F6EB02C02103D75A006CD141 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6EB02BE2103D75A006CD141 /* LaunchScreen.storyboard */; };
-		F6EB02D22103EABC006CD141 /* OrganizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6EB02D12103EABC006CD141 /* OrganizationViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,7 +38,6 @@
 		F6EB02BC2103D75A006CD141 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F6EB02BF2103D75A006CD141 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F6EB02C12103D75A006CD141 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F6EB02D12103EABC006CD141 /* OrganizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,7 +121,6 @@
 			isa = PBXGroup;
 			children = (
 				F6EB02B42103D759006CD141 /* HomeViewController.swift */,
-				F6EB02D12103EABC006CD141 /* OrganizationViewController.swift */,
 				F6367A6B2103ED3800981216 /* RecordMusicViewController.swift */,
 				F6367A6D2103ED4500981216 /* SongInfoViewController.swift */,
 				F6367A772104005700981216 /* MyRecordingsTableViewController.swift */,
@@ -203,7 +200,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F6ABEE2C210446CC00143E67 /* convertToString.swift in Sources */,
-				F6EB02D22103EABC006CD141 /* OrganizationViewController.swift in Sources */,
 				F6367A6E2103ED4500981216 /* SongInfoViewController.swift in Sources */,
 				F6367A782104005700981216 /* MyRecordingsTableViewController.swift in Sources */,
 				F6EB02B52103D759006CD141 /* HomeViewController.swift in Sources */,

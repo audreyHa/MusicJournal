@@ -12,6 +12,9 @@ import UIKit
 class RecordMusicViewController: UIViewController{
     var recording: Recording?
     
+    @IBOutlet weak var eventText: UILabel!
+    @IBOutlet weak var composerText: UILabel!
+    @IBOutlet weak var songText: UILabel!
     @IBOutlet weak var startNew: UIButton!
     
     @IBOutlet weak var songLabel: UITextField!
@@ -65,6 +68,9 @@ class RecordMusicViewController: UIViewController{
     override func viewDidLoad(){
         super.viewDidLoad()
         self.startNew.layer.cornerRadius=8
+        self.songText.layer.cornerRadius=8
+        self.composerText.layer.cornerRadius=8
+        self.eventText.layer.cornerRadius=8
     }
     
     override func didReceiveMemoryWarning(){
