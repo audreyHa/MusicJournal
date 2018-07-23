@@ -10,17 +10,49 @@ import Foundation
 import UIKit
 import AVFoundation
 
-class MyRecordingsTableViewController: UITableViewController{
+class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDelegate{
+    
     var recordingSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!
     var numberOfRecords: Int=0
     var audioPlayer: AVAudioPlayer!
+    var recordingFiles = [URL]()
     
+    @IBOutlet var myTableView: UITableView!
     @IBOutlet weak var songButton: UIButton!
     @IBOutlet weak var dateButton: UIButton!
     @IBOutlet weak var composerButton: UIButton!
     @IBOutlet weak var eventButton: UIButton!
-
+    @IBOutlet weak var startNew: UIButton!
+    
+    @IBAction func startNewPressed(_ sender: Any) {
+        //check if we have an active recorder
+        if audioRecorder == nil{
+            numberOfRecords += 1
+            let filename = getDirectory().appendingPathComponent("\(numberOfRecords).m4a")
+            let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC), AVSampleRateKey: 12000, AVNumberOfChannelsKey: 1, AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue]
+            do{
+                audioRecorder = try AVAudioRecorder(url: filename, settings: settings)
+                audioRecorder.delegate=self
+                audioRecorder.record()
+                startNew.setTitle("Stop Recording", for: .normal)
+            }
+            catch{
+                displayAlert(title: "Failed to record", message: "Recording failed")
+            }
+        } else{
+            //Stop Audio Recording
+            audioRecorder.stop()
+            audioRecorder = nil
+            UserDefaults.standard.set(numberOfRecords, forKey: "myNumber")
+            myTableView.reloadData()
+            startNew.setTitle("Press To Start NEW Recording", for: .normal)
+            let secondViewController = self.storyboard?.instantiateViewController(withIdentifier: "secondViewController") as! RecordMusicViewController
+            
+            self.navigationController?.pushViewController(secondViewController, animated: true)
+        }
+    }
+    
     
     var eventArray = [String]()
     var recordings = [Recording](){
@@ -37,6 +69,18 @@ class MyRecordingsTableViewController: UITableViewController{
         self.dateButton.layer.cornerRadius=8
         self.composerButton.layer.cornerRadius=8
         self.eventButton.layer.cornerRadius=8
+        
+        //Setting up session
+        recordingSession = AVAudioSession.sharedInstance()
+        
+        if let number: Int = UserDefaults.standard.object(forKey: "myNumber") as? Int{
+            numberOfRecords = number
+        }
+        AVAudioSession.sharedInstance().requestRecordPermission {(hasPermission) in
+            if hasPermission{
+                print("Accepted!")
+            }
+        }
     }
     
     @IBAction func unwindToMyRecordings(_ segue: UIStoryboardSegue){
@@ -64,13 +108,25 @@ class MyRecordingsTableViewController: UITableViewController{
         if cell.songComposer.text==""{
             cell.songComposer.text="No Composer Entered"
         }
+        
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+        getDirectory()
+        let path=getDirectory().appendingPathComponent("\(indexPath.row + 1).m4a")
+        do{
+            audioPlayer = try AVAudioPlayer(contentsOf: path)
+            audioPlayer.play()
+        } catch{
+            print("")
+        }
+    }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath){
         if editingStyle == .delete{
             recordings.remove(at: indexPath.row)
+            recordingFiles.remove(at: indexPath.row)
         }
     }
         
@@ -94,9 +150,11 @@ class MyRecordingsTableViewController: UITableViewController{
         }
     }
     
+    //Gets path to directory
     func getDirectory() -> URL{
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        let documentDirectory = paths[0]
+        var paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        var documentDirectory = paths[0]
+        recordingFiles.insert(documentDirectory, at: 0)
         return documentDirectory
     }
     
@@ -106,4 +164,7 @@ class MyRecordingsTableViewController: UITableViewController{
         alert.addAction(UIAlertAction(title: "dismiss", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
+    
+    //Setting up TableView
+    
 }
