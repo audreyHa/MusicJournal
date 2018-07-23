@@ -113,13 +113,17 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-        getDirectory()
-        let path=getDirectory().appendingPathComponent("\(indexPath.row + 1).m4a")
+        //var path=getDirectory().appendingPathComponent("\(indexPath.row+1).m4a")
+       
+        var paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        recordingFiles.append(paths[0].appendingPathComponent("\(indexPath.row+1).m4a"))
+        let path=recordingFiles[indexPath.row]
+
         do{
             audioPlayer = try AVAudioPlayer(contentsOf: path)
             audioPlayer.play()
         } catch{
-            print("")
+            print("Something went wrong!!!")
         }
     }
     
@@ -152,9 +156,9 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
     
     //Gets path to directory
     func getDirectory() -> URL{
+        
         var paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         var documentDirectory = paths[0]
-        recordingFiles.insert(documentDirectory, at: 0)
         return documentDirectory
     }
     
