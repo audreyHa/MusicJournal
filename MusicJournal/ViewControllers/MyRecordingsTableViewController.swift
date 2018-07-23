@@ -14,9 +14,10 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
     
     var recordingSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!
-    var numberOfRecords: Int=0
     var audioPlayer: AVAudioPlayer!
     var recordingFiles = [URL]()
+    var count: Int = 0
+    var fileInt: Int = 0
     
     @IBOutlet var myTableView: UITableView!
     @IBOutlet weak var songButton: UIButton!
@@ -28,8 +29,11 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
     @IBAction func startNewPressed(_ sender: Any) {
         //check if we have an active recorder
         if audioRecorder == nil{
-            numberOfRecords += 1
-            let filename = getDirectory().appendingPathComponent("\(numberOfRecords).m4a")
+            count+=1
+            fileInt += 1
+            var paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+            let filename = paths[0].appendingPathComponent("\(fileInt).m4a")
+            recordingFiles.append(filename)
             let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC), AVSampleRateKey: 12000, AVNumberOfChannelsKey: 1, AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue]
             do{
                 audioRecorder = try AVAudioRecorder(url: filename, settings: settings)
@@ -44,7 +48,7 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
             //Stop Audio Recording
             audioRecorder.stop()
             audioRecorder = nil
-            UserDefaults.standard.set(numberOfRecords, forKey: "myNumber")
+            UserDefaults.standard.set(count, forKey: "myNumber")
             myTableView.reloadData()
             startNew.setTitle("Press To Start NEW Recording", for: .normal)
             let secondViewController = self.storyboard?.instantiateViewController(withIdentifier: "secondViewController") as! RecordMusicViewController
@@ -74,7 +78,7 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
         recordingSession = AVAudioSession.sharedInstance()
         
         if let number: Int = UserDefaults.standard.object(forKey: "myNumber") as? Int{
-            numberOfRecords = number
+            count = number
         }
         AVAudioSession.sharedInstance().requestRecordPermission {(hasPermission) in
             if hasPermission{
@@ -116,7 +120,6 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
         //var path=getDirectory().appendingPathComponent("\(indexPath.row+1).m4a")
        
         var paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        recordingFiles.append(paths[0].appendingPathComponent("\(indexPath.row+1).m4a"))
         let path=recordingFiles[indexPath.row]
 
         do{
@@ -131,6 +134,7 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
         if editingStyle == .delete{
             recordings.remove(at: indexPath.row)
             recordingFiles.remove(at: indexPath.row)
+            count -= 1
         }
     }
         
