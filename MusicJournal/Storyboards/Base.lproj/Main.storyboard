@@ -125,6 +125,9 @@
                                                             <state key="normal" title="  Song Title  ">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
+                                                            <connections>
+                                                                <action selector="songPressed:" destination="fVM-KZ-LoB" eventType="touchUpInside" id="krr-8u-QoB"/>
+                                                            </connections>
                                                         </button>
                                                         <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cKl-ln-S8d">
                                                             <rect key="frame" x="0.0" y="56" width="157.5" height="36"/>
@@ -203,30 +206,44 @@
                                             <rect key="frame" x="15" y="15" width="345" height="121.5"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MFv-J5-eCq">
-                                                    <rect key="frame" x="0.0" y="0.0" width="345" height="26.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="345" height="20.5"/>
                                                     <fontDescription key="fontDescription" name="PingFangHK-Semibold" family="PingFang HK" pointSize="20"/>
                                                     <color key="textColor" red="0.90980392160000001" green="0.35294117650000001" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xuk-Yk-HDh">
-                                                    <rect key="frame" x="0.0" y="31.5" width="345" height="27"/>
+                                                    <rect key="frame" x="0.0" y="25.5" width="345" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Composer" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cho-Sw-wgm">
-                                                    <rect key="frame" x="0.0" y="63.5" width="345" height="26.5"/>
+                                                    <rect key="frame" x="0.0" y="50.5" width="345" height="20"/>
                                                     <color key="backgroundColor" red="0.91764705879999997" green="0.90588235289999997" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VWS-Fq-Bzn">
-                                                    <rect key="frame" x="0.0" y="95" width="345" height="26.5"/>
+                                                    <rect key="frame" x="0.0" y="75.5" width="345" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J9u-MZ-Pe0">
+                                                    <rect key="frame" x="139.5" y="101" width="66" height="20.5"/>
+                                                    <color key="backgroundColor" red="0.90980392160000001" green="0.35294117650000001" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="66" id="xNG-of-pLT"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="17"/>
+                                                    <state key="normal" title="  PLAY  ">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="playPressed:" destination="fVM-KZ-LoB" eventType="touchUpInside" id="gpT-ff-ALQ"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="MFv-J5-eCq" firstAttribute="height" secondItem="Xuk-Yk-HDh" secondAttribute="height" id="6Ug-9T-Wlg"/>
@@ -235,8 +252,10 @@
                                                 <constraint firstItem="Xuk-Yk-HDh" firstAttribute="leading" secondItem="v92-w4-hcv" secondAttribute="leading" id="MUv-s4-41a"/>
                                                 <constraint firstItem="VWS-Fq-Bzn" firstAttribute="leading" secondItem="v92-w4-hcv" secondAttribute="leading" id="NQF-JE-G9c"/>
                                                 <constraint firstItem="cho-Sw-wgm" firstAttribute="height" secondItem="VWS-Fq-Bzn" secondAttribute="height" id="gk8-vF-k5d"/>
+                                                <constraint firstItem="J9u-MZ-Pe0" firstAttribute="centerX" secondItem="v92-w4-hcv" secondAttribute="centerX" id="jPZ-3h-76g"/>
                                                 <constraint firstItem="MFv-J5-eCq" firstAttribute="leading" secondItem="v92-w4-hcv" secondAttribute="leading" id="ttY-Yg-mlL"/>
                                                 <constraint firstItem="cho-Sw-wgm" firstAttribute="leading" secondItem="v92-w4-hcv" secondAttribute="leading" id="ygj-BI-IZX"/>
+                                                <constraint firstItem="VWS-Fq-Bzn" firstAttribute="height" secondItem="J9u-MZ-Pe0" secondAttribute="height" id="ypR-Jd-hXj"/>
                                             </constraints>
                                         </stackView>
                                     </subviews>
@@ -253,7 +272,7 @@
                                     <outlet property="songDate" destination="Xuk-Yk-HDh" id="fOg-2f-e8T"/>
                                     <outlet property="songEvent" destination="VWS-Fq-Bzn" id="sAX-gn-inq"/>
                                     <outlet property="songTitle" destination="MFv-J5-eCq" id="8U3-y9-xnZ"/>
-                                    <segue destination="RTW-Ln-REg" kind="show" identifier="displayMade" id="QgK-VI-7DO"/>
+                                    <segue destination="RTW-Ln-REg" kind="show" identifier="displayMade" id="7BD-UJ-p7v"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -364,6 +383,9 @@
                                         <state key="normal" title="  Press To Start NEW Recording  ">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="newButtonPressed:" destination="RTW-Ln-REg" eventType="touchUpInside" id="o4m-jY-InB"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -433,6 +455,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="2Zm-6H-dUI"/>
+        <segue reference="7BD-UJ-p7v"/>
     </inferredMetricsTieBreakers>
 </document>

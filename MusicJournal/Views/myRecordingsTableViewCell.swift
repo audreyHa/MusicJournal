@@ -15,4 +15,5 @@ class myRecordingsTableViewCell: UITableViewCell{
     @IBOutlet weak var songComposer: UILabel!
     @IBOutlet weak var songEvent: UILabel!
     
+    //This is a comment
 }

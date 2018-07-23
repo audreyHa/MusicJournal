@@ -8,14 +8,19 @@
 
 import Foundation
 import UIKit
+import AVFoundation
 
 class RecordMusicViewController: UIViewController{
+    
     var recording: Recording?
     
     @IBOutlet weak var eventText: UILabel!
     @IBOutlet weak var composerText: UILabel!
     @IBOutlet weak var songText: UILabel!
+    
     @IBOutlet weak var startNew: UIButton!
+    @IBAction func newButtonPressed(_ sender: Any) {
+    }
     
     @IBOutlet weak var songLabel: UITextField!
     @IBOutlet weak var composerLabel: UITextField!
@@ -72,14 +77,16 @@ class RecordMusicViewController: UIViewController{
         self.composerText.layer.cornerRadius=8
         self.eventText.layer.cornerRadius=8
         self.hideKeyboardWhenTappedAround()
-        
+       
     }
     
     override func didReceiveMemoryWarning(){
         super.didReceiveMemoryWarning()
     }
     
-}
+    
+    
+} //end of class
 
 extension UIViewController {
     func hideKeyboardWhenTappedAround() {

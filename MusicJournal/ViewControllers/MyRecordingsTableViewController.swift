@@ -8,22 +8,26 @@
 
 import Foundation
 import UIKit
+import AVFoundation
 
 class MyRecordingsTableViewController: UITableViewController{
+    var recordingSession: AVAudioSession!
+    var audioRecorder: AVAudioRecorder!
+    var numberOfRecords: Int=0
+    var audioPlayer: AVAudioPlayer!
     
     @IBOutlet weak var songButton: UIButton!
     @IBOutlet weak var dateButton: UIButton!
     @IBOutlet weak var composerButton: UIButton!
     @IBOutlet weak var eventButton: UIButton!
-   
+
+    
     var eventArray = [String]()
     var recordings = [Recording](){
         didSet{
             tableView.reloadData()
         }
     }
-    
-    
     
     override func viewDidLoad(){
         super.viewDidLoad()
@@ -33,13 +37,8 @@ class MyRecordingsTableViewController: UITableViewController{
         self.dateButton.layer.cornerRadius=8
         self.composerButton.layer.cornerRadius=8
         self.eventButton.layer.cornerRadius=8
-//        let headerView=UIView()
-//       headerView.backgroundColor = UIColor(red: 234/255, green: 231/255, blue: 220/255, alpha: 1)
-//        headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 210)
-//
-//        tableView.tableHeaderView = headerView
-        
     }
+    
     @IBAction func unwindToMyRecordings(_ segue: UIStoryboardSegue){
         
     }
@@ -68,6 +67,7 @@ class MyRecordingsTableViewController: UITableViewController{
         return cell
     }
     
+    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath){
         if editingStyle == .delete{
             recordings.remove(at: indexPath.row)
@@ -92,5 +92,18 @@ class MyRecordingsTableViewController: UITableViewController{
             print("unexpected segue identifier")
             
         }
+    }
+    
+    func getDirectory() -> URL{
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentDirectory = paths[0]
+        return documentDirectory
+    }
+    
+    //function that displays an alert
+    func displayAlert(title: String, message: String){
+        let alert=UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "dismiss", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
 }
