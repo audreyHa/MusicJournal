@@ -254,6 +254,9 @@
                                                     <state key="normal" title="  Play  ">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="playPressed:" destination="BgK-JY-kyI" eventType="touchUpInside" id="a5u-2I-kP5"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>

@@ -15,7 +15,8 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
     var recordingSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!
     var audioPlayer: AVAudioPlayer!
-    var recordingFiles = [URL]()
+    static var recordingFiles = [URL]()
+    
     var count: Int = 0
     var fileInt: Int = 0
     
@@ -33,7 +34,7 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
             fileInt += 1
             var paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
             let filename = paths[0].appendingPathComponent("\(fileInt).m4a")
-            recordingFiles.append(filename)
+            MyRecordingsTableViewController.recordingFiles.append(filename)
             let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC), AVSampleRateKey: 12000, AVNumberOfChannelsKey: 1, AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue]
             do{
                 audioRecorder = try AVAudioRecorder(url: filename, settings: settings)
@@ -120,21 +121,23 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
             cell.songComposer.text="No Composer Entered"
         }
         
+        cell.rowOfCellForRecording=indexPath.row
+        
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         //var path=getDirectory().appendingPathComponent("\(indexPath.row+1).m4a")
        
-        var paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        let path=recordingFiles[indexPath.row]
-
-        do{
-            audioPlayer = try AVAudioPlayer(contentsOf: path)
-            audioPlayer.play()
-        } catch{
-            print("Something went wrong!!!")
-        }
+//        var paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+//        let path=recordingFiles[indexPath.row]
+//
+//        do{
+//            audioPlayer = try AVAudioPlayer(contentsOf: path)
+//            audioPlayer.play()
+//        } catch{
+//            print("Something went wrong!!!")
+//        }
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath){
@@ -143,7 +146,7 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
             CoreDataHelper.deleteRecording(recording: recordingToDelete)
             recordings=CoreDataHelper.retrieveRecording()
             
-            recordingFiles.remove(at: indexPath.row)
+            MyRecordingsTableViewController.recordingFiles.remove(at: indexPath.row)
             count -= 1
         }
     }
@@ -183,6 +186,5 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
         present(alert, animated: true, completion: nil)
     }
     
-    //Setting up TableView
     
 }
