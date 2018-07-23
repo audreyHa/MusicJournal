@@ -49,6 +49,7 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
             audioRecorder.stop()
             audioRecorder = nil
             UserDefaults.standard.set(count, forKey: "myNumber")
+//            UserDefaults.standard.set(recordingFiles, forKey: "myStuff")
             myTableView.reloadData()
             startNew.setTitle("Press To Start NEW Recording", for: .normal)
             let secondViewController = self.storyboard?.instantiateViewController(withIdentifier: "secondViewController") as! RecordMusicViewController
@@ -67,6 +68,7 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
     
     override func viewDidLoad(){
         super.viewDidLoad()
+        recordings = CoreDataHelper.retrieveRecording()
         tableView.delegate=self
         tableView.dataSource=self
         self.songButton.layer.cornerRadius=8
@@ -80,6 +82,11 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
         if let number: Int = UserDefaults.standard.object(forKey: "myNumber") as? Int{
             count = number
         }
+        
+//        if let myRecordingFilesArray: [URL] = UserDefaults.standard.object(forKey: "myStuff") as? [URL]{
+//            recordingFiles = myRecordingFilesArray
+//        }
+        
         AVAudioSession.sharedInstance().requestRecordPermission {(hasPermission) in
             if hasPermission{
                 print("Accepted!")
@@ -88,7 +95,7 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
     }
     
     @IBAction func unwindToMyRecordings(_ segue: UIStoryboardSegue){
-        
+        recordings = CoreDataHelper.retrieveRecording()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
@@ -100,7 +107,7 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
         let recording=recordings[indexPath.row]
        
         cell.songTitle.text=recording.songTitle
-        cell.songDate.text=recording.songDate.convertToString()
+        cell.songDate.text=recording.songDate?.convertToString()
         cell.songComposer.text=recording.songComposer
         cell.songEvent.text=recording.songEvent
         if cell.songTitle.text==""{
@@ -132,7 +139,10 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath){
         if editingStyle == .delete{
-            recordings.remove(at: indexPath.row)
+            let recordingToDelete = recordings[indexPath.row]
+            CoreDataHelper.deleteRecording(recording: recordingToDelete)
+            recordings=CoreDataHelper.retrieveRecording()
+            
             recordingFiles.remove(at: indexPath.row)
             count -= 1
         }

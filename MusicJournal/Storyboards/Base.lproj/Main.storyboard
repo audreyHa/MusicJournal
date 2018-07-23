@@ -312,7 +312,7 @@
             </objects>
             <point key="canvasLocation" x="1808.8" y="38.23088455772114"/>
         </scene>
-        <!--Record-->
+        <!--Song Info-->
         <scene sceneID="sGK-qj-CYk">
             <objects>
                 <viewController storyboardIdentifier="secondViewController" id="RTW-Ln-REg" customClass="RecordMusicViewController" customModule="MusicJournal" customModuleProvider="target" sceneMemberID="viewController">
@@ -323,8 +323,8 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="ycY-5k-kV5" userLabel="Whole Stack View">
                                 <rect key="frame" x="20" y="84" width="335" height="222"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Record Music:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q0t-CA-DhO">
-                                        <rect key="frame" x="64.5" y="0.0" width="206" height="42"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Info:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q0t-CA-DhO">
+                                        <rect key="frame" x="94.5" y="0.0" width="146" height="42"/>
                                         <fontDescription key="fontDescription" name="PingFangHK-Semibold" family="PingFang HK" pointSize="30"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -402,7 +402,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="nNC-sV-xkN"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Record" id="UyG-E9-Bmf">
+                    <navigationItem key="navigationItem" title="Song Info" id="UyG-E9-Bmf">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="gRE-7r-agh">
                             <connections>
                                 <segue destination="YPF-QH-sNB" kind="unwind" identifier="cancel" unwindAction="unwindToMyRecordings:" id="cGB-Q0-s4D"/>
@@ -431,7 +431,6 @@
         <!--Navigation Controller-->
         <scene sceneID="dMf-Y2-TeT">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lmX-lj-LUf" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Wkg-8k-kG2" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="AqC-3q-qbn">
@@ -443,6 +442,7 @@
                         <segue destination="fVM-KZ-LoB" kind="relationship" relationship="rootViewController" id="e8v-J9-kas"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lmX-lj-LUf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="869.60000000000002" y="38.23088455772114"/>
         </scene>

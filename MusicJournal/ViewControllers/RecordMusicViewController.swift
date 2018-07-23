@@ -52,15 +52,17 @@ class RecordMusicViewController: UIViewController{
             recording?.songComposer=composerLabel.text ?? ""
             recording?.songDate=Date()
             
-            destination.tableView.reloadData()
-        
+            CoreDataHelper.saveRecording()
+            
         case "save" where recording == nil:
-            let recording = Recording()
+            let recording = CoreDataHelper.newRecording()
             recording.songTitle=songLabel.text ?? ""
             recording.songEvent=eventLabel.text ?? ""
             recording.songComposer=composerLabel.text ?? ""
             recording.songDate=Date()
             destination.recordings.append(recording)
+            
+            CoreDataHelper.saveRecording()
             
         case "cancel":
             print("cancel bar button item tapped")
