@@ -32,7 +32,7 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
     
     //you need this recordings array. it's going to store the song, event, and composer for each of the recordings. Core data is doing all of it's work with the each of the array items in the array "recordings"
     
-    var recordings = [Recording](){
+    var arrayOfRecordingsInfo = [Recording](){
         didSet{
             myTableView.reloadData()
         }
@@ -76,7 +76,7 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
     
     override func viewDidLoad(){
         super.viewDidLoad()
-        recordings = CoreDataHelper.retrieveRecording()
+        arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
         tableView.delegate=self
         tableView.dataSource=self
         self.songButton.layer.cornerRadius=8
@@ -103,16 +103,16 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
     }
     
     @IBAction func unwindToMyRecordings(_ segue: UIStoryboardSegue){
-        recordings = CoreDataHelper.retrieveRecording()
+        arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return recordings.count
+        return arrayOfRecordingsInfo.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let cell=tableView.dequeueReusableCell(withIdentifier: "myRecordingsTableViewCell", for: indexPath) as! myRecordingsTableViewCell
-        let recording=recordings[indexPath.row]
+        let recording=arrayOfRecordingsInfo[indexPath.row]
        
         cell.songTitle.text=recording.songTitle
         cell.songDate.text=recording.songDate?.convertToString()
@@ -149,9 +149,9 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath){
         if editingStyle == .delete{
-            let recordingToDelete = recordings[indexPath.row]
+            let recordingToDelete = arrayOfRecordingsInfo[indexPath.row]
             CoreDataHelper.deleteRecording(recording: recordingToDelete)
-            recordings=CoreDataHelper.retrieveRecording()
+            arrayOfRecordingsInfo=CoreDataHelper.retrieveRecording()
             
             MyRecordingsTableViewController.recordingFiles.remove(at: indexPath.row)
             count -= 1
@@ -165,7 +165,7 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
         case "displayMade":
             guard let indexPath=tableView.indexPathForSelectedRow else{return}
             
-            let recording=recordings[indexPath.row]
+            let recording=arrayOfRecordingsInfo[indexPath.row]
             let destination=segue.destination as! RecordMusicViewController
             destination.recording=recording
         
