@@ -15,8 +15,8 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
     var recordingSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!
     var audioPlayer: AVAudioPlayer!
-    static var recordingFiles = [URL]()
-    static var recordingFilesInts = [Int]()
+    static var recordingFiles: FilesArray?
+    static var recordingFilesInts: FilesIntsArray?
     
     var count: Int = 0
     var fileInt: Int = 0
@@ -47,8 +47,8 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
             fileInt += 1
             var paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
             let filename = paths[0].appendingPathComponent("\(fileInt).m4a")
-            MyRecordingsTableViewController.recordingFiles.append(filename)
-            MyRecordingsTableViewController.recordingFilesInts.append(fileInt)
+            MyRecordingsTableViewController.recordingFiles?.myFiles.append(filename)
+            MyRecordingsTableViewController.recordingFilesInts?.myInts.append(fileInt)
             let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC), AVSampleRateKey: 12000, AVNumberOfChannelsKey: 1, AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue]
             do{
                 audioRecorder = try AVAudioRecorder(url: filename, settings: settings)
@@ -66,9 +66,7 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
             audioRecorder = nil
             UserDefaults.standard.set(count, forKey: "myNumber")
             UserDefaults.standard.set(fileInt, forKey: "myFileInt")
-            UserDefaults.standard.set(MyRecordingsTableViewController.recordingFiles, forKey: "recordingFilesPersistingArray")
-            UserDefaults.standard.set(MyRecordingsTableViewController.recordingFilesInts, forKey: "recordingFilesIntsPersistingArray")
-            
+
             myTableView.reloadData()
             startNew.setTitle("Press To Start NEW Recording", for: .normal)
             let secondViewController = self.storyboard?.instantiateViewController(withIdentifier: "secondViewController") as! RecordMusicViewController
@@ -82,6 +80,7 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
     
     override func viewDidLoad(){
         super.viewDidLoad()
+       
         arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
         tableView.delegate=self
         tableView.dataSource=self
@@ -99,14 +98,6 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
         
         if let fileNumber: Int = UserDefaults.standard.object(forKey: "myFileInt") as? Int{
             fileInt = fileNumber
-        }
-        
-        if let newRecordingFilesPersistingArray: [URL] = UserDefaults.standard.object(forKey: "recordingFilesPersistingArray") as? [URL]{
-            MyRecordingsTableViewController.recordingFiles = newRecordingFilesPersistingArray
-        }
-        
-        if let newRecordingFilesIntsPersistingArray: [Int] = UserDefaults.standard.object(forKey: "recordingFilesIntsPersistingArray") as? [Int]{
-            MyRecordingsTableViewController.recordingFilesInts = newRecordingFilesIntsPersistingArray
         }
         
         AVAudioSession.sharedInstance().requestRecordPermission {(hasPermission) in
@@ -155,7 +146,7 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
             
             // Got the following code from: swiftdeveloperblog.com/code-examples/delete-file-example-in-swift/
             
-            let fileNameToDelete = ("\(MyRecordingsTableViewController.recordingFilesInts[indexPath.row]).m4a")
+            let fileNameToDelete = ("\(MyRecordingsTableViewController.recordingFilesInts!.myInts[indexPath.row]).m4a")
             var filePath = ""
             
             // Fine documents directory on device
@@ -189,8 +180,8 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
             }
             //
             
-            MyRecordingsTableViewController.recordingFiles.remove(at: indexPath.row)
-            MyRecordingsTableViewController.recordingFilesInts.remove(at: indexPath.row)
+            MyRecordingsTableViewController.recordingFiles?.myFiles.remove(at: indexPath.row)
+            MyRecordingsTableViewController.recordingFilesInts?.myInts.remove(at: indexPath.row)
             count -= 1
         }
     }
@@ -217,7 +208,6 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
     
     //Gets path to directory
     func getDirectory() -> URL{
-        
         var paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         var documentDirectory = paths[0]
         return documentDirectory

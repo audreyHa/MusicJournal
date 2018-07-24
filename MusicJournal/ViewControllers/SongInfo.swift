@@ -64,7 +64,7 @@ class RecordMusicViewController: UIViewController{
             CoreDataHelper.saveRecording()
             
         case "cancel":
-            MyRecordingsTableViewController.recordingFiles.removeLast()
+            MyRecordingsTableViewController.recordingFiles?.myFiles.removeLast()
 //            MyRecordingsTableViewController.recordings.removeLast()
         
         default:
