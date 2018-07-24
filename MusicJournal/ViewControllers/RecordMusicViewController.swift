@@ -66,7 +66,6 @@ class RecordMusicViewController: UIViewController{
         case "cancel":
             MyRecordingsTableViewController.recordingFiles.removeLast()
 //            MyRecordingsTableViewController.recordings.removeLast()
-            print("cancel bar button item tapped")
         
         default:
             print("unexpected segue!")
