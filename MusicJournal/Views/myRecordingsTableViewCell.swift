@@ -22,7 +22,7 @@ class myRecordingsTableViewCell: UITableViewCell{
     
     @IBAction func playPressed(_ sender: Any) {
         
-        let path=MyRecordingsTableViewController.recordingFiles!.myFiles[rowOfCellForRecording]
+        let path=MyRecordingsTableViewController.recordingFiles[rowOfCellForRecording]
         
         do{
             newAudioPlayer = try AVAudioPlayer(contentsOf: path)
