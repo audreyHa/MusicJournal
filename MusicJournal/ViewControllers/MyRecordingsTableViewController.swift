@@ -3,7 +3,7 @@
 //  MusicJournal
 //
 //  Created by Audrey Ha on 7/21/18.
-//  Copyright © 2018 MakeSchool. All rights reserved.
+//  Copyright © 2018 Audrey Ha. All rights reserved.
 //
 
 import Foundation
@@ -27,6 +27,17 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
     @IBOutlet weak var eventButton: UIButton!
     @IBOutlet weak var startNew: UIButton!
     
+    
+    var eventArray = [String]()
+    
+    //you need this recordings array. it's going to store the song, event, and composer for each of the recordings. Core data is doing all of it's work with the each of the array items in the array "recordings"
+    
+    var recordings = [Recording](){
+        didSet{
+            myTableView.reloadData()
+        }
+    }
+   
     @IBAction func startNewPressed(_ sender: Any) {
         //check if we have an active recorder
         if audioRecorder == nil{
@@ -45,6 +56,7 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
             catch{
                 displayAlert(title: "Failed to record", message: "Recording failed")
             }
+            
         } else{
             //Stop Audio Recording
             audioRecorder.stop()
@@ -60,12 +72,7 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
     }
     
     
-    var eventArray = [String]()
-    var recordings = [Recording](){
-        didSet{
-            tableView.reloadData()
-        }
-    }
+   
     
     override func viewDidLoad(){
         super.viewDidLoad()

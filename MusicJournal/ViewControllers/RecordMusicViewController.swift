@@ -3,7 +3,7 @@
 //  MusicJournal
 //
 //  Created by Audrey Ha on 7/21/18.
-//  Copyright © 2018 MakeSchool. All rights reserved.
+//  Copyright © 2018 Audrey Ha. All rights reserved.
 //
 
 import Foundation
@@ -60,11 +60,12 @@ class RecordMusicViewController: UIViewController{
             recording.songEvent=eventLabel.text ?? ""
             recording.songComposer=composerLabel.text ?? ""
             recording.songDate=Date()
-            destination.recordings.append(recording)
             
             CoreDataHelper.saveRecording()
             
         case "cancel":
+            MyRecordingsTableViewController.recordingFiles.removeLast()
+//            MyRecordingsTableViewController.recordings.removeLast()
             print("cancel bar button item tapped")
         
         default:
@@ -85,6 +86,7 @@ class RecordMusicViewController: UIViewController{
     override func didReceiveMemoryWarning(){
         super.didReceiveMemoryWarning()
     }
+    
     
     
     

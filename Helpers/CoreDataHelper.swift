@@ -3,7 +3,7 @@
 //  MusicJournal
 //
 //  Created by Audrey Ha on 7/23/18.
-//  Copyright © 2018 MakeSchool. All rights reserved.
+//  Copyright © 2018 Audrey Ha. All rights reserved.
 //
 
 import Foundation
@@ -22,8 +22,8 @@ struct CoreDataHelper{
     }()
     
     static func newRecording() -> Recording{
-        var recording = NSEntityDescription.insertNewObject(forEntityName: "Recording", into: context) as! Recording
-        return recording
+        var myRecording = NSEntityDescription.insertNewObject(forEntityName: "Recording", into: context) as! Recording
+        return myRecording
     }
     
     static func saveRecording(){

@@ -3,7 +3,7 @@
 //  MusicJournal
 //
 //  Created by Audrey Ha on 7/21/18.
-//  Copyright © 2018 MakeSchool. All rights reserved.
+//  Copyright © 2018 Audrey Ha. All rights reserved.
 //
 
 import Foundation
