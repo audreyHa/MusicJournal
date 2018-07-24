@@ -22,8 +22,6 @@ class myRecordingsTableViewCell: UITableViewCell{
     
     @IBAction func playPressed(_ sender: Any) {
         
-        
-        var paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let path=MyRecordingsTableViewController.recordingFiles[rowOfCellForRecording]
         
         do{

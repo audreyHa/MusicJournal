@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		F628826A21068AAE0010B15E /* MusicJournal.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F628826821068AAE0010B15E /* MusicJournal.xcdatamodeld */; };
-		F6367A6C2103ED3800981216 /* RecordMusicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6367A6B2103ED3800981216 /* RecordMusicViewController.swift */; };
+		F6367A6C2103ED3800981216 /* SongInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6367A6B2103ED3800981216 /* SongInfo.swift */; };
 		F6367A762103FECC00981216 /* myRecordingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6367A752103FECC00981216 /* myRecordingsTableViewCell.swift */; };
 		F6367A782104005700981216 /* MyRecordingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6367A772104005700981216 /* MyRecordingsTableViewController.swift */; };
 		F6ABEE2C210446CC00143E67 /* convertToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6ABEE2B210446CC00143E67 /* convertToString.swift */; };
@@ -22,7 +22,7 @@
 
 /* Begin PBXFileReference section */
 		F628826921068AAE0010B15E /* MusicJournal.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MusicJournal.xcdatamodel; sourceTree = "<group>"; };
-		F6367A6B2103ED3800981216 /* RecordMusicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordMusicViewController.swift; sourceTree = "<group>"; };
+		F6367A6B2103ED3800981216 /* SongInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongInfo.swift; sourceTree = "<group>"; };
 		F6367A752103FECC00981216 /* myRecordingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myRecordingsTableViewCell.swift; sourceTree = "<group>"; };
 		F6367A772104005700981216 /* MyRecordingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRecordingsTableViewController.swift; sourceTree = "<group>"; };
 		F6ABEE2B210446CC00143E67 /* convertToString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = convertToString.swift; sourceTree = "<group>"; };
@@ -124,7 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				F6EB02B42103D759006CD141 /* HomeViewController.swift */,
-				F6367A6B2103ED3800981216 /* RecordMusicViewController.swift */,
+				F6367A6B2103ED3800981216 /* SongInfo.swift */,
 				F6367A772104005700981216 /* MyRecordingsTableViewController.swift */,
 			);
 			path = ViewControllers;
@@ -207,7 +207,7 @@
 				F628826A21068AAE0010B15E /* MusicJournal.xcdatamodeld in Sources */,
 				F6EB02B52103D759006CD141 /* HomeViewController.swift in Sources */,
 				F6367A762103FECC00981216 /* myRecordingsTableViewCell.swift in Sources */,
-				F6367A6C2103ED3800981216 /* RecordMusicViewController.swift in Sources */,
+				F6367A6C2103ED3800981216 /* SongInfo.swift in Sources */,
 				F6EB02B32103D759006CD141 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
