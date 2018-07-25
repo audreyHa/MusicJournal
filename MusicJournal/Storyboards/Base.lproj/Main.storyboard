@@ -108,7 +108,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="mtL-G4-3tQ">
-                                    <rect key="frame" x="20" y="19" width="335" height="238"/>
+                                    <rect key="frame" x="20" y="47" width="335" height="182"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose Method Of Organization:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hci-pl-cIU">
                                             <rect key="frame" x="0.0" y="0.0" width="335" height="70"/>
@@ -178,22 +178,9 @@
                                                 <constraint firstItem="qlD-rQ-UVB" firstAttribute="width" secondItem="VSJ-wl-iJ7" secondAttribute="width" id="ctJ-rF-isA"/>
                                             </constraints>
                                         </stackView>
-                                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fub-ON-ftj">
-                                            <rect key="frame" x="0.0" y="202" width="335" height="36"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <fontDescription key="fontDescription" name="PingFangHK-Semibold" family="PingFang HK" pointSize="17"/>
-                                            <state key="normal" title="Press To Start NEW Recording">
-                                                <color key="titleColor" red="0.90980392160000001" green="0.35294117650000001" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="startNewPressed:" destination="fVM-KZ-LoB" eventType="touchUpInside" id="5zv-DS-BxQ"/>
-                                            </connections>
-                                        </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="Hci-pl-cIU" firstAttribute="leading" secondItem="mtL-G4-3tQ" secondAttribute="leading" id="01E-nO-FdA"/>
-                                        <constraint firstItem="fub-ON-ftj" firstAttribute="leading" secondItem="mtL-G4-3tQ" secondAttribute="leading" id="U7s-Io-1XV"/>
-                                        <constraint firstAttribute="trailing" secondItem="fub-ON-ftj" secondAttribute="trailing" id="Xba-D8-INx"/>
                                         <constraint firstAttribute="trailing" secondItem="Hci-pl-cIU" secondAttribute="trailing" id="alN-oB-WEK"/>
                                         <constraint firstAttribute="trailing" secondItem="gP1-xK-2qj" secondAttribute="trailing" id="wTf-uR-f1q"/>
                                         <constraint firstItem="gP1-xK-2qj" firstAttribute="leading" secondItem="mtL-G4-3tQ" secondAttribute="leading" id="zDl-zc-IUK"/>
@@ -300,6 +287,11 @@
                                 <segue destination="LF0-2u-pgf" kind="unwind" unwindAction="unwindToHome:" id="UKB-jB-phY"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Ppk-ht-dQq">
+                            <connections>
+                                <segue destination="RTW-Ln-REg" kind="show" identifier="new" id="f4K-XC-2sW"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="composerButton" destination="uIr-4e-Ttk" id="DyM-6v-KIp"/>
@@ -307,7 +299,6 @@
                         <outlet property="eventButton" destination="za1-i5-L9k" id="gkY-fm-2bK"/>
                         <outlet property="myTableView" destination="mmv-Ye-pE7" id="q3x-02-WFZ"/>
                         <outlet property="songButton" destination="sDA-u6-JHB" id="E6K-AN-UKr"/>
-                        <outlet property="startNew" destination="fub-ON-ftj" id="TH5-Vs-XC5"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wgt-Go-Z89" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -324,7 +315,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="ycY-5k-kV5" userLabel="Whole Stack View">
-                                <rect key="frame" x="20" y="84" width="335" height="222"/>
+                                <rect key="frame" x="20" y="84" width="335" height="288"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Info:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q0t-CA-DhO">
                                         <rect key="frame" x="94.5" y="0.0" width="146" height="42"/>
@@ -386,6 +377,17 @@
                                             </textField>
                                         </subviews>
                                     </stackView>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RFE-5G-q1J">
+                                        <rect key="frame" x="31" y="252" width="273" height="36"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" name="PingFangHK-Semibold" family="PingFang HK" pointSize="17"/>
+                                        <state key="normal" title="  Press To Start NEW Recording  ">
+                                            <color key="titleColor" red="0.90980392160000001" green="0.35294117650000001" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="startNewRecording:" destination="RTW-Ln-REg" eventType="touchUpInside" id="dwU-ia-uJP"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="Y21-U7-xBT" secondAttribute="trailing" id="95G-FL-cUs"/>
@@ -408,12 +410,12 @@
                     <navigationItem key="navigationItem" title="Song Info" id="UyG-E9-Bmf">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="gRE-7r-agh">
                             <connections>
-                                <segue destination="YPF-QH-sNB" kind="unwind" identifier="cancel" unwindAction="unwindToMyRecordings:" id="cGB-Q0-s4D"/>
+                                <segue destination="YPF-QH-sNB" kind="unwind" identifier="cancel" unwindAction="unwindToMyRecordings:" id="E7J-Ey-vEv"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="8RC-dA-Str">
                             <connections>
-                                <segue destination="YPF-QH-sNB" kind="unwind" identifier="save" unwindAction="unwindToMyRecordings:" id="Cdc-7k-nhE"/>
+                                <segue destination="YPF-QH-sNB" kind="unwind" identifier="save" unwindAction="unwindToMyRecordings:" id="Tmi-Xh-Guj"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -424,12 +426,13 @@
                         <outlet property="eventText" destination="zrs-ox-fVA" id="oLF-dc-hB8"/>
                         <outlet property="songLabel" destination="m9F-Ae-DYy" id="XQ0-pg-jr6"/>
                         <outlet property="songText" destination="Te8-2J-Ocq" id="NgK-dq-zX9"/>
+                        <outlet property="startNewRecording" destination="RFE-5G-q1J" id="qf9-pV-PBN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZJ4-qb-9KS" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="YPF-QH-sNB" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3495.1999999999998" y="24.7376311844078"/>
+            <point key="canvasLocation" x="2634" y="32"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="dMf-Y2-TeT">
@@ -448,24 +451,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lmX-lj-LUf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="869.60000000000002" y="38.23088455772114"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="MdG-Nr-Fxo">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wkV-4h-1zg" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="akg-kh-Kd6">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="RTW-Ln-REg" kind="relationship" relationship="rootViewController" id="9X4-i1-oDp"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ZgC-gW-rjj" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2556" y="24.7376311844078"/>
         </scene>
     </scenes>
 </document>

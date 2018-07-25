@@ -10,15 +10,45 @@ import Foundation
 import UIKit
 import AVFoundation
 
-class RecordMusicViewController: UIViewController{
+class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
+    
+    var recordingSession: AVAudioSession!
+    var audioRecorder: AVAudioRecorder!
+    var audioPlayer: AVAudioPlayer!
+    var recording = CoreDataHelper.newRecording()
+    
+    @IBOutlet weak var startNewRecording: UIButton!
+    @IBAction func startNewRecording(_ sender: Any) {
+        if audioRecorder == nil{
+            
+            var filename: URL!
+            
+            recording.songDate=Date()
+            var paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+            filename = paths[0].appendingPathComponent("\(recording.songDate).m4a")
+            recording.filename=filename
+            
+            let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC), AVSampleRateKey: 12000, AVNumberOfChannelsKey: 1, AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue]
+            do{
+                audioRecorder = try AVAudioRecorder(url: filename, settings: settings)
+                audioRecorder.delegate=self
+                audioRecorder.record()
+                startNewRecording.setTitle("Stop Recording", for: .normal)
+            }
+            catch{
+                displayAlert(title: "Failed to record", message: "Recording failed")
+            }
+        } else{
+            //Stop Audio Recording
+            audioRecorder.stop()
+            audioRecorder = nil
+            startNewRecording.setTitle("Press To Start NEW Recording", for: .normal)
+        }
+    }
     
     @IBOutlet weak var eventText: UILabel!
     @IBOutlet weak var composerText: UILabel!
     @IBOutlet weak var songText: UILabel!
-    
-    @IBOutlet weak var startNew: UIButton!
-    @IBAction func newButtonPressed(_ sender: Any) {
-    }
     
     @IBOutlet weak var songLabel: UITextField!
     @IBOutlet weak var composerLabel: UITextField!
@@ -27,15 +57,10 @@ class RecordMusicViewController: UIViewController{
     override func viewWillAppear(_ animated: Bool){
         super.viewWillAppear(animated)
         
-        if let recording=recording{
             songLabel.text=recording.songTitle
             eventLabel.text=recording.songEvent
             composerLabel.text=recording.songComposer
-        } else{
-            songLabel.text=""
-            composerLabel.text=""
-            eventLabel.text=""
-        }
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
@@ -44,20 +69,10 @@ class RecordMusicViewController: UIViewController{
             else {return}
         
         switch identifier{
-        case "save" where recording != nil:
+        case "save":
             recording.songTitle=songLabel.text ?? ""
             recording.songEvent=eventLabel.text ?? ""
             recording.songComposer=composerLabel.text ?? ""
-            recording.songDate=Date()
-            
-            CoreDataHelper.saveRecording()
-            
-        case "save" where recording == nil:
-            
-            recording.songTitle=songLabel.text ?? ""
-            recording.songEvent=eventLabel.text ?? ""
-            recording.songComposer=composerLabel.text ?? ""
-            recording.songDate=Date()
             
             CoreDataHelper.saveRecording()
             
@@ -72,6 +87,15 @@ class RecordMusicViewController: UIViewController{
     
     override func viewDidLoad(){
         super.viewDidLoad()
+        
+        //Setting up session
+        recordingSession = AVAudioSession.sharedInstance()
+        
+        AVAudioSession.sharedInstance().requestRecordPermission {(hasPermission) in
+            if hasPermission{
+                print("Accepted!")
+            }
+        }
        
         self.songText.layer.cornerRadius=8
         self.composerText.layer.cornerRadius=8
@@ -84,8 +108,20 @@ class RecordMusicViewController: UIViewController{
         super.didReceiveMemoryWarning()
     }
     
+    //Gets path to directory
+    func getDirectory() -> URL{
+        
+        var paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        var documentDirectory = paths[0]
+        return documentDirectory
+    }
     
-    
+    //function that displays an alert
+    func displayAlert(title: String, message: String){
+        let alert=UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "dismiss", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
     
 } //end of class
 
