@@ -24,16 +24,17 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             var filename: URL!
             
             recording.songDate=Date()
+            var noSpaceDate=recording.songDate!.convertToString().removingWhitespacesAndNewlines
             var paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-            filename = paths[0].appendingPathComponent("\(recording.songDate).m4a")
+            filename = paths[0].appendingPathComponent("\(noSpaceDate).m4a")
             recording.filename=filename
-            
+            print("This is the original filename \(recording.filename)")
             let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC), AVSampleRateKey: 12000, AVNumberOfChannelsKey: 1, AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue]
             do{
                 audioRecorder = try AVAudioRecorder(url: filename, settings: settings)
                 audioRecorder.delegate=self
                 audioRecorder.record()
-                startNewRecording.setTitle("Stop Recording", for: .normal)
+                startNewRecording.setTitle("  Stop Recording  ", for: .normal)
             }
             catch{
                 displayAlert(title: "Failed to record", message: "Recording failed")
@@ -42,7 +43,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             //Stop Audio Recording
             audioRecorder.stop()
             audioRecorder = nil
-            startNewRecording.setTitle("Press To Start NEW Recording", for: .normal)
+            startNewRecording.setTitle("  Press To Start NEW Recording  ", for: .normal)
         }
     }
     
@@ -77,9 +78,11 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             CoreDataHelper.saveRecording()
             
         case "cancel":
+            recording.songTitle=songLabel.text ?? ""
+            recording.songEvent=eventLabel.text ?? ""
+            recording.songComposer=composerLabel.text ?? ""
             CoreDataHelper.saveRecording()
             print("cancel tapped")
-           //can you get the partially filled entity to delete?
 
         default:
             print("unexpected segue!")
@@ -136,3 +139,11 @@ extension UIViewController {
         view.endEditing(true)
     }
 }
+
+extension String {
+    var removingWhitespacesAndNewlines: String {
+        return components(separatedBy: .whitespacesAndNewlines).joined()
+    }
+}
+
+

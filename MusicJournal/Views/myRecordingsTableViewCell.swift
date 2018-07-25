@@ -18,16 +18,16 @@ class myRecordingsTableViewCell: UITableViewCell{
     
     var rowOfCellForRecording: Int = 0
     var newAudioPlayer: AVAudioPlayer!
-    var thisFilename: URL!
+    var pressPlayFile: URL!
     
     @IBAction func playPressed(_ sender: Any) {
         
-        
         do{
-            newAudioPlayer = try AVAudioPlayer(contentsOf: thisFilename)
+            newAudioPlayer = try AVAudioPlayer(contentsOf: pressPlayFile)
             newAudioPlayer.play()
         } catch{
-            print("Something went wrong!!!")
+            print(pressPlayFile)
+            print("Failed to play, keep trying....")
         }
     }
     //New comment

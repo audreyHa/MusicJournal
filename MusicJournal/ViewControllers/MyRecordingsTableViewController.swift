@@ -44,6 +44,39 @@ class MyRecordingsTableViewController: UITableViewController{
         let recordingToCancelOut=arrayOfRecordingsInfo.last
         CoreDataHelper.deleteRecording(recording: recordingToCancelOut!)
         arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
+        
+        let cancelingOutFile = ("\(arrayOfRecordingsInfo.last!.songDate!.convertToString().removingWhitespacesAndNewlines).m4a")
+        var filePath = ""
+        
+        let dirs : [String] = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true)
+        
+        if dirs.count > 0 {
+            let dir = dirs[0] //documents directory
+            filePath = dir.appendingFormat("/" + cancelingOutFile)
+            print("Local path = \(filePath)")
+            
+        } else {
+            print("Could not find local directory to store file")
+            return
+        }
+        
+        
+        do {
+            let fileManager = FileManager.default
+            
+            // Check if file exists
+            if fileManager.fileExists(atPath: filePath) {
+                // Delete file
+                try fileManager.removeItem(atPath: filePath)
+            } else {
+                print("File does not exist")
+            }
+            
+        }
+        catch let error as NSError {
+            print("An error took place: \(error)")
+        }
+        //end
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
@@ -55,7 +88,7 @@ class MyRecordingsTableViewController: UITableViewController{
         let currentRecording=arrayOfRecordingsInfo[indexPath.row]
         
         cell.songTitle.text=currentRecording.songTitle
-        cell.songDate.text=currentRecording.songDate?.convertToString()
+        cell.songDate.text=currentRecording.songDate!.convertToString()
         cell.songComposer.text=currentRecording.songComposer
         cell.songEvent.text=currentRecording.songEvent
         
@@ -69,7 +102,7 @@ class MyRecordingsTableViewController: UITableViewController{
             cell.songComposer.text="No Composer Entered"
         }
         
-        cell.thisFilename=currentRecording.filename
+        cell.pressPlayFile=currentRecording.filename
         
         return cell
     }
@@ -78,7 +111,7 @@ class MyRecordingsTableViewController: UITableViewController{
         if editingStyle == .delete{
             // Got the following code from: swiftdeveloperblog.com/code-examples/delete-file-example-in-swift/
             // Find documents directory on device
-            let fileNameToDelete = ("\(arrayOfRecordingsInfo[indexPath.row].songDate).m4a")
+            let fileNameToDelete = ("\(arrayOfRecordingsInfo[indexPath.row].songDate!.convertToString().removingWhitespacesAndNewlines).m4a")
             var filePath = ""
             
             let dirs : [String] = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true)
@@ -117,6 +150,7 @@ class MyRecordingsTableViewController: UITableViewController{
         }
     }
 
+
 //Editting song info
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
 //        guard let identifier=segue.identifier else {return}
@@ -138,3 +172,5 @@ class MyRecordingsTableViewController: UITableViewController{
 //        }
 //    }
 }
+
+
