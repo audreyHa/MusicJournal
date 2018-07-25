@@ -15,17 +15,19 @@ class myRecordingsTableViewCell: UITableViewCell{
     @IBOutlet weak var songDate: UILabel!
     @IBOutlet weak var songComposer: UILabel!
     @IBOutlet weak var songEvent: UILabel!
+    var thisCellRecording: URL!
     var rowOfCellForRecording: Int = 0
+    var thisFileInt: Int16!
     
     var newAudioPlayer: AVAudioPlayer!
 
     
     @IBAction func playPressed(_ sender: Any) {
         
-        let path=MyRecordingsTableViewController.recordingFiles[rowOfCellForRecording]
+        let path=thisCellRecording
         
         do{
-            newAudioPlayer = try AVAudioPlayer(contentsOf: path)
+            newAudioPlayer = try AVAudioPlayer(contentsOf: path!)
             newAudioPlayer.play()
         } catch{
             print("Something went wrong!!!")

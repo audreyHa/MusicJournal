@@ -12,8 +12,6 @@ import AVFoundation
 
 class RecordMusicViewController: UIViewController{
     
-    var recording: Recording?
-    
     @IBOutlet weak var eventText: UILabel!
     @IBOutlet weak var composerText: UILabel!
     @IBOutlet weak var songText: UILabel!
@@ -47,15 +45,15 @@ class RecordMusicViewController: UIViewController{
         
         switch identifier{
         case "save" where recording != nil:
-            recording?.songTitle=songLabel.text ?? ""
-            recording?.songEvent=eventLabel.text ?? ""
-            recording?.songComposer=composerLabel.text ?? ""
-            recording?.songDate=Date()
+            recording.songTitle=songLabel.text ?? ""
+            recording.songEvent=eventLabel.text ?? ""
+            recording.songComposer=composerLabel.text ?? ""
+            recording.songDate=Date()
             
             CoreDataHelper.saveRecording()
             
         case "save" where recording == nil:
-            let recording = CoreDataHelper.newRecording()
+            
             recording.songTitle=songLabel.text ?? ""
             recording.songEvent=eventLabel.text ?? ""
             recording.songComposer=composerLabel.text ?? ""
@@ -64,9 +62,9 @@ class RecordMusicViewController: UIViewController{
             CoreDataHelper.saveRecording()
             
         case "cancel":
-            MyRecordingsTableViewController.recordingFiles.removeLast()
-//            MyRecordingsTableViewController.recordings.removeLast()
-        
+            print("cancel tapped")
+           //can you get the partially filled entity to delete?
+
         default:
             print("unexpected segue!")
         }

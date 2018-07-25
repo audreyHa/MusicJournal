@@ -15,11 +15,11 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
     var recordingSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!
     var audioPlayer: AVAudioPlayer!
-    static var recordingFiles = [URL]()
-    static var recordingFilesInts = [Int]()
     
     var count: Int = 0
     var fileInt: Int = 0
+    
+    static var recording: Recording?
     
     @IBOutlet var myTableView: UITableView!
     @IBOutlet weak var songButton: UIButton!
@@ -43,12 +43,14 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
         //check if we have an active recorder
        
         if audioRecorder == nil{
+            var recording = CoreDataHelper.newRecording()
             count+=1
             fileInt += 1
             var paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-            let filename = paths[0].appendingPathComponent("\(fileInt).m4a")
-            MyRecordingsTableViewController.recordingFiles.append(filename)
-            MyRecordingsTableViewController.recordingFilesInts.append(fileInt)
+            let filename = paths[0].appendingPathComponent("\(title)\(composer)\(Date()).m4a")
+            
+            recording.filename = filename
+            recording.fileInt = Int16(fileInt)
             let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC), AVSampleRateKey: 12000, AVNumberOfChannelsKey: 1, AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue]
             do{
                 audioRecorder = try AVAudioRecorder(url: filename, settings: settings)
@@ -59,14 +61,12 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
             catch{
                 displayAlert(title: "Failed to record", message: "Recording failed")
             }
-            
         } else{
             //Stop Audio Recording
             audioRecorder.stop()
             audioRecorder = nil
             UserDefaults.standard.set(count, forKey: "myNumber")
             UserDefaults.standard.set(fileInt, forKey: "myFileInt")
-            
             
             myTableView.reloadData()
             startNew.setTitle("Press To Start NEW Recording", for: .normal)
@@ -117,12 +117,14 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let cell=tableView.dequeueReusableCell(withIdentifier: "myRecordingsTableViewCell", for: indexPath) as! myRecordingsTableViewCell
-        let recording=arrayOfRecordingsInfo[indexPath.row]
-       
-        cell.songTitle.text=recording.songTitle
-        cell.songDate.text=recording.songDate?.convertToString()
-        cell.songComposer.text=recording.songComposer
-        cell.songEvent.text=recording.songEvent
+        let currentRecording=arrayOfRecordingsInfo[indexPath.row]
+        
+        cell.thisFileInt = currentRecording.fileInt
+        cell.thisCellRecording = currentRecording.filename
+        cell.songTitle.text=currentRecording.songTitle
+        cell.songDate.text=currentRecording.songDate?.convertToString()
+        cell.songComposer.text=currentRecording.songComposer
+        cell.songEvent.text=currentRecording.songEvent
         if cell.songTitle.text==""{
             cell.songTitle.text="No Title Entered"
         }
@@ -140,13 +142,8 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath){
         if editingStyle == .delete{
-            let recordingToDelete = arrayOfRecordingsInfo[indexPath.row]
-            CoreDataHelper.deleteRecording(recording: recordingToDelete)
-            arrayOfRecordingsInfo=CoreDataHelper.retrieveRecording()
-            
             // Got the following code from: swiftdeveloperblog.com/code-examples/delete-file-example-in-swift/
-            
-            let fileNameToDelete = ("\(MyRecordingsTableViewController.recordingFilesInts[indexPath.row]).m4a")
+            let fileNameToDelete = ("\(arrayOfRecordingsInfo[indexPath.row].fileInt).m4a")
             var filePath = ""
             
             // Fine documents directory on device
@@ -162,6 +159,7 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
                 return
             }
             
+            
             do {
                 let fileManager = FileManager.default
                 
@@ -169,7 +167,6 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
                 if fileManager.fileExists(atPath: filePath) {
                     // Delete file
                     try fileManager.removeItem(atPath: filePath)
-                    print("succesfully removed")
                 } else {
                     print("File does not exist")
                 }
@@ -178,31 +175,34 @@ class MyRecordingsTableViewController: UITableViewController, AVAudioRecorderDel
             catch let error as NSError {
                 print("An error took place: \(error)")
             }
-            //
+            // End of code for deleting from the document directory also
             
-            MyRecordingsTableViewController.recordingFiles.remove(at: indexPath.row)
-            MyRecordingsTableViewController.recordingFilesInts.remove(at: indexPath.row)
+            let recordingToDelete=arrayOfRecordingsInfo[indexPath.row]
+            CoreDataHelper.deleteRecording(recording: recordingToDelete)
+            arrayOfRecordingsInfo=CoreDataHelper.retrieveRecording()
+            
             count -= 1
         }
     }
-        
+
+//Editting song info
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         guard let identifier=segue.identifier else {return}
-        
+
         switch identifier{
         case "displayMade":
             guard let indexPath=tableView.indexPathForSelectedRow else{return}
-            
+
             let recording=arrayOfRecordingsInfo[indexPath.row]
             let destination=segue.destination as! RecordMusicViewController
             destination.recording=recording
-        
+
         case "new":
             print("create note bar button item tapped")
-        
+
         default:
             print("unexpected segue identifier")
-            
+
         }
     }
     
