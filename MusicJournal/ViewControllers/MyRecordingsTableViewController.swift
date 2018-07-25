@@ -35,7 +35,14 @@ class MyRecordingsTableViewController: UITableViewController{
     
     }
     
-    @IBAction func unwindToMyRecordings(_ segue: UIStoryboardSegue){
+    @IBAction func unwindToMyRecordingsSave(_ segue: UIStoryboardSegue){
+        arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
+    }
+    
+    @IBAction func unwindToMyRecordingsCancel(_ segue: UIStoryboardSegue){
+        arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
+        let recordingToCancelOut=arrayOfRecordingsInfo.last
+        CoreDataHelper.deleteRecording(recording: recordingToCancelOut!)
         arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
     }
     

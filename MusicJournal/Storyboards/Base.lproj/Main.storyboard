@@ -410,12 +410,12 @@
                     <navigationItem key="navigationItem" title="Song Info" id="UyG-E9-Bmf">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="gRE-7r-agh">
                             <connections>
-                                <segue destination="YPF-QH-sNB" kind="unwind" identifier="cancel" unwindAction="unwindToMyRecordings:" id="E7J-Ey-vEv"/>
+                                <segue destination="YPF-QH-sNB" kind="unwind" identifier="cancel" unwindAction="unwindToMyRecordingsCancel:" id="TRe-Sa-81j"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="8RC-dA-Str">
                             <connections>
-                                <segue destination="YPF-QH-sNB" kind="unwind" identifier="save" unwindAction="unwindToMyRecordings:" id="Tmi-Xh-Guj"/>
+                                <segue destination="YPF-QH-sNB" kind="unwind" identifier="save" unwindAction="unwindToMyRecordingsSave:" id="Csl-T8-8Xr"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

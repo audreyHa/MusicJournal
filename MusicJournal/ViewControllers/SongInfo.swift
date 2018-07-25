@@ -77,6 +77,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             CoreDataHelper.saveRecording()
             
         case "cancel":
+            CoreDataHelper.saveRecording()
             print("cancel tapped")
            //can you get the partially filled entity to delete?
 
