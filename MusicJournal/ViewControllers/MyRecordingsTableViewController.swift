@@ -91,7 +91,7 @@ class MyRecordingsTableViewController: UITableViewController{
         let currentRecording=arrayOfRecordingsInfo[indexPath.row]
         
         cell.songTitle.text=currentRecording.songTitle
-        cell.songDate.text=currentRecording.songDate!.convertToString()
+        cell.songDate.text=currentRecording.songDate?.convertToString()
         cell.songComposer.text=currentRecording.songComposer
         cell.songEvent.text=currentRecording.songEvent
         
@@ -105,8 +105,16 @@ class MyRecordingsTableViewController: UITableViewController{
             cell.songComposer.text="No Composer Entered"
         }
         
-        cell.pressPlayFile = currentRecording.filename
+        if cell.songDate.text==nil {
+            cell.songDate.text=Date().convertToString()
+        }
         
+        cell.pressPlayFile = currentRecording.filename
+        if currentRecording.filename==nil{
+            cell.isEmpty = true
+        }else{
+            cell.isEmpty = false
+        }
         return cell
     }
     

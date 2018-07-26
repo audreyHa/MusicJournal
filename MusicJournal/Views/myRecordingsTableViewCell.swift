@@ -15,12 +15,22 @@ class myRecordingsTableViewCell: UITableViewCell{
     @IBOutlet weak var songDate: UILabel!
     @IBOutlet weak var songComposer: UILabel!
     @IBOutlet weak var songEvent: UILabel!
+    @IBOutlet weak var emptyLabel: UILabel!
     
     var rowOfCellForRecording: Int = 0
     var newAudioPlayer: AVAudioPlayer!
     var pressPlayFile: String!
+    var isEmpty: Bool!
+    
     
     @IBAction func playPressed(_ sender: Any) {
+        if isEmpty == true{
+            let redColor = UIColor(red: 232/255, green: 90/255, blue: 69/255, alpha: 1)
+            emptyLabel.textColor=redColor
+        } else{
+            let lightBeigeBackground = UIColor(red: 234/255, green: 231/255, blue: 220/255, alpha: 1)
+            emptyLabel.textColor=lightBeigeBackground
+        }
         
         do{
             var paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)

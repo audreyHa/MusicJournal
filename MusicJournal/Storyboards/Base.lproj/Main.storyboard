@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -203,6 +204,12 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="151.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recording is empty!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZZA-UJ-q1h">
+                                            <rect key="frame" x="212.5" y="11" width="146.5" height="18"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                            <color key="textColor" red="0.91764705879999997" green="0.90588235289999997" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="v92-w4-hcv">
                                             <rect key="frame" x="15" y="15" width="345" height="121.5"/>
                                             <subviews>
@@ -261,14 +268,17 @@
                                         </stackView>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="ZZA-UJ-q1h" firstAttribute="top" secondItem="0Df-g9-9BI" secondAttribute="topMargin" id="5ia-T3-iDZ"/>
                                         <constraint firstAttribute="trailing" secondItem="v92-w4-hcv" secondAttribute="trailing" constant="15" id="8l4-QF-4iU"/>
                                         <constraint firstAttribute="bottom" secondItem="v92-w4-hcv" secondAttribute="bottom" constant="15" id="gIH-f7-mZ5"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="ZZA-UJ-q1h" secondAttribute="trailing" id="lRN-bN-8TS"/>
                                         <constraint firstItem="v92-w4-hcv" firstAttribute="leading" secondItem="0Df-g9-9BI" secondAttribute="leading" constant="15" id="n10-90-bba"/>
                                         <constraint firstItem="v92-w4-hcv" firstAttribute="top" secondItem="0Df-g9-9BI" secondAttribute="top" constant="15" id="q6m-Bs-C2v"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.91764705879999997" green="0.90588235289999997" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
+                                    <outlet property="emptyLabel" destination="ZZA-UJ-q1h" id="Fyw-E9-qu5"/>
                                     <outlet property="songComposer" destination="cho-Sw-wgm" id="PwE-Kw-vMc"/>
                                     <outlet property="songDate" destination="Xuk-Yk-HDh" id="fOg-2f-e8T"/>
                                     <outlet property="songEvent" destination="VWS-Fq-Bzn" id="sAX-gn-inq"/>

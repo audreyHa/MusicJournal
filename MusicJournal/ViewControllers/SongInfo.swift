@@ -21,11 +21,10 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     @IBOutlet weak var startNewRecording: UIButton!
     @IBAction func startNewRecording(_ sender: Any) {
         if audioRecorder == nil{
-            if (recording.songDate == nil){
                 var filename: URL!
                 
                 recording.songDate=Date()
-                var noSpaceDate=recording.songDate!.convertToString().removingWhitespacesAndNewlines
+                let noSpaceDate=recording.songDate!.convertToString().removingWhitespacesAndNewlines
                 recording.filename=noSpaceDate
                 
                 var paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
@@ -41,27 +40,6 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
                 catch{
                     displayAlert(title: "Failed to record", message: "Recording failed")
                 }
-            }else{
-//                recording.songDate=Date()
-//                print("THIS IS THE NEW SONG DATE: \(recording.songDate)")
-//                var newNoSpaceDate=recording.songDate!.convertToString().removingWhitespacesAndNewlines
-//                var newPaths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-//                var revisedFilename: URL!
-//                revisedFilename = newPaths[0].appendingPathComponent("\(newNoSpaceDate).m4a")
-//                recording.filename=revisedFilename
-//                print("This is the original filename \(recording.filename)")
-//                let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC), AVSampleRateKey: 12000, AVNumberOfChannelsKey: 1, AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue]
-//                do{
-//                    audioRecorder = try AVAudioRecorder(url: revisedFilename, settings: settings)
-//                    audioRecorder.delegate=self
-//                    audioRecorder.record()
-//                    startNewRecording.setTitle("  Stop Recording  ", for: .normal)
-//                }
-//                catch{
-//                    displayAlert(title: "Failed to record", message: "Recording failed")
-//                }
-            }
-        
         } else{
             //Stop Audio Recording
             audioRecorder.stop()
