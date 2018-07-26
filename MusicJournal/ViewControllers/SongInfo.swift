@@ -17,6 +17,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     var audioPlayer: AVAudioPlayer!
     var recording: Recording?
     
+    
     @IBOutlet weak var startNewRecording: UIButton!
     @IBAction func startNewRecording(_ sender: Any) {
         if audioRecorder == nil{
@@ -24,15 +25,14 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
                 recording = CoreDataHelper.newRecording()
             }
             
-                var filename: URL!
-                
-                recording?.songDate=Date()
+            recording?.dateSpace=Date()
+                var filename: URL?
                 var paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-                filename = paths[0].appendingPathComponent("\(recording?.songDate!.convertToString().removingWhitespacesAndNewlines).m4a")
+                filename = paths[0].appendingPathComponent("\(recording?.dateSpace?.convertToString().removingWhitespacesAndNewlines).m4a")
                 
                 let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC), AVSampleRateKey: 12000, AVNumberOfChannelsKey: 1, AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue]
                 do{
-                    audioRecorder = try AVAudioRecorder(url: filename, settings: settings)
+                    audioRecorder = try AVAudioRecorder(url: filename!, settings: settings)
                     audioRecorder.delegate=self
                     audioRecorder.record()
                     startNewRecording.setTitle("  Stop Recording  ", for: .normal)
@@ -80,16 +80,24 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             recording?.songTitle=songLabel.text ?? ""
             recording?.songEvent=eventLabel.text ?? ""
             recording?.songComposer=composerLabel.text ?? ""
-            recording?.songDate=recording?.songDate
-            recording?.filename=recording?.songDate!.convertToString().removingWhitespacesAndNewlines
+            recording?.songDate=recording?.dateSpace
+            recording?.filename=recording?.songDate?.convertToString().removingWhitespacesAndNewlines
             recording?.lastModified=Date()
             CoreDataHelper.saveRecording()
             
         case "cancel":
-            if ((recording?.filename) != nil){
+            
+            if ((recording?.filename) != nil){ //If it's not the first time
+                MyRecordingsTableViewController.firstCancel=false
+                recording?.dateSpace=recording?.songDate
                 recording?.filename=recording?.filename
+                
+               
             } else{
-                 print("cancel tapped")
+                recording?.filename=recording?.dateSpace?.convertToString().removingWhitespacesAndNewlines
+                CoreDataHelper.saveRecording()
+                MyRecordingsTableViewController.firstCancel=true
+                
             }
            
 

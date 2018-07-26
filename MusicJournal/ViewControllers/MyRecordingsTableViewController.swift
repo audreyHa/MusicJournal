@@ -17,6 +17,8 @@ class MyRecordingsTableViewController: UITableViewController{
         }
     }
     
+    static var firstCancel: Bool!
+    
     @IBOutlet var myTableView: UITableView!
     @IBOutlet weak var songButton: UIButton!
     @IBOutlet weak var dateButton: UIButton!
@@ -42,44 +44,46 @@ class MyRecordingsTableViewController: UITableViewController{
     @IBAction func unwindToMyRecordingsCancel(_ segue: UIStoryboardSegue){
         
         arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
-//        
-//        //DO NOT ADD THE PATHS THING HERE
-//        let cancelingOutFile = ("\(arrayOfRecordingsInfo.last!.filename).m4a")
-//        var filePath = ""
-//        
-//        let dirs : [String] = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true)
-//        
-//        if dirs.count > 0 {
-//            let dir = dirs[0] //documents directory
-//            filePath = dir.appendingFormat("/" + cancelingOutFile)
-//            print("Local path = \(filePath)")
-//            
-//        } else {
-//            print("Could not find local directory to store file")
-//            return
-//        }
-//        
-//        
-//        do {
-//            let fileManager = FileManager.default
-//            
-//            // Check if file exists
-//            if fileManager.fileExists(atPath: filePath) {
-//                // Delete file
-//                try fileManager.removeItem(atPath: filePath)
-//            } else {
-//                print("File does not exist")
-//            }
-//            
-//        }
-//        catch let error as NSError {
-//            print("An error took place: \(error)")
-//        }
-//        
-//        let recordingToCancelOut=arrayOfRecordingsInfo.last
-//        CoreDataHelper.deleteRecording(recording: recordingToCancelOut!)
-//        arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
-//        //end
+        if MyRecordingsTableViewController.firstCancel==true{
+            let cancelingOutFile = ("\(arrayOfRecordingsInfo.last?.filename).m4a")
+                    var filePath = ""
+            
+                    let dirs : [String] = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true)
+            
+                    if dirs.count > 0 {
+                        let dir = dirs[0] //documents directory
+                        filePath = dir.appendingFormat("/" + cancelingOutFile)
+                        print("Local path = \(filePath)")
+            
+                    } else {
+                        print("Could not find local directory to store file")
+                        return
+                    }
+            
+            
+                    do {
+                        let fileManager = FileManager.default
+            
+                        // Check if file exists
+                        if fileManager.fileExists(atPath: filePath) {
+                            // Delete file
+                            try fileManager.removeItem(atPath: filePath)
+                        } else {
+                            print("File does not exist")
+                        }
+            
+                    }
+                    catch let error as NSError {
+                        print("An error took place: \(error)")
+                    }
+            
+            if let recordingToCancelOut=arrayOfRecordingsInfo.last{
+                CoreDataHelper.deleteRecording(recording: recordingToCancelOut)
+                arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
+            }
+            
+                    //end
+        }
     }
     
     
@@ -93,7 +97,7 @@ class MyRecordingsTableViewController: UITableViewController{
         let currentRecording=arrayOfRecordingsInfo[indexPath.row]
         
         cell.songTitle.text=currentRecording.songTitle
-        cell.lastModified.text=currentRecording.lastModified?.convertToString()
+        cell.lastModified.text="Last Modified at \(currentRecording.lastModified!.convertToString())"
         cell.songComposer.text=currentRecording.songComposer
         cell.songEvent.text=currentRecording.songEvent
         
@@ -110,10 +114,13 @@ class MyRecordingsTableViewController: UITableViewController{
         cell.pressPlayFile = currentRecording.filename
         
         if currentRecording.filename==nil{
-            cell.isEmpty = true
+            let redColor = UIColor(red: 232/255, green: 90/255, blue: 69/255, alpha: 1)
+            cell.emptyLabel.textColor=redColor
         }else{
-            cell.isEmpty = false
+            let lightBeigeBackground = UIColor(red: 234/255, green: 231/255, blue: 220/255, alpha: 1)
+            cell.emptyLabel.textColor=lightBeigeBackground
         }
+        
         return cell
     }
     
