@@ -18,13 +18,17 @@ class myRecordingsTableViewCell: UITableViewCell{
     
     var rowOfCellForRecording: Int = 0
     var newAudioPlayer: AVAudioPlayer!
-    var pressPlayFile: URL!
+    var pressPlayFile: String!
     
     @IBAction func playPressed(_ sender: Any) {
         
         do{
-            newAudioPlayer = try AVAudioPlayer(contentsOf: pressPlayFile)
+            var paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+            var newPlaying = paths[0].appendingPathComponent("\(pressPlayFile).m4a")
+            newAudioPlayer = try AVAudioPlayer(contentsOf: newPlaying)
             newAudioPlayer.play()
+            
+            
         } catch{
             print(pressPlayFile)
             print("Failed to play, keep trying....")

@@ -41,11 +41,10 @@ class MyRecordingsTableViewController: UITableViewController{
     
     @IBAction func unwindToMyRecordingsCancel(_ segue: UIStoryboardSegue){
         arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
-        let recordingToCancelOut=arrayOfRecordingsInfo.last
-        CoreDataHelper.deleteRecording(recording: recordingToCancelOut!)
-        arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
         
-        let cancelingOutFile = ("\(arrayOfRecordingsInfo.last!.songDate!.convertToString().removingWhitespacesAndNewlines).m4a")
+        
+        //DO NOT ADD THE PATHS THING HERE
+        let cancelingOutFile = ("\(arrayOfRecordingsInfo.last!.filename).m4a")
         var filePath = ""
         
         let dirs : [String] = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true)
@@ -76,6 +75,10 @@ class MyRecordingsTableViewController: UITableViewController{
         catch let error as NSError {
             print("An error took place: \(error)")
         }
+        
+        let recordingToCancelOut=arrayOfRecordingsInfo.last
+        CoreDataHelper.deleteRecording(recording: recordingToCancelOut!)
+        arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
         //end
     }
     
@@ -102,7 +105,7 @@ class MyRecordingsTableViewController: UITableViewController{
             cell.songComposer.text="No Composer Entered"
         }
         
-        cell.pressPlayFile=currentRecording.filename
+        cell.pressPlayFile = currentRecording.filename
         
         return cell
     }
@@ -111,7 +114,7 @@ class MyRecordingsTableViewController: UITableViewController{
         if editingStyle == .delete{
             // Got the following code from: swiftdeveloperblog.com/code-examples/delete-file-example-in-swift/
             // Find documents directory on device
-            let fileNameToDelete = ("\(arrayOfRecordingsInfo[indexPath.row].songDate!.convertToString().removingWhitespacesAndNewlines).m4a")
+            let fileNameToDelete = ("\(arrayOfRecordingsInfo[indexPath.row].filename).m4a")
             var filePath = ""
             
             let dirs : [String] = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true)
@@ -150,27 +153,24 @@ class MyRecordingsTableViewController: UITableViewController{
         }
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
+        guard let identifier=segue.identifier else {return}
 
-//Editting song info
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
-//        guard let identifier=segue.identifier else {return}
-//
-//        switch identifier{
-//        case "displayMade":
-//            guard let indexPath=tableView.indexPathForSelectedRow else{return}
-//
-//            let recording=arrayOfRecordingsInfo[indexPath.row]
-//            let destination=segue.destination as! RecordMusicViewController
-//            destination.recording=recording
-//
-//        case "new":
-//            print("create note bar button item tapped")
-//
-//        default:
-//            print("unexpected segue identifier")
-//
-//        }
-//    }
+        switch identifier{
+        case "displayMade":
+            guard let indexPath=tableView.indexPathForSelectedRow else{return}
+            let recording=arrayOfRecordingsInfo[indexPath.row]
+            let destination=segue.destination as! RecordMusicViewController
+            destination.recording=recording
+
+        case "new":
+            print("create note bar button item tapped")
+
+        default:
+            print("unexpected segue identifier")
+
+        }
+    }
 }
 
 

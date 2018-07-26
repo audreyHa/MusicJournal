@@ -17,33 +17,57 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     var audioPlayer: AVAudioPlayer!
     var recording = CoreDataHelper.newRecording()
     
+    
     @IBOutlet weak var startNewRecording: UIButton!
     @IBAction func startNewRecording(_ sender: Any) {
         if audioRecorder == nil{
-            
-            var filename: URL!
-            
-            recording.songDate=Date()
-            var noSpaceDate=recording.songDate!.convertToString().removingWhitespacesAndNewlines
-            var paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-            filename = paths[0].appendingPathComponent("\(noSpaceDate).m4a")
-            recording.filename=filename
-            print("This is the original filename \(recording.filename)")
-            let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC), AVSampleRateKey: 12000, AVNumberOfChannelsKey: 1, AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue]
-            do{
-                audioRecorder = try AVAudioRecorder(url: filename, settings: settings)
-                audioRecorder.delegate=self
-                audioRecorder.record()
-                startNewRecording.setTitle("  Stop Recording  ", for: .normal)
+            if (recording.songDate == nil){
+                var filename: URL!
+                
+                recording.songDate=Date()
+                var noSpaceDate=recording.songDate!.convertToString().removingWhitespacesAndNewlines
+                recording.filename=noSpaceDate
+                
+                var paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+                filename = paths[0].appendingPathComponent("\(recording.filename).m4a")
+                
+                let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC), AVSampleRateKey: 12000, AVNumberOfChannelsKey: 1, AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue]
+                do{
+                    audioRecorder = try AVAudioRecorder(url: filename, settings: settings)
+                    audioRecorder.delegate=self
+                    audioRecorder.record()
+                    startNewRecording.setTitle("  Stop Recording  ", for: .normal)
+                }
+                catch{
+                    displayAlert(title: "Failed to record", message: "Recording failed")
+                }
+            }else{
+//                recording.songDate=Date()
+//                print("THIS IS THE NEW SONG DATE: \(recording.songDate)")
+//                var newNoSpaceDate=recording.songDate!.convertToString().removingWhitespacesAndNewlines
+//                var newPaths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+//                var revisedFilename: URL!
+//                revisedFilename = newPaths[0].appendingPathComponent("\(newNoSpaceDate).m4a")
+//                recording.filename=revisedFilename
+//                print("This is the original filename \(recording.filename)")
+//                let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC), AVSampleRateKey: 12000, AVNumberOfChannelsKey: 1, AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue]
+//                do{
+//                    audioRecorder = try AVAudioRecorder(url: revisedFilename, settings: settings)
+//                    audioRecorder.delegate=self
+//                    audioRecorder.record()
+//                    startNewRecording.setTitle("  Stop Recording  ", for: .normal)
+//                }
+//                catch{
+//                    displayAlert(title: "Failed to record", message: "Recording failed")
+//                }
             }
-            catch{
-                displayAlert(title: "Failed to record", message: "Recording failed")
-            }
+        
         } else{
             //Stop Audio Recording
             audioRecorder.stop()
             audioRecorder = nil
-            startNewRecording.setTitle("  Press To Start NEW Recording  ", for: .normal)
+            startNewRecording.setTitle("  Press To Start Over  ", for: .normal)
+
         }
     }
     
@@ -74,7 +98,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             recording.songTitle=songLabel.text ?? ""
             recording.songEvent=eventLabel.text ?? ""
             recording.songComposer=composerLabel.text ?? ""
-            
+            recording.songDate=recording.songDate
             CoreDataHelper.saveRecording()
             
         case "cancel":
@@ -92,6 +116,11 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     override func viewDidLoad(){
         super.viewDidLoad()
         
+        startNewRecording.setTitle("  Press To Start New Recording  ", for: .normal)
+        
+        if recording.songDate != nil{
+            startNewRecording.setTitle("  Press To Start Over  ", for: .normal)
+        }
         //Setting up session
         recordingSession = AVAudioSession.sharedInstance()
         

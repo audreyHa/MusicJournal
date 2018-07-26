@@ -273,6 +273,7 @@
                                     <outlet property="songDate" destination="Xuk-Yk-HDh" id="fOg-2f-e8T"/>
                                     <outlet property="songEvent" destination="VWS-Fq-Bzn" id="sAX-gn-inq"/>
                                     <outlet property="songTitle" destination="MFv-J5-eCq" id="8U3-y9-xnZ"/>
+                                    <segue destination="RTW-Ln-REg" kind="show" identifier="displayMade" id="yU6-Ws-InJ"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -453,4 +454,7 @@
             <point key="canvasLocation" x="869.60000000000002" y="38.23088455772114"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="f4K-XC-2sW"/>
+    </inferredMetricsTieBreakers>
 </document>
