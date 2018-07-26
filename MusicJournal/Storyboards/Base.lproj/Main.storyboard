@@ -279,8 +279,8 @@
                                 <color key="backgroundColor" red="0.91764705879999997" green="0.90588235289999997" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <outlet property="emptyLabel" destination="ZZA-UJ-q1h" id="Fyw-E9-qu5"/>
+                                    <outlet property="lastModified" destination="Xuk-Yk-HDh" id="gix-I5-b1d"/>
                                     <outlet property="songComposer" destination="cho-Sw-wgm" id="PwE-Kw-vMc"/>
-                                    <outlet property="songDate" destination="Xuk-Yk-HDh" id="fOg-2f-e8T"/>
                                     <outlet property="songEvent" destination="VWS-Fq-Bzn" id="sAX-gn-inq"/>
                                     <outlet property="songTitle" destination="MFv-J5-eCq" id="8U3-y9-xnZ"/>
                                     <segue destination="RTW-Ln-REg" kind="show" identifier="displayMade" id="yU6-Ws-InJ"/>

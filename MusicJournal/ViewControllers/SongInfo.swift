@@ -15,20 +15,20 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     var recordingSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!
     var audioPlayer: AVAudioPlayer!
-    var recording = CoreDataHelper.newRecording()
-    
+    var recording: Recording?
     
     @IBOutlet weak var startNewRecording: UIButton!
     @IBAction func startNewRecording(_ sender: Any) {
         if audioRecorder == nil{
+            if recording == nil{
+                recording = CoreDataHelper.newRecording()
+            }
+            
                 var filename: URL!
                 
-                recording.songDate=Date()
-                let noSpaceDate=recording.songDate!.convertToString().removingWhitespacesAndNewlines
-                recording.filename=noSpaceDate
-                
+                recording?.songDate=Date()
                 var paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-                filename = paths[0].appendingPathComponent("\(recording.filename).m4a")
+                filename = paths[0].appendingPathComponent("\(recording?.songDate!.convertToString().removingWhitespacesAndNewlines).m4a")
                 
                 let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC), AVSampleRateKey: 12000, AVNumberOfChannelsKey: 1, AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue]
                 do{
@@ -60,9 +60,9 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     override func viewWillAppear(_ animated: Bool){
         super.viewWillAppear(animated)
         
-            songLabel.text=recording.songTitle
-            eventLabel.text=recording.songEvent
-            composerLabel.text=recording.songComposer
+        songLabel.text=recording?.songTitle
+        eventLabel.text=recording?.songEvent
+        composerLabel.text=recording?.songComposer
         
     }
     
@@ -73,18 +73,25 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         
         switch identifier{
         case "save":
-            recording.songTitle=songLabel.text ?? ""
-            recording.songEvent=eventLabel.text ?? ""
-            recording.songComposer=composerLabel.text ?? ""
-            recording.songDate=recording.songDate
+            if recording == nil{
+                recording = CoreDataHelper.newRecording()
+            }
+            
+            recording?.songTitle=songLabel.text ?? ""
+            recording?.songEvent=eventLabel.text ?? ""
+            recording?.songComposer=composerLabel.text ?? ""
+            recording?.songDate=recording?.songDate
+            recording?.filename=recording?.songDate!.convertToString().removingWhitespacesAndNewlines
+            recording?.lastModified=Date()
             CoreDataHelper.saveRecording()
             
         case "cancel":
-            recording.songTitle=songLabel.text ?? ""
-            recording.songEvent=eventLabel.text ?? ""
-            recording.songComposer=composerLabel.text ?? ""
-            CoreDataHelper.saveRecording()
-            print("cancel tapped")
+            if ((recording?.filename) != nil){
+                recording?.filename=recording?.filename
+            } else{
+                 print("cancel tapped")
+            }
+           
 
         default:
             print("unexpected segue!")
@@ -96,7 +103,9 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         
         startNewRecording.setTitle("  Press To Start New Recording  ", for: .normal)
         
-        if recording.songDate != nil{
+        if recording?.songDate == nil{
+            startNewRecording.setTitle("  Press To Start New Recording  ", for: .normal)
+        } else{
             startNewRecording.setTitle("  Press To Start Over  ", for: .normal)
         }
         //Setting up session

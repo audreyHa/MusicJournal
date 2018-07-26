@@ -12,7 +12,7 @@ import AVFoundation
 
 class myRecordingsTableViewCell: UITableViewCell{
     @IBOutlet weak var songTitle: UILabel!
-    @IBOutlet weak var songDate: UILabel!
+    @IBOutlet weak var lastModified: UILabel!
     @IBOutlet weak var songComposer: UILabel!
     @IBOutlet weak var songEvent: UILabel!
     @IBOutlet weak var emptyLabel: UILabel!

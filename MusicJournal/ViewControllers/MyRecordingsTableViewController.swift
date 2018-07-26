@@ -40,47 +40,49 @@ class MyRecordingsTableViewController: UITableViewController{
     }
     
     @IBAction func unwindToMyRecordingsCancel(_ segue: UIStoryboardSegue){
+        
         arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
-        
-        
-        //DO NOT ADD THE PATHS THING HERE
-        let cancelingOutFile = ("\(arrayOfRecordingsInfo.last!.filename).m4a")
-        var filePath = ""
-        
-        let dirs : [String] = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true)
-        
-        if dirs.count > 0 {
-            let dir = dirs[0] //documents directory
-            filePath = dir.appendingFormat("/" + cancelingOutFile)
-            print("Local path = \(filePath)")
-            
-        } else {
-            print("Could not find local directory to store file")
-            return
-        }
-        
-        
-        do {
-            let fileManager = FileManager.default
-            
-            // Check if file exists
-            if fileManager.fileExists(atPath: filePath) {
-                // Delete file
-                try fileManager.removeItem(atPath: filePath)
-            } else {
-                print("File does not exist")
-            }
-            
-        }
-        catch let error as NSError {
-            print("An error took place: \(error)")
-        }
-        
-        let recordingToCancelOut=arrayOfRecordingsInfo.last
-        CoreDataHelper.deleteRecording(recording: recordingToCancelOut!)
-        arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
-        //end
+//        
+//        //DO NOT ADD THE PATHS THING HERE
+//        let cancelingOutFile = ("\(arrayOfRecordingsInfo.last!.filename).m4a")
+//        var filePath = ""
+//        
+//        let dirs : [String] = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true)
+//        
+//        if dirs.count > 0 {
+//            let dir = dirs[0] //documents directory
+//            filePath = dir.appendingFormat("/" + cancelingOutFile)
+//            print("Local path = \(filePath)")
+//            
+//        } else {
+//            print("Could not find local directory to store file")
+//            return
+//        }
+//        
+//        
+//        do {
+//            let fileManager = FileManager.default
+//            
+//            // Check if file exists
+//            if fileManager.fileExists(atPath: filePath) {
+//                // Delete file
+//                try fileManager.removeItem(atPath: filePath)
+//            } else {
+//                print("File does not exist")
+//            }
+//            
+//        }
+//        catch let error as NSError {
+//            print("An error took place: \(error)")
+//        }
+//        
+//        let recordingToCancelOut=arrayOfRecordingsInfo.last
+//        CoreDataHelper.deleteRecording(recording: recordingToCancelOut!)
+//        arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
+//        //end
     }
+    
+    
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return arrayOfRecordingsInfo.count
@@ -91,7 +93,7 @@ class MyRecordingsTableViewController: UITableViewController{
         let currentRecording=arrayOfRecordingsInfo[indexPath.row]
         
         cell.songTitle.text=currentRecording.songTitle
-        cell.songDate.text=currentRecording.songDate?.convertToString()
+        cell.lastModified.text=currentRecording.lastModified?.convertToString()
         cell.songComposer.text=currentRecording.songComposer
         cell.songEvent.text=currentRecording.songEvent
         
@@ -105,11 +107,8 @@ class MyRecordingsTableViewController: UITableViewController{
             cell.songComposer.text="No Composer Entered"
         }
         
-        if cell.songDate.text==nil {
-            cell.songDate.text=Date().convertToString()
-        }
-        
         cell.pressPlayFile = currentRecording.filename
+        
         if currentRecording.filename==nil{
             cell.isEmpty = true
         }else{
