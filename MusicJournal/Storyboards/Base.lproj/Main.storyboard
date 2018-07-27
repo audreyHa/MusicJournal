@@ -209,11 +209,11 @@
                             </constraints>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="myRecordingsTableViewCell" rowHeight="223" id="BgK-JY-kyI" customClass="myRecordingsTableViewCell" customModule="MusicJournal" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="304" width="375" height="223"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="myRecordingsTableViewCell" rowHeight="270" id="BgK-JY-kyI" customClass="myRecordingsTableViewCell" customModule="MusicJournal" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="304" width="375" height="270"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BgK-JY-kyI" id="0Df-g9-9BI">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="222.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="269.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recording is empty!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZZA-UJ-q1h">
@@ -223,39 +223,36 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="v92-w4-hcv">
-                                            <rect key="frame" x="15" y="20" width="345" height="187.5"/>
+                                            <rect key="frame" x="15" y="20" width="345" height="234.5"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MFv-J5-eCq">
-                                                    <rect key="frame" x="0.0" y="0.0" width="345" height="26"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="345" height="39"/>
                                                     <fontDescription key="fontDescription" name="PingFangHK-Semibold" family="PingFang HK" pointSize="20"/>
                                                     <color key="textColor" red="0.90980392160000001" green="0.35294117650000001" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xuk-Yk-HDh">
-                                                    <rect key="frame" x="0.0" y="36" width="345" height="25.5"/>
+                                                    <rect key="frame" x="0.0" y="49" width="345" height="38.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Composer" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cho-Sw-wgm">
-                                                    <rect key="frame" x="0.0" y="71.5" width="345" height="25.5"/>
+                                                    <rect key="frame" x="0.0" y="97.5" width="345" height="39.5"/>
                                                     <color key="backgroundColor" red="0.91764705879999997" green="0.90588235289999997" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VWS-Fq-Bzn">
-                                                    <rect key="frame" x="0.0" y="107" width="345" height="25.5"/>
+                                                    <rect key="frame" x="0.0" y="147" width="345" height="38.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J9u-MZ-Pe0">
-                                                    <rect key="frame" x="144.5" y="142.5" width="56" height="45"/>
+                                                    <rect key="frame" x="144.5" y="195.5" width="56" height="39"/>
                                                     <color key="backgroundColor" red="0.90980392160000001" green="0.35294117650000001" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="45" id="LMx-tQ-Wjw"/>
-                                                    </constraints>
                                                     <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="17"/>
                                                     <state key="normal" title="  Play  ">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -267,6 +264,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="cho-Sw-wgm" firstAttribute="leading" secondItem="v92-w4-hcv" secondAttribute="leading" id="2X5-Be-Xhy"/>
+                                                <constraint firstItem="VWS-Fq-Bzn" firstAttribute="height" secondItem="J9u-MZ-Pe0" secondAttribute="height" id="41O-dP-f1Z"/>
                                                 <constraint firstItem="Xuk-Yk-HDh" firstAttribute="height" secondItem="cho-Sw-wgm" secondAttribute="height" id="A6I-pS-aqZ"/>
                                                 <constraint firstItem="MFv-J5-eCq" firstAttribute="height" secondItem="Xuk-Yk-HDh" secondAttribute="height" id="Ehs-qO-TEe"/>
                                                 <constraint firstItem="MFv-J5-eCq" firstAttribute="leading" secondItem="v92-w4-hcv" secondAttribute="leading" id="GYy-0b-IvD"/>
@@ -337,7 +335,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="ycY-5k-kV5" userLabel="Whole Stack View">
-                                <rect key="frame" x="20" y="84" width="335" height="288"/>
+                                <rect key="frame" x="20" y="84" width="335" height="374"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Info:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q0t-CA-DhO">
                                         <rect key="frame" x="94.5" y="0.0" width="146" height="42"/>
@@ -410,12 +408,20 @@
                                             <action selector="startNewRecording:" destination="RTW-Ln-REg" eventType="touchUpInside" id="dwU-ia-uJP"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00 : 00 : 00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YCE-iz-f1j">
+                                        <rect key="frame" x="0.0" y="318" width="335" height="56"/>
+                                        <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="40"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="YCE-iz-f1j" firstAttribute="leading" secondItem="ycY-5k-kV5" secondAttribute="leading" id="7mf-cG-Mao"/>
                                     <constraint firstAttribute="trailing" secondItem="Y21-U7-xBT" secondAttribute="trailing" id="95G-FL-cUs"/>
                                     <constraint firstItem="Y21-U7-xBT" firstAttribute="leading" secondItem="ycY-5k-kV5" secondAttribute="leading" id="WBL-hE-PwF"/>
                                     <constraint firstItem="oOa-5z-MNg" firstAttribute="leading" secondItem="ycY-5k-kV5" secondAttribute="leading" id="akW-1I-5uv"/>
                                     <constraint firstItem="w0h-3E-8Si" firstAttribute="leading" secondItem="ycY-5k-kV5" secondAttribute="leading" id="fCT-9I-4m9"/>
+                                    <constraint firstAttribute="trailing" secondItem="YCE-iz-f1j" secondAttribute="trailing" id="gkZ-At-yKe"/>
                                     <constraint firstAttribute="trailing" secondItem="w0h-3E-8Si" secondAttribute="trailing" id="rSF-aC-fXA"/>
                                     <constraint firstAttribute="trailing" secondItem="oOa-5z-MNg" secondAttribute="trailing" id="y4x-ES-YHZ"/>
                                 </constraints>
@@ -449,12 +455,13 @@
                         <outlet property="songLabel" destination="m9F-Ae-DYy" id="XQ0-pg-jr6"/>
                         <outlet property="songText" destination="Te8-2J-Ocq" id="NgK-dq-zX9"/>
                         <outlet property="startNewRecording" destination="RFE-5G-q1J" id="qf9-pV-PBN"/>
+                        <outlet property="timeLabel" destination="YCE-iz-f1j" id="rLC-db-q8m"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZJ4-qb-9KS" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="YPF-QH-sNB" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2634" y="32"/>
+            <point key="canvasLocation" x="2632.8000000000002" y="31.934032983508249"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="dMf-Y2-TeT">

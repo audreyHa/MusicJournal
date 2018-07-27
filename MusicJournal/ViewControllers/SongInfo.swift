@@ -17,13 +17,27 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     var audioPlayer: AVAudioPlayer!
     var recording: Recording?
     
+    var seconds: Int = 0
+    var hours: Int = 0
+    var minutes: Int=0
+    var timer=Timer()
+    
+    @IBOutlet weak var timeLabel: UILabel!
     
     @IBOutlet weak var startNewRecording: UIButton!
     @IBAction func startNewRecording(_ sender: Any) {
         if audioRecorder == nil{
             if recording == nil{
                 recording = CoreDataHelper.newRecording()
+            } else{
+                timer.invalidate()
+                hours=0
+                seconds=0
+                minutes=0
+                timeLabel.text = "00 : 00 : 00"
             }
+            
+            timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(RecordMusicViewController.action), userInfo: nil, repeats: true)
             
             recording?.dateSpace=Date()
                 var filename: URL?
@@ -43,6 +57,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         } else{
             //Stop Audio Recording
             audioRecorder.stop()
+            timer.invalidate()
             audioRecorder = nil
             startNewRecording.setTitle("  Press To Start Over  ", for: .normal)
 
@@ -152,6 +167,33 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         present(alert, animated: true, completion: nil)
     }
     
+    @objc func action(){
+        seconds += 1
+        if seconds>59{ //more than 60 seconds
+            seconds-=60
+            minutes+=1
+        }
+        
+        if minutes>59{
+            minutes-=60
+            hours+=1
+        }
+        
+
+            if minutes<10{
+                if seconds<10{
+                    timeLabel.text = String("\(hours) : 0\(minutes) : 0\(seconds)")
+                } else{
+                    timeLabel.text = String("0\(hours) : 0\(minutes) : \(seconds)")
+                }
+            } else{
+                if seconds<10{
+                    timeLabel.text = String("0\(hours) : \(minutes) : 0\(seconds)")
+                } else{
+                    timeLabel.text = String("0\(hours) : \(minutes) : \(seconds)")
+                }
+            }
+    }
 } //end of class
 
 extension UIViewController {
