@@ -146,28 +146,27 @@ class MyRecordingsTableViewController: UITableViewController{
         let currentRecording=arrayOfRecordingsInfo[indexPath.row]
         
         cell.songTitle.text=currentRecording.songTitle
+        
         if let thisDate = currentRecording.lastModified{
              cell.lastModified.text="Last Modified at \(thisDate.convertToString())"
         } else{
             cell.lastModified.text="No Date"
         }
-       
-        if let thisComposer=currentRecording.songComposer{
-             cell.songComposer.text=("Composer: \(thisComposer)")
-        }
-        
-        if let thisEvent=currentRecording.songEvent{
-            cell.songEvent.text=("Event: \(thisEvent)")
-        }
     
         if cell.songTitle.text==""{
             cell.songTitle.text="No Title Entered"
         }
-        if cell.songEvent.text==""{
-            cell.songEvent.text="No Event Entered"
-        }
-        if cell.songComposer.text==""{
+        
+        if currentRecording.songComposer==""{
             cell.songComposer.text="No Composer Entered"
+        } else{
+            cell.songComposer.text=("Composer: \(currentRecording.songComposer!)")
+        }
+        
+        if currentRecording.songEvent==""{
+            cell.songEvent.text="No Event Entered"
+        } else{
+            cell.songEvent.text=("Event: \(currentRecording.songEvent!)")
         }
         
         cell.pressPlayFile = currentRecording.filename
@@ -191,7 +190,6 @@ class MyRecordingsTableViewController: UITableViewController{
             cell.lastModified.textColor=UIColor.black
 
         } else if MyRecordingsTableViewController.chosenNumber==2{
-            cell.lastModified.textColor=redColor
             cell.lastModified.font=boldFont
             
             
@@ -200,7 +198,6 @@ class MyRecordingsTableViewController: UITableViewController{
             cell.songComposer.font=UIFont(name:"System-Regular", size: 15.0)
             cell.songComposer.textColor=UIColor.black
         } else if MyRecordingsTableViewController.chosenNumber==3{
-            cell.songComposer.textColor=redColor
             cell.songComposer.font=boldFont
             
             
@@ -209,7 +206,6 @@ class MyRecordingsTableViewController: UITableViewController{
             cell.lastModified.font=UIFont(name:"System-Regular", size: 15.0)
             cell.lastModified.textColor=UIColor.black
         } else if MyRecordingsTableViewController.chosenNumber==4{
-            cell.songEvent.textColor=redColor
             cell.songEvent.font=boldFont
             
            
@@ -319,7 +315,11 @@ class MyRecordingsTableViewController: UITableViewController{
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "dd MM, yyyy" // yyyy-MM-dd"
                 
-                arrayOfRecordingsInfo = arrayOfRecordingsInfo.sorted(by: { dateFormatter.date(from:($0.songDate?.convertToString())!)?.compare(dateFormatter.date(from:($1.songDate?.convertToString())!)!) == .orderedDescending })
+                
+                
+                arrayOfRecordingsInfo = arrayOfRecordingsInfo.sorted(by: { $0.lastModified?.compare($1.lastModified!) == .orderedAscending})
+                
+                
             }
         } else if MyRecordingsTableViewController.chosenNumber==3{
             composerButton.backgroundColor=white
