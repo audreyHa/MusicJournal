@@ -21,40 +21,59 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     var hours: Int = 0
     var minutes: Int=0
     var timer=Timer()
+    var countingTimer=Timer()
     
     @IBOutlet weak var timeLabel: UILabel!
     
     @IBOutlet weak var startNewRecording: UIButton!
     @IBAction func startNewRecording(_ sender: Any) {
-        if audioRecorder == nil{
-            if recording == nil{
-                recording = CoreDataHelper.newRecording()
-            } else{
-                timer.invalidate()
-                hours=0
-                seconds=0
-                minutes=0
-                timeLabel.text = "00 : 00 : 00"
-            }
+        if audioRecorder == nil{ //Starting a new one (not ending)
             
-            timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(RecordMusicViewController.action), userInfo: nil, repeats: true)
             
-            recording?.dateSpace=Date()
+            
+                self.timeLabel.text=("Starting in 3")
+            
+                delay(1){
+                self.timeLabel.text=("Starting in 2")
+                    self.delay(1){
+                        self.timeLabel.text=("Starting in 1")
+                    }
+                }
+            
+            
+            
+            delay(3){
+                self.timer.invalidate()
+                self.timeLabel.text = "00 : 00 : 00"
+                self.hours=0
+                self.seconds=0
+                self.minutes=0
+                
+                
+                if self.recording == nil{
+                    self.recording = CoreDataHelper.newRecording()
+                }
+                
+                self.timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(RecordMusicViewController.action), userInfo: nil, repeats: true)
+                
+                self.recording?.dateSpace=Date()
                 var filename: URL?
                 var paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-                filename = paths[0].appendingPathComponent("\(recording?.dateSpace?.convertToString().removingWhitespacesAndNewlines).m4a")
+                filename = paths[0].appendingPathComponent("\(self.recording?.dateSpace?.convertToString().removingWhitespacesAndNewlines).m4a")
                 
                 let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC), AVSampleRateKey: 12000, AVNumberOfChannelsKey: 1, AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue]
                 do{
-                    audioRecorder = try AVAudioRecorder(url: filename!, settings: settings)
-                    audioRecorder.delegate=self
-                    audioRecorder.record()
-                    startNewRecording.setTitle("  Stop Recording  ", for: .normal)
+                    self.audioRecorder = try AVAudioRecorder(url: filename!, settings: settings)
+                    self.audioRecorder.delegate=self
+                    self.audioRecorder.record()
+                    self.startNewRecording.setTitle("  Stop Recording  ", for: .normal)
                 }
                 catch{
-                    displayAlert(title: "Failed to record", message: "Recording failed")
+                    self.displayAlert(title: "Failed to record", message: "Recording failed")
                 }
-        } else{
+            }
+            
+        } else{ //Stopping
             //Stop Audio Recording
             audioRecorder.stop()
             timer.invalidate()
@@ -167,6 +186,11 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         present(alert, animated: true, completion: nil)
     }
     
+    func delay(_ delay:Double, closure:@escaping ()->()) {
+        let when = DispatchTime.now() + delay
+        DispatchQueue.main.asyncAfter(deadline: when, execute: closure)
+    }
+    
     @objc func action(){
         seconds += 1
         if seconds>59{ //more than 60 seconds
@@ -179,10 +203,10 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             hours+=1
         }
         
-
+        if hours==0{
             if minutes<10{
                 if seconds<10{
-                    timeLabel.text = String("\(hours) : 0\(minutes) : 0\(seconds)")
+                    timeLabel.text = String("0\(hours) : 0\(minutes) : 0\(seconds)")
                 } else{
                     timeLabel.text = String("0\(hours) : 0\(minutes) : \(seconds)")
                 }
@@ -193,6 +217,22 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
                     timeLabel.text = String("0\(hours) : \(minutes) : \(seconds)")
                 }
             }
+        } else{
+            if minutes<10{
+                if seconds<10{
+                    timeLabel.text = String("\(hours) : 0\(minutes) : 0\(seconds)")
+                } else{
+                    timeLabel.text = String("\(hours) : 0\(minutes) : \(seconds)")
+                }
+            } else{
+                if seconds<10{
+                    timeLabel.text = String("\(hours) : \(minutes) : 0\(seconds)")
+                } else{
+                    timeLabel.text = String("\(hours) : \(minutes) : \(seconds)")
+                }
+            }
+        }
+        
     }
 } //end of class
 
