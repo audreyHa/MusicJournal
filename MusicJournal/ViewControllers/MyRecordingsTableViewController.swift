@@ -20,13 +20,55 @@ class MyRecordingsTableViewController: UITableViewController{
     static var firstCancel: Bool!
     
     @IBOutlet var myTableView: UITableView!
+    
+    class Movie {
+        let name: String
+        var date: Int?
+        
+        init(_ name: String) {
+            self.name = name
+        }
+    }
+    
+    static var chosenNumber: Int!
+    
     @IBOutlet weak var songButton: UIButton!
     @IBOutlet weak var dateButton: UIButton!
     @IBOutlet weak var composerButton: UIButton!
     @IBOutlet weak var eventButton: UIButton!
-  
+    
+    @IBAction func songButtonPressed(_ sender: Any) {
+        MyRecordingsTableViewController.chosenNumber=1
+        reorderArray()
+        UserDefaults.standard.set(MyRecordingsTableViewController.chosenNumber,forKey: "myNumber")
+    }
+    
+    @IBAction func dateButtonPressed(_ sender: Any) {
+        MyRecordingsTableViewController.chosenNumber=2
+        reorderArray()
+        UserDefaults.standard.set(MyRecordingsTableViewController.chosenNumber,forKey: "myNumber")
+    }
+    
+    @IBAction func composerButtonPressed(_ sender: Any) {
+        MyRecordingsTableViewController.chosenNumber=3
+        reorderArray()
+        UserDefaults.standard.set(MyRecordingsTableViewController.chosenNumber,forKey: "myNumber")
+    }
+    
+    @IBAction func eventButtonPressed(_ sender: Any) {
+        MyRecordingsTableViewController.chosenNumber=4
+        reorderArray()
+        UserDefaults.standard.set(MyRecordingsTableViewController.chosenNumber,forKey: "myNumber")
+    }
+    
     override func viewDidLoad(){
         super.viewDidLoad()
+        
+        if let number: Int = UserDefaults.standard.object(forKey: "myNumber") as? Int{
+            MyRecordingsTableViewController.chosenNumber=number
+        }
+        reorderArray()
+        
         arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
         tableView.delegate=self
         tableView.dataSource=self
@@ -34,15 +76,17 @@ class MyRecordingsTableViewController: UITableViewController{
         self.dateButton.layer.cornerRadius=8
         self.composerButton.layer.cornerRadius=8
         self.eventButton.layer.cornerRadius=8
-    
     }
     
     @IBAction func unwindToMyRecordingsSave(_ segue: UIStoryboardSegue){
         arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
+        if let number: Int = UserDefaults.standard.object(forKey: "myNumber") as? Int{
+            MyRecordingsTableViewController.chosenNumber=number
+        }
+        reorderArray()
     }
     
     @IBAction func unwindToMyRecordingsCancel(_ segue: UIStoryboardSegue){
-        
         arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
         if MyRecordingsTableViewController.firstCancel==true{
             let cancelingOutFile = ("\(arrayOfRecordingsInfo.last?.filename).m4a")
@@ -84,6 +128,11 @@ class MyRecordingsTableViewController: UITableViewController{
             
                     //end
         }
+        
+        if let number: Int = UserDefaults.standard.object(forKey: "myNumber") as? Int{
+            MyRecordingsTableViewController.chosenNumber=number
+        }
+        reorderArray()
     }
     
     
@@ -97,10 +146,20 @@ class MyRecordingsTableViewController: UITableViewController{
         let currentRecording=arrayOfRecordingsInfo[indexPath.row]
         
         cell.songTitle.text=currentRecording.songTitle
-        cell.lastModified.text="Last Modified at \(currentRecording.lastModified!.convertToString())"
-        cell.songComposer.text=currentRecording.songComposer
-        cell.songEvent.text=currentRecording.songEvent
+        if let thisDate = currentRecording.lastModified{
+             cell.lastModified.text="Last Modified at \(thisDate.convertToString())"
+        } else{
+            cell.lastModified.text="No Date"
+        }
+       
+        if let thisComposer=currentRecording.songComposer{
+             cell.songComposer.text=("Composer: \(thisComposer)")
+        }
         
+        if let thisEvent=currentRecording.songEvent{
+            cell.songEvent.text=("Event: \(thisEvent)")
+        }
+    
         if cell.songTitle.text==""{
             cell.songTitle.text="No Title Entered"
         }
@@ -113,12 +172,51 @@ class MyRecordingsTableViewController: UITableViewController{
         
         cell.pressPlayFile = currentRecording.filename
         
+        let redColor = UIColor(red: 232/255, green: 90/255, blue: 69/255, alpha: 1)
+        let lightBeigeBackground = UIColor(red: 234/255, green: 231/255, blue: 220/255, alpha: 1)
+        let boldFont = UIFont.boldSystemFont(ofSize: 17.0)
+        
         if currentRecording.filename==nil{
-            let redColor = UIColor(red: 232/255, green: 90/255, blue: 69/255, alpha: 1)
             cell.emptyLabel.textColor=redColor
         }else{
-            let lightBeigeBackground = UIColor(red: 234/255, green: 231/255, blue: 220/255, alpha: 1)
             cell.emptyLabel.textColor=lightBeigeBackground
+        }
+        
+        if MyRecordingsTableViewController.chosenNumber==1{
+            cell.songEvent.font=UIFont(name:"System-Regular", size: 15.0)
+            cell.songEvent.textColor=UIColor.black
+            cell.songComposer.font=UIFont(name:"System-Regular", size: 15.0)
+            cell.songComposer.textColor=UIColor.black
+            cell.lastModified.font=UIFont(name:"System-Regular", size: 15.0)
+            cell.lastModified.textColor=UIColor.black
+
+        } else if MyRecordingsTableViewController.chosenNumber==2{
+            cell.lastModified.textColor=redColor
+            cell.lastModified.font=boldFont
+            
+            
+            cell.songEvent.font=UIFont(name:"System-Regular", size: 15.0)
+            cell.songEvent.textColor=UIColor.black
+            cell.songComposer.font=UIFont(name:"System-Regular", size: 15.0)
+            cell.songComposer.textColor=UIColor.black
+        } else if MyRecordingsTableViewController.chosenNumber==3{
+            cell.songComposer.textColor=redColor
+            cell.songComposer.font=boldFont
+            
+            
+            cell.songEvent.font=UIFont(name:"System-Regular", size: 15.0)
+            cell.songEvent.textColor=UIColor.black
+            cell.lastModified.font=UIFont(name:"System-Regular", size: 15.0)
+            cell.lastModified.textColor=UIColor.black
+        } else if MyRecordingsTableViewController.chosenNumber==4{
+            cell.songEvent.textColor=redColor
+            cell.songEvent.font=boldFont
+            
+           
+            cell.songComposer.font=UIFont(name:"System-Regular", size: 15.0)
+            cell.songComposer.textColor=UIColor.black
+            cell.lastModified.font=UIFont(name:"System-Regular", size: 15.0)
+            cell.lastModified.textColor=UIColor.black
         }
         
         return cell
@@ -185,6 +283,90 @@ class MyRecordingsTableViewController: UITableViewController{
 
         }
     }
+    
+    func reorderArray(){
+        let redColor = UIColor(red: 232/255, green: 90/255, blue: 69/255, alpha: 1)
+        let white = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
+        
+        if MyRecordingsTableViewController.chosenNumber==1{
+            songButton.backgroundColor=white
+            songButton.setTitleColor(redColor, for: .normal)
+            
+            //reset other buttons
+            eventButton.backgroundColor=redColor
+            eventButton.setTitleColor(white, for: .normal)
+            composerButton.backgroundColor=redColor
+            composerButton.setTitleColor(white, for: .normal)
+            dateButton.backgroundColor=redColor
+            dateButton.setTitleColor(white, for: .normal)
+            
+            if arrayOfRecordingsInfo.count>0{
+                arrayOfRecordingsInfo=arrayOfRecordingsInfo.sorted{$0.songTitle! < $1.songTitle!}
+            }
+        } else if MyRecordingsTableViewController.chosenNumber==2{
+            dateButton.backgroundColor=white
+            dateButton.setTitleColor(redColor, for: .normal)
+            
+            //reset other buttons
+            eventButton.backgroundColor=redColor
+            eventButton.setTitleColor(white, for: .normal)
+            composerButton.backgroundColor=redColor
+            composerButton.setTitleColor(white, for: .normal)
+            songButton.backgroundColor=redColor
+            songButton.setTitleColor(white, for: .normal)
+            
+            if arrayOfRecordingsInfo.count>0{
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "dd MM, yyyy" // yyyy-MM-dd"
+                
+                arrayOfRecordingsInfo = arrayOfRecordingsInfo.sorted(by: { dateFormatter.date(from:($0.songDate?.convertToString())!)?.compare(dateFormatter.date(from:($1.songDate?.convertToString())!)!) == .orderedDescending })
+            }
+        } else if MyRecordingsTableViewController.chosenNumber==3{
+            composerButton.backgroundColor=white
+            composerButton.setTitleColor(redColor, for: .normal)
+            
+            //reset other buttons
+            eventButton.backgroundColor=redColor
+            eventButton.setTitleColor(white, for: .normal)
+            songButton.backgroundColor=redColor
+            songButton.setTitleColor(white, for: .normal)
+            dateButton.backgroundColor=redColor
+            dateButton.setTitleColor(white, for: .normal)
+            
+            if arrayOfRecordingsInfo.count>0{
+                arrayOfRecordingsInfo=arrayOfRecordingsInfo.sorted{$0.songComposer! < $1.songComposer!}
+            }
+        } else if MyRecordingsTableViewController.chosenNumber==4{
+            eventButton.backgroundColor=white
+            eventButton.setTitleColor(redColor, for: .normal)
+            
+            //reset other buttons
+            songButton.backgroundColor=redColor
+            songButton.setTitleColor(white, for: .normal)
+            dateButton.backgroundColor=redColor
+            dateButton.setTitleColor(white, for: .normal)
+            composerButton.backgroundColor=redColor
+            composerButton.setTitleColor(white, for: .normal)
+            
+            if arrayOfRecordingsInfo.count>0{
+                arrayOfRecordingsInfo=arrayOfRecordingsInfo.sorted{$0.songEvent! < $1.songEvent!}
+            }
+        } else{
+            songButton.backgroundColor=white
+            songButton.setTitleColor(redColor, for: .normal)
+            
+            //reset other buttons
+            eventButton.backgroundColor=redColor
+            eventButton.setTitleColor(white, for: .normal)
+            composerButton.backgroundColor=redColor
+            composerButton.setTitleColor(white, for: .normal)
+            dateButton.backgroundColor=redColor
+            dateButton.setTitleColor(white, for: .normal)
+            
+            if arrayOfRecordingsInfo.count>0{
+                arrayOfRecordingsInfo=arrayOfRecordingsInfo.sorted{$0.songTitle! < $1.songTitle!}
+            }
+        }
+        
+    }
 }
-
-

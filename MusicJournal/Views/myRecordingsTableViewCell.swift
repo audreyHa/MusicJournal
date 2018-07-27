@@ -26,7 +26,7 @@ class myRecordingsTableViewCell: UITableViewCell{
         
         do{
             var paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-            var newPlaying = paths[0].appendingPathComponent("\(pressPlayFile).m4a")
+            let newPlaying = paths[0].appendingPathComponent("\(pressPlayFile).m4a")
             newAudioPlayer = try AVAudioPlayer(contentsOf: newPlaying)
             newAudioPlayer.play()
             

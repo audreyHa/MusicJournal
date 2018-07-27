@@ -102,7 +102,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="mmv-Ye-pE7">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.91764705879999997" green="0.90588235289999997" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="sectionIndexBackgroundColor" red="0.91764705879999997" green="0.90588235289999997" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="tXi-au-U2Y">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="276"/>
@@ -128,16 +128,22 @@
                                                             <color key="backgroundColor" red="0.90980392160000001" green="0.35294117650000001" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="17"/>
                                                             <state key="normal" title="  Song Title  ">
-                                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             </state>
+                                                            <connections>
+                                                                <action selector="songButtonPressed:" destination="fVM-KZ-LoB" eventType="touchUpInside" id="Dvk-bA-Ra7"/>
+                                                            </connections>
                                                         </button>
                                                         <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cKl-ln-S8d">
                                                             <rect key="frame" x="0.0" y="56" width="157.5" height="36"/>
                                                             <color key="backgroundColor" red="0.90980392160000001" green="0.35294117650000001" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="17"/>
                                                             <state key="normal" title="  Date  ">
-                                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             </state>
+                                                            <connections>
+                                                                <action selector="dateButtonPressed:" destination="fVM-KZ-LoB" eventType="touchUpInside" id="eTC-JH-4hc"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                     <constraints>
@@ -157,6 +163,9 @@
                                                             <state key="normal" title="  Composer  ">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
+                                                            <connections>
+                                                                <action selector="composerButtonPressed:" destination="fVM-KZ-LoB" eventType="touchUpInside" id="kii-uC-bdV"/>
+                                                            </connections>
                                                         </button>
                                                         <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="za1-i5-L9k">
                                                             <rect key="frame" x="0.0" y="56" width="157.5" height="36"/>
@@ -165,6 +174,9 @@
                                                             <state key="normal" title="  Event  ">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
+                                                            <connections>
+                                                                <action selector="eventButtonPressed:" destination="fVM-KZ-LoB" eventType="touchUpInside" id="Nfz-fT-lR2"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                     <constraints>
@@ -214,35 +226,35 @@
                                             <rect key="frame" x="15" y="15" width="345" height="121.5"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MFv-J5-eCq">
-                                                    <rect key="frame" x="0.0" y="0.0" width="345" height="20.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="345" height="19.5"/>
                                                     <fontDescription key="fontDescription" name="PingFangHK-Semibold" family="PingFang HK" pointSize="20"/>
                                                     <color key="textColor" red="0.90980392160000001" green="0.35294117650000001" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xuk-Yk-HDh">
-                                                    <rect key="frame" x="0.0" y="25.5" width="345" height="20"/>
+                                                    <rect key="frame" x="0.0" y="24.5" width="345" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Composer" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cho-Sw-wgm">
-                                                    <rect key="frame" x="0.0" y="50.5" width="345" height="20"/>
+                                                    <rect key="frame" x="0.0" y="48" width="345" height="19.5"/>
                                                     <color key="backgroundColor" red="0.91764705879999997" green="0.90588235289999997" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VWS-Fq-Bzn">
-                                                    <rect key="frame" x="0.0" y="75.5" width="345" height="20.5"/>
+                                                    <rect key="frame" x="0.0" y="72.5" width="345" height="19"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J9u-MZ-Pe0">
-                                                    <rect key="frame" x="139.5" y="101" width="66" height="20.5"/>
+                                                    <rect key="frame" x="135" y="96.5" width="75" height="25"/>
                                                     <color key="backgroundColor" red="0.90980392160000001" green="0.35294117650000001" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="66" id="xNG-of-pLT"/>
+                                                        <constraint firstAttribute="height" constant="25" id="2jT-9E-fp3"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="17"/>
                                                     <state key="normal" title="  Play  ">
@@ -261,15 +273,17 @@
                                                 <constraint firstItem="VWS-Fq-Bzn" firstAttribute="leading" secondItem="v92-w4-hcv" secondAttribute="leading" id="NQF-JE-G9c"/>
                                                 <constraint firstItem="cho-Sw-wgm" firstAttribute="height" secondItem="VWS-Fq-Bzn" secondAttribute="height" id="gk8-vF-k5d"/>
                                                 <constraint firstItem="J9u-MZ-Pe0" firstAttribute="centerX" secondItem="v92-w4-hcv" secondAttribute="centerX" id="jPZ-3h-76g"/>
+                                                <constraint firstItem="J9u-MZ-Pe0" firstAttribute="leading" secondItem="v92-w4-hcv" secondAttribute="leading" constant="135" id="kuE-0W-VSt"/>
                                                 <constraint firstItem="MFv-J5-eCq" firstAttribute="leading" secondItem="v92-w4-hcv" secondAttribute="leading" id="ttY-Yg-mlL"/>
+                                                <constraint firstAttribute="trailing" secondItem="J9u-MZ-Pe0" secondAttribute="trailing" constant="135" id="wdB-pJ-QaP"/>
                                                 <constraint firstItem="cho-Sw-wgm" firstAttribute="leading" secondItem="v92-w4-hcv" secondAttribute="leading" id="ygj-BI-IZX"/>
-                                                <constraint firstItem="VWS-Fq-Bzn" firstAttribute="height" secondItem="J9u-MZ-Pe0" secondAttribute="height" id="ypR-Jd-hXj"/>
                                             </constraints>
                                         </stackView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="ZZA-UJ-q1h" firstAttribute="top" secondItem="0Df-g9-9BI" secondAttribute="topMargin" id="5ia-T3-iDZ"/>
                                         <constraint firstAttribute="trailing" secondItem="v92-w4-hcv" secondAttribute="trailing" constant="15" id="8l4-QF-4iU"/>
+                                        <constraint firstItem="ZZA-UJ-q1h" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="0Df-g9-9BI" secondAttribute="leadingMargin" constant="180" id="Dd3-KF-CbZ"/>
                                         <constraint firstAttribute="bottom" secondItem="v92-w4-hcv" secondAttribute="bottom" constant="15" id="gIH-f7-mZ5"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="ZZA-UJ-q1h" secondAttribute="trailing" id="lRN-bN-8TS"/>
                                         <constraint firstItem="v92-w4-hcv" firstAttribute="leading" secondItem="0Df-g9-9BI" secondAttribute="leading" constant="15" id="n10-90-bba"/>
@@ -315,7 +329,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wgt-Go-Z89" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="LF0-2u-pgf" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1808.8" y="38.23088455772114"/>
+            <point key="canvasLocation" x="1862" y="38"/>
         </scene>
         <!--Song Info-->
         <scene sceneID="sGK-qj-CYk">

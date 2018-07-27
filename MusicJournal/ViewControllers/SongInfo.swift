@@ -87,13 +87,14 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             
         case "cancel":
             
-            if ((recording?.filename) != nil){ //If it's not the first time
+            if (recording?.filename != nil){ //If it's not the first time
                 MyRecordingsTableViewController.firstCancel=false
                 recording?.dateSpace=recording?.songDate
                 recording?.filename=recording?.filename
                 
                
-            } else{
+            }
+            if (recording?.filename == nil){
                 recording?.filename=recording?.dateSpace?.convertToString().removingWhitespacesAndNewlines
                 CoreDataHelper.saveRecording()
                 MyRecordingsTableViewController.firstCancel=true
@@ -140,7 +141,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     func getDirectory() -> URL{
         
         var paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        var documentDirectory = paths[0]
+        let documentDirectory = paths[0]
         return documentDirectory
     }
     
