@@ -29,8 +29,6 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     @IBAction func startNewRecording(_ sender: Any) {
         if audioRecorder == nil{ //Starting a new one (not ending)
             
-            
-            
                 self.timeLabel.text=("Starting in 3")
             
                 delay(1){
@@ -57,12 +55,16 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
                 self.timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(RecordMusicViewController.action), userInfo: nil, repeats: true)
                 
                 self.recording?.dateSpace=Date()
+                
                 var filename: URL?
-                var paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-                filename = paths[0].appendingPathComponent("\(self.recording?.dateSpace?.convertToString().removingWhitespacesAndNewlines).m4a")
+                
+                let fileManager = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask).first
+                filename = fileManager!.appendingPathComponent("\(self.recording?.dateSpace?.convertToString().removingWhitespacesAndNewlines).m4a")
                 
                 let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC), AVSampleRateKey: 12000, AVNumberOfChannelsKey: 1, AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue]
                 do{
+                    try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
+//                    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
                     self.audioRecorder = try AVAudioRecorder(url: filename!, settings: settings)
                     self.audioRecorder.delegate=self
                     self.audioRecorder.record()
@@ -120,20 +122,41 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             CoreDataHelper.saveRecording()
             
         case "cancel":
-            
-            if (recording?.filename != nil){ //If it's not the first time
+            //might just wanna check whether they made changes or not
+            if recording?.lastModified==nil{ //If it's the first round and hasn't been saved yet
+                if recording?.dateSpace==nil{//didn't make a recording
+                    MyRecordingsTableViewController.firstCancel=false
+                    print("First and didn't record")
+                } else{ //did make a recording
+                    recording?.songTitle=songLabel.text ?? ""
+                    recording?.songEvent=eventLabel.text ?? ""
+                    recording?.songComposer=composerLabel.text ?? ""
+                    recording?.songDate=recording?.dateSpace
+                    recording?.filename=recording?.songDate?.convertToString().removingWhitespacesAndNewlines
+                    recording?.lastModified=Date()
+                    CoreDataHelper.saveRecording()
+                    MyRecordingsTableViewController.firstCancel=true
+                }
+            } else{
                 MyRecordingsTableViewController.firstCancel=false
                 recording?.dateSpace=recording?.songDate
                 recording?.filename=recording?.filename
-                
-               
             }
-            if (recording?.filename == nil){
-                recording?.filename=recording?.dateSpace?.convertToString().removingWhitespacesAndNewlines
-                CoreDataHelper.saveRecording()
-                MyRecordingsTableViewController.firstCancel=true
+            
                 
-            }
+//            if (recording?.filename != nil){ //If it's not the first time
+//                MyRecordingsTableViewController.firstCancel=false
+//                recording?.dateSpace=recording?.songDate
+//                recording?.filename=recording?.filename
+//
+//
+//            }
+//            if (recording?.filename == nil){ //If it is the first time or if they didn't make a recording last time
+//
+//                CoreDataHelper.saveRecording()
+//                MyRecordingsTableViewController.firstCancel=true
+//
+//            }
            
 
         default:

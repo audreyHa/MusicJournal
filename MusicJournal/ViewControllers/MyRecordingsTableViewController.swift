@@ -17,7 +17,7 @@ class MyRecordingsTableViewController: UITableViewController{
         }
     }
     
-    static var firstCancel: Bool!
+    static var firstCancel: Bool = false
     
     @IBOutlet var myTableView: UITableView!
     
@@ -88,47 +88,54 @@ class MyRecordingsTableViewController: UITableViewController{
     
     @IBAction func unwindToMyRecordingsCancel(_ segue: UIStoryboardSegue){
         arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
+        
         if MyRecordingsTableViewController.firstCancel==true{
-            let cancelingOutFile = ("\(arrayOfRecordingsInfo.last?.filename).m4a")
-                    var filePath = ""
             
-                    let dirs : [String] = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true)
+            //find the most RECENT recording
             
-                    if dirs.count > 0 {
-                        let dir = dirs[0] //documents directory
-                        filePath = dir.appendingFormat("/" + cancelingOutFile)
-                        print("Local path = \(filePath)")
+            arrayOfRecordingsInfo = arrayOfRecordingsInfo.sorted(by: { $0.lastModified?.compare($1.lastModified!) == .orderedAscending})
+            //Delete from documents directory
+            let fileNameToDelete = ("\(arrayOfRecordingsInfo.last?.filename).m4a")
+            var filePath = ""
             
-                    } else {
-                        print("Could not find local directory to store file")
-                        return
-                    }
+            let dirs : [String] = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true)
+            
+            if dirs.count > 0 {
+                let dir = dirs[0] //documents directory
+                filePath = dir.appendingFormat("/" + fileNameToDelete)
+                print("Local path = \(filePath)")
+                
+            } else {
+                print("Could not find local directory to store file")
+                return
+            }
             
             
-                    do {
-                        let fileManager = FileManager.default
+            do {
+                let fileManager = FileManager.default
+                
+                // Check if file exists
+                if fileManager.fileExists(atPath: filePath) {
+                    // Delete file
+                    try fileManager.removeItem(atPath: filePath)
+                } else {
+                    print("File does not exist")
+                }
+                
+            }
+            catch let error as NSError {
+                print("An error took place: \(error)")
+            }
             
-                        // Check if file exists
-                        if fileManager.fileExists(atPath: filePath) {
-                            // Delete file
-                            try fileManager.removeItem(atPath: filePath)
-                        } else {
-                            print("File does not exist")
-                        }
-            
-                    }
-                    catch let error as NSError {
-                        print("An error took place: \(error)")
-                    }
-            
+            //Delete from the array
             if let recordingToCancelOut=arrayOfRecordingsInfo.last{
                 CoreDataHelper.deleteRecording(recording: recordingToCancelOut)
                 arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
             }
             
-                    //end
+            
         }
-        
+    
         if let number: Int = UserDefaults.standard.object(forKey: "myNumber") as? Int{
             MyRecordingsTableViewController.chosenNumber=number
         }
@@ -315,11 +322,9 @@ class MyRecordingsTableViewController: UITableViewController{
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "dd MM, yyyy" // yyyy-MM-dd"
                 
-                
-                
-                arrayOfRecordingsInfo = arrayOfRecordingsInfo.sorted(by: { $0.lastModified?.compare($1.lastModified!) == .orderedAscending})
-                
-                
+                arrayOfRecordingsInfo = arrayOfRecordingsInfo.sorted(by: { $0.lastModified?.compare($1.lastModified!) == .orderedDescending
+                    
+                })
             }
         } else if MyRecordingsTableViewController.chosenNumber==3{
             composerButton.backgroundColor=white
@@ -349,6 +354,7 @@ class MyRecordingsTableViewController: UITableViewController{
             composerButton.setTitleColor(white, for: .normal)
             
             if arrayOfRecordingsInfo.count>0{
+                print(arrayOfRecordingsInfo)
                 arrayOfRecordingsInfo=arrayOfRecordingsInfo.sorted{$0.songEvent! < $1.songEvent!}
             }
         } else{
@@ -367,6 +373,6 @@ class MyRecordingsTableViewController: UITableViewController{
                 arrayOfRecordingsInfo=arrayOfRecordingsInfo.sorted{$0.songTitle! < $1.songTitle!}
             }
         }
-        
-    }
+    } //end of Reorder
+    
 }

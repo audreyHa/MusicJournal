@@ -25,11 +25,12 @@ class myRecordingsTableViewCell: UITableViewCell{
     @IBAction func playPressed(_ sender: Any) {
         
         do{
-            var paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-            let newPlaying = paths[0].appendingPathComponent("\(pressPlayFile).m4a")
+            let fileManager = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask).first
+            let newPlaying = fileManager!.appendingPathComponent("\(pressPlayFile).m4a")
+            
             newAudioPlayer = try AVAudioPlayer(contentsOf: newPlaying)
             newAudioPlayer.play()
-            
+            print("now playing \(pressPlayFile).m4a")
             
         } catch{
             print(pressPlayFile)
