@@ -63,13 +63,14 @@ class MyRecordingsTableViewController: UITableViewController{
     
     override func viewDidLoad(){
         super.viewDidLoad()
-        
+        arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
         if let number: Int = UserDefaults.standard.object(forKey: "myNumber") as? Int{
             MyRecordingsTableViewController.chosenNumber=number
+            reorderArray()
         }
-        reorderArray()
         
-        arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
+        
+        
         tableView.delegate=self
         tableView.dataSource=self
         self.songButton.layer.cornerRadius=8
@@ -132,8 +133,6 @@ class MyRecordingsTableViewController: UITableViewController{
                 CoreDataHelper.deleteRecording(recording: recordingToCancelOut)
                 arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
             }
-            
-            
         }
     
         if let number: Int = UserDefaults.standard.object(forKey: "myNumber") as? Int{
