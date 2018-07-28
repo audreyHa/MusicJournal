@@ -159,20 +159,16 @@ class MyRecordingsTableViewController: UITableViewController{
             cell.lastModified.text="No Date"
         }
     
-        if cell.songTitle.text==""{
-            cell.songTitle.text="No Title Entered"
+        if currentRecording.songTitle==""{
+            currentRecording.songTitle="No Title Entered"
         }
         
         if currentRecording.songComposer==""{
-            cell.songComposer.text="No Composer Entered"
-        } else{
-            cell.songComposer.text=("Composer: \(currentRecording.songComposer!)")
+           currentRecording.songComposer="No Composer Entered"
         }
         
         if currentRecording.songEvent==""{
-            cell.songEvent.text="No Event Entered"
-        } else{
-            cell.songEvent.text=("Event: \(currentRecording.songEvent!)")
+            currentRecording.songEvent="No Event Entered"
         }
         
         cell.pressPlayFile = currentRecording.filename
@@ -188,37 +184,29 @@ class MyRecordingsTableViewController: UITableViewController{
         }
         
         if MyRecordingsTableViewController.chosenNumber==1{
-            cell.songEvent.font=UIFont(name:"System-Regular", size: 15.0)
-            cell.songEvent.textColor=UIColor.black
-            cell.songComposer.font=UIFont(name:"System-Regular", size: 15.0)
-            cell.songComposer.textColor=UIColor.black
-            cell.lastModified.font=UIFont(name:"System-Regular", size: 15.0)
-            cell.lastModified.textColor=UIColor.black
+            cell.songTitle.text=currentRecording.songTitle
+            cell.lastModified.text=("Last Modified at: \(currentRecording.lastModified!.convertToString())")
+            cell.songComposer.text=("Composer: \(currentRecording.songComposer!)")
+            cell.songEvent.text=("Event: \(currentRecording.songEvent!)")
 
         } else if MyRecordingsTableViewController.chosenNumber==2{
-            cell.lastModified.font=boldFont
+            cell.songTitle.text=currentRecording.lastModified?.convertToString()
+            cell.lastModified.text=("Title: \(currentRecording.songTitle!)")
+            cell.songComposer.text=("Composer: \(currentRecording.songComposer!)")
+            cell.songEvent.text=("Event: \(currentRecording.songEvent!)")
             
-            
-            cell.songEvent.font=UIFont(name:"System-Regular", size: 15.0)
-            cell.songEvent.textColor=UIColor.black
-            cell.songComposer.font=UIFont(name:"System-Regular", size: 15.0)
-            cell.songComposer.textColor=UIColor.black
         } else if MyRecordingsTableViewController.chosenNumber==3{
-            cell.songComposer.font=boldFont
+            cell.songTitle.text=currentRecording.songComposer
+            cell.lastModified.text=("Title: \(currentRecording.songTitle!)")
+            cell.songComposer.text=("Last Modified at: \(currentRecording.lastModified!.convertToString())")
+            cell.songEvent.text=("Event: \(currentRecording.songEvent!)")
             
-            
-            cell.songEvent.font=UIFont(name:"System-Regular", size: 15.0)
-            cell.songEvent.textColor=UIColor.black
-            cell.lastModified.font=UIFont(name:"System-Regular", size: 15.0)
-            cell.lastModified.textColor=UIColor.black
         } else if MyRecordingsTableViewController.chosenNumber==4{
-            cell.songEvent.font=boldFont
+            cell.songTitle.text=currentRecording.songEvent
+            cell.lastModified.text=("Title: \(currentRecording.songTitle!)")
+            cell.songComposer.text=("Last Modified at: \(currentRecording.lastModified!.convertToString())")
+            cell.songEvent.text=("Composer: \(currentRecording.songComposer!)")
             
-           
-            cell.songComposer.font=UIFont(name:"System-Regular", size: 15.0)
-            cell.songComposer.textColor=UIColor.black
-            cell.lastModified.font=UIFont(name:"System-Regular", size: 15.0)
-            cell.lastModified.textColor=UIColor.black
         }
         
         return cell
@@ -226,6 +214,7 @@ class MyRecordingsTableViewController: UITableViewController{
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath){
         if editingStyle == .delete{
+            
             // Got the following code from: swiftdeveloperblog.com/code-examples/delete-file-example-in-swift/
             // Find documents directory on device
             let fileNameToDelete = ("\(arrayOfRecordingsInfo[indexPath.row].filename).m4a")
@@ -373,5 +362,7 @@ class MyRecordingsTableViewController: UITableViewController{
             }
         }
     } //end of Reorder
+    
+    
     
 }
