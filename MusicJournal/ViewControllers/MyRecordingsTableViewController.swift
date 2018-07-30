@@ -266,6 +266,7 @@ class MyRecordingsTableViewController: UITableViewController{
     }
     
     func reorderArray(){
+       
         let redColor = UIColor(red: 232/255, green: 90/255, blue: 69/255, alpha: 1)
         let white = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
         
@@ -282,8 +283,23 @@ class MyRecordingsTableViewController: UITableViewController{
             dateButton.setTitleColor(white, for: .normal)
             
             if arrayOfRecordingsInfo.count>0{
-                arrayOfRecordingsInfo=arrayOfRecordingsInfo.sorted{$0.songTitle! < $1.songTitle!}
+                arrayOfRecordingsInfo=arrayOfRecordingsInfo.sorted{
+                    if $0.songTitle != $1.songTitle{
+                        return $0.songTitle! < $1.songTitle!
+                    } else{
+                        if $0.songComposer != $1.songComposer{
+                            return $0.songComposer! < $1.songComposer!
+                        } else{
+                            if $0.songEvent != $1.songEvent{
+                                return $0.songEvent! < $1.songEvent!
+                            } else{
+                                return $0.lastModified?.compare($1.lastModified!) == .orderedDescending
+                            }
+                        }
+                    }
+                }
             }
+            
         } else if MyRecordingsTableViewController.chosenNumber==2{
             dateButton.backgroundColor=white
             dateButton.setTitleColor(redColor, for: .normal)
@@ -300,9 +316,7 @@ class MyRecordingsTableViewController: UITableViewController{
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "dd MM, yyyy" // yyyy-MM-dd"
                 
-                arrayOfRecordingsInfo = arrayOfRecordingsInfo.sorted(by: { $0.lastModified?.compare($1.lastModified!) == .orderedDescending
-                    
-                })
+                arrayOfRecordingsInfo = arrayOfRecordingsInfo.sorted(by: { $0.lastModified?.compare($1.lastModified!) == .orderedDescending})
             }
         } else if MyRecordingsTableViewController.chosenNumber==3{
             composerButton.backgroundColor=white
@@ -317,8 +331,24 @@ class MyRecordingsTableViewController: UITableViewController{
             dateButton.setTitleColor(white, for: .normal)
             
             if arrayOfRecordingsInfo.count>0{
-                arrayOfRecordingsInfo=arrayOfRecordingsInfo.sorted{$0.songComposer! < $1.songComposer!}
+               
+                arrayOfRecordingsInfo=arrayOfRecordingsInfo.sorted{
+                    if $0.songComposer != $1.songComposer{
+                        return $0.songComposer! < $1.songComposer!
+                    } else{
+                        if $0.songTitle != $1.songTitle{
+                            return $0.songTitle! < $1.songTitle!
+                        } else{
+                            if $0.songEvent != $1.songEvent{
+                                return $0.songEvent! < $1.songEvent!
+                            } else{
+                                return $0.lastModified?.compare($1.lastModified!) == .orderedDescending
+                            }
+                        }
+                    }
+                }
             }
+            
         } else if MyRecordingsTableViewController.chosenNumber==4{
             eventButton.backgroundColor=white
             eventButton.setTitleColor(redColor, for: .normal)
@@ -332,8 +362,21 @@ class MyRecordingsTableViewController: UITableViewController{
             composerButton.setTitleColor(white, for: .normal)
             
             if arrayOfRecordingsInfo.count>0{
-                print(arrayOfRecordingsInfo)
-                arrayOfRecordingsInfo=arrayOfRecordingsInfo.sorted{$0.songEvent! < $1.songEvent!}
+                arrayOfRecordingsInfo=arrayOfRecordingsInfo.sorted{
+                    if $0.songEvent != $1.songEvent{
+                        return $0.songEvent! < $1.songEvent!
+                    } else{
+                        if $0.songTitle != $1.songTitle{
+                            return $0.songTitle! < $1.songTitle!
+                        } else{
+                            if $0.songComposer != $1.songComposer{
+                                return $0.songComposer! < $1.songComposer!
+                            } else{
+                                return $0.lastModified?.compare($1.lastModified!) == .orderedDescending
+                            }
+                        }
+                    }
+                }
             }
         } else{
             songButton.backgroundColor=white
@@ -348,7 +391,21 @@ class MyRecordingsTableViewController: UITableViewController{
             dateButton.setTitleColor(white, for: .normal)
             
             if arrayOfRecordingsInfo.count>0{
-                arrayOfRecordingsInfo=arrayOfRecordingsInfo.sorted{$0.songTitle! < $1.songTitle!}
+                arrayOfRecordingsInfo=arrayOfRecordingsInfo.sorted{
+                    if $0.songTitle != $1.songTitle{
+                        return $0.songTitle! < $1.songTitle!
+                    } else{
+                        if $0.songComposer != $1.songComposer{
+                            return $0.songComposer! < $1.songComposer!
+                        } else{
+                            if $0.songEvent != $1.songEvent{
+                                return $0.songEvent! < $1.songEvent!
+                            } else{
+                                return $0.lastModified?.compare($1.lastModified!) == .orderedDescending
+                            }
+                        }
+                    }
+                }
             }
         }
     } //end of Reorder
