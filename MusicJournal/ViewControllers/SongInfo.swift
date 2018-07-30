@@ -12,7 +12,7 @@ import AVFoundation
 
 class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     
-    var recordingSession: AVAudioSession!
+    static var recordingSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!
     var audioPlayer: AVAudioPlayer!
     var recording: Recording?
@@ -77,7 +77,9 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             
         } else{ //Stopping
             //Stop Audio Recording
+            
             audioRecorder.stop()
+            
             timer.invalidate()
             audioRecorder = nil
             startNewRecording.setTitle("  Press To Start Over  ", for: .normal)
@@ -109,6 +111,14 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         
         switch identifier{
         case "save":
+            if audioRecorder != nil{
+                audioRecorder.stop()
+                
+                timer.invalidate()
+                audioRecorder = nil
+                startNewRecording.setTitle("  Press To Start Over  ", for: .normal)
+            }
+            
             if recording == nil{
                 recording = CoreDataHelper.newRecording()
             }
@@ -116,9 +126,24 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             recording?.songTitle=songLabel.text ?? ""
             recording?.songEvent=eventLabel.text ?? ""
             recording?.songComposer=composerLabel.text ?? ""
+            
+            if recording?.songTitle==""{
+                recording?.songTitle="No Title Entered"
+            }
+            
+            if recording?.songComposer==""{
+                recording?.songComposer="No Composer Entered"
+            }
+            
+            if recording?.songEvent==""{
+                recording?.songEvent="No Event Entered"
+            }
+            
+            
             recording?.songDate=recording?.dateSpace
             recording?.filename=recording?.songDate?.convertToString().removingWhitespacesAndNewlines
             recording?.lastModified=Date()
+           
             CoreDataHelper.saveRecording()
             
         case "cancel":
@@ -131,6 +156,18 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
                     recording?.songTitle=songLabel.text ?? ""
                     recording?.songEvent=eventLabel.text ?? ""
                     recording?.songComposer=composerLabel.text ?? ""
+                    
+                    if recording?.songTitle==""{
+                        recording?.songTitle="No Title Entered"
+                    }
+                    
+                    if recording?.songComposer==""{
+                        recording?.songComposer="No Composer Entered"
+                    }
+                    
+                    if recording?.songEvent==""{
+                        recording?.songEvent="No Event Entered"
+                    }
                     recording?.songDate=recording?.dateSpace
                     recording?.filename=recording?.songDate?.convertToString().removingWhitespacesAndNewlines
                     recording?.lastModified=Date()
@@ -175,7 +212,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             startNewRecording.setTitle("  Press To Start Over  ", for: .normal)
         }
         //Setting up session
-        recordingSession = AVAudioSession.sharedInstance()
+        RecordMusicViewController.recordingSession = AVAudioSession.sharedInstance()
         
         AVAudioSession.sharedInstance().requestRecordPermission {(hasPermission) in
             if hasPermission{
@@ -193,6 +230,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     override func didReceiveMemoryWarning(){
         super.didReceiveMemoryWarning()
     }
+    
     
     //Gets path to directory
     func getDirectory() -> URL{

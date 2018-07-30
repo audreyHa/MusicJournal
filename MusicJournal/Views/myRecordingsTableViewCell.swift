@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import AVFoundation
+import MediaPlayer
 
 class myRecordingsTableViewCell: UITableViewCell{
     @IBOutlet weak var songTitle: UILabel!
@@ -29,6 +30,13 @@ class myRecordingsTableViewCell: UITableViewCell{
             let newPlaying = fileManager!.appendingPathComponent("\(pressPlayFile).m4a")
             
             newAudioPlayer = try AVAudioPlayer(contentsOf: newPlaying)
+
+            do {
+                let audioSession = AVAudioSession.sharedInstance()
+                try audioSession.overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
+            } catch let error as NSError {
+                print("Audrey, you have an error: \(error.localizedDescription)")
+            }
             newAudioPlayer.play()
             print("now playing \(pressPlayFile).m4a")
             
@@ -36,6 +44,7 @@ class myRecordingsTableViewCell: UITableViewCell{
             print(pressPlayFile)
             print("Failed to play, keep trying....")
         }
+        
     }
     //New comment
 }

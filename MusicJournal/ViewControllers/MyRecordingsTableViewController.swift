@@ -61,14 +61,16 @@ class MyRecordingsTableViewController: UITableViewController{
         UserDefaults.standard.set(MyRecordingsTableViewController.chosenNumber,forKey: "myNumber")
     }
     
+   
     override func viewDidLoad(){
         super.viewDidLoad()
+        
         arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
         if let number: Int = UserDefaults.standard.object(forKey: "myNumber") as? Int{
             MyRecordingsTableViewController.chosenNumber=number
             reorderArray()
         }
-        
+        arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
         
         
         tableView.delegate=self
@@ -157,18 +159,6 @@ class MyRecordingsTableViewController: UITableViewController{
              cell.lastModified.text="Last Modified at \(thisDate.convertToString())"
         } else{
             cell.lastModified.text="No Date"
-        }
-    
-        if currentRecording.songTitle==""{
-            currentRecording.songTitle="No Title Entered"
-        }
-        
-        if currentRecording.songComposer==""{
-           currentRecording.songComposer="No Composer Entered"
-        }
-        
-        if currentRecording.songEvent==""{
-            currentRecording.songEvent="No Event Entered"
         }
         
         cell.pressPlayFile = currentRecording.filename
