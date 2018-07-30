@@ -39,26 +39,30 @@ class MyRecordingsTableViewController: UITableViewController{
     
     @IBAction func songButtonPressed(_ sender: Any) {
         MyRecordingsTableViewController.chosenNumber=1
-        reorderArray()
+        
         UserDefaults.standard.set(MyRecordingsTableViewController.chosenNumber,forKey: "myNumber")
+        reorderArray()
     }
     
     @IBAction func dateButtonPressed(_ sender: Any) {
         MyRecordingsTableViewController.chosenNumber=2
-        reorderArray()
+        
         UserDefaults.standard.set(MyRecordingsTableViewController.chosenNumber,forKey: "myNumber")
+        reorderArray()
     }
     
     @IBAction func composerButtonPressed(_ sender: Any) {
         MyRecordingsTableViewController.chosenNumber=3
-        reorderArray()
+       
         UserDefaults.standard.set(MyRecordingsTableViewController.chosenNumber,forKey: "myNumber")
+        reorderArray()
     }
     
     @IBAction func eventButtonPressed(_ sender: Any) {
         MyRecordingsTableViewController.chosenNumber=4
-        reorderArray()
+        
         UserDefaults.standard.set(MyRecordingsTableViewController.chosenNumber,forKey: "myNumber")
+        reorderArray()
     }
     
    
@@ -66,11 +70,8 @@ class MyRecordingsTableViewController: UITableViewController{
         super.viewDidLoad()
         
         arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
-        if let number: Int = UserDefaults.standard.object(forKey: "myNumber") as? Int{
-            MyRecordingsTableViewController.chosenNumber=number
-            reorderArray()
-        }
-        arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
+        
+        reorderArray()
         
         
         tableView.delegate=self
@@ -150,6 +151,7 @@ class MyRecordingsTableViewController: UITableViewController{
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
+
         let cell=tableView.dequeueReusableCell(withIdentifier: "myRecordingsTableViewCell", for: indexPath) as! myRecordingsTableViewCell
         let currentRecording=arrayOfRecordingsInfo[indexPath.row]
         
@@ -243,6 +245,7 @@ class MyRecordingsTableViewController: UITableViewController{
             let recordingToDelete=arrayOfRecordingsInfo[indexPath.row]
             CoreDataHelper.deleteRecording(recording: recordingToDelete)
             arrayOfRecordingsInfo=CoreDataHelper.retrieveRecording()
+            reorderArray()
         }
     }
 
@@ -266,7 +269,10 @@ class MyRecordingsTableViewController: UITableViewController{
     }
     
     func reorderArray(){
-       
+        if let number: Int = UserDefaults.standard.object(forKey: "myNumber") as? Int{
+            MyRecordingsTableViewController.chosenNumber=number
+        }
+        
         let redColor = UIColor(red: 232/255, green: 90/255, blue: 69/255, alpha: 1)
         let white = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
         
