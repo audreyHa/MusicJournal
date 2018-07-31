@@ -119,12 +119,12 @@ class MyRecordingsTableViewController: UITableViewController{
         }
         
         if let theDate=currentRecording.songDate{
-            currentRecording.filename=theDate.convertToString().replacingOccurrences(of: ":", with: "").removingWhitespacesAndNewlines
-        }
-        if let theFilename = currentRecording.filename{
-            cell.pressPlayFile = currentRecording.filename!.replacingOccurrences(of: ":", with: "").removingWhitespacesAndNewlines
+            currentRecording.filename=theDate
         }
         
+        if currentRecording.filename != nil{
+            cell.pressPlayFile = currentRecording.filename!
+        }
         
         let redColor = UIColor(red: 232/255, green: 90/255, blue: 69/255, alpha: 1)
         let lightBeigeBackground = UIColor(red: 234/255, green: 231/255, blue: 220/255, alpha: 1)
@@ -170,7 +170,7 @@ class MyRecordingsTableViewController: UITableViewController{
             
             // Got the following code from: swiftdeveloperblog.com/code-examples/delete-file-example-in-swift/
             // Find documents directory on device
-            let fileSuffix="\(arrayOfRecordingsInfo[indexPath.row].filename!.replacingOccurrences(of: ":", with: "").removingWhitespacesAndNewlines).m4a"
+            let fileSuffix="\(arrayOfRecordingsInfo[indexPath.row].filename!).m4a"
             var filePath = ""
             
             let dirs : [String] = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true)

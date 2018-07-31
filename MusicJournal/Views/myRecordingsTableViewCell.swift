@@ -20,15 +20,14 @@ class myRecordingsTableViewCell: UITableViewCell{
     
     var rowOfCellForRecording: Int = 0
     var newAudioPlayer: AVAudioPlayer!
-    var pressPlayFile: String!
-    var newPlaying: URL!
+    var pressPlayFile: String = ""
 //    let audioSession = AVAudioSession.sharedInstance()
     
     @IBAction func playPressed(_ sender: Any) {
         
         do{
             let fileManager = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask).first
-            newPlaying = fileManager!.appendingPathComponent("\(pressPlayFile).m4a")
+            var newPlaying = fileManager!.appendingPathComponent("\(pressPlayFile).m4a")
             
 //            do {
 //
@@ -45,7 +44,7 @@ class myRecordingsTableViewCell: UITableViewCell{
             print("now playing \(newPlaying)")
             
         } catch{
-            print("This is the file: \(newPlaying)")
+           print(pressPlayFile)
             print("Failed to play, keep trying....")
         }
         
