@@ -53,15 +53,20 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
                 
                 self.timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(RecordMusicViewController.action), userInfo: nil, repeats: true)
                 
-                self.recording?.dateSpace=Date()
+                self.recording?.dateSpace = Date()
                 if let date=self.recording?.dateSpace{
-                    self.cancelOutArray.append(date.convertToString())
+                    self.cancelOutArray.append("\(date.convertToString().replacingOccurrences(of: ":", with: "").replacingOccurrences(of: " ", with: "")).m4a")
                 }
-                print("This is the cancel out array: \(self.cancelOutArray)")
+                print("This is the cancel out array: \(self.cancelOutArray).m4a")
                 
                 var filename: URL?
                 let fileManager = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask).first
-                filename = fileManager!.appendingPathComponent("\(self.recording?.dateSpace?.convertToString().removingWhitespacesAndNewlines).m4a")
+                let fileSuffix = self.cancelOutArray.last!
+//                "\(self.recording?.dateSpace!.convertToString().replacingOccurrences(of: ":", with: "").removingWhitespacesAndNewlines).m4a"
+                filename = fileManager!.appendingPathComponent(fileSuffix)
+                
+                print("\n\nSaving file to:")
+                print(filename!)
                 
                 let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC), AVSampleRateKey: 12000, AVNumberOfChannelsKey: 1, AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue]
                 do{
@@ -149,12 +154,20 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             
             
             recording?.songDate=recording?.dateSpace
-            recording?.filename=recording?.songDate?.convertToString().removingWhitespacesAndNewlines
+            recording?.filename=recording?.songDate?.convertToString().replacingOccurrences(of: ":", with: "").removingWhitespacesAndNewlines
             recording?.lastModified=Date()
            
             CoreDataHelper.saveRecording()
             
         case "cancel":
+            if audioRecorder != nil{
+                audioRecorder.stop()
+                
+                timer.invalidate()
+                audioRecorder = nil
+                startNewRecording.setTitle("  Press To Start Over  ", for: .normal)
+            }
+            
             if recording?.lastModified != nil{ //canceling and it's not the first time
                 if cancelOutArray.count>0{
                     everythingButFirst()
@@ -190,13 +203,13 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
                         recording?.songEvent="No Event Entered"
                     }
                     recording?.songDate=recording?.dateSpace
-                    recording?.filename=recording?.songDate?.convertToString().removingWhitespacesAndNewlines
+                    recording?.filename=recording?.songDate?.convertToString().replacingOccurrences(of: ":", with: "").removingWhitespacesAndNewlines
                     recording?.lastModified=Date()
                     CoreDataHelper.saveRecording()
                 }
             } else{ //if it's the second or later round
                 recording?.dateSpace=recording?.songDate
-                recording?.filename=recording?.filename
+                recording?.filename=recording?.filename?.replacingOccurrences(of: ":", with: "")
             }
         
 
@@ -303,7 +316,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     func everythingButLast(){
         MyRecordingsTableViewController.firstCancel=false
         for index in 0...cancelOutArray.count-2{
-            let fileNameToDelete = ("\(cancelOutArray[index].removingWhitespacesAndNewlines).m4a")
+            let fileNameToDelete = ("\(cancelOutArray[index].replacingOccurrences(of: ":", with: "").removingWhitespacesAndNewlines)")
             var filePath = ""
             
             let dirs : [String] = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true)
@@ -311,7 +324,9 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             if dirs.count > 0 {
                 let dir = dirs[0] //documents directory
                 filePath = dir.appendingFormat("/" + fileNameToDelete)
-                print("Local path = \(filePath)")
+//                print("Local path = \(filePath)")
+                print("Checking for file at:")
+                print(filePath)
                 
             } else {
                 print("Could not find local directory to store file")
@@ -322,12 +337,15 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             do {
                 let fileManager = FileManager.default
                 
+                print(fileManager)
+                
                 // Check if file exists
                 if fileManager.fileExists(atPath: filePath) {
                     // Delete file
+                    
                     try fileManager.removeItem(atPath: filePath)
-                    print("removing the file at \(fileNameToDelete)")
-                } else {
+                    print("it worked")
+                 } else {
                     print("File does not exist")
                 }
                 
@@ -341,7 +359,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     func everythingButFirst(){
         MyRecordingsTableViewController.firstCancel=false
         for index in 1...cancelOutArray.count-1{
-            let fileNameToDelete = ("\(cancelOutArray[index].removingWhitespacesAndNewlines).m4a")
+            let fileNameToDelete = ("\(cancelOutArray[index].removingWhitespacesAndNewlines.replacingOccurrences(of: ":", with: ""))")
             var filePath = ""
             
             let dirs : [String] = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true)
@@ -349,7 +367,6 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             if dirs.count > 0 {
                 let dir = dirs[0] //documents directory
                 filePath = dir.appendingFormat("/" + fileNameToDelete)
-                print("Local path = \(filePath)")
                 
             } else {
                 print("Could not find local directory to store file")
@@ -383,7 +400,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         
         for eachDate in cancelOutArray{
             
-            let fileNameToDelete = ("\(eachDate.removingWhitespacesAndNewlines).m4a")
+            let fileNameToDelete = ("\(eachDate.removingWhitespacesAndNewlines.replacingOccurrences(of: ":", with: ""))")
             var filePath = ""
             
             let dirs : [String] = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true)
@@ -392,7 +409,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
                 let dir = dirs[0] //documents directory
                 filePath = dir.appendingFormat("/" + fileNameToDelete)
                 print("Local path = \(filePath)")
-                
+                print(filePath)
             } else {
                 print("Could not find local directory to store file")
                 return
