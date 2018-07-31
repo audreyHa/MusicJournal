@@ -118,7 +118,13 @@ class MyRecordingsTableViewController: UITableViewController{
             cell.lastModified.text="No Date"
         }
         
-        cell.pressPlayFile = currentRecording.filename?.replacingOccurrences(of: ":", with: "")
+        if let theDate=currentRecording.songDate{
+            currentRecording.filename=theDate.convertToString().replacingOccurrences(of: ":", with: "").removingWhitespacesAndNewlines
+        }
+        if let theFilename = currentRecording.filename{
+            cell.pressPlayFile = currentRecording.filename!.replacingOccurrences(of: ":", with: "").removingWhitespacesAndNewlines
+        }
+        
         
         let redColor = UIColor(red: 232/255, green: 90/255, blue: 69/255, alpha: 1)
         let lightBeigeBackground = UIColor(red: 234/255, green: 231/255, blue: 220/255, alpha: 1)
@@ -164,14 +170,14 @@ class MyRecordingsTableViewController: UITableViewController{
             
             // Got the following code from: swiftdeveloperblog.com/code-examples/delete-file-example-in-swift/
             // Find documents directory on device
-            let fileNameToDelete = ("\(arrayOfRecordingsInfo[indexPath.row].filename?.replacingOccurrences(of: ":", with: "")).m4a")
+            let fileSuffix="\(arrayOfRecordingsInfo[indexPath.row].filename!.replacingOccurrences(of: ":", with: "").removingWhitespacesAndNewlines).m4a"
             var filePath = ""
             
             let dirs : [String] = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true)
             
             if dirs.count > 0 {
                 let dir = dirs[0] //documents directory
-                filePath = dir.appendingFormat("/" + fileNameToDelete)
+                filePath = dir.appendingFormat("/" + fileSuffix)
                 print("Local path = \(filePath)")
                 
             } else {
@@ -187,6 +193,7 @@ class MyRecordingsTableViewController: UITableViewController{
                 if fileManager.fileExists(atPath: filePath) {
                     // Delete file
                     try fileManager.removeItem(atPath: filePath)
+                    print("deleting works")
                 } else {
                     print("File does not exist")
                 }
