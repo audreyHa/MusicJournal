@@ -20,31 +20,25 @@ class myRecordingsTableViewCell: UITableViewCell{
     
     var rowOfCellForRecording: Int = 0
     var newAudioPlayer: AVAudioPlayer!
-    var pressPlayFile: String = ""
+    var pressPlayFile: String?
+    
 //    let audioSession = AVAudioSession.sharedInstance()
     
     @IBAction func playPressed(_ sender: Any) {
         
         do{
             let fileManager = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask).first
-            var newPlaying = fileManager!.appendingPathComponent("\(pressPlayFile).m4a")
-            
-//            do {
-//
-//                try audioSession.overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
-//            } catch let error as NSError {
-//                print("Audrey, you have an error: \(error.localizedDescription)")
-//            }
+            let newPlaying = fileManager!.appendingPathComponent("\(pressPlayFile!)")
             
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
             
             newAudioPlayer = try AVAudioPlayer(contentsOf: newPlaying)
             
             newAudioPlayer.play()
-            print("now playing \(newPlaying)")
+            print("now playing")
             
         } catch{
-           print(pressPlayFile)
+
             print("Failed to play, keep trying....")
         }
         
