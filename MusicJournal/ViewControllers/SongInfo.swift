@@ -23,6 +23,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     var timer=Timer()
     var countingTimer=Timer()
     var cancelOutArray = [String]()
+    var deleteAfterSaving = [String]()
     
     @IBOutlet weak var timeLabel: UILabel!
     
@@ -54,7 +55,11 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
                 }
                 
                 self.timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(RecordMusicViewController.action), userInfo: nil, repeats: true)
-                "\(self.recording?.dateSpace?.convertToString().removingWhitespacesAndNewlines.replacingOccurrences(of: ":", with: ""))"
+
+                if self.recording?.lastModified != nil && self.cancelOutArray.count==0{
+                    self.deleteAfterSaving.append((self.recording?.dateSpace!.convertToString().removingWhitespacesAndNewlines.replacingOccurrences(of: ":", with: ""))!)
+                }
+                
                 self.recording?.dateSpace=Date()
                 let improvedDatespace=(self.recording?.dateSpace!.convertToString().removingWhitespacesAndNewlines.replacingOccurrences(of: ":", with: ""))!
                 
@@ -115,6 +120,43 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         
         switch identifier{
         case "save":
+            if deleteAfterSaving.count>0{
+                for toBeDeleted in deleteAfterSaving{
+                    var filePath = ""
+                    
+                    let dirs : [String] = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true)
+                    
+                    if dirs.count > 0 {
+                        let dir = dirs[0] //documents directory
+                        filePath = dir.appendingFormat("/" + toBeDeleted)
+                        print("Local path = \(filePath)")
+                        
+                    } else {
+                        print("Could not find local directory to store file")
+                        return
+                    }
+                    
+                    
+                    do {
+                        let fileManager = FileManager.default
+                        
+                        // Check if file exists
+                        if fileManager.fileExists(atPath: filePath) {
+                            // Delete file
+                            try fileManager.removeItem(atPath: filePath)
+                            print("got original to be deleted")
+                        } else {
+                            print("File does not exist for deleting after saving")
+                        }
+                        
+                    }
+                    catch let error as NSError {
+                        print("An error took place: \(error)")
+                    }
+                }
+                
+            }
+            
             if cancelOutArray.count>1{
                 everythingButLast()
             }
@@ -308,14 +350,16 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     
     func everythingButLast(){
         for index in 0...cancelOutArray.count-2{
-            let fileNameToDelete = ("\(cancelOutArray[index])")
+            var differentEachDate: String?
+            differentEachDate = cancelOutArray[index]
+            var new = differentEachDate!
             var filePath = ""
             
             let dirs : [String] = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true)
             
             if dirs.count > 0 {
                 let dir = dirs[0] //documents directory
-                filePath = dir.appendingFormat("/" + fileNameToDelete)
+                filePath = dir.appendingFormat("/\(new)")
                 
                 
             } else {
@@ -349,7 +393,6 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         
         for eachDate in cancelOutArray{
             
-           
             var filePath = ""
             let differentDeleting: String?
             var differentEachDate: String?
