@@ -17,20 +17,10 @@ class MyRecordingsTableViewController: UITableViewController{
         }
     }
     
-    static var firstCancel: Bool = false
-    
     @IBOutlet var myTableView: UITableView!
     
-    class Movie {
-        let name: String
-        var date: Int?
-        
-        init(_ name: String) {
-            self.name = name
-        }
-    }
-    
     static var chosenNumber: Int!
+    static var firstCancel: Bool = false
     
     @IBOutlet weak var songButton: UIButton!
     @IBOutlet weak var dateButton: UIButton!
@@ -94,42 +84,7 @@ class MyRecordingsTableViewController: UITableViewController{
         arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
         
         if MyRecordingsTableViewController.firstCancel==true{
-            
-            //find the most RECENT recording
-            
             arrayOfRecordingsInfo = arrayOfRecordingsInfo.sorted(by: { $0.lastModified?.compare($1.lastModified!) == .orderedAscending})
-            //Delete from documents directory
-            let fileNameToDelete = ("\(arrayOfRecordingsInfo.last?.filename).m4a")
-            var filePath = ""
-            
-            let dirs : [String] = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true)
-            
-            if dirs.count > 0 {
-                let dir = dirs[0] //documents directory
-                filePath = dir.appendingFormat("/" + fileNameToDelete)
-                print("Local path = \(filePath)")
-                
-            } else {
-                print("Could not find local directory to store file")
-                return
-            }
-            
-            
-            do {
-                let fileManager = FileManager.default
-                
-                // Check if file exists
-                if fileManager.fileExists(atPath: filePath) {
-                    // Delete file
-                    try fileManager.removeItem(atPath: filePath)
-                } else {
-                    print("File does not exist")
-                }
-                
-            }
-            catch let error as NSError {
-                print("An error took place: \(error)")
-            }
             
             //Delete from the array
             if let recordingToCancelOut=arrayOfRecordingsInfo.last{
@@ -137,7 +92,7 @@ class MyRecordingsTableViewController: UITableViewController{
                 arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
             }
         }
-    
+        
         if let number: Int = UserDefaults.standard.object(forKey: "myNumber") as? Int{
             MyRecordingsTableViewController.chosenNumber=number
         }

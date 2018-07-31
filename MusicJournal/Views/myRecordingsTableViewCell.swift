@@ -42,7 +42,7 @@ class myRecordingsTableViewCell: UITableViewCell{
             newAudioPlayer = try AVAudioPlayer(contentsOf: newPlaying)
             
             newAudioPlayer.play()
-            print("now playing \(pressPlayFile).m4a")
+            print("now playing \(newPlaying)")
             
         } catch{
             print(pressPlayFile)
