@@ -221,35 +221,35 @@
                                             <rect key="frame" x="25" y="5" width="325" height="288.5"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="sBM-pE-TnZ" userLabel="song info">
-                                                    <rect key="frame" x="0.0" y="0.0" width="325" height="150"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="325" height="153"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recording is empty!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZZA-UJ-q1h">
-                                                            <rect key="frame" x="0.0" y="0.0" width="134.5" height="18"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="134.5" height="18.5"/>
                                                             <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
                                                             <color key="textColor" red="0.91764705879999997" green="0.90588235289999997" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Title" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MFv-J5-eCq">
-                                                            <rect key="frame" x="0.0" y="33" width="97" height="18"/>
+                                                            <rect key="frame" x="0.0" y="33.5" width="97" height="18.5"/>
                                                             <fontDescription key="fontDescription" name="PingFangHK-Semibold" family="PingFang HK" pointSize="20"/>
                                                             <color key="textColor" red="0.90980392160000001" green="0.35294117650000001" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xuk-Yk-HDh">
-                                                            <rect key="frame" x="0.0" y="66" width="36" height="18"/>
+                                                            <rect key="frame" x="0.0" y="67" width="36" height="19"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Composer" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cho-Sw-wgm">
-                                                            <rect key="frame" x="0.0" y="99" width="79.5" height="18"/>
+                                                            <rect key="frame" x="0.0" y="101" width="79.5" height="18.5"/>
                                                             <color key="backgroundColor" red="0.91764705879999997" green="0.90588235289999997" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VWS-Fq-Bzn">
-                                                            <rect key="frame" x="0.0" y="132" width="43" height="18"/>
+                                                            <rect key="frame" x="0.0" y="134.5" width="43" height="18.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -263,10 +263,10 @@
                                                     </constraints>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="1Ge-AY-PZS" userLabel="play">
-                                                    <rect key="frame" x="0.0" y="165" width="325" height="31"/>
+                                                    <rect key="frame" x="0.0" y="168" width="325" height="30"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J9u-MZ-Pe0">
-                                                            <rect key="frame" x="0.0" y="0.0" width="137.5" height="31"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="137.5" height="30"/>
                                                             <color key="backgroundColor" red="0.90980392160000001" green="0.35294117650000001" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="15"/>
                                                             <state key="normal" title=" Play ">
@@ -277,7 +277,7 @@
                                                             </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ua-QV-uei">
-                                                            <rect key="frame" x="187.5" y="0.0" width="137.5" height="31"/>
+                                                            <rect key="frame" x="187.5" y="0.0" width="137.5" height="30"/>
                                                             <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -285,24 +285,31 @@
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="J9u-MZ-Pe0" firstAttribute="width" secondItem="8Ua-QV-uei" secondAttribute="width" id="TPb-jK-5J8"/>
+                                                        <constraint firstAttribute="height" constant="30" id="aXP-gd-0Dg"/>
                                                     </constraints>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="Cac-mB-yc2" userLabel="pause and reset">
-                                                    <rect key="frame" x="0.0" y="211" width="325" height="31.5"/>
+                                                    <rect key="frame" x="0.0" y="213" width="325" height="30.5"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jya-8K-JND">
-                                                            <rect key="frame" x="0.0" y="0.0" width="137.5" height="31.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="137.5" height="30.5"/>
                                                             <color key="backgroundColor" red="0.90980392160000001" green="0.35294117650000001" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             <state key="normal" title=" Pause ">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
+                                                            <connections>
+                                                                <action selector="pausePressed:" destination="BgK-JY-kyI" eventType="touchUpInside" id="zNB-Of-0qk"/>
+                                                            </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WjK-4Z-xnu">
-                                                            <rect key="frame" x="187.5" y="0.0" width="137.5" height="31.5"/>
+                                                            <rect key="frame" x="187.5" y="0.0" width="137.5" height="30.5"/>
                                                             <color key="backgroundColor" red="0.90980392160000001" green="0.35294117650000001" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             <state key="normal" title=" Reset ">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
+                                                            <connections>
+                                                                <action selector="resetPressed:" destination="BgK-JY-kyI" eventType="touchUpInside" id="bcH-Gi-N7S"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                     <constraints>
@@ -310,10 +317,10 @@
                                                     </constraints>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="dFd-TW-avJ" userLabel="edit and delete">
-                                                    <rect key="frame" x="0.0" y="257.5" width="325" height="31"/>
+                                                    <rect key="frame" x="0.0" y="258.5" width="325" height="30"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LuQ-Pi-uh5">
-                                                            <rect key="frame" x="0.0" y="0.0" width="137.5" height="31"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="137.5" height="30"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="15"/>
                                                             <state key="normal" title="  Edit  ">
@@ -321,7 +328,7 @@
                                                             </state>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1e1-OY-oe1">
-                                                            <rect key="frame" x="187.5" y="0.0" width="137.5" height="31"/>
+                                                            <rect key="frame" x="187.5" y="0.0" width="137.5" height="30"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="15"/>
                                                             <state key="normal" title="  Delete  ">
@@ -360,6 +367,8 @@
                                 <connections>
                                     <outlet property="emptyLabel" destination="ZZA-UJ-q1h" id="Fyw-E9-qu5"/>
                                     <outlet property="lastModified" destination="Xuk-Yk-HDh" id="gix-I5-b1d"/>
+                                    <outlet property="playButton" destination="J9u-MZ-Pe0" id="Rjx-g2-id6"/>
+                                    <outlet property="reset" destination="WjK-4Z-xnu" id="9JM-Ht-fAz"/>
                                     <outlet property="showTime" destination="8Ua-QV-uei" id="6Yr-aL-dbo"/>
                                     <outlet property="songComposer" destination="cho-Sw-wgm" id="PwE-Kw-vMc"/>
                                     <outlet property="songEvent" destination="VWS-Fq-Bzn" id="sAX-gn-inq"/>

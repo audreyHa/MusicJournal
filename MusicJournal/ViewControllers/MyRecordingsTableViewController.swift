@@ -171,6 +171,9 @@ class MyRecordingsTableViewController: UITableViewController{
         cell.originalHours=currentRecording.hours
         cell.originalMinutes=currentRecording.minutes
         cell.originalSeconds=currentRecording.seconds
+//        cell.thisHours=currentRecording.hours
+//        cell.thisMinutes=currentRecording.minutes
+//        cell.thisSeconds=currentRecording.seconds
         
         if MyRecordingsTableViewController.chosenNumber==1{
             cell.songTitle.text=currentRecording.songTitle
