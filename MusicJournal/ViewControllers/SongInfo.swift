@@ -104,6 +104,8 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     @IBOutlet weak var composerLabel: UITextField!
     @IBOutlet weak var eventLabel: UITextField!
     
+
+    
     override func viewWillAppear(_ animated: Bool){
         super.viewWillAppear(animated)
         
