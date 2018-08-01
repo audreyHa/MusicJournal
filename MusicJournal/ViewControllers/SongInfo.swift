@@ -197,6 +197,9 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             }
             
             recording?.lastModified=Date()
+            recording?.hours=Int16(hours)
+            recording?.minutes=Int16(minutes)
+            recording?.seconds=Int16(seconds)
            
             CoreDataHelper.saveRecording()
             
@@ -307,13 +310,13 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     
     @objc func action(){
         seconds += 1
-        if seconds>59{ //more than 60 seconds
-            seconds-=60
+        if seconds>4{ //more than 60 seconds
+            seconds-=5
             minutes+=1
         }
         
-        if minutes>59{
-            minutes-=60
+        if minutes>4{
+            minutes-=5
             hours+=1
         }
         

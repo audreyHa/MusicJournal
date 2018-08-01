@@ -128,6 +128,35 @@ class MyRecordingsTableViewController: UITableViewController{
             cell.pressPlayFile = currentRecording.filename
         }
         
+        if currentRecording.hours==0{
+            if currentRecording.minutes<10{
+                if currentRecording.seconds<10{
+                    cell.showTime.text = String("0\(currentRecording.hours) : 0\(currentRecording.minutes) : 0\(currentRecording.seconds)")
+                } else{
+                    cell.showTime.text = String("0\(currentRecording.hours) : 0\(currentRecording.minutes) : \(currentRecording.seconds)")
+                }
+            } else{
+                if currentRecording.seconds<10{
+                    cell.showTime.text = String("0\(currentRecording.hours) : \(currentRecording.minutes) : 0\(currentRecording.seconds)")
+                } else{
+                    cell.showTime.text = String("0\(currentRecording.hours) : \(currentRecording.minutes) : \(currentRecording.seconds)")
+                }
+            }
+        } else{
+            if currentRecording.minutes<10{
+                if currentRecording.seconds<10{
+                    cell.showTime.text = String("\(currentRecording.hours) : 0\(currentRecording.minutes) : 0\(currentRecording.seconds)")
+                } else{
+                    cell.showTime.text = String("\(currentRecording.hours) : 0\(currentRecording.minutes) : \(currentRecording.seconds)")
+                }
+            } else{
+                if currentRecording.seconds<10{
+                    cell.showTime.text = String("\(currentRecording.hours) : \(currentRecording.minutes) : 0\(currentRecording.seconds)")
+                } else{
+                    cell.showTime.text = String("\(currentRecording.hours) : \(currentRecording.minutes) : \(currentRecording.seconds)")
+                }
+            }
+        }
         
         let redColor = UIColor(red: 232/255, green: 90/255, blue: 69/255, alpha: 1)
         let lightBeigeBackground = UIColor(red: 234/255, green: 231/255, blue: 220/255, alpha: 1)
@@ -138,6 +167,10 @@ class MyRecordingsTableViewController: UITableViewController{
         }else{
             cell.emptyLabel.textColor=lightBeigeBackground
         }
+        
+        cell.originalHours=currentRecording.hours
+        cell.originalMinutes=currentRecording.minutes
+        cell.originalSeconds=currentRecording.seconds
         
         if MyRecordingsTableViewController.chosenNumber==1{
             cell.songTitle.text=currentRecording.songTitle
