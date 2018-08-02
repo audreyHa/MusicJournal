@@ -137,29 +137,21 @@ class myRecordingsTableViewCell: UITableViewCell{
                     
                     newAudioPlayer.play()
                     print("now playing")
-                    if (thisHours==originalHours && thisMinutes==originalMinutes) && thisSeconds==originalSeconds{
-                        timer.invalidate()
-                        thisHours=0
-                        thisMinutes=0
-                        thisSeconds=0
-                        displaying()
-                        
-//                        if originalSeconds != 0{
-//                            thisSeconds=thisSeconds+1
-//                        }else{
-//                            thisMinutes = thisMinutes + 1
-//                            thisSeconds = thisSeconds - 4
-//                        }
-                    }else{
-                        timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ascendingAction), userInfo: nil, repeats: true)
-                    }
+                    
+                    timer.invalidate()
+                    thisHours=0
+                    thisMinutes=0
+                    thisSeconds=0
+                    displaying()
+                    
+                    timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ascendingAction), userInfo: nil, repeats: true)
+                    
                 }
                 
             } catch{
-                
                 print("Failed to play, keep trying....")
             }
-        } else{ //unpausing
+        }else{ //unpausing
             isPaused=false
             
             print("now playing")
