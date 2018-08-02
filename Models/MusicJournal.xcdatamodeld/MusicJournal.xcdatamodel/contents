@@ -3,10 +3,10 @@
     <entity name="Recording" representedClassName=".Recording" syncable="YES" codeGenerationType="class">
         <attribute name="dateSpace" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="filename" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="hours" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="hours" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="lastModified" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="minutes" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="seconds" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="minutes" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="seconds" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="songComposer" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="songDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="songEvent" optional="YES" attributeType="String" syncable="YES"/>

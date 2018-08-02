@@ -197,9 +197,9 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             }
             
             recording?.lastModified=Date()
-            recording?.hours=Int16(hours)
-            recording?.minutes=Int16(minutes)
-            recording?.seconds=Int16(seconds)
+            recording?.hours=Double(hours)
+            recording?.minutes=Double(minutes)
+            recording?.seconds=Double(seconds)
            
             CoreDataHelper.saveRecording()
             

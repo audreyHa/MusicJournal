@@ -6,7 +6,7 @@
 //  Copyright © 2018 Audrey Ha. All rights reserved.
 //
 
-//when you play after pausing, it doesn't pick up where it left off so fix that too. Still need recordings to stop when you leave in the middle of playing
+// Still need recordings to stop when you leave in the middle of playing
 
 import Foundation
 import UIKit
@@ -27,12 +27,12 @@ class myRecordingsTableViewCell: UITableViewCell{
     var rowOfCellForRecording: Int = 0
     var newAudioPlayer: AVAudioPlayer!
     var pressPlayFile: String?
-    var originalHours: Int16!
-    var originalMinutes: Int16!
-    var originalSeconds: Int16!
-    var thisHours: Int16!
-    var thisMinutes: Int16!
-    var thisSeconds: Int16!
+    var originalHours: Double!
+    var originalMinutes: Double!
+    var originalSeconds: Double!
+    var thisHours: Double!
+    var thisMinutes: Double!
+    var thisSeconds: Double!
     var timer = Timer()
     var isPaused: Bool=false
     
@@ -57,12 +57,6 @@ class myRecordingsTableViewCell: UITableViewCell{
             isPaused=true
             timer.invalidate()
             displaying()
-            if originalSeconds != 0{
-                thisSeconds=thisSeconds-1
-            }else{
-                thisMinutes = thisMinutes - 1
-                thisSeconds = thisSeconds + 4
-            }
             newAudioPlayer.pause()
         }
         
@@ -92,8 +86,18 @@ class myRecordingsTableViewCell: UITableViewCell{
                 
                 newAudioPlayer.play()
                 print("now playing")
-                if (originalHours==0 && originalMinutes==0) && originalSeconds==0{
-                    print("No recording available to countdown")
+                if (thisHours==0 && thisMinutes==0) && thisSeconds==0{
+                    timer.invalidate()
+                    thisHours=originalHours
+                    thisMinutes=originalMinutes
+                    thisSeconds=originalSeconds
+                    displaying()
+                    if originalSeconds != 0{
+                        thisSeconds=thisSeconds-1
+                    }else{
+                        thisMinutes = thisMinutes - 1
+                        thisSeconds = thisSeconds + 4
+                    }
                 }else{
                     timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(descendingAction), userInfo: nil, repeats: true)
                 }
@@ -104,30 +108,31 @@ class myRecordingsTableViewCell: UITableViewCell{
             }
         } else{ //unpausing
             isPaused=false
-            if originalSeconds != 0{
-                thisSeconds=thisSeconds-1
-            }else{
-                thisMinutes = thisMinutes - 1
-                thisSeconds = thisSeconds + 4
-            }
             
-            newAudioPlayer.play()
             print("now playing")
-            if (originalHours==0 && originalMinutes==0) && originalSeconds==0{
-                print("No recording available to countdown")
-            }else{
+            if (thisHours != 0 || thisMinutes != 0) || thisSeconds != 0{
+                if thisSeconds==0{
+                    thisMinutes = thisMinutes - 1
+                    thisSeconds = thisSeconds + 4
+                }else{
+                    thisSeconds=thisSeconds-1
+                }
                 timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(descendingAction), userInfo: nil, repeats: true)
+                newAudioPlayer.play()
             }
-            
         }
         
-    }
+    }//end of press play function
     
     @objc func descendingAction(){
+        
+//        if (thisHours==0 && thisMinutes==0) && thisSeconds==0{
+//            thisHours=originalHours
+//            thisMinutes=originalMinutes
+//            thisSeconds=originalSeconds
+//        }
         if originalSeconds==0{
-            if (thisHours==originalHours && thisMinutes==originalMinutes) && thisSeconds==originalSeconds-1{
-                
-            }else if (thisHours==0 && thisMinutes==0) && thisSeconds==0{
+            if (thisHours==0 && thisMinutes==0) && thisSeconds==0{
                 displaying()
                 timer.invalidate()
             } else if thisMinutes==0 && thisSeconds==0{
@@ -145,10 +150,7 @@ class myRecordingsTableViewCell: UITableViewCell{
                 
             }
         } else{
-            if (thisHours==originalHours && thisMinutes==originalMinutes) && thisSeconds==originalSeconds{
-                //            displaying()
-                
-            }else if (thisHours==0 && thisMinutes==0) && thisSeconds==0{
+            if (thisHours==0 && thisMinutes==0) && thisSeconds==0{
                 displaying()
                 timer.invalidate()
             } else if thisMinutes==0 && thisSeconds==0{
@@ -167,37 +169,40 @@ class myRecordingsTableViewCell: UITableViewCell{
             }
         }
     }
+    //
     
     func displaying(){
         
         if thisHours==0{
             if thisMinutes<10{
                 if thisSeconds<10{
-                    showTime.text = String("0\(thisHours!) : 0\(thisMinutes!) : 0\(thisSeconds!)")
+                    showTime.text = String("0\(Int(thisHours!)) : 0\(Int(thisMinutes!)) : 0\(Int(thisSeconds!))")
                 } else{
-                    showTime.text = String("0\(thisHours!) : 0\(thisMinutes!) : \(thisSeconds!)")
+                    showTime.text = String("0\(Int(thisHours!)) : 0\(Int(thisMinutes!)) : \(Int(thisSeconds!))")
                 }
             } else{
                 if thisSeconds<10{
-                    showTime.text = String("0\(thisHours!) : \(thisMinutes!) : 0\(thisSeconds!)")
+                    showTime.text = String("0\(Int(thisHours!)) : \(Int(thisMinutes!)) : 0\(Int(thisSeconds!))")
                 } else{
-                    showTime.text = String("0\(thisHours!) : \(thisMinutes!) : \(thisSeconds!)")
+                    showTime.text = String("0\(Int(thisHours!)) : \(Int(thisMinutes!)) : \(Int(thisSeconds!))")
                 }
             }
         } else{
             if thisMinutes<10{
                 if thisSeconds<10{
-                    showTime.text = String("\(thisHours!) : 0\(thisMinutes!) : 0\(thisSeconds!)")
+                    showTime.text = String("\(Int(thisHours!)) : 0\(Int(thisMinutes!)) : 0\(Int(thisSeconds!))")
                 } else{
-                    showTime.text = String("\(thisHours!) : 0\(thisMinutes!) : \(thisSeconds!)")
+                    showTime.text = String("\(Int(thisHours!)) : 0\(Int(thisMinutes!)) : \(Int(thisSeconds!))")
                 }
             } else{
                 if thisSeconds<10{
-                    showTime.text = String("\(thisHours!) : \(thisMinutes!) : 0\(thisSeconds!)")
+                    showTime.text = String("\(Int(thisHours!)) : \(Int(thisMinutes!)) : 0\(Int(thisSeconds!))")
                 } else{
-                    showTime.text = String("\(thisHours!) : \(thisMinutes!) : \(thisSeconds!)")
+                    showTime.text = String("\(Int(thisHours!)) : \(Int(thisMinutes!)) : \(Int(thisSeconds!))")
                 }
             }
         }
     }// end of function
+    
+    
 }

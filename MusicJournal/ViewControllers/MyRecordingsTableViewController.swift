@@ -131,29 +131,29 @@ class MyRecordingsTableViewController: UITableViewController{
         if currentRecording.hours==0{
             if currentRecording.minutes<10{
                 if currentRecording.seconds<10{
-                    cell.showTime.text = String("0\(currentRecording.hours) : 0\(currentRecording.minutes) : 0\(currentRecording.seconds)")
+                    cell.showTime.text = String("0\(Int(currentRecording.hours)) : 0\(Int(currentRecording.minutes)) : 0\(Int(currentRecording.seconds))")
                 } else{
-                    cell.showTime.text = String("0\(currentRecording.hours) : 0\(currentRecording.minutes) : \(currentRecording.seconds)")
+                    cell.showTime.text = String("0\(Int(currentRecording.hours)) : 0\(Int(currentRecording.minutes)) : \(Int(currentRecording.seconds))")
                 }
             } else{
                 if currentRecording.seconds<10{
-                    cell.showTime.text = String("0\(currentRecording.hours) : \(currentRecording.minutes) : 0\(currentRecording.seconds)")
+                    cell.showTime.text = String("0\(Int(currentRecording.hours)) : \(Int(currentRecording.minutes)) : 0\(Int(currentRecording.seconds))")
                 } else{
-                    cell.showTime.text = String("0\(currentRecording.hours) : \(currentRecording.minutes) : \(currentRecording.seconds)")
+                    cell.showTime.text = String("0\(Int(currentRecording.hours)) : \(Int(currentRecording.minutes)) : \(Int(currentRecording.seconds))")
                 }
             }
         } else{
             if currentRecording.minutes<10{
                 if currentRecording.seconds<10{
-                    cell.showTime.text = String("\(currentRecording.hours) : 0\(currentRecording.minutes) : 0\(currentRecording.seconds)")
+                    cell.showTime.text = String("\(Int(currentRecording.hours)) : 0\(Int(currentRecording.minutes)) : 0\(Int(currentRecording.seconds))")
                 } else{
-                    cell.showTime.text = String("\(currentRecording.hours) : 0\(currentRecording.minutes) : \(currentRecording.seconds)")
+                    cell.showTime.text = String("\(Int(currentRecording.hours)) : 0\(Int(currentRecording.minutes)) : \(Int(currentRecording.seconds))")
                 }
             } else{
                 if currentRecording.seconds<10{
-                    cell.showTime.text = String("\(currentRecording.hours) : \(currentRecording.minutes) : 0\(currentRecording.seconds)")
+                    cell.showTime.text = String("\(Int(currentRecording.hours)) : \(Int(currentRecording.minutes)) : 0\(Int(currentRecording.seconds))")
                 } else{
-                    cell.showTime.text = String("\(currentRecording.hours) : \(currentRecording.minutes) : \(currentRecording.seconds)")
+                    cell.showTime.text = String("\(Int(currentRecording.hours)) : \(Int(currentRecording.minutes)) : \(Int(currentRecording.seconds))")
                 }
             }
         }
@@ -168,9 +168,9 @@ class MyRecordingsTableViewController: UITableViewController{
             cell.emptyLabel.textColor=lightBeigeBackground
         }
         
-        cell.originalHours=currentRecording.hours
-        cell.originalMinutes=currentRecording.minutes
-        cell.originalSeconds=currentRecording.seconds
+        cell.originalHours=Double(currentRecording.hours)
+        cell.originalMinutes=Double(currentRecording.minutes)
+        cell.originalSeconds=Double(currentRecording.seconds)
 //        cell.thisHours=currentRecording.hours
 //        cell.thisMinutes=currentRecording.minutes
 //        cell.thisSeconds=currentRecording.seconds
