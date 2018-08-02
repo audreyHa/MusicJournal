@@ -28,6 +28,7 @@ class MyRecordingsTableViewController: UITableViewController{
     @IBOutlet weak var composerButton: UIButton!
     @IBOutlet weak var eventButton: UIButton!
     var newIndexPath: Int!
+    var deleteIndexPath: Int!
     
     @IBAction func songButtonPressed(_ sender: Any) {
         MyRecordingsTableViewController.chosenNumber=1
@@ -252,53 +253,15 @@ class MyRecordingsTableViewController: UITableViewController{
             guard let indexPath = tableView.indexPath(for: cell) else{
                 return
             }
-            if self.arrayOfRecordingsInfo[indexPath.row].filename != nil{
-                // Got the following code from: swiftdeveloperblog.com/code-examples/delete-file-example-in-swift/
-                // Find documents directory on device
-                
-                let fileNameToDelete = ("\(self.arrayOfRecordingsInfo[indexPath.row].filename!)")
-                var filePath = ""
-                
-                let dirs : [String] = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true)
-                
-                if dirs.count > 0 {
-                    let dir = dirs[0] //documents directory
-                    filePath = dir.appendingFormat("/" + fileNameToDelete)
-                    print("Local path = \(filePath)")
-                    
-                } else {
-                    print("Could not find local directory to store file")
-                    return
-                }
-                
-                
-                do {
-                    let fileManager = FileManager.default
-                    
-                    // Check if file exists
-                    if fileManager.fileExists(atPath: filePath) {
-                        // Delete file
-                        try fileManager.removeItem(atPath: filePath)
-                    } else {
-                        print("for deleting, File does not exist")
-                    }
-                    
-                }
-                catch let error as NSError {
-                    print("An error took place: \(error)")
-                }
-                // End of code for deleting from the document directory also
-            }
-            let recordingToDelete=self.arrayOfRecordingsInfo[indexPath.row]
-            CoreDataHelper.deleteRecording(recording: recordingToDelete)
-            self.arrayOfRecordingsInfo=CoreDataHelper.retrieveRecording()
-            self.reorderArray()
+            self.deleteIndexPath=indexPath.row
+            self.createAlert(title: "Are you sure you want to delete this recording?", message: "You cannot undo this action")
         }
-        let red = UIColor(red: 232/255, green: 90/255, blue: 69/255, alpha: 1)
-        let white = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
         
-        cell.editButton.setTitleColor(red, for: .normal)
-        cell.editButton.backgroundColor=white
+//        let red = UIColor(red: 232/255, green: 90/255, blue: 69/255, alpha: 1)
+//        let white = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
+//
+//        cell.editButton.setTitleColor(red, for: .normal)
+//        cell.editButton.backgroundColor=white
         return cell
     }
 
@@ -467,6 +430,61 @@ class MyRecordingsTableViewController: UITableViewController{
         }
     } //end of Reorder
     
-    
+    func createAlert(title: String, message: String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        
+        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: {(action) in
+            alert.dismiss(animated: true, completion: nil)
+            
+            if self.arrayOfRecordingsInfo[self.deleteIndexPath].filename != nil{
+                // Got the following code from: swiftdeveloperblog.com/code-examples/delete-file-example-in-swift/
+                // Find documents directory on device
+                
+                let fileNameToDelete = ("\(self.arrayOfRecordingsInfo[self.deleteIndexPath].filename!)")
+                var filePath = ""
+                
+                let dirs : [String] = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true)
+                
+                if dirs.count > 0 {
+                    let dir = dirs[0] //documents directory
+                    filePath = dir.appendingFormat("/" + fileNameToDelete)
+                    print("Local path = \(filePath)")
+                    
+                } else {
+                    print("Could not find local directory to store file")
+                    return
+                }
+                
+                
+                do {
+                    let fileManager = FileManager.default
+                    
+                    // Check if file exists
+                    if fileManager.fileExists(atPath: filePath) {
+                        // Delete file
+                        try fileManager.removeItem(atPath: filePath)
+                    } else {
+                        print("for deleting, File does not exist")
+                    }
+                    
+                }
+                catch let error as NSError {
+                    print("An error took place: \(error)")
+                }
+                // End of code for deleting from the document directory also
+            }
+            
+            let recordingToDelete=self.arrayOfRecordingsInfo[self.deleteIndexPath]
+            CoreDataHelper.deleteRecording(recording: recordingToDelete)
+            self.arrayOfRecordingsInfo=CoreDataHelper.retrieveRecording()
+            self.reorderArray()
+        }))
+        
+        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default, handler: {(action) in
+            alert.dismiss(animated: true, completion: nil)
+            print("They did not want to delete")
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
     
 }

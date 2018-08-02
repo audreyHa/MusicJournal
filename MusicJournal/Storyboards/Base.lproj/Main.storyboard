@@ -43,7 +43,7 @@
                                         </constraints>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.92549019607843142" green="0.59999999999999998" blue="0.55294117647058827" alpha="0.3047142551369863" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.91764705879999997" green="0.90588235289999997" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="Nmy-gj-XQb" firstAttribute="leading" secondItem="4qn-bP-4qA" secondAttribute="leading" constant="20" id="3Pf-zf-z7v"/>
                                     <constraint firstAttribute="trailing" secondItem="Nmy-gj-XQb" secondAttribute="trailing" constant="20" id="Oyg-qg-vrc"/>
@@ -103,7 +103,8 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="mmv-Ye-pE7">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.92549019610000005" green="0.59999999999999998" blue="0.55294117649999996" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.91764705879999997" green="0.90588235289999997" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="sectionIndexBackgroundColor" red="0.91764705879999997" green="0.90588235289999997" blue="0.86274509799999999" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="tXi-au-U2Y">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="276"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -200,6 +201,7 @@
                                     </constraints>
                                 </stackView>
                             </subviews>
+                            <color key="backgroundColor" red="0.91764705879999997" green="0.90588235289999997" blue="0.86274509799999999" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="mtL-G4-3tQ" secondAttribute="trailing" constant="20" id="64G-68-IQD"/>
                                 <constraint firstItem="mtL-G4-3tQ" firstAttribute="centerX" secondItem="tXi-au-U2Y" secondAttribute="centerX" id="MR7-KK-FZw"/>
