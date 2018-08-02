@@ -35,29 +35,74 @@ class myRecordingsTableViewCell: UITableViewCell{
     var thisSeconds: Double!
     var timer = Timer()
     var isPaused: Bool=false
+    var isStart: Bool = true
+    var onButtonTouched: ((UITableViewCell) -> Void)? = nil
+    var onDeleteTouched: ((UITableViewCell) -> Void)? = nil
+    
+    @IBOutlet weak var editButton: UIButton!
+    @IBAction func editPressed(_ sender: Any) {
+        editButton.isSelected = !editButton.isSelected
+        onButtonTouched?(self)
+    }
+    
+    @IBOutlet weak var deleteButton: UIButton!
+    @IBAction func deletePressed(_ sender: Any) {
+        deleteButton.isSelected = !deleteButton.isSelected
+        onDeleteTouched?(self)
+    }
+    
+    
     
     @IBAction func resetPressed(_ sender: Any) {
-        timer.invalidate()
-        thisHours=originalHours
-        thisMinutes=originalMinutes
-        thisSeconds=originalSeconds
-        displaying()
-        if originalSeconds != 0{
-            thisSeconds=thisSeconds-1
-        }else{
-            thisMinutes = thisMinutes - 1
-            thisSeconds = thisSeconds + 4
+        if (pressPlayFile != nil){
+            timer.invalidate()
+            
+            thisHours=originalHours
+            thisMinutes=originalMinutes
+            thisSeconds=originalSeconds
+            displaying()
+            if originalSeconds != 0{
+                thisSeconds=thisSeconds-1
+            }else{
+                thisMinutes = thisMinutes - 1
+                thisSeconds = thisSeconds + 4
+            }
+            
+            newAudioPlayer.stop()
         }
-        
-        newAudioPlayer.stop()
     }
     
     @IBAction func pausePressed(_ sender: Any) {
-        if isPaused==false{
-            isPaused=true
-            timer.invalidate()
-            displaying()
-            newAudioPlayer.pause()
+        if (pressPlayFile != nil){
+            if isPaused==false{
+                
+                
+                if (isStart==false){
+                    isPaused=true
+                    timer.invalidate()
+                    newAudioPlayer.pause()
+                }
+                
+                if ((thisHours != 0 && thisMinutes != 0) && thisSeconds != 0)&&(isStart==false){
+                    isPaused=true
+                    if thisSeconds != 4{
+                        thisSeconds=thisSeconds + 1
+                        displaying()
+                    }
+                    if thisSeconds==4 && thisMinutes != 4{
+                        thisSeconds=thisSeconds-4
+                        thisMinutes=thisMinutes+1
+                        displaying()
+                    }
+                    if thisSeconds==4 && thisMinutes==4{
+                        thisSeconds=thisSeconds-4
+                        thisMinutes=thisMinutes-4
+                        thisHours=thisHours+1
+                        displaying()
+                    }
+                }
+            //
+            }
         }
         
     }
@@ -65,6 +110,7 @@ class myRecordingsTableViewCell: UITableViewCell{
     
     @IBAction func playPressed(_ sender: Any) {
         if isPaused==false{//playing fresh, no pausing
+            isStart=false
             timer.invalidate()
             thisHours=originalHours
             thisMinutes=originalMinutes
@@ -77,29 +123,31 @@ class myRecordingsTableViewCell: UITableViewCell{
                 thisSeconds = thisSeconds + 4
             }
             do{
-                let fileManager = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask).first
-                let newPlaying = fileManager!.appendingPathComponent("\(pressPlayFile!)")
-                
-                try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
-                
-                newAudioPlayer = try AVAudioPlayer(contentsOf: newPlaying)
-                
-                newAudioPlayer.play()
-                print("now playing")
-                if (thisHours==0 && thisMinutes==0) && thisSeconds==0{
-                    timer.invalidate()
-                    thisHours=originalHours
-                    thisMinutes=originalMinutes
-                    thisSeconds=originalSeconds
-                    displaying()
-                    if originalSeconds != 0{
-                        thisSeconds=thisSeconds-1
+                if (pressPlayFile != nil){
+                    let fileManager = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask).first
+                    let newPlaying = fileManager!.appendingPathComponent("\(pressPlayFile!)")
+                    
+                    try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
+                    
+                    newAudioPlayer = try AVAudioPlayer(contentsOf: newPlaying)
+                    
+                    newAudioPlayer.play()
+                    print("now playing")
+                    if (thisHours==0 && thisMinutes==0) && thisSeconds==0{
+                        timer.invalidate()
+                        thisHours=originalHours
+                        thisMinutes=originalMinutes
+                        thisSeconds=originalSeconds
+                        displaying()
+                        if originalSeconds != 0{
+                            thisSeconds=thisSeconds-1
+                        }else{
+                            thisMinutes = thisMinutes - 1
+                            thisSeconds = thisSeconds + 4
+                        }
                     }else{
-                        thisMinutes = thisMinutes - 1
-                        thisSeconds = thisSeconds + 4
+                        timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(descendingAction), userInfo: nil, repeats: true)
                     }
-                }else{
-                    timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(descendingAction), userInfo: nil, repeats: true)
                 }
                 
             } catch{

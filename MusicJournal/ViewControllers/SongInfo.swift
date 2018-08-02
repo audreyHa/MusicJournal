@@ -219,7 +219,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
                 
                 if recording?.dateSpace==nil{//didn't make a recording
                     MyRecordingsTableViewController.firstCancel=false
-                    print("First and didn't record")
+                    print("didn't record")
                 } else{ //did make a recording
                     recording?.songTitle=songLabel.text ?? ""
                     recording?.songEvent=eventLabel.text ?? ""

@@ -27,6 +27,7 @@ class MyRecordingsTableViewController: UITableViewController{
     @IBOutlet weak var dateButton: UIButton!
     @IBOutlet weak var composerButton: UIButton!
     @IBOutlet weak var eventButton: UIButton!
+    var newIndexPath: Int!
     
     @IBAction func songButtonPressed(_ sender: Any) {
         MyRecordingsTableViewController.chosenNumber=1
@@ -117,9 +118,40 @@ class MyRecordingsTableViewController: UITableViewController{
         cell.songTitle.text=currentRecording.songTitle
         
         if let thisDate = currentRecording.lastModified{
-             cell.lastModified.text="Last Modified at \(thisDate.convertToString())"
+            cell.lastModified.text="Last Modified at: \(thisDate.convertToString())"
         } else{
             cell.lastModified.text="No Date"
+        }
+        
+        if MyRecordingsTableViewController.chosenNumber==1{
+            cell.songTitle.text=currentRecording.songTitle
+            cell.lastModified.text=("Last Modified at: \(currentRecording.lastModified!.convertToString())")
+            cell.songComposer.text=("Composer: \(currentRecording.songComposer!)")
+            cell.songEvent.text=("Event: \(currentRecording.songEvent!)")
+            
+        } else if MyRecordingsTableViewController.chosenNumber==2{
+            cell.songTitle.text=currentRecording.lastModified?.convertToString()
+            cell.lastModified.text=("Title: \(currentRecording.songTitle!)")
+            cell.songComposer.text=("Composer: \(currentRecording.songComposer!)")
+            cell.songEvent.text=("Event: \(currentRecording.songEvent!)")
+            
+        } else if MyRecordingsTableViewController.chosenNumber==3{
+            cell.songTitle.text=currentRecording.songComposer
+            cell.lastModified.text=("Title: \(currentRecording.songTitle!)")
+            cell.songComposer.text=("Last Modified at: \(currentRecording.lastModified!.convertToString())")
+            cell.songEvent.text=("Event: \(currentRecording.songEvent!)")
+            
+        } else if MyRecordingsTableViewController.chosenNumber==4{
+            cell.songTitle.text=currentRecording.songEvent
+            cell.lastModified.text=("Title: \(currentRecording.songTitle!)")
+            cell.songComposer.text=("Last Modified at: \(currentRecording.lastModified!.convertToString())")
+            cell.songEvent.text=("Composer: \(currentRecording.songComposer!)")
+            
+        }else{
+            cell.songTitle.text=currentRecording.songTitle
+            cell.lastModified.text=("Last Modified at: \(currentRecording.lastModified!.convertToString())")
+            cell.songComposer.text=("Composer: \(currentRecording.songComposer!)")
+            cell.songEvent.text=("Event: \(currentRecording.songEvent!)")
         }
         
         if let thing = currentRecording.filename{
@@ -175,42 +207,23 @@ class MyRecordingsTableViewController: UITableViewController{
 //        cell.thisMinutes=currentRecording.minutes
 //        cell.thisSeconds=currentRecording.seconds
         
-        if MyRecordingsTableViewController.chosenNumber==1{
-            cell.songTitle.text=currentRecording.songTitle
-            cell.lastModified.text=("Last Modified at: \(currentRecording.lastModified!.convertToString())")
-            cell.songComposer.text=("Composer: \(currentRecording.songComposer!)")
-            cell.songEvent.text=("Event: \(currentRecording.songEvent!)")
-
-        } else if MyRecordingsTableViewController.chosenNumber==2{
-            cell.songTitle.text=currentRecording.lastModified?.convertToString()
-            cell.lastModified.text=("Title: \(currentRecording.songTitle!)")
-            cell.songComposer.text=("Composer: \(currentRecording.songComposer!)")
-            cell.songEvent.text=("Event: \(currentRecording.songEvent!)")
-            
-        } else if MyRecordingsTableViewController.chosenNumber==3{
-            cell.songTitle.text=currentRecording.songComposer
-            cell.lastModified.text=("Title: \(currentRecording.songTitle!)")
-            cell.songComposer.text=("Last Modified at: \(currentRecording.lastModified!.convertToString())")
-            cell.songEvent.text=("Event: \(currentRecording.songEvent!)")
-            
-        } else if MyRecordingsTableViewController.chosenNumber==4{
-            cell.songTitle.text=currentRecording.songEvent
-            cell.lastModified.text=("Title: \(currentRecording.songTitle!)")
-            cell.songComposer.text=("Last Modified at: \(currentRecording.lastModified!.convertToString())")
-            cell.songEvent.text=("Composer: \(currentRecording.songComposer!)")
+        cell.onButtonTouched = {(cell) in
+            guard let indexPath = tableView.indexPath(for: cell) else{
+                return
+            }
+            self.newIndexPath=indexPath.row
             
         }
         
-        return cell
-    }
-    
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath){
-        if editingStyle == .delete{
-            if arrayOfRecordingsInfo[indexPath.row].filename != nil{
+        cell.onDeleteTouched = {(cell) in
+            guard let indexPath = tableView.indexPath(for: cell) else{
+                return
+            }
+            if self.arrayOfRecordingsInfo[indexPath.row].filename != nil{
                 // Got the following code from: swiftdeveloperblog.com/code-examples/delete-file-example-in-swift/
                 // Find documents directory on device
                 
-                let fileNameToDelete = ("\(arrayOfRecordingsInfo[indexPath.row].filename!)")
+                let fileNameToDelete = ("\(self.arrayOfRecordingsInfo[indexPath.row].filename!)")
                 var filePath = ""
                 
                 let dirs : [String] = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true)
@@ -243,11 +256,17 @@ class MyRecordingsTableViewController: UITableViewController{
                 }
                 // End of code for deleting from the document directory also
             }
-            let recordingToDelete=arrayOfRecordingsInfo[indexPath.row]
+            let recordingToDelete=self.arrayOfRecordingsInfo[indexPath.row]
             CoreDataHelper.deleteRecording(recording: recordingToDelete)
-            arrayOfRecordingsInfo=CoreDataHelper.retrieveRecording()
-            reorderArray()
+            self.arrayOfRecordingsInfo=CoreDataHelper.retrieveRecording()
+            self.reorderArray()
         }
+        let red = UIColor(red: 232/255, green: 90/255, blue: 69/255, alpha: 1)
+        let white = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
+        
+        cell.editButton.setTitleColor(red, for: .normal)
+        cell.editButton.backgroundColor=white
+        return cell
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
@@ -255,11 +274,9 @@ class MyRecordingsTableViewController: UITableViewController{
 
         switch identifier{
         case "displayMade":
-            guard let indexPath=tableView.indexPathForSelectedRow else{return}
-            let recording=arrayOfRecordingsInfo[indexPath.row]
+            let recording=self.arrayOfRecordingsInfo[newIndexPath]
             let destination=segue.destination as! RecordMusicViewController
             destination.recording=recording
-
         case "new":
             print("create note bar button item tapped")
 

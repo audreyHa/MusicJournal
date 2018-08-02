@@ -223,35 +223,35 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="sBM-pE-TnZ" userLabel="song info">
                                                     <rect key="frame" x="0.0" y="0.0" width="325" height="153"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recording is empty!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZZA-UJ-q1h">
-                                                            <rect key="frame" x="0.0" y="0.0" width="134.5" height="18.5"/>
-                                                            <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
-                                                            <color key="textColor" red="0.91764705879999997" green="0.90588235289999997" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Title" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MFv-J5-eCq">
-                                                            <rect key="frame" x="0.0" y="33.5" width="97" height="18.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="97" height="18.5"/>
                                                             <fontDescription key="fontDescription" name="PingFangHK-Semibold" family="PingFang HK" pointSize="20"/>
                                                             <color key="textColor" red="0.90980392160000001" green="0.35294117650000001" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xuk-Yk-HDh">
-                                                            <rect key="frame" x="0.0" y="67" width="36" height="19"/>
+                                                            <rect key="frame" x="0.0" y="33.5" width="36" height="19"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Composer" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cho-Sw-wgm">
-                                                            <rect key="frame" x="0.0" y="101" width="79.5" height="18.5"/>
+                                                            <rect key="frame" x="0.0" y="67.5" width="79.5" height="18.5"/>
                                                             <color key="backgroundColor" red="0.91764705879999997" green="0.90588235289999997" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VWS-Fq-Bzn">
-                                                            <rect key="frame" x="0.0" y="134.5" width="43" height="18.5"/>
+                                                            <rect key="frame" x="0.0" y="101" width="43" height="18.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recording is empty!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZZA-UJ-q1h">
+                                                            <rect key="frame" x="0.0" y="134.5" width="134.5" height="18.5"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
+                                                            <color key="textColor" red="0.91764705879999997" green="0.90588235289999997" blue="0.86274509799999999" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
@@ -326,6 +326,10 @@
                                                             <state key="normal" title="  Edit  ">
                                                                 <color key="titleColor" red="0.90980392160000001" green="0.35294117650000001" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             </state>
+                                                            <connections>
+                                                                <action selector="editPressed:" destination="BgK-JY-kyI" eventType="touchUpInside" id="fKn-l4-Yyf"/>
+                                                                <segue destination="RTW-Ln-REg" kind="show" identifier="displayMade" id="ed6-mE-YZE"/>
+                                                            </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1e1-OY-oe1">
                                                             <rect key="frame" x="187.5" y="0.0" width="137.5" height="30"/>
@@ -334,6 +338,9 @@
                                                             <state key="normal" title="  Delete  ">
                                                                 <color key="titleColor" red="0.90980392160000001" green="0.35294117650000001" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             </state>
+                                                            <connections>
+                                                                <action selector="deletePressed:" destination="BgK-JY-kyI" eventType="touchUpInside" id="SDh-uP-KSV"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                     <constraints>
@@ -363,8 +370,10 @@
                                         <constraint firstAttribute="trailing" secondItem="uHx-1T-5my" secondAttribute="trailing" constant="25" id="dtt-RW-aj8"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.91764705879999997" green="0.90588235289999997" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.91764705879999997" green="0.90588235289999997" blue="0.86274509799999999" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
+                                    <outlet property="deleteButton" destination="1e1-OY-oe1" id="aXy-hI-BhS"/>
+                                    <outlet property="editButton" destination="LuQ-Pi-uh5" id="DUi-mR-1ga"/>
                                     <outlet property="emptyLabel" destination="ZZA-UJ-q1h" id="Fyw-E9-qu5"/>
                                     <outlet property="lastModified" destination="Xuk-Yk-HDh" id="gix-I5-b1d"/>
                                     <outlet property="playButton" destination="J9u-MZ-Pe0" id="Rjx-g2-id6"/>
@@ -373,7 +382,6 @@
                                     <outlet property="songComposer" destination="cho-Sw-wgm" id="PwE-Kw-vMc"/>
                                     <outlet property="songEvent" destination="VWS-Fq-Bzn" id="sAX-gn-inq"/>
                                     <outlet property="songTitle" destination="MFv-J5-eCq" id="8U3-y9-xnZ"/>
-                                    <segue destination="RTW-Ln-REg" kind="show" identifier="displayMade" id="yU6-Ws-InJ"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -405,7 +413,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wgt-Go-Z89" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="LF0-2u-pgf" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1861.5999999999999" y="37.331334332833585"/>
+            <point key="canvasLocation" x="1782" y="36"/>
         </scene>
         <!--Song Info-->
         <scene sceneID="sGK-qj-CYk">
@@ -544,7 +552,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZJ4-qb-9KS" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="YPF-QH-sNB" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2632.8000000000002" y="31.934032983508249"/>
+            <point key="canvasLocation" x="2553" y="32"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="dMf-Y2-TeT">
@@ -562,10 +570,10 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lmX-lj-LUf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="869.60000000000002" y="38.23088455772114"/>
+            <point key="canvasLocation" x="945" y="37"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="f4K-XC-2sW"/>
+        <segue reference="ed6-mE-YZE"/>
     </inferredMetricsTieBreakers>
 </document>
