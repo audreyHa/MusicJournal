@@ -18,10 +18,11 @@ class myRecordingsTableViewCell: UITableViewCell{
     @IBOutlet weak var lastModified: UILabel!
     @IBOutlet weak var songComposer: UILabel!
     @IBOutlet weak var songEvent: UILabel!
-    @IBOutlet weak var emptyLabel: UILabel!
     @IBOutlet weak var showTime: UILabel!
     @IBOutlet weak var reset: UIButton!
     @IBOutlet weak var playButton: UIButton!
+    @IBOutlet weak var editButton: UIButton!
+    @IBOutlet weak var deleteButton: UIButton!
     
     var totalTime: String!
     var rowOfCellForRecording: Int = 0
@@ -38,20 +39,30 @@ class myRecordingsTableViewCell: UITableViewCell{
     var isStart: Bool = true
     var onButtonTouched: ((UITableViewCell) -> Void)? = nil
     var onDeleteTouched: ((UITableViewCell) -> Void)? = nil
-    
-    @IBOutlet weak var editButton: UIButton!
+    let red = UIColor(red: 232/255, green: 90/255, blue: 69/255, alpha: 1)
+    let white = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
+   
     @IBAction func editPressed(_ sender: Any) {
         editButton.isSelected = !editButton.isSelected
         onButtonTouched?(self)
+        let red = UIColor(red: 232/255, green: 90/255, blue: 69/255, alpha: 1)
+        let white = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
+        
+        editButton.setTitleColor(red, for: .normal)
+        editButton.backgroundColor=white
     }
     
-    @IBOutlet weak var deleteButton: UIButton!
     @IBAction func deletePressed(_ sender: Any) {
+        
+        
+        
+        
+        deleteButton.setTitleColor(red, for: .normal)
+        deleteButton.backgroundColor=white
+        
         deleteButton.isSelected = !deleteButton.isSelected
         onDeleteTouched?(self)
     }
-    
-    
     
     @IBAction func resetPressed(_ sender: Any) {
         if (pressPlayFile != nil){

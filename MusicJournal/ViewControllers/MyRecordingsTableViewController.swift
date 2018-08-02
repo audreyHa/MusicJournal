@@ -224,16 +224,6 @@ class MyRecordingsTableViewController: UITableViewController{
             }
         }
         
-        let redColor = UIColor(red: 232/255, green: 90/255, blue: 69/255, alpha: 1)
-        let lightBeigeBackground = UIColor(red: 234/255, green: 231/255, blue: 220/255, alpha: 1)
-        let boldFont = UIFont.boldSystemFont(ofSize: 17.0)
-        
-        if currentRecording.filename==nil{
-            cell.emptyLabel.textColor=redColor
-        }else{
-            cell.emptyLabel.textColor=lightBeigeBackground
-        }
-        
         cell.originalHours=Double(currentRecording.hours)
         cell.originalMinutes=Double(currentRecording.minutes)
         cell.originalSeconds=Double(currentRecording.seconds)
@@ -241,29 +231,27 @@ class MyRecordingsTableViewController: UITableViewController{
 //        cell.thisMinutes=currentRecording.minutes
 //        cell.thisSeconds=currentRecording.seconds
         
-        cell.onButtonTouched = {(cell) in
-            guard let indexPath = tableView.indexPath(for: cell) else{
+        cell.onButtonTouched = {(theCell) in
+            guard let indexPath = tableView.indexPath(for: theCell) else{
                 return
             }
+            
+            
             self.newIndexPath=indexPath.row
             
         }
         
-        cell.onDeleteTouched = {(cell) in
-            guard let indexPath = tableView.indexPath(for: cell) else{
+        cell.onDeleteTouched = {(theCell) in
+            guard let indexPath = tableView.indexPath(for: theCell) else{
                 return
             }
+            
             self.deleteIndexPath=indexPath.row
             self.createAlert(title: "Are you sure you want to delete this recording?", message: "You cannot undo this action")
         }
         
-//        let red = UIColor(red: 232/255, green: 90/255, blue: 69/255, alpha: 1)
-//        let white = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
-//
-//        cell.editButton.setTitleColor(red, for: .normal)
-//        cell.editButton.backgroundColor=white
         return cell
-    }
+    }//end of override func
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         guard let identifier=segue.identifier else {return}
@@ -431,6 +419,7 @@ class MyRecordingsTableViewController: UITableViewController{
     } //end of Reorder
     
     func createAlert(title: String, message: String){
+        
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
         
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: {(action) in
