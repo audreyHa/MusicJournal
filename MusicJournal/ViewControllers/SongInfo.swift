@@ -42,19 +42,19 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         }
         
         if self.recording?.lastModified != nil && self.cancelOutArray.count==0{
-            self.deleteAfterSaving.append("\((self.recording?.dateSpace!.convertToString().removingWhitespacesAndNewlines.replacingOccurrences(of: ":", with: ""))!)")
+            self.deleteAfterSaving.append("\((self.recording?.dateSpace!.convertToString().removingWhitespacesAndNewlines.replacingOccurrences(of: ":", with: ""))!).m4a")
         }
         
         self.recording?.dateSpace=Date()
         
         let improvedDatespace=(self.recording?.dateSpace!.convertToString().removingWhitespacesAndNewlines.replacingOccurrences(of: ":", with: ""))!
-        self.cancelOutArray.append("\(improvedDatespace)")
+        self.cancelOutArray.append("\(improvedDatespace).m4a")
         var filename: URL?
         
         let fileManager = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask).first
         
         
-        filename = fileManager!.appendingPathComponent(improvedDatespace)
+        filename = fileManager!.appendingPathComponent("\(improvedDatespace).m4a")
         let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC), AVSampleRateKey: 12000, AVNumberOfChannelsKey: 1, AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue]
         do{
             try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
@@ -204,7 +204,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             
             if let datespace=recording?.dateSpace{
                 recording?.songDate=datespace
-                recording?.filename=recording?.songDate!.convertToString().removingWhitespacesAndNewlines.replacingOccurrences(of: ":", with: "")
+                recording?.filename="\((recording?.songDate!.convertToString().removingWhitespacesAndNewlines.replacingOccurrences(of: ":", with: ""))!).m4a"
             }
             
             recording?.lastModified=Date()
@@ -248,7 +248,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
                         recording?.songEvent="No Event Entered"
                     }
                     recording?.songDate=recording?.dateSpace
-                    recording?.filename=recording?.songDate?.convertToString().removingWhitespacesAndNewlines
+                    recording?.filename="\((recording?.songDate?.convertToString().removingWhitespacesAndNewlines)!).m4a"
                     recording?.lastModified=Date()
                     CoreDataHelper.saveRecording()
                     MyRecordingsTableViewController.firstCancel=true
