@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import AVFoundation
+import MediaPlayer
 
 class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     
@@ -21,9 +22,60 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     var hours: Int = 0
     var minutes: Int=0
     var timer=Timer()
-    var countingTimer=Timer()
+    var countingTime=3
+    var check=100
     var cancelOutArray = [String]()
     var deleteAfterSaving = [String]()
+    
+    func runTimer(){
+        timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(RecordMusicViewController.updateTimer)), userInfo: nil, repeats: true)
+    }
+    
+    func newRecord(){
+        timer.invalidate()
+        countingTime=3
+        if self.recording == nil{
+            self.recording = CoreDataHelper.newRecording()
+        }
+        
+        self.timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(RecordMusicViewController.action), userInfo: nil, repeats: true)
+        
+        if self.recording?.lastModified != nil && self.cancelOutArray.count==0{
+            self.deleteAfterSaving.append((self.recording?.dateSpace!.convertToString().removingWhitespacesAndNewlines.replacingOccurrences(of: ":", with: ""))!)
+        }
+        
+        self.recording?.dateSpace=Date()
+        let improvedDatespace=(self.recording?.dateSpace!.convertToString().removingWhitespacesAndNewlines.replacingOccurrences(of: ":", with: ""))!
+        
+        self.cancelOutArray.append("\(improvedDatespace)")
+        var filename: URL?
+        
+        let fileManager = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask).first
+        
+        
+        filename = fileManager!.appendingPathComponent(improvedDatespace)
+        let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC), AVSampleRateKey: 12000, AVNumberOfChannelsKey: 1, AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue]
+        do{
+            try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
+            //                    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+            self.audioRecorder = try AVAudioRecorder(url: filename!, settings: settings)
+            self.audioRecorder.delegate=self
+            self.audioRecorder.record()
+            self.startNewRecording.setTitle("  Stop Recording  ", for: .normal)
+        }
+        catch{
+            self.displayAlert(title: "Failed to record", message: "Recording failed")
+        }
+    }
+    @objc func updateTimer(){
+        if countingTime>0{
+            timeLabel.text="Starting In \(countingTime)"
+            countingTime-=1
+        }else{
+            timer.invalidate()
+            newRecord()
+        }
+    }
     
     @IBOutlet weak var timeLabel: UILabel!
     
@@ -34,45 +86,50 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             if recording?.dateSpace != nil && cancelOutArray.count>0{
                 createAlert(title: "Are you sure you want to start over?", message: "You cannot undo this action")
             } else{
+                
                 self.timer.invalidate()
-                self.timeLabel.text = "00 : 00 : 00"
                 self.hours=0
                 self.seconds=0
                 self.minutes=0
                 
+                runTimer()
+
                 
-                if self.recording == nil{
-                    self.recording = CoreDataHelper.newRecording()
-                }
+//                    timer.invalidate()
+//                    countingTime=3
+//                    if self.recording == nil{
+//                        self.recording = CoreDataHelper.newRecording()
+//                    }
+//
+//                    self.timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(RecordMusicViewController.action), userInfo: nil, repeats: true)
+//
+//                    if self.recording?.lastModified != nil && self.cancelOutArray.count==0{
+//                        self.deleteAfterSaving.append((self.recording?.dateSpace!.convertToString().removingWhitespacesAndNewlines.replacingOccurrences(of: ":", with: ""))!)
+//                    }
+//
+//                    self.recording?.dateSpace=Date()
+//                    let improvedDatespace=(self.recording?.dateSpace!.convertToString().removingWhitespacesAndNewlines.replacingOccurrences(of: ":", with: ""))!
+//
+//                    self.cancelOutArray.append("\(improvedDatespace)")
+//                    var filename: URL?
+//
+//                    let fileManager = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask).first
+//
+//
+//                    filename = fileManager!.appendingPathComponent(improvedDatespace)
+//                    let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC), AVSampleRateKey: 12000, AVNumberOfChannelsKey: 1, AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue]
+//                    do{
+//                        try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
+//                        //                    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+//                        self.audioRecorder = try AVAudioRecorder(url: filename!, settings: settings)
+//                        self.audioRecorder.delegate=self
+//                        self.audioRecorder.record()
+//                        self.startNewRecording.setTitle("  Stop Recording  ", for: .normal)
+//                    }
+//                    catch{
+//                        self.displayAlert(title: "Failed to record", message: "Recording failed")
+//                    }
                 
-                self.timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(RecordMusicViewController.action), userInfo: nil, repeats: true)
-                
-                if self.recording?.lastModified != nil && self.cancelOutArray.count==0{
-                    self.deleteAfterSaving.append((self.recording?.dateSpace!.convertToString().removingWhitespacesAndNewlines.replacingOccurrences(of: ":", with: ""))!)
-                }
-                
-                self.recording?.dateSpace=Date()
-                let improvedDatespace=(self.recording?.dateSpace!.convertToString().removingWhitespacesAndNewlines.replacingOccurrences(of: ":", with: ""))!
-                
-                self.cancelOutArray.append("\(improvedDatespace)")
-                var filename: URL?
-                
-                let fileManager = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask).first
-                
-                
-                filename = fileManager!.appendingPathComponent(improvedDatespace)
-                let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC), AVSampleRateKey: 12000, AVNumberOfChannelsKey: 1, AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue]
-                do{
-                    try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
-                    //                    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
-                    self.audioRecorder = try AVAudioRecorder(url: filename!, settings: settings)
-                    self.audioRecorder.delegate=self
-                    self.audioRecorder.record()
-                    self.startNewRecording.setTitle("  Stop Recording  ", for: .normal)
-                }
-                catch{
-                    self.displayAlert(title: "Failed to record", message: "Recording failed")
-                }
             }
 
         } else{ //Stopping
