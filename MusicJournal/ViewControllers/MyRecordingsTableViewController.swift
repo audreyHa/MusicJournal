@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class MyRecordingsTableViewController: UITableViewController{
+class MyRecordingsTableViewController: UITableViewController, UIDocumentInteractionControllerDelegate{
     
     var arrayOfRecordingsInfo = [Recording](){
         didSet{
@@ -22,7 +22,7 @@ class MyRecordingsTableViewController: UITableViewController{
     @IBOutlet var myTableView: UITableView!
     
     static var chosenNumber: Int!
-    
+    var controller = UIDocumentInteractionController()
     @IBOutlet weak var songButton: UIButton!
     @IBOutlet weak var dateButton: UIButton!
     @IBOutlet weak var composerButton: UIButton!
@@ -250,21 +250,24 @@ class MyRecordingsTableViewController: UITableViewController{
             self.createAlert(title: "Are you sure you want to delete this recording?", message: "You cannot undo this action")
         }
         
-        var documentController : UIDocumentInteractionController!
         
+
         cell.onExportTouched = { (theCell) in
             guard let indexPath = tableView.indexPath(for: theCell) else { return }
-            
             if self.arrayOfRecordingsInfo[indexPath.row].filename != nil{
-                var paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-                let fileURL = paths[0].appendingPathComponent("\(self.arrayOfRecordingsInfo[indexPath.row].filename)")
-                documentController = UIDocumentInteractionController(url: NSURL.init(fileURLWithPath: "\(fileURL)") as URL)
-                //documentController = UIDocumentInteractionController.init(URL: NSURL.init(fileURLWithPath: fileURL))
-                
-                documentController.presentOptionsMenu(from: cell.exportButton.frame, in: self.view, animated: true)
+                self.controller.delegate = self
+                let dirPath: String = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+                let recordingName = self.arrayOfRecordingsInfo[indexPath.row].filename!
+                let pathArray: [String] = [dirPath, recordingName]
+                let filePathString: String = pathArray.joined(separator: "/")
+                print("this is file Path String: \(filePathString)")
+                self.controller = UIDocumentInteractionController(url: NSURL(fileURLWithPath: filePathString) as URL)
+                self.controller.presentOpenInMenu(from: CGRect.zero, in: self.view, animated: true)
+            
+            }else{
+                print("There's no file!!")
             }
-            
-            
+        
         }
         
         return cell

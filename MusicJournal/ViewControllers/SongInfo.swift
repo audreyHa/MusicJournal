@@ -40,14 +40,14 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         if self.recording == nil{
             self.recording = CoreDataHelper.newRecording()
         }
-
+        
         if self.recording?.lastModified != nil && self.cancelOutArray.count==0{
-            self.deleteAfterSaving.append((self.recording?.dateSpace!.convertToString().removingWhitespacesAndNewlines.replacingOccurrences(of: ":", with: ""))!)
+            self.deleteAfterSaving.append("\((self.recording?.dateSpace!.convertToString().removingWhitespacesAndNewlines.replacingOccurrences(of: ":", with: ""))!)")
         }
         
         self.recording?.dateSpace=Date()
-        let improvedDatespace=(self.recording?.dateSpace!.convertToString().removingWhitespacesAndNewlines.replacingOccurrences(of: ":", with: ""))!
         
+        let improvedDatespace=(self.recording?.dateSpace!.convertToString().removingWhitespacesAndNewlines.replacingOccurrences(of: ":", with: ""))!
         self.cancelOutArray.append("\(improvedDatespace)")
         var filename: URL?
         
