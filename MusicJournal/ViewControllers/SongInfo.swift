@@ -22,12 +22,15 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     var hours: Int = 0
     var minutes: Int=0
     var timer=Timer()
-    var countingTime=3
-    var check=100
+    var countingTime=100
     var cancelOutArray = [String]()
     var deleteAfterSaving = [String]()
     
     func runTimer(){
+        countingTime=3
+        self.hours=0
+        self.seconds = 0
+        self.minutes=0
         timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(RecordMusicViewController.updateTimer)), userInfo: nil, repeats: true)
     }
     
@@ -37,15 +40,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         if self.recording == nil{
             self.recording = CoreDataHelper.newRecording()
         }
-        seconds=0
-        minutes=0
-        hours=0
-        
-        timeLabel.text="00 : 00 : 00"
-        self.timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(RecordMusicViewController.action), userInfo: nil, repeats: true)
-        
-        countingTime=3
-        
+
         if self.recording?.lastModified != nil && self.cancelOutArray.count==0{
             self.deleteAfterSaving.append((self.recording?.dateSpace!.convertToString().removingWhitespacesAndNewlines.replacingOccurrences(of: ":", with: ""))!)
         }
@@ -75,12 +70,12 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     }
     
     @objc func updateTimer(){
-        if countingTime > -1{
-            timeLabel.text="Starting In \(countingTime)"
+        if countingTime > 0{
+            timeLabel.text="Starting in \(countingTime)"
             countingTime-=1
-        }
-        if countingTime == -1{
+        }else{
             timer.invalidate()
+            self.timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(RecordMusicViewController.action), userInfo: nil, repeats: true)
             newRecord()
         }
     }
@@ -91,14 +86,11 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     @IBAction func startNewRecording(_ sender: Any) {
         if audioRecorder == nil{ //Starting a new one (not ending)
             
-            if recording?.dateSpace != nil && cancelOutArray.count>0{
+            if recording?.dateSpace != nil && cancelOutArray.count>0{ //if they're starting over
                 createAlert(title: "Are you sure you want to start over?", message: "You cannot undo this action")
             } else{
                 
                 self.timer.invalidate()
-                self.hours=0
-                self.seconds=0
-                self.minutes=0
                 
                 runTimer()
             }
@@ -109,9 +101,6 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             audioRecorder.stop()
             
             timer.invalidate()
-            hours=0
-            minutes=0
-            seconds=0
             audioRecorder = nil
             startNewRecording.setTitle("  Press To Start Over  ", for: .normal)
 
@@ -464,47 +453,6 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         }
     }
     
-    func record(){
-        self.timer.invalidate()
-        self.timeLabel.text = "00 : 00 : 00"
-        self.hours=0
-        self.seconds=0
-        self.minutes=0
-        
-        
-        if self.recording == nil{
-            self.recording = CoreDataHelper.newRecording()
-        }
-        
-        self.timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(RecordMusicViewController.action), userInfo: nil, repeats: true)
-        
-        if self.recording?.lastModified != nil && self.cancelOutArray.count==0{
-            self.deleteAfterSaving.append((self.recording?.dateSpace!.convertToString().removingWhitespacesAndNewlines.replacingOccurrences(of: ":", with: ""))!)
-        }
-        
-        self.recording?.dateSpace=Date()
-        let improvedDatespace=(self.recording?.dateSpace!.convertToString().removingWhitespacesAndNewlines.replacingOccurrences(of: ":", with: ""))!
-        
-        self.cancelOutArray.append("\(improvedDatespace)")
-        var filename: URL?
-        
-        let fileManager = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask).first
-        
-        
-        filename = fileManager!.appendingPathComponent(improvedDatespace)
-        let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC), AVSampleRateKey: 12000, AVNumberOfChannelsKey: 1, AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue]
-        do{
-            try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
-            //                    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
-            self.audioRecorder = try AVAudioRecorder(url: filename!, settings: settings)
-            self.audioRecorder.delegate=self
-            self.audioRecorder.record()
-            self.startNewRecording.setTitle("  Stop Recording  ", for: .normal)
-        }
-        catch{
-            self.displayAlert(title: "Failed to record", message: "Recording failed")
-        }
-    }
     
     func createAlert(title: String, message: String){
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
