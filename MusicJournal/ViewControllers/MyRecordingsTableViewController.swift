@@ -250,7 +250,25 @@ class MyRecordingsTableViewController: UITableViewController{
             self.createAlert(title: "Are you sure you want to delete this recording?", message: "You cannot undo this action")
         }
         
+        var documentController : UIDocumentInteractionController!
+        
+        cell.onExportTouched = { (theCell) in
+            guard let indexPath = tableView.indexPath(for: theCell) else { return }
+            
+            if self.arrayOfRecordingsInfo[indexPath.row].filename != nil{
+                var paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+                let fileURL = paths[0].appendingPathComponent("\(self.arrayOfRecordingsInfo[indexPath.row].filename)")
+                documentController = UIDocumentInteractionController(url: NSURL.init(fileURLWithPath: "\(fileURL)") as URL)
+                //documentController = UIDocumentInteractionController.init(URL: NSURL.init(fileURLWithPath: fileURL))
+                
+                documentController.presentOptionsMenu(from: cell.exportButton.frame, in: self.view, animated: true)
+            }
+            
+            
+        }
+        
         return cell
+        
     }//end of override func
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){

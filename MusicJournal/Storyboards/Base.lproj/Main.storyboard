@@ -227,20 +227,20 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xuk-Yk-HDh">
-                                                            <rect key="frame" x="0.0" y="41.5" width="38" height="31"/>
+                                                            <rect key="frame" x="0.0" y="41.5" width="38" height="30.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Composer" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cho-Sw-wgm">
-                                                            <rect key="frame" x="0.0" y="82.5" width="84" height="31.5"/>
+                                                            <rect key="frame" x="0.0" y="82" width="84" height="31.5"/>
                                                             <color key="backgroundColor" red="0.91764705879999997" green="0.90588235289999997" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VWS-Fq-Bzn">
-                                                            <rect key="frame" x="0.0" y="124" width="45.5" height="30.5"/>
+                                                            <rect key="frame" x="0.0" y="123.5" width="45.5" height="31"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -311,7 +311,7 @@
                                                     <rect key="frame" x="0.0" y="238.5" width="325" height="30"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LuQ-Pi-uh5">
-                                                            <rect key="frame" x="0.0" y="0.0" width="137.5" height="30"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="75" height="30"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <state key="normal" title="  Edit  ">
@@ -323,7 +323,7 @@
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1e1-OY-oe1">
-                                                            <rect key="frame" x="187.5" y="0.0" width="137.5" height="30"/>
+                                                            <rect key="frame" x="125" y="0.0" width="75" height="30"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <state key="normal" title="  Delete  ">
@@ -333,9 +333,21 @@
                                                                 <action selector="deletePressed:" destination="BgK-JY-kyI" eventType="touchUpInside" id="SDh-uP-KSV"/>
                                                             </connections>
                                                         </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iCq-SA-3ln">
+                                                            <rect key="frame" x="250" y="0.0" width="75" height="30"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                            <state key="normal" title="Export">
+                                                                <color key="titleColor" red="0.90980392160000001" green="0.35294117650000001" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                            </state>
+                                                            <connections>
+                                                                <action selector="shareDoc:" destination="BgK-JY-kyI" eventType="touchUpInside" id="fcK-dY-IPt"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="LuQ-Pi-uh5" firstAttribute="width" secondItem="1e1-OY-oe1" secondAttribute="width" id="Ryw-Fj-JfG"/>
+                                                        <constraint firstItem="1e1-OY-oe1" firstAttribute="width" secondItem="iCq-SA-3ln" secondAttribute="width" id="Sce-zg-z67"/>
                                                     </constraints>
                                                 </stackView>
                                             </subviews>
@@ -367,6 +379,7 @@
                                 <connections>
                                     <outlet property="deleteButton" destination="1e1-OY-oe1" id="aXy-hI-BhS"/>
                                     <outlet property="editButton" destination="LuQ-Pi-uh5" id="DUi-mR-1ga"/>
+                                    <outlet property="exportButton" destination="iCq-SA-3ln" id="A94-YR-xLd"/>
                                     <outlet property="lastModified" destination="Xuk-Yk-HDh" id="gix-I5-b1d"/>
                                     <outlet property="playButton" destination="J9u-MZ-Pe0" id="Rjx-g2-id6"/>
                                     <outlet property="reset" destination="WjK-4Z-xnu" id="9JM-Ht-fAz"/>

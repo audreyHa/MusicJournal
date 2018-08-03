@@ -23,6 +23,8 @@ class myRecordingsTableViewCell: UITableViewCell{
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var deleteButton: UIButton!
+    @IBOutlet weak var exportButton: UIButton!
+    
     
     var totalTime: String!
     var rowOfCellForRecording: Int = 0
@@ -163,6 +165,13 @@ class myRecordingsTableViewCell: UITableViewCell{
         }//
         
     }//end of press play function
+    
+    var onExportTouched: ((UITableViewCell) -> Void)? = nil
+    @IBAction func shareDoc(_ sender: Any) {
+        exportButton.isSelected = !exportButton.isSelected
+        onExportTouched?(self)
+    }
+    
     
     @objc func ascendingAction(){
         if (thisHours==originalHours && thisMinutes==originalMinutes) && thisSeconds==originalSeconds{
