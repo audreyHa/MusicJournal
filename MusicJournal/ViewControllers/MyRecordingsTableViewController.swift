@@ -256,13 +256,14 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
             guard let indexPath = tableView.indexPath(for: theCell) else { return }
             if self.arrayOfRecordingsInfo[indexPath.row].filename != nil{
                 self.controller.delegate = self
+                self.controller.presentPreview(animated: true)
                 let dirPath: String = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
                 let recordingName = self.arrayOfRecordingsInfo[indexPath.row].filename!
                 let pathArray: [String] = [dirPath, recordingName]
                 let filePathString: String = pathArray.joined(separator: "/")
                 print("this is file Path String: \(filePathString)")
                 self.controller = UIDocumentInteractionController(url: NSURL(fileURLWithPath: filePathString) as URL)
-                self.controller.presentOpenInMenu(from: CGRect.zero, in: self.view, animated: true)
+                self.controller.presentOptionsMenu(from: CGRect.zero, in: self.view, animated: true)
             
             }else{
                 print("There's no file!!")
