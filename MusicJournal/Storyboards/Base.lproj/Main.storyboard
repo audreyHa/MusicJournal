@@ -227,20 +227,20 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xuk-Yk-HDh">
-                                                            <rect key="frame" x="0.0" y="41.5" width="38" height="30.5"/>
+                                                            <rect key="frame" x="0.0" y="41.5" width="38" height="31"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Composer" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cho-Sw-wgm">
-                                                            <rect key="frame" x="0.0" y="82" width="84" height="31.5"/>
+                                                            <rect key="frame" x="0.0" y="82.5" width="84" height="31.5"/>
                                                             <color key="backgroundColor" red="0.91764705879999997" green="0.90588235289999997" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VWS-Fq-Bzn">
-                                                            <rect key="frame" x="0.0" y="123.5" width="45.5" height="31"/>
+                                                            <rect key="frame" x="0.0" y="124" width="45.5" height="30.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -489,7 +489,7 @@
                                             <action selector="startNewRecording:" destination="RTW-Ln-REg" eventType="touchUpInside" id="dwU-ia-uJP"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Starting In 3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YCE-iz-f1j">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YCE-iz-f1j">
                                         <rect key="frame" x="0.0" y="318" width="335" height="56"/>
                                         <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="40"/>
                                         <nil key="textColor"/>

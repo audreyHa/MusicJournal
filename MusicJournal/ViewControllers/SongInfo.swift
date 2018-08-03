@@ -32,13 +32,19 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     }
     
     func newRecord(){
-        timer.invalidate()
-        countingTime=3
+       
+        
         if self.recording == nil{
             self.recording = CoreDataHelper.newRecording()
         }
+        seconds=0
+        minutes=0
+        hours=0
         
+        timeLabel.text="00 : 00 : 00"
         self.timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(RecordMusicViewController.action), userInfo: nil, repeats: true)
+        
+        countingTime=3
         
         if self.recording?.lastModified != nil && self.cancelOutArray.count==0{
             self.deleteAfterSaving.append((self.recording?.dateSpace!.convertToString().removingWhitespacesAndNewlines.replacingOccurrences(of: ":", with: ""))!)
@@ -67,11 +73,13 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             self.displayAlert(title: "Failed to record", message: "Recording failed")
         }
     }
+    
     @objc func updateTimer(){
-        if countingTime>0{
+        if countingTime > -1{
             timeLabel.text="Starting In \(countingTime)"
             countingTime-=1
-        }else{
+        }
+        if countingTime == -1{
             timer.invalidate()
             newRecord()
         }
@@ -93,43 +101,6 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
                 self.minutes=0
                 
                 runTimer()
-
-                
-//                    timer.invalidate()
-//                    countingTime=3
-//                    if self.recording == nil{
-//                        self.recording = CoreDataHelper.newRecording()
-//                    }
-//
-//                    self.timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(RecordMusicViewController.action), userInfo: nil, repeats: true)
-//
-//                    if self.recording?.lastModified != nil && self.cancelOutArray.count==0{
-//                        self.deleteAfterSaving.append((self.recording?.dateSpace!.convertToString().removingWhitespacesAndNewlines.replacingOccurrences(of: ":", with: ""))!)
-//                    }
-//
-//                    self.recording?.dateSpace=Date()
-//                    let improvedDatespace=(self.recording?.dateSpace!.convertToString().removingWhitespacesAndNewlines.replacingOccurrences(of: ":", with: ""))!
-//
-//                    self.cancelOutArray.append("\(improvedDatespace)")
-//                    var filename: URL?
-//
-//                    let fileManager = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask).first
-//
-//
-//                    filename = fileManager!.appendingPathComponent(improvedDatespace)
-//                    let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC), AVSampleRateKey: 12000, AVNumberOfChannelsKey: 1, AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue]
-//                    do{
-//                        try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
-//                        //                    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
-//                        self.audioRecorder = try AVAudioRecorder(url: filename!, settings: settings)
-//                        self.audioRecorder.delegate=self
-//                        self.audioRecorder.record()
-//                        self.startNewRecording.setTitle("  Stop Recording  ", for: .normal)
-//                    }
-//                    catch{
-//                        self.displayAlert(title: "Failed to record", message: "Recording failed")
-//                    }
-                
             }
 
         } else{ //Stopping
@@ -138,6 +109,9 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             audioRecorder.stop()
             
             timer.invalidate()
+            hours=0
+            minutes=0
+            seconds=0
             audioRecorder = nil
             startNewRecording.setTitle("  Press To Start Over  ", for: .normal)
 
@@ -351,23 +325,31 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         present(alert, animated: true, completion: nil)
     }
     
-    func delay(_ delay:Double, closure:@escaping ()->()) {
-        let when = DispatchTime.now() + delay
-        DispatchQueue.main.asyncAfter(deadline: when, execute: closure)
-    }
-    
     @objc func action(){
-        seconds += 1
+    
         if seconds>4{ //more than 60 seconds
+            
             seconds-=5
             minutes+=1
+            displaying()
         }
         
         if minutes>4{
+            
             minutes-=5
             hours+=1
+            displaying()
+        }
+        if minutes<=4 && seconds<=4{
+            
+            seconds+=1
+            displaying()
         }
         
+        
+    }
+    //func displaying
+    func displaying(){
         if hours==0{
             if minutes<10{
                 if seconds<10{
@@ -398,7 +380,6 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             }
         }
     }
-    
     //functions for deleting old recordings
     
     func everythingButLast(){
@@ -530,7 +511,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: {(action) in
             alert.dismiss(animated: true, completion: nil)
-            self.record()
+            self.runTimer()
         }))
         
         alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default, handler: {(action) in

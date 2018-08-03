@@ -45,20 +45,10 @@ class myRecordingsTableViewCell: UITableViewCell{
     @IBAction func editPressed(_ sender: Any) {
         editButton.isSelected = !editButton.isSelected
         onButtonTouched?(self)
-        let red = UIColor(red: 232/255, green: 90/255, blue: 69/255, alpha: 1)
-        let white = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
-        
-        editButton.setTitleColor(red, for: .normal)
-        editButton.backgroundColor=white
+
     }
     
     @IBAction func deletePressed(_ sender: Any) {
-        
-        
-        
-        
-        deleteButton.setTitleColor(red, for: .normal)
-        deleteButton.backgroundColor=white
         
         deleteButton.isSelected = !deleteButton.isSelected
         onDeleteTouched?(self)
