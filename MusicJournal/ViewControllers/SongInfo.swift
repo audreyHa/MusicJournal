@@ -27,7 +27,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     var deleteAfterSaving = [String]()
     
     func runTimer(){
-        countingTime=3
+        countingTime=2
         self.hours=0
         self.seconds = 0
         self.minutes=0
@@ -91,7 +91,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             } else{
                 
                 self.timer.invalidate()
-                
+                timeLabel.text="Starting in 3"
                 runTimer()
             }
 
@@ -133,6 +133,21 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         
         switch identifier{
         case "save":
+            if deleteAfterSaving.count>0{ //if they're editting and they DID make a new recording
+                recording?.hours=Double(hours)
+                recording?.minutes=Double(minutes)
+                recording?.seconds=Double(seconds)
+            } else if deleteAfterSaving.count==0 && recording?.lastModified != nil{//editting but did not change the recording
+                recording?.hours=Double((recording?.hours)!)
+                recording?.minutes=Double((recording?.minutes)!)
+                recording?.seconds=Double((recording?.seconds)!)
+            }else{
+                recording?.hours=Double(hours)
+                recording?.minutes=Double(minutes)
+                recording?.seconds=Double(seconds)
+            }
+            
+            
             if deleteAfterSaving.count>0{
                 for toBeDeleted in deleteAfterSaving{
                     var filePath = ""
@@ -182,6 +197,9 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
                 startNewRecording.setTitle("  Press To Start Over  ", for: .normal)
             }
             
+            timer.invalidate()
+            countingTime=2
+            
             if recording == nil{
                 recording = CoreDataHelper.newRecording()
             }
@@ -208,9 +226,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             }
             
             recording?.lastModified=Date()
-            recording?.hours=Double(hours)
-            recording?.minutes=Double(minutes)
-            recording?.seconds=Double(seconds)
+            
            
             CoreDataHelper.saveRecording()
             
@@ -222,6 +238,9 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
                 audioRecorder = nil
                 startNewRecording.setTitle("  Press To Start Over  ", for: .normal)
             }
+            
+            timer.invalidate()
+            countingTime=2
             
             if recording?.lastModified==nil{ //If it's the first round and hasn't been saved yet
                 if cancelOutArray.count>0{
@@ -315,23 +334,19 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     }
     
     @objc func action(){
-    
-        if seconds>4{ //more than 60 seconds
-            
-            seconds-=5
-            minutes+=1
+        seconds+=1
+        if seconds>59{ //more than 60 seconds
             displaying()
+            seconds-=60
+            minutes+=1
         }
         
-        if minutes>4{
-            
-            minutes-=5
-            hours+=1
+        if minutes>59{
             displaying()
+            minutes-=60
+            hours+=1
         }
-        if minutes<=4 && seconds<=4{
-            
-            seconds+=1
+        if minutes<=59 && seconds<=59{
             displaying()
         }
         

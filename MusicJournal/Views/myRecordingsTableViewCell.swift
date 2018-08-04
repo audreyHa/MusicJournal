@@ -65,13 +65,6 @@ class myRecordingsTableViewCell: UITableViewCell{
             thisSeconds=0
             displaying()
             
-//            if originalSeconds != 0{
-//                thisSeconds=thisSeconds+1
-//            }else{
-//                thisMinutes = thisMinutes + 1
-//                thisSeconds = thisSeconds - 4
-//            }
-            
             newAudioPlayer.stop()
         }
     }
@@ -90,18 +83,18 @@ class myRecordingsTableViewCell: UITableViewCell{
                 if ((thisHours != originalHours && thisMinutes != originalMinutes) && thisSeconds != originalSeconds)&&(isStart==false){
                     isPaused=true
                     //Fixing how the invalidate timer makes it go one further
-                    if thisSeconds != 4{
+                    if thisSeconds != 59{
                         thisSeconds=thisSeconds - 1
                         displaying()
                     }
-                    if thisSeconds==4 && thisMinutes != 4{
-                        thisSeconds=thisSeconds+4
+                    if thisSeconds==59 && thisMinutes != 59{
+                        thisSeconds=thisSeconds+59
                         thisMinutes=thisMinutes-1
                         displaying()
                     }
-                    if thisSeconds==4 && thisMinutes==4{
-                        thisSeconds=thisSeconds+4
-                        thisMinutes=thisMinutes+4
+                    if thisSeconds==59 && thisMinutes==59{
+                        thisSeconds=thisSeconds+59
+                        thisMinutes=thisMinutes+59
                         thisHours=thisHours-1
                         displaying()
                     }
@@ -122,13 +115,7 @@ class myRecordingsTableViewCell: UITableViewCell{
             thisSeconds=0
             displaying()
             
-//            if originalSeconds != 0{
-//                thisSeconds=thisSeconds+1
-//            }else{
-//                thisMinutes = thisMinutes + 1
-//                thisSeconds = thisSeconds - 4
-//            }
-            
+
             do{
                 if (pressPlayFile != nil){
                     let fileManager = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask).first
@@ -181,71 +168,22 @@ class myRecordingsTableViewCell: UITableViewCell{
             thisSeconds=0
         }else{
             thisSeconds = thisSeconds + 1
-            if thisSeconds>4{ //more than 60 seconds
+            if thisSeconds>59{ //more than 59 seconds
                 displaying()
-                thisSeconds=thisSeconds - 5
+                thisSeconds=thisSeconds - 60
                 thisMinutes=thisMinutes+1
             }
             
-            if thisMinutes>4{
+            if thisMinutes>59{
                 displaying()
-                thisMinutes=thisMinutes-5
+                thisMinutes=thisMinutes-60
                 thisHours=thisHours+1
             }
-            if thisSeconds<=4 && thisMinutes<=4{
+            if thisSeconds<=59 && thisMinutes<=59{
                 displaying()
             }
         }
     }
-    
-    @objc func descendingAction(){
-        
-//        if (thisHours==0 && thisMinutes==0) && thisSeconds==0{
-//            thisHours=originalHours
-//            thisMinutes=originalMinutes
-//            thisSeconds=originalSeconds
-//        }
-        if originalSeconds==0{
-            if (thisHours==0 && thisMinutes==0) && thisSeconds==0{
-                displaying()
-                timer.invalidate()
-            } else if thisMinutes==0 && thisSeconds==0{
-                displaying()
-                thisHours = thisHours - 1
-                thisSeconds = thisSeconds + 4
-                thisMinutes = thisMinutes + 4
-            } else if thisSeconds==0{
-                displaying()
-                thisMinutes = thisMinutes - 1
-                thisSeconds = thisSeconds + 4
-            }else{
-                displaying()
-                thisSeconds = thisSeconds - 1
-                
-            }
-        } else{
-            if (thisHours==0 && thisMinutes==0) && thisSeconds==0{
-                displaying()
-                timer.invalidate()
-            } else if thisMinutes==0 && thisSeconds==0{
-                displaying()
-                thisHours = thisHours - 1
-                thisSeconds = thisSeconds + 4
-                thisMinutes = thisMinutes + 4
-            } else if thisSeconds==0{
-                displaying()
-                thisMinutes = thisMinutes - 1
-                thisSeconds = thisSeconds + 4
-            }else{
-                displaying()
-                thisSeconds = thisSeconds - 1
-                
-            }
-        }
-    }
-    //
-    
-    
     
     func displaying(){
         

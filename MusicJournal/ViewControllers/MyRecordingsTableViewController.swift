@@ -255,6 +255,14 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         cell.onExportTouched = { (theCell) in
             guard let indexPath = tableView.indexPath(for: theCell) else { return }
             if self.arrayOfRecordingsInfo[indexPath.row].filename != nil{
+                
+//            let activityItem = URL.init(fileURLWithPath: Bundle.main.path(forResource: "\(self.arrayOfRecordingsInfo[indexPath.row].songDate!.convertToString().removingWhitespacesAndNewlines)", ofType: "m4a")!)
+//
+//                let activityVC = UIActivityViewController(activityItems: [activityItem],applicationActivities: nil)
+//                activityVC.popoverPresentationController?.sourceView = self.view
+//
+//                self.present(activityVC, animated: true, completion: nil)
+                
                 self.controller.delegate = self
                 self.controller.presentPreview(animated: true)
                 let dirPath: String = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
@@ -266,7 +274,7 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
                 self.controller.presentOptionsMenu(from: CGRect.zero, in: self.view, animated: true)
             
             }else{
-                print("There's no file!!")
+                self.exportAlert(title: "Cannot Export Recording", message: "You did not make a recording here")
             }
         
         }
@@ -495,6 +503,15 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
             alert.dismiss(animated: true, completion: nil)
             print("They did not want to delete")
         }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func exportAlert(title: String, message: String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (action) in
+            alert.dismiss(animated: true, completion: nil)
+        }))
+        
         self.present(alert, animated: true, completion: nil)
     }
     
