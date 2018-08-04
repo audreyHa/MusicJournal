@@ -56,19 +56,6 @@ class myRecordingsTableViewCell: UITableViewCell{
         onDeleteTouched?(self)
     }
     
-    @IBAction func resetPressed(_ sender: Any) {
-        if (pressPlayFile != nil){
-            timer.invalidate()
-            
-            thisHours=0
-            thisMinutes=0
-            thisSeconds=0
-            displaying()
-            
-            newAudioPlayer.stop()
-        }
-    }
-    
     @IBAction func pausePressed(_ sender: Any) {
         if (pressPlayFile != nil){
             if isPaused==false{
@@ -107,6 +94,7 @@ class myRecordingsTableViewCell: UITableViewCell{
     
     
     @IBAction func playPressed(_ sender: Any) {
+        print("This is the press play file: \(pressPlayFile)")
         if isPaused==false{//playing fresh, no pausing
             isStart=false
             timer.invalidate()
@@ -121,10 +109,11 @@ class myRecordingsTableViewCell: UITableViewCell{
                     let fileManager = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask).first
                     let newPlaying = fileManager!.appendingPathComponent("\(pressPlayFile!)")
                     
-                    try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
+//                    try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient) this one works for sure
                     
+                    try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, with:AVAudioSessionCategoryOptions.defaultToSpeaker)
+
                     newAudioPlayer = try AVAudioPlayer(contentsOf: newPlaying)
-                    
                     newAudioPlayer.play()
                     print("now playing")
                     

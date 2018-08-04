@@ -255,7 +255,7 @@
                                                     <rect key="frame" x="0.0" y="148.5" width="325" height="30"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J9u-MZ-Pe0">
-                                                            <rect key="frame" x="0.0" y="0.0" width="137.5" height="30"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="154" height="30"/>
                                                             <color key="backgroundColor" red="0.90980392160000001" green="0.35294117650000001" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <state key="normal" title=" Play ">
@@ -266,7 +266,7 @@
                                                             </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00 : 00 : 00/00: 00: 00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ua-QV-uei">
-                                                            <rect key="frame" x="157.5" y="0.0" width="167.5" height="30"/>
+                                                            <rect key="frame" x="174" y="0.0" width="151" height="30"/>
                                                             <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="14"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -280,7 +280,7 @@
                                                     <rect key="frame" x="0.0" y="193.5" width="325" height="30"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jya-8K-JND">
-                                                            <rect key="frame" x="0.0" y="0.0" width="137.5" height="30"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="325" height="30"/>
                                                             <color key="backgroundColor" red="0.90980392160000001" green="0.35294117650000001" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <state key="normal" title=" Pause ">
@@ -290,21 +290,7 @@
                                                                 <action selector="pausePressed:" destination="BgK-JY-kyI" eventType="touchUpInside" id="zNB-Of-0qk"/>
                                                             </connections>
                                                         </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WjK-4Z-xnu">
-                                                            <rect key="frame" x="187.5" y="0.0" width="137.5" height="30"/>
-                                                            <color key="backgroundColor" red="0.90980392160000001" green="0.35294117650000001" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                            <state key="normal" title=" Reset ">
-                                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            </state>
-                                                            <connections>
-                                                                <action selector="resetPressed:" destination="BgK-JY-kyI" eventType="touchUpInside" id="bcH-Gi-N7S"/>
-                                                            </connections>
-                                                        </button>
                                                     </subviews>
-                                                    <constraints>
-                                                        <constraint firstItem="Jya-8K-JND" firstAttribute="width" secondItem="WjK-4Z-xnu" secondAttribute="width" id="2BT-L4-izO"/>
-                                                    </constraints>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="dFd-TW-avJ" userLabel="edit and delete">
                                                     <rect key="frame" x="0.0" y="238.5" width="325" height="30"/>
@@ -361,7 +347,6 @@
                                                 <constraint firstAttribute="trailing" secondItem="dFd-TW-avJ" secondAttribute="trailing" id="kU5-eN-HHA"/>
                                                 <constraint firstItem="1Ge-AY-PZS" firstAttribute="leading" secondItem="uHx-1T-5my" secondAttribute="leading" id="oi8-AP-Fzf"/>
                                                 <constraint firstItem="1Ge-AY-PZS" firstAttribute="height" secondItem="Cac-mB-yc2" secondAttribute="height" id="pHW-BT-kKa"/>
-                                                <constraint firstItem="J9u-MZ-Pe0" firstAttribute="width" secondItem="Jya-8K-JND" secondAttribute="width" id="vT9-vt-xoq"/>
                                                 <constraint firstAttribute="trailing" secondItem="sBM-pE-TnZ" secondAttribute="trailing" id="y1C-oB-1tB"/>
                                             </constraints>
                                         </stackView>
@@ -381,7 +366,6 @@
                                     <outlet property="exportButton" destination="iCq-SA-3ln" id="A94-YR-xLd"/>
                                     <outlet property="lastModified" destination="Xuk-Yk-HDh" id="gix-I5-b1d"/>
                                     <outlet property="playButton" destination="J9u-MZ-Pe0" id="Rjx-g2-id6"/>
-                                    <outlet property="reset" destination="WjK-4Z-xnu" id="9JM-Ht-fAz"/>
                                     <outlet property="showTime" destination="8Ua-QV-uei" id="6Yr-aL-dbo"/>
                                     <outlet property="songComposer" destination="cho-Sw-wgm" id="PwE-Kw-vMc"/>
                                     <outlet property="songEvent" destination="VWS-Fq-Bzn" id="sAX-gn-inq"/>
