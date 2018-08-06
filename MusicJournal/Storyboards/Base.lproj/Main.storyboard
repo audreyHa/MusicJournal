@@ -397,7 +397,7 @@
             </objects>
             <point key="canvasLocation" x="1781.5999999999999" y="35.532233883058474"/>
         </scene>
-        <!--Song Info-->
+        <!--Record-->
         <scene sceneID="sGK-qj-CYk">
             <objects>
                 <viewController storyboardIdentifier="secondViewController" id="RTW-Ln-REg" customClass="RecordMusicViewController" customModule="MusicJournal" customModuleProvider="target" sceneMemberID="viewController">
@@ -405,8 +405,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="ycY-5k-kV5" userLabel="Whole Stack View">
-                                <rect key="frame" x="20" y="84" width="335" height="374"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="ycY-5k-kV5" userLabel="Whole Stack View">
+                                <rect key="frame" x="20" y="84" width="335" height="349"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Info:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q0t-CA-DhO">
                                         <rect key="frame" x="94.5" y="0.0" width="146" height="42"/>
@@ -415,11 +415,14 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="oOa-5z-MNg">
-                                        <rect key="frame" x="0.0" y="72" width="335" height="30"/>
+                                        <rect key="frame" x="0.0" y="67" width="335" height="30"/>
                                         <subviews>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Song:  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Te8-2J-Ocq">
                                                 <rect key="frame" x="0.0" y="0.0" width="127.5" height="30"/>
                                                 <color key="backgroundColor" red="0.90980392160000001" green="0.35294117650000001" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="127.5" id="ZaM-ce-mfB"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -433,7 +436,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Y21-U7-xBT">
-                                        <rect key="frame" x="0.0" y="132" width="335" height="30"/>
+                                        <rect key="frame" x="0.0" y="122" width="335" height="30"/>
                                         <subviews>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Composer:  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eqt-r9-46A">
                                                 <rect key="frame" x="0.0" y="0.0" width="127.5" height="30"/>
@@ -451,7 +454,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="w0h-3E-8Si">
-                                        <rect key="frame" x="0.0" y="192" width="335" height="30"/>
+                                        <rect key="frame" x="0.0" y="177" width="335" height="30"/>
                                         <subviews>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Event:  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zrs-ox-fVA">
                                                 <rect key="frame" x="0.0" y="0.0" width="127.5" height="30"/>
@@ -469,7 +472,7 @@
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RFE-5G-q1J">
-                                        <rect key="frame" x="31" y="252" width="273" height="36"/>
+                                        <rect key="frame" x="31" y="232" width="273" height="36"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="PingFangHK-Semibold" family="PingFang HK" pointSize="17"/>
                                         <state key="normal" title="  Press To Start NEW Recording  ">
@@ -480,7 +483,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YCE-iz-f1j">
-                                        <rect key="frame" x="0.0" y="318" width="335" height="56"/>
+                                        <rect key="frame" x="0.0" y="293" width="335" height="56"/>
                                         <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="40"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -508,7 +511,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="nNC-sV-xkN"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Song Info" id="UyG-E9-Bmf">
+                    <navigationItem key="navigationItem" title="Record" id="UyG-E9-Bmf">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="gRE-7r-agh">
                             <connections>
                                 <segue destination="YPF-QH-sNB" kind="unwind" identifier="cancel" unwindAction="unwindToMyRecordingsCancel:" id="TRe-Sa-81j"/>
@@ -556,6 +559,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="f4K-XC-2sW"/>
+        <segue reference="ed6-mE-YZE"/>
     </inferredMetricsTieBreakers>
 </document>

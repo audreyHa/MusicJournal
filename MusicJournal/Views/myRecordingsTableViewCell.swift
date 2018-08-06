@@ -46,12 +46,19 @@ class myRecordingsTableViewCell: UITableViewCell{
     let white = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
    
     @IBAction func editPressed(_ sender: Any) {
+        if newAudioPlayer != nil && newAudioPlayer.isPlaying==true{
+             newAudioPlayer.stop()
+        }
+       
         editButton.isSelected = !editButton.isSelected
         onButtonTouched?(self)
 
     }
     
     @IBAction func deletePressed(_ sender: Any) {
+        if newAudioPlayer != nil && newAudioPlayer.isPlaying==true{
+            newAudioPlayer.stop()
+        }
         
         deleteButton.isSelected = !deleteButton.isSelected
         onDeleteTouched?(self)
