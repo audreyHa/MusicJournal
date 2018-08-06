@@ -14,24 +14,23 @@ import MediaPlayer
 class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     
     static var recordingSession: AVAudioSession!
-    var audioRecorder: AVAudioRecorder!
+    static var audioRecorder: AVAudioRecorder!
     var audioPlayer: AVAudioPlayer!
     var recording: Recording?
     
     var seconds: Int = 0
     var hours: Int = 0
     var minutes: Int=0
-    var timer=Timer()
-    var countingTime=100
+    static var timer=Timer()
+    var countingTime=3
     var cancelOutArray = [String]()
     var deleteAfterSaving = [String]()
     
     func runTimer(){
-        countingTime=2
         self.hours=0
         self.seconds = 0
         self.minutes=0
-        timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(RecordMusicViewController.updateTimer)), userInfo: nil, repeats: true)
+        RecordMusicViewController.timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(RecordMusicViewController.updateTimer)), userInfo: nil, repeats: true)
     }
     
     func newRecord(){
@@ -59,10 +58,10 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         do{
             try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
             //                    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
-            self.audioRecorder = try AVAudioRecorder(url: filename!, settings: settings)
-            self.audioRecorder.delegate=self
-            self.audioRecorder.record()
-            self.startNewRecording.setTitle("  Stop Recording  ", for: .normal)
+            RecordMusicViewController.audioRecorder = try AVAudioRecorder(url: filename!, settings: settings)
+            RecordMusicViewController.audioRecorder.delegate=self
+            RecordMusicViewController.audioRecorder.record()
+            startNewRecording.setTitle("  Stop Recording  ", for: .normal)
         }
         catch{
             self.displayAlert(title: "Failed to record", message: "Recording failed")
@@ -74,34 +73,35 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             timeLabel.text="Starting in \(countingTime)"
             countingTime-=1
         }else{
-            timer.invalidate()
-            self.timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(RecordMusicViewController.action), userInfo: nil, repeats: true)
+            RecordMusicViewController.timer.invalidate()
+            RecordMusicViewController.timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(RecordMusicViewController.action), userInfo: nil, repeats: true)
             newRecord()
         }
     }
     
     @IBOutlet weak var timeLabel: UILabel!
     
+    
+   
     @IBOutlet weak var startNewRecording: UIButton!
     @IBAction func startNewRecording(_ sender: Any) {
-        if audioRecorder == nil{ //Starting a new one (not ending)
+        if RecordMusicViewController.audioRecorder == nil{ //Starting a new one (not ending)
             
             if recording?.dateSpace != nil && cancelOutArray.count>0{ //if they're starting over
                 createAlert(title: "Are you sure you want to start over?", message: "You cannot undo this action")
             } else{
                 
-                self.timer.invalidate()
-                timeLabel.text="Starting in 3"
+               RecordMusicViewController.timer.invalidate()
                 runTimer()
             }
 
         } else{ //Stopping
             //Stop Audio Recording
             
-            audioRecorder.stop()
+            RecordMusicViewController.audioRecorder.stop()
             
-            timer.invalidate()
-            audioRecorder = nil
+            RecordMusicViewController.timer.invalidate()
+            RecordMusicViewController.audioRecorder = nil
             startNewRecording.setTitle("  Press To Start Over  ", for: .normal)
 
         }
@@ -189,15 +189,15 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
                 everythingButLast()
             }
             
-            if audioRecorder != nil{
-                audioRecorder.stop()
+            if RecordMusicViewController.audioRecorder != nil{
+                RecordMusicViewController.audioRecorder.stop()
                 
-                timer.invalidate()
-                audioRecorder = nil
+                RecordMusicViewController.timer.invalidate()
+                RecordMusicViewController.audioRecorder = nil
                 startNewRecording.setTitle("  Press To Start Over  ", for: .normal)
             }
             
-            timer.invalidate()
+            RecordMusicViewController.timer.invalidate()
             countingTime=2
             
             if recording == nil{
@@ -231,15 +231,15 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             CoreDataHelper.saveRecording()
             
         case "cancel":
-            if audioRecorder != nil{
-                audioRecorder.stop()
+            if RecordMusicViewController.audioRecorder != nil{
+                RecordMusicViewController.audioRecorder.stop()
                 
-                timer.invalidate()
-                audioRecorder = nil
+                RecordMusicViewController.timer.invalidate()
+                RecordMusicViewController.audioRecorder = nil
                 startNewRecording.setTitle("  Press To Start Over  ", for: .normal)
             }
             
-            timer.invalidate()
+            RecordMusicViewController.timer.invalidate()
             countingTime=2
             
             if recording?.lastModified==nil{ //If it's the first round and hasn't been saved yet
@@ -289,7 +289,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     
     override func viewDidLoad(){
         super.viewDidLoad()
-        
+        startNewRecording.layer.cornerRadius=8
         startNewRecording.setTitle("  Press To Start New Recording  ", for: .normal)
         
         if recording?.songDate == nil{
@@ -474,6 +474,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: {(action) in
             alert.dismiss(animated: true, completion: nil)
+            self.timeLabel.text="Starting in 3"
             self.runTimer()
         }))
         

@@ -19,11 +19,11 @@ class myRecordingsTableViewCell: UITableViewCell{
     @IBOutlet weak var songComposer: UILabel!
     @IBOutlet weak var songEvent: UILabel!
     @IBOutlet weak var showTime: UILabel!
-    @IBOutlet weak var reset: UIButton!
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var exportButton: UIButton!
+    @IBOutlet weak var pauseButton: UIButton!
     
     @IBOutlet weak var surrounding: UIView!
     
@@ -207,6 +207,5 @@ class myRecordingsTableViewCell: UITableViewCell{
             }
         }
     }// end of function
-    
     
 }

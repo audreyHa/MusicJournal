@@ -119,7 +119,12 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         let currentRecording=arrayOfRecordingsInfo[indexPath.row]
         
         cell.surrounding.layer.cornerRadius=8
+        cell.playButton.layer.cornerRadius=8
+        cell.editButton.layer.cornerRadius=8
+        cell.deleteButton.layer.cornerRadius=8
+        cell.exportButton.layer.cornerRadius=8
         cell.songTitle.text=currentRecording.songTitle
+        cell.pauseButton.layer.cornerRadius=8
         
         if let thisDate = currentRecording.lastModified{
             cell.lastModified.text="\(thisDate.convertToString())"
@@ -127,35 +132,132 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
             cell.lastModified.text="No Date"
         }
         
+        
         if MyRecordingsTableViewController.chosenNumber==1{
-            cell.songTitle.text=currentRecording.songTitle
-            cell.lastModified.text=("\(currentRecording.lastModified!.convertToString())")
-            cell.songComposer.text=("\(currentRecording.songComposer!)")
-            cell.songEvent.text=("\(currentRecording.songEvent!)")
+            if currentRecording.songTitle != nil{
+                cell.songTitle.text=currentRecording.songTitle
+            }else{
+                cell.songTitle.text="No title entered"
+            }
+            
+            if currentRecording.lastModified != nil{
+                cell.lastModified.text=("\(currentRecording.lastModified!.convertToString())")
+            }else{
+                cell.lastModified.text=Date().convertToString()
+            }
+            
+            if currentRecording.songComposer != nil{
+                cell.songComposer.text=("\(currentRecording.songComposer!)")
+            }else{
+                cell.songComposer.text="No composer entered"
+            }
+            
+            if currentRecording.songEvent != nil{
+                cell.songEvent.text=("\(currentRecording.songEvent!)")
+            }else{
+                cell.songEvent.text="No event entered"
+            }
             
         } else if MyRecordingsTableViewController.chosenNumber==2{
-            cell.songTitle.text=currentRecording.lastModified?.convertToString()
-            cell.lastModified.text=("\(currentRecording.songTitle!)")
-            cell.songComposer.text=("\(currentRecording.songComposer!)")
-            cell.songEvent.text=("\(currentRecording.songEvent!)")
+            
+            if currentRecording.songTitle != nil{
+                cell.lastModified.text=("\(currentRecording.songTitle!)")
+            }else{
+                cell.lastModified.text="No title entered"
+            }
+            
+            if currentRecording.lastModified != nil{
+                cell.songTitle.text=currentRecording.lastModified?.convertToString()
+            }else{
+                cell.songTitle.text=Date().convertToString()
+            }
+            
+            if currentRecording.songComposer != nil{
+                cell.songComposer.text=("\(currentRecording.songComposer!)")
+            }else{
+                cell.songComposer.text="No composer entered"
+            }
+            
+            if currentRecording.songEvent != nil{
+                cell.songEvent.text=("\(currentRecording.songEvent!)")
+            }else{
+                cell.songEvent.text="No event entered"
+            }
             
         } else if MyRecordingsTableViewController.chosenNumber==3{
-            cell.songTitle.text=currentRecording.songComposer
-            cell.lastModified.text=("\(currentRecording.songTitle!)")
-            cell.songComposer.text=("\(currentRecording.lastModified!.convertToString())")
-            cell.songEvent.text=("\(currentRecording.songEvent!)")
             
+            if currentRecording.songTitle != nil{
+                cell.lastModified.text=("\(currentRecording.songTitle!)")
+            }else{
+                cell.lastModified.text="No title entered"
+            }
+            
+            if currentRecording.lastModified != nil{
+                cell.songComposer.text=("\(currentRecording.lastModified!.convertToString())")
+            }else{
+                cell.songComposer.text=Date().convertToString()
+            }
+            
+            if currentRecording.songComposer != nil{
+                cell.songTitle.text=currentRecording.songComposer
+            }else{
+                cell.songTitle.text="No composer entered"
+            }
+            
+            if currentRecording.songEvent != nil{
+                cell.songEvent.text=("\(currentRecording.songEvent!)")
+            }else{
+                cell.songEvent.text="No event entered"
+            }
         } else if MyRecordingsTableViewController.chosenNumber==4{
-            cell.songTitle.text=currentRecording.songEvent
-            cell.lastModified.text=("\(currentRecording.songTitle!)")
-            cell.songComposer.text=("\(currentRecording.lastModified!.convertToString())")
-            cell.songEvent.text=("\(currentRecording.songComposer!)")
             
+            if currentRecording.songTitle != nil{
+                cell.lastModified.text=("\(currentRecording.songTitle!)")
+            }else{
+                cell.lastModified.text="No title entered"
+            }
+            
+            if currentRecording.lastModified != nil{
+                 cell.songComposer.text=("\(currentRecording.lastModified!.convertToString())")
+            }else{
+                 cell.songComposer.text=Date().convertToString()
+            }
+            
+            if currentRecording.songComposer != nil{
+                cell.songEvent.text=("\(currentRecording.songComposer!)")
+            }else{
+                cell.songEvent.text="No composer entered"
+            }
+            
+            if currentRecording.songEvent != nil{
+                cell.songTitle.text=currentRecording.songEvent
+            }else{
+                cell.songTitle.text="No event entered"
+            }
         }else{
-            cell.songTitle.text=currentRecording.songTitle
-            cell.lastModified.text=("\(currentRecording.lastModified!.convertToString())")
-            cell.songComposer.text=("\(currentRecording.songComposer!)")
-            cell.songEvent.text=("\(currentRecording.songEvent!)")
+            if currentRecording.songTitle != nil{
+                cell.songTitle.text=currentRecording.songTitle
+            }else{
+                cell.songTitle.text="No title entered"
+            }
+            
+            if currentRecording.lastModified != nil{
+                cell.lastModified.text=("\(currentRecording.lastModified!.convertToString())")
+            }else{
+                cell.lastModified.text=Date().convertToString()
+            }
+            
+            if currentRecording.songComposer != nil{
+                cell.songComposer.text=("\(currentRecording.songComposer!)")
+            }else{
+                cell.songComposer.text="No composer entered"
+            }
+            
+            if currentRecording.songEvent != nil{
+                cell.songEvent.text=("\(currentRecording.songEvent!)")
+            }else{
+                cell.songEvent.text="No event entered"
+            }
         }
         
         if let thing = currentRecording.filename{
@@ -238,8 +340,7 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
             guard let indexPath = tableView.indexPath(for: theCell) else{
                 return
             }
-            
-            
+      
             self.newIndexPath=indexPath.row
             
         }
