@@ -68,13 +68,66 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         
         reorderArray()
         
-
         tableView.delegate=self
         tableView.dataSource=self
         self.songButton.layer.cornerRadius=8
         self.dateButton.layer.cornerRadius=8
         self.composerButton.layer.cornerRadius=8
         self.eventButton.layer.cornerRadius=8
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(MyRecordingsTableViewController.handleInterruption(notification:)), name: NSNotification.Name.AVAudioSessionInterruption, object: RecordMusicViewController.recordingSession)
+        
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: Notification.Name.UIApplicationWillResignActive, object: nil)
+    }
+    
+    @objc func handleInterruption(notification: NSNotification) {
+        print("handleInterruption")
+        guard let value = (notification.userInfo?[AVAudioSessionInterruptionTypeKey] as? NSNumber)?.uintValue,
+            let interruptionType =  AVAudioSessionInterruptionType(rawValue: value)
+            else {
+                print("notification.userInfo?[AVAudioSessionInterruptionTypeKey]", notification.userInfo?[AVAudioSessionInterruptionTypeKey])
+                return }
+        
+        switch interruptionType {
+        case .began:
+            print("began")
+            var cells = myTableView.visibleCells as? [myRecordingsTableViewCell]
+            for cell in cells!{
+                if cell.newAudioPlayer != nil{
+                    if cell.newAudioPlayer.isPlaying==true{
+                        cell.newAudioPlayer.pause()
+                        cell.timer.invalidate()
+                        myRecordingsTableViewCell.isPaused=true
+                    }
+                }
+                
+            }
+        default :
+            print("ended")
+            var cells = myTableView.visibleCells as? [myRecordingsTableViewCell]
+            for cell in cells!{
+                if cell.newAudioPlayer != nil{
+                    if cell.newAudioPlayer.isPlaying==true{
+                        cell.newAudioPlayer.pause()
+                        cell.timer.invalidate()
+                        myRecordingsTableViewCell.isPaused=true
+                    }
+                }
+            }
+        }
+    }
+    
+    @objc func appMovedToBackground() {
+        var cells = myTableView.visibleCells as? [myRecordingsTableViewCell]
+        for cell in cells!{
+            
+            cell.timer.invalidate()
+            
+            if cell.newAudioPlayer != nil{
+                cell.newAudioPlayer.stop()
+            }
+        }
     }
     
     @IBAction func unwindToMyRecordingsSave(_ segue: UIStoryboardSegue){
@@ -125,12 +178,6 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         
         if cell.newAudioPlayer != nil{
             cell.newAudioPlayer.stop()
-        }else{
-            let fileManager = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask).first
-            let newPlaying = fileManager!.appendingPathComponent("\(currentRecording.filename)")
-            
-            try! AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, with:AVAudioSessionCategoryOptions.defaultToSpeaker)
-            
         }
         
         cell.surrounding.layer.cornerRadius=8
@@ -405,7 +452,17 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     }//end of override func
 
     override func viewWillDisappear(_ animated: Bool) {
-        //for every cell in the table view i dunno try to access the audio player and pause it if it's not nil
+        var cells = myTableView.visibleCells as? [myRecordingsTableViewCell]
+        for cell in cells!{
+            cell.timer.invalidate()
+            cell.thisHours=0
+            cell.thisMinutes=0
+            cell.thisSeconds=0
+            
+            if cell.newAudioPlayer != nil{
+                cell.newAudioPlayer.stop()
+            }
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
@@ -447,14 +504,14 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
             
             if arrayOfRecordingsInfo.count>0{
                 arrayOfRecordingsInfo=arrayOfRecordingsInfo.sorted{
-                    if $0.songTitle != $1.songTitle{
-                        return $0.songTitle! < $1.songTitle!
+                    if $0.songTitle?.uppercased() != $1.songTitle?.uppercased(){
+                        return $0.songTitle!.uppercased() < $1.songTitle!.uppercased()
                     } else{
-                        if $0.songComposer != $1.songComposer{
-                            return $0.songComposer! < $1.songComposer!
+                        if $0.songComposer?.uppercased() != $1.songComposer?.uppercased(){
+                            return $0.songComposer!.uppercased() < $1.songComposer!.uppercased()
                         } else{
-                            if $0.songEvent != $1.songEvent{
-                                return $0.songEvent! < $1.songEvent!
+                            if $0.songEvent?.uppercased() != $1.songEvent?.uppercased(){
+                                return $0.songEvent!.uppercased() < $1.songEvent!.uppercased()
                             } else{
                                 return $0.lastModified?.compare($1.lastModified!) == .orderedDescending
                             }
@@ -496,14 +553,14 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
             if arrayOfRecordingsInfo.count>0{
                
                 arrayOfRecordingsInfo=arrayOfRecordingsInfo.sorted{
-                    if $0.songComposer != $1.songComposer{
-                        return $0.songComposer! < $1.songComposer!
+                    if $0.songComposer?.uppercased() != $1.songComposer?.uppercased(){
+                        return $0.songComposer!.uppercased() < $1.songComposer!.uppercased()
                     } else{
-                        if $0.songTitle != $1.songTitle{
-                            return $0.songTitle! < $1.songTitle!
+                        if $0.songTitle?.uppercased() != $1.songTitle?.uppercased(){
+                            return $0.songTitle!.uppercased() < $1.songTitle!.uppercased()
                         } else{
-                            if $0.songEvent != $1.songEvent{
-                                return $0.songEvent! < $1.songEvent!
+                            if $0.songEvent?.uppercased() != $1.songEvent?.uppercased(){
+                                return $0.songEvent!.uppercased() < $1.songEvent!.uppercased()
                             } else{
                                 return $0.lastModified?.compare($1.lastModified!) == .orderedDescending
                             }
@@ -526,14 +583,14 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
             
             if arrayOfRecordingsInfo.count>0{
                 arrayOfRecordingsInfo=arrayOfRecordingsInfo.sorted{
-                    if $0.songEvent != $1.songEvent{
-                        return $0.songEvent! < $1.songEvent!
+                    if $0.songEvent?.uppercased() != $1.songEvent?.uppercased(){
+                        return $0.songEvent!.uppercased() < $1.songEvent!.uppercased()
                     } else{
-                        if $0.songTitle != $1.songTitle{
-                            return $0.songTitle! < $1.songTitle!
+                        if $0.songTitle?.uppercased() != $1.songTitle?.uppercased(){
+                            return $0.songTitle!.uppercased() < $1.songTitle!.uppercased()
                         } else{
-                            if $0.songComposer != $1.songComposer{
-                                return $0.songComposer! < $1.songComposer!
+                            if $0.songComposer?.uppercased() != $1.songComposer?.uppercased(){
+                                return $0.songComposer!.uppercased() < $1.songComposer!.uppercased()
                             } else{
                                 return $0.lastModified?.compare($1.lastModified!) == .orderedDescending
                             }
@@ -555,14 +612,14 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
             
             if arrayOfRecordingsInfo.count>0{
                 arrayOfRecordingsInfo=arrayOfRecordingsInfo.sorted{
-                    if $0.songTitle != $1.songTitle{
-                        return $0.songTitle! < $1.songTitle!
+                    if $0.songTitle?.uppercased() != $1.songTitle?.uppercased(){
+                        return $0.songTitle!.uppercased() < $1.songTitle!.uppercased()
                     } else{
-                        if $0.songComposer != $1.songComposer{
-                            return $0.songComposer! < $1.songComposer!
+                        if $0.songComposer?.uppercased() != $1.songComposer?.uppercased(){
+                            return $0.songComposer!.uppercased() < $1.songComposer!.uppercased()
                         } else{
-                            if $0.songEvent != $1.songEvent{
-                                return $0.songEvent! < $1.songEvent!
+                            if $0.songEvent?.uppercased() != $1.songEvent?.uppercased(){
+                                return $0.songEvent!.uppercased() < $1.songEvent!.uppercased()
                             } else{
                                 return $0.lastModified?.compare($1.lastModified!) == .orderedDescending
                             }

@@ -308,6 +308,8 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         //Setting up session
         RecordMusicViewController.recordingSession = AVAudioSession.sharedInstance()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(RecordMusicViewController.handleInterruption(notification:)), name: NSNotification.Name.AVAudioSessionInterruption, object: RecordMusicViewController.recordingSession)
+            
         AVAudioSession.sharedInstance().requestRecordPermission {(hasPermission) in
             if hasPermission{
                 print("Accepted!")
@@ -319,6 +321,31 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         self.eventText.layer.cornerRadius=8
         self.hideKeyboardWhenTappedAround()
        
+    }
+    
+    @objc func handleInterruption(notification: NSNotification) {
+        print("handleInterruption")
+        guard let value = (notification.userInfo?[AVAudioSessionInterruptionTypeKey] as? NSNumber)?.uintValue,
+            let interruptionType =  AVAudioSessionInterruptionType(rawValue: value)
+            else {
+                print("notification.userInfo?[AVAudioSessionInterruptionTypeKey]", notification.userInfo?[AVAudioSessionInterruptionTypeKey])
+                return }
+        switch interruptionType {
+        case .began:
+            RecordMusicViewController.audioRecorder.stop()
+            
+            RecordMusicViewController.timer.invalidate()
+            RecordMusicViewController.audioRecorder = nil
+            startNewRecording.setTitle("  Press To Start Over  ", for: .normal)
+            
+        default :
+            RecordMusicViewController.audioRecorder.stop()
+            
+            RecordMusicViewController.timer.invalidate()
+            RecordMusicViewController.audioRecorder = nil
+            startNewRecording.setTitle("  Press To Start Over  ", for: .normal)
+            
+        }
     }
     
     @objc func appMovedToBackground() {
