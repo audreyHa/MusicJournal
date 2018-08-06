@@ -16,6 +16,8 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
             myTableView.reloadData()
         }
     }
+
+    
     
     static var firstCancel: Bool = false
     
@@ -66,7 +68,7 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         
         reorderArray()
         
-        
+
         tableView.delegate=self
         tableView.dataSource=self
         self.songButton.layer.cornerRadius=8
@@ -116,43 +118,44 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         let cell=tableView.dequeueReusableCell(withIdentifier: "myRecordingsTableViewCell", for: indexPath) as! myRecordingsTableViewCell
         let currentRecording=arrayOfRecordingsInfo[indexPath.row]
         
+        cell.surrounding.layer.cornerRadius=8
         cell.songTitle.text=currentRecording.songTitle
         
         if let thisDate = currentRecording.lastModified{
-            cell.lastModified.text="Last Modified at: \(thisDate.convertToString())"
+            cell.lastModified.text="\(thisDate.convertToString())"
         } else{
             cell.lastModified.text="No Date"
         }
         
         if MyRecordingsTableViewController.chosenNumber==1{
             cell.songTitle.text=currentRecording.songTitle
-            cell.lastModified.text=("Last Modified at: \(currentRecording.lastModified!.convertToString())")
-            cell.songComposer.text=("Composer: \(currentRecording.songComposer!)")
-            cell.songEvent.text=("Event: \(currentRecording.songEvent!)")
+            cell.lastModified.text=("\(currentRecording.lastModified!.convertToString())")
+            cell.songComposer.text=("\(currentRecording.songComposer!)")
+            cell.songEvent.text=("\(currentRecording.songEvent!)")
             
         } else if MyRecordingsTableViewController.chosenNumber==2{
             cell.songTitle.text=currentRecording.lastModified?.convertToString()
-            cell.lastModified.text=("Title: \(currentRecording.songTitle!)")
-            cell.songComposer.text=("Composer: \(currentRecording.songComposer!)")
-            cell.songEvent.text=("Event: \(currentRecording.songEvent!)")
+            cell.lastModified.text=("\(currentRecording.songTitle!)")
+            cell.songComposer.text=("\(currentRecording.songComposer!)")
+            cell.songEvent.text=("\(currentRecording.songEvent!)")
             
         } else if MyRecordingsTableViewController.chosenNumber==3{
             cell.songTitle.text=currentRecording.songComposer
-            cell.lastModified.text=("Title: \(currentRecording.songTitle!)")
-            cell.songComposer.text=("Last Modified at: \(currentRecording.lastModified!.convertToString())")
-            cell.songEvent.text=("Event: \(currentRecording.songEvent!)")
+            cell.lastModified.text=("\(currentRecording.songTitle!)")
+            cell.songComposer.text=("\(currentRecording.lastModified!.convertToString())")
+            cell.songEvent.text=("\(currentRecording.songEvent!)")
             
         } else if MyRecordingsTableViewController.chosenNumber==4{
             cell.songTitle.text=currentRecording.songEvent
-            cell.lastModified.text=("Title: \(currentRecording.songTitle!)")
-            cell.songComposer.text=("Last Modified at: \(currentRecording.lastModified!.convertToString())")
-            cell.songEvent.text=("Composer: \(currentRecording.songComposer!)")
+            cell.lastModified.text=("\(currentRecording.songTitle!)")
+            cell.songComposer.text=("\(currentRecording.lastModified!.convertToString())")
+            cell.songEvent.text=("\(currentRecording.songComposer!)")
             
         }else{
             cell.songTitle.text=currentRecording.songTitle
-            cell.lastModified.text=("Last Modified at: \(currentRecording.lastModified!.convertToString())")
-            cell.songComposer.text=("Composer: \(currentRecording.songComposer!)")
-            cell.songEvent.text=("Event: \(currentRecording.songEvent!)")
+            cell.lastModified.text=("\(currentRecording.lastModified!.convertToString())")
+            cell.songComposer.text=("\(currentRecording.songComposer!)")
+            cell.songEvent.text=("\(currentRecording.songEvent!)")
         }
         
         if let thing = currentRecording.filename{

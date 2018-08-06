@@ -25,6 +25,7 @@ class myRecordingsTableViewCell: UITableViewCell{
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var exportButton: UIButton!
     
+    @IBOutlet weak var surrounding: UIView!
     
     var totalTime: String!
     var rowOfCellForRecording: Int = 0
