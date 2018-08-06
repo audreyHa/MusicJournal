@@ -45,7 +45,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="Wkg-8k-kG2" kind="show" id="Ifm-il-nwm"/>
+                                                    <segue destination="Wkg-8k-kG2" kind="show" identifier="fromHome" id="Ifm-il-nwm"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -559,6 +559,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="ed6-mE-YZE"/>
+        <segue reference="f4K-XC-2sW"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -8,6 +8,8 @@
 
 import Foundation
 import UIKit
+import AVFoundation
+import MediaPlayer
 
 class MyRecordingsTableViewController: UITableViewController, UIDocumentInteractionControllerDelegate{
     
@@ -16,8 +18,6 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
             myTableView.reloadData()
         }
     }
-
-    
     
     static var firstCancel: Bool = false
     
@@ -114,9 +114,24 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
-
+        
         let cell=tableView.dequeueReusableCell(withIdentifier: "myRecordingsTableViewCell", for: indexPath) as! myRecordingsTableViewCell
         let currentRecording=arrayOfRecordingsInfo[indexPath.row]
+        
+            cell.timer.invalidate()
+            cell.thisHours=0
+            cell.thisMinutes=0
+            cell.thisSeconds=0
+        
+        if cell.newAudioPlayer != nil{
+            cell.newAudioPlayer.stop()
+        }else{
+            let fileManager = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask).first
+            let newPlaying = fileManager!.appendingPathComponent("\(currentRecording.filename)")
+            
+            try! AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, with:AVAudioSessionCategoryOptions.defaultToSpeaker)
+            
+        }
         
         cell.surrounding.layer.cornerRadius=8
         cell.playButton.layer.cornerRadius=8
@@ -383,10 +398,16 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         
         }
         
+        
+        
         return cell
         
     }//end of override func
 
+    override func viewWillDisappear(_ animated: Bool) {
+        //for every cell in the table view i dunno try to access the audio player and pause it if it's not nil
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         guard let identifier=segue.identifier else {return}
 
