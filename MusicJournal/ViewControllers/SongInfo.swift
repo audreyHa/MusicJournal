@@ -189,6 +189,9 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             
             if RecordMusicViewController.audioRecorder != nil{
                 RecordMusicViewController.audioRecorder.stop()
+                recording?.hours=Double(hours)
+                recording?.minutes=Double(minutes)
+                recording?.seconds=Double(seconds)
                 RecordMusicViewController.audioRecorder = nil
                 startNewRecording.setTitle("  Press To Start Over  ", for: .normal)
             }
@@ -228,7 +231,9 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             
             if RecordMusicViewController.audioRecorder != nil{
                 RecordMusicViewController.audioRecorder.stop()
-                
+                recording?.hours=Double(hours)
+                recording?.minutes=Double(minutes)
+                recording?.seconds=Double(seconds)
                 RecordMusicViewController.timer.invalidate()
                 RecordMusicViewController.audioRecorder = nil
                 startNewRecording.setTitle("  Press To Start Over  ", for: .normal)
@@ -348,7 +353,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         if recording==nil{
             recording = CoreDataHelper.newRecording()
         }
-            
+
             if deleteAfterSaving.count>0{
                 for toBeDeleted in deleteAfterSaving{
                     var filePath = ""
