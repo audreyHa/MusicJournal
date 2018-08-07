@@ -40,12 +40,17 @@ class myRecordingsTableViewCell: UITableViewCell{
     var timer = Timer()
     var onButtonTouched: ((UITableViewCell) -> Void)? = nil
     var onDeleteTouched: ((UITableViewCell) -> Void)? = nil
+    var onPlayTouched: ((UITableViewCell) -> Void)? = nil
     let red = UIColor(red: 232/255, green: 90/255, blue: 69/255, alpha: 1)
     let white = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
    
     @IBAction func editPressed(_ sender: Any) {
         if newAudioPlayer != nil && newAudioPlayer.isPlaying==true{
-             newAudioPlayer.stop()
+            newAudioPlayer.stop()
+            timer.invalidate()
+            thisHours=0
+            thisMinutes=0
+            thisSeconds=0
         }
        
         editButton.isSelected = !editButton.isSelected
@@ -56,6 +61,10 @@ class myRecordingsTableViewCell: UITableViewCell{
     @IBAction func deletePressed(_ sender: Any) {
         if newAudioPlayer != nil && newAudioPlayer.isPlaying==true{
             newAudioPlayer.stop()
+            timer.invalidate()
+            thisHours=0
+            thisMinutes=0
+            thisSeconds=0
         }
         
         deleteButton.isSelected = !deleteButton.isSelected
@@ -93,6 +102,9 @@ class myRecordingsTableViewCell: UITableViewCell{
     
     
     @IBAction func playPressed(_ sender: Any) {
+        playButton.isSelected = !playButton.isSelected
+        onPlayTouched?(self)
+        
         print("This is the press play file: \(pressPlayFile)")
         //playing fresh, no pausing
             displaying()
@@ -132,6 +144,14 @@ class myRecordingsTableViewCell: UITableViewCell{
     
     var onExportTouched: ((UITableViewCell) -> Void)? = nil
     @IBAction func shareDoc(_ sender: Any) {
+        if newAudioPlayer != nil && newAudioPlayer.isPlaying==true{
+            newAudioPlayer.stop()
+            timer.invalidate()
+            thisHours=0
+            thisMinutes=0
+            thisSeconds=0
+        }
+        
         exportButton.isSelected = !exportButton.isSelected
         onExportTouched?(self)
     }

@@ -33,6 +33,19 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     var deleteIndexPath: Int!
     
     @IBAction func songButtonPressed(_ sender: Any) {
+        let cells = self.myTableView.visibleCells as? [myRecordingsTableViewCell]
+        for cell in cells!{
+                if cell.newAudioPlayer != nil{
+                    cell.timer.invalidate()
+                    cell.thisSeconds=0
+                    cell.thisMinutes=0
+                    cell.thisHours=0
+                    if cell.newAudioPlayer.isPlaying==true{
+                        cell.newAudioPlayer.stop()
+                    }
+                }
+        }
+        
         MyRecordingsTableViewController.chosenNumber=1
         
         UserDefaults.standard.set(MyRecordingsTableViewController.chosenNumber,forKey: "myNumber")
@@ -40,6 +53,18 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     }
     
     @IBAction func dateButtonPressed(_ sender: Any) {
+        let cells = self.myTableView.visibleCells as? [myRecordingsTableViewCell]
+        for cell in cells!{
+            if cell.newAudioPlayer != nil{
+                cell.timer.invalidate()
+                cell.thisSeconds=0
+                cell.thisMinutes=0
+                cell.thisHours=0
+                if cell.newAudioPlayer.isPlaying==true{
+                    cell.newAudioPlayer.stop()
+                }
+            }
+        }
         MyRecordingsTableViewController.chosenNumber=2
         
         UserDefaults.standard.set(MyRecordingsTableViewController.chosenNumber,forKey: "myNumber")
@@ -47,6 +72,18 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     }
     
     @IBAction func composerButtonPressed(_ sender: Any) {
+        let cells = self.myTableView.visibleCells as? [myRecordingsTableViewCell]
+        for cell in cells!{
+            if cell.newAudioPlayer != nil{
+                cell.timer.invalidate()
+                cell.thisSeconds=0
+                cell.thisMinutes=0
+                cell.thisHours=0
+                if cell.newAudioPlayer.isPlaying==true{
+                    cell.newAudioPlayer.stop()
+                }
+            }
+        }
         MyRecordingsTableViewController.chosenNumber=3
        
         UserDefaults.standard.set(MyRecordingsTableViewController.chosenNumber,forKey: "myNumber")
@@ -54,6 +91,18 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     }
     
     @IBAction func eventButtonPressed(_ sender: Any) {
+        let cells = self.myTableView.visibleCells as? [myRecordingsTableViewCell]
+        for cell in cells!{
+            if cell.newAudioPlayer != nil{
+                cell.timer.invalidate()
+                cell.thisSeconds=0
+                cell.thisMinutes=0
+                cell.thisHours=0
+                if cell.newAudioPlayer.isPlaying==true{
+                    cell.newAudioPlayer.stop()
+                }
+            }
+        }
         MyRecordingsTableViewController.chosenNumber=4
         
         UserDefaults.standard.set(MyRecordingsTableViewController.chosenNumber,forKey: "myNumber")
@@ -342,7 +391,24 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         
         }
         
-        
+        cell.onPlayTouched = {(theCell) in
+            guard let indexPath = tableView.indexPath(for: theCell) else { return }
+            
+            var cells = self.myTableView.visibleCells as? [myRecordingsTableViewCell]
+            for cell in cells!{
+                if cell != theCell{
+                    if cell.newAudioPlayer != nil{
+                        cell.timer.invalidate()
+                        cell.thisSeconds=0
+                        cell.thisMinutes=0
+                        cell.thisHours=0
+                        if cell.newAudioPlayer.isPlaying==true{
+                            cell.newAudioPlayer.stop()
+                        }
+                    }
+                }
+            }
+        }
         
         return cell
         
