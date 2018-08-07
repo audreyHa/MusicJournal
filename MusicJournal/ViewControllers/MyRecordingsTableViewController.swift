@@ -60,7 +60,6 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         reorderArray()
     }
     
-   
     override func viewDidLoad(){
         super.viewDidLoad()
         
@@ -95,10 +94,9 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
             var cells = myTableView.visibleCells as? [myRecordingsTableViewCell]
             for cell in cells!{
                 if cell.newAudioPlayer != nil{
+                    cell.timer.invalidate()
                     if cell.newAudioPlayer.isPlaying==true{
                         cell.newAudioPlayer.pause()
-                        cell.timer.invalidate()
-                        myRecordingsTableViewCell.isPaused=true
                     }
                 }
                 
@@ -108,10 +106,10 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
             var cells = myTableView.visibleCells as? [myRecordingsTableViewCell]
             for cell in cells!{
                 if cell.newAudioPlayer != nil{
+                    cell.timer.invalidate()
                     if cell.newAudioPlayer.isPlaying==true{
                         cell.newAudioPlayer.pause()
-                        cell.timer.invalidate()
-                         myRecordingsTableViewCell.isPaused=true
+                        
                     }
                 }
             }
@@ -123,8 +121,20 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         for cell in cells!{
             
             cell.timer.invalidate()
+            cell.thisHours=0
+            cell.thisMinutes=0
+            cell.thisSeconds=0
+            cell.displaying()
             
             if cell.newAudioPlayer != nil{
+                let fileManager = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask).first
+                let newPlaying = fileManager!.appendingPathComponent("\(cell.pressPlayFile!)")
+                
+                
+                try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, with:AVAudioSessionCategoryOptions.defaultToSpeaker)
+                
+                cell.newAudioPlayer = try? AVAudioPlayer(contentsOf: newPlaying)
+                cell.newAudioPlayer.play()
                 cell.newAudioPlayer.stop()
             }
         }
@@ -170,15 +180,6 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         
         let cell=tableView.dequeueReusableCell(withIdentifier: "myRecordingsTableViewCell", for: indexPath) as! myRecordingsTableViewCell
         let currentRecording=arrayOfRecordingsInfo[indexPath.row]
-        
-            cell.timer.invalidate()
-            cell.thisHours=0
-            cell.thisMinutes=0
-            cell.thisSeconds=0
-        
-        if cell.newAudioPlayer != nil{
-            cell.newAudioPlayer.stop()
-        }
         
         cell.surrounding.layer.cornerRadius=8
         cell.playButton.layer.cornerRadius=8
@@ -290,9 +291,9 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         print(currentRecording.minutes)
         cell.originalSeconds=Double(currentRecording.seconds)
         print(currentRecording.seconds)
-//        cell.thisHours=currentRecording.hours
-//        cell.thisMinutes=currentRecording.minutes
-//        cell.thisSeconds=currentRecording.seconds
+        cell.thisHours=0
+        cell.thisMinutes=0
+        cell.thisSeconds=0
         
         cell.onButtonTouched = {(theCell) in
             guard let indexPath = tableView.indexPath(for: theCell) else{
@@ -350,13 +351,26 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     override func viewWillDisappear(_ animated: Bool) {
         var cells = myTableView.visibleCells as? [myRecordingsTableViewCell]
         for cell in cells!{
+            
             cell.timer.invalidate()
             cell.thisHours=0
             cell.thisMinutes=0
             cell.thisSeconds=0
+            cell.displaying()
             
             if cell.newAudioPlayer != nil{
-                cell.newAudioPlayer.stop()
+                if cell.pressPlayFile != nil{
+                    let fileManager = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask).first
+                    let newPlaying = fileManager!.appendingPathComponent("\(cell.pressPlayFile!)")
+                    
+                    
+                    try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, with:AVAudioSessionCategoryOptions.defaultToSpeaker)
+                    
+                    cell.newAudioPlayer = try? AVAudioPlayer(contentsOf: newPlaying)
+                    cell.newAudioPlayer.play()
+                    cell.newAudioPlayer.stop()
+                }
+               
             }
         }
     }

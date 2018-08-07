@@ -38,8 +38,6 @@ class myRecordingsTableViewCell: UITableViewCell{
     var thisMinutes: Double!
     var thisSeconds: Double!
     var timer = Timer()
-    static var isPaused: Bool=false
-    var isStart: Bool = true
     var onButtonTouched: ((UITableViewCell) -> Void)? = nil
     var onDeleteTouched: ((UITableViewCell) -> Void)? = nil
     let red = UIColor(red: 232/255, green: 90/255, blue: 69/255, alpha: 1)
@@ -66,83 +64,69 @@ class myRecordingsTableViewCell: UITableViewCell{
     
     @IBAction func pausePressed(_ sender: Any) {
         if (pressPlayFile != nil){
-            if myRecordingsTableViewCell.isPaused==false{
-                
-                
-                if (isStart==false){
-                    myRecordingsTableViewCell.isPaused=true
+ 
+                if (newAudioPlayer.isPlaying==true){
                     timer.invalidate()
                     newAudioPlayer.pause()
-                }
-                
-                if ((thisHours != originalHours && thisMinutes != originalMinutes) && thisSeconds != originalSeconds)&&(isStart==false){
-                    myRecordingsTableViewCell.isPaused=true
-                    //Fixing how the invalidate timer makes it go one further
-                    if thisSeconds != 59{
-                        thisSeconds=thisSeconds - 1
-                        displaying()
-                    }
-                    if thisSeconds==59 && thisMinutes != 59{
-                        thisSeconds=thisSeconds+59
-                        thisMinutes=thisMinutes-1
-                        displaying()
-                    }
-                    if thisSeconds==59 && thisMinutes==59{
-                        thisSeconds=thisSeconds+59
-                        thisMinutes=thisMinutes+59
-                        thisHours=thisHours-1
-                        displaying()
+                    if ((thisHours != originalHours && thisMinutes != originalMinutes) && thisSeconds != originalSeconds){
+                        //Fixing how the invalidate timer makes it go one further
+                        if thisSeconds != 59{
+                            thisSeconds=thisSeconds - 1
+                            displaying()
+                        }
+                        if thisSeconds==59 && thisMinutes != 59{
+                            thisSeconds=thisSeconds+59
+                            thisMinutes=thisMinutes-1
+                            displaying()
+                        }
+                        if thisSeconds==59 && thisMinutes==59{
+                            thisSeconds=thisSeconds+59
+                            thisMinutes=thisMinutes+59
+                            thisHours=thisHours-1
+                            displaying()
+                        }
                     }
                 }
-            //
             }
-        }
         
-    }
+        }
     
     
     @IBAction func playPressed(_ sender: Any) {
         print("This is the press play file: \(pressPlayFile)")
-        if myRecordingsTableViewCell.isPaused==false{//playing fresh, no pausing
-            isStart=false
-            timer.invalidate()
+        //playing fresh, no pausing
             displaying()
             
             do{
                 if (pressPlayFile != nil){
-                    let fileManager = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask).first
-                    let newPlaying = fileManager!.appendingPathComponent("\(pressPlayFile!)")
                     
-//                    try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient) this one works for sure
-                    
-                    try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, with:AVAudioSessionCategoryOptions.defaultToSpeaker)
-
-                    newAudioPlayer = try AVAudioPlayer(contentsOf: newPlaying)
-                    newAudioPlayer.play()
-                    print("now playing")
-                    
-                    timer.invalidate()
-                    thisHours=0
-                    thisMinutes=0
-                    thisSeconds=0
-                    displaying()
-                    
-                    timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ascendingAction), userInfo: nil, repeats: true)
+                    if (thisHours != 0 || thisMinutes != 0) || thisSeconds != 0{
+                        timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ascendingAction), userInfo: nil, repeats: true)
+                        newAudioPlayer.play()
+                    }else{
+                        let fileManager = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask).first
+                        let newPlaying = fileManager!.appendingPathComponent("\(pressPlayFile!)")
+                        
+                        
+                        try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, with:AVAudioSessionCategoryOptions.defaultToSpeaker)
+                        
+                        newAudioPlayer = try? AVAudioPlayer(contentsOf: newPlaying)
+                        
+                        timer.invalidate()
+                        thisHours=0
+                        thisMinutes=0
+                        thisSeconds=0
+                        displaying()
+                        timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ascendingAction), userInfo: nil, repeats: true)
+                        newAudioPlayer.play()
                     
                 }
                 
-            } catch{
+                }
+            }catch{
                 print("Failed to play, keep trying....")
-            }
-        }else{ //unpausing
-            myRecordingsTableViewCell.isPaused=false
-            
-            print("now playing")
-            if (thisHours != originalHours || thisMinutes != originalMinutes) || thisSeconds != originalSeconds{
-                timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ascendingAction), userInfo: nil, repeats: true)
-                newAudioPlayer.play()
-            }
-        }//
+        }
+      
         
     }//end of press play function
     

@@ -347,8 +347,11 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     @objc func appMovedToBackground() {
         print("it should be working...")
         
-            RecordMusicViewController.timer.invalidate()
-            countingTime=3
+        RecordMusicViewController.timer.invalidate()
+        recording?.hours=Double(hours)
+        recording?.minutes=Double(minutes)
+        recording?.seconds=Double(seconds)
+        countingTime=3
             
         if recording==nil{
             recording = CoreDataHelper.newRecording()
@@ -400,9 +403,6 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
                 RecordMusicViewController.audioRecorder = nil
                 startNewRecording.setTitle("  Press To Start Over  ", for: .normal)
             }
-            
-            RecordMusicViewController.timer.invalidate()
-            countingTime=3
             
             if songLabel.text==""{
                 recording?.songTitle="No Title"
