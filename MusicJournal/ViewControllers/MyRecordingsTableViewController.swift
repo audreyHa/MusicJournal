@@ -134,13 +134,13 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         guard let value = (notification.userInfo?[AVAudioSessionInterruptionTypeKey] as? NSNumber)?.uintValue,
             let interruptionType =  AVAudioSessionInterruptionType(rawValue: value)
             else {
-                print("notification.userInfo?[AVAudioSessionInterruptionTypeKey]", notification.userInfo?[AVAudioSessionInterruptionTypeKey])
+                print("notification.userInfo?[AVAudioSessionInterruptionTypeKey]", notification.userInfo?[AVAudioSessionInterruptionTypeKey] as Any)
                 return }
         
         switch interruptionType {
         case .began:
             print("began")
-            var cells = myTableView.visibleCells as? [myRecordingsTableViewCell]
+            let cells = myTableView.visibleCells as? [myRecordingsTableViewCell]
             for cell in cells!{
                 if cell.newAudioPlayer != nil{
                     cell.timer.invalidate()
@@ -152,7 +152,7 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
             }
         default :
             print("ended")
-            var cells = myTableView.visibleCells as? [myRecordingsTableViewCell]
+            let cells = myTableView.visibleCells as? [myRecordingsTableViewCell]
             for cell in cells!{
                 if cell.newAudioPlayer != nil{
                     cell.timer.invalidate()
@@ -166,7 +166,7 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     }
     
     @objc func appMovedToBackground() {
-        var cells = myTableView.visibleCells as? [myRecordingsTableViewCell]
+        let cells = myTableView.visibleCells as? [myRecordingsTableViewCell]
         for cell in cells!{
             
             cell.timer.invalidate()
@@ -265,7 +265,7 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
             cell.songEvent.text=("\(currentRecording.songEvent!)")
         }
     
-        if let thing = currentRecording.filename{
+        if currentRecording.filename != nil{
             cell.pressPlayFile = currentRecording.filename!
         }else{
             cell.pressPlayFile = currentRecording.filename
@@ -394,7 +394,7 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         cell.onPlayTouched = {(theCell) in
             guard let indexPath = tableView.indexPath(for: theCell) else { return }
             
-            var cells = self.myTableView.visibleCells as? [myRecordingsTableViewCell]
+            let cells = self.myTableView.visibleCells as? [myRecordingsTableViewCell]
             for cell in cells!{
                 if cell != theCell{
                     if cell.newAudioPlayer != nil{
@@ -415,7 +415,7 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     }//end of override func
 
     override func viewWillDisappear(_ animated: Bool) {
-        var cells = myTableView.visibleCells as? [myRecordingsTableViewCell]
+        let cells = myTableView.visibleCells as? [myRecordingsTableViewCell]
         for cell in cells!{
             
             cell.timer.invalidate()

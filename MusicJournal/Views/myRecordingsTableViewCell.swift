@@ -120,9 +120,9 @@ class myRecordingsTableViewCell: UITableViewCell{
                         let newPlaying = fileManager!.appendingPathComponent("\(pressPlayFile!)")
                         
                         
-                        try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, with:AVAudioSessionCategoryOptions.defaultToSpeaker)
+                        try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, with:AVAudioSessionCategoryOptions.defaultToSpeaker)
                         
-                        newAudioPlayer = try? AVAudioPlayer(contentsOf: newPlaying)
+                        newAudioPlayer = try AVAudioPlayer(contentsOf: newPlaying)
                         
                         timer.invalidate()
                         thisHours=0

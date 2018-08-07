@@ -324,7 +324,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         guard let value = (notification.userInfo?[AVAudioSessionInterruptionTypeKey] as? NSNumber)?.uintValue,
             let interruptionType =  AVAudioSessionInterruptionType(rawValue: value)
             else {
-                print("notification.userInfo?[AVAudioSessionInterruptionTypeKey]", notification.userInfo?[AVAudioSessionInterruptionTypeKey])
+                print("notification.userInfo?[AVAudioSessionInterruptionTypeKey]", notification.userInfo?[AVAudioSessionInterruptionTypeKey] as Any)
                 return }
         switch interruptionType {
         case .began:
@@ -511,7 +511,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         for index in 0...cancelOutArray.count-2{
             var differentEachDate: String?
             differentEachDate = cancelOutArray[index]
-            var new = differentEachDate!
+            let new = differentEachDate!
             var filePath = ""
             
             let dirs : [String] = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true)
@@ -556,7 +556,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             let differentDeleting: String?
             var differentEachDate: String?
             differentEachDate = eachDate
-            var new = differentEachDate!
+            let new = differentEachDate!
             let dirs : [String] = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true)
             
             if dirs.count > 0 {
