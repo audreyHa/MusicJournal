@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Home View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="HomeViewController" customModule="MusicJournal" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4qn-bP-4qA">
+                                <rect key="frame" x="0.0" y="20" width="375" height="265"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Nmy-gj-XQb">
+                                        <rect key="frame" x="20" y="83" width="335" height="100"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Music Recorder" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o6F-Sp-szy">
+                                                <rect key="frame" x="17" y="0.0" width="301" height="56"/>
+                                                <fontDescription key="fontDescription" name="PingFangHK-Semibold" family="PingFang HK" pointSize="40"/>
+                                                <color key="textColor" red="1" green="0.24705882352941178" blue="0.29019607843137252" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Record, Organize, and Share!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q4A-vS-Ze2">
+                                                <rect key="frame" x="51" y="76" width="233" height="24"/>
+                                                <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="17"/>
+                                                <color key="textColor" red="0.90980392160000001" green="0.35294117650000001" blue="0.27058823529999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.84705882352941175" green="0.76470588235294112" blue="0.6470588235294118" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="Nmy-gj-XQb" firstAttribute="leading" secondItem="4qn-bP-4qA" secondAttribute="leading" constant="20" id="3Pf-zf-z7v"/>
+                                    <constraint firstAttribute="trailing" secondItem="Nmy-gj-XQb" secondAttribute="trailing" constant="20" id="Oyg-qg-vrc"/>
+                                    <constraint firstItem="Nmy-gj-XQb" firstAttribute="centerX" secondItem="4qn-bP-4qA" secondAttribute="centerX" id="P2g-Ku-1q2"/>
+                                    <constraint firstAttribute="height" constant="265" id="Ydb-bj-evN"/>
+                                    <constraint firstItem="Nmy-gj-XQb" firstAttribute="centerY" secondItem="4qn-bP-4qA" secondAttribute="centerY" id="e15-EE-guv"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qq2-bn-edb">
+                                <rect key="frame" x="0.0" y="285" width="375" height="382"/>
+                                <subviews>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wV5-OU-1pt">
+                                        <rect key="frame" x="152.5" y="50" width="70" height="40"/>
+                                        <color key="backgroundColor" red="0.90980392156862744" green="0.3529411764705882" blue="0.27058823529411763" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="70" id="nWs-he-CMh"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="20"/>
+                                        <state key="normal" title="  Next   ">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.91764705879999997" green="0.90588235289999997" blue="0.86274509799999999" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="wV5-OU-1pt" firstAttribute="centerX" secondItem="Qq2-bn-edb" secondAttribute="centerX" id="QLv-0c-SgH"/>
+                                    <constraint firstItem="wV5-OU-1pt" firstAttribute="top" secondItem="Qq2-bn-edb" secondAttribute="top" constant="50" id="V8d-Md-KHr"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Qq2-bn-edb" secondAttribute="bottom" id="0f7-qB-LAF"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="4qn-bP-4qA" secondAttribute="trailing" id="7Jz-XK-SLs"/>
+                            <constraint firstItem="Qq2-bn-edb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="RRN-mD-w0b"/>
+                            <constraint firstItem="4qn-bP-4qA" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Tb8-FO-aiI"/>
+                            <constraint firstItem="Qq2-bn-edb" firstAttribute="top" secondItem="4qn-bP-4qA" secondAttribute="bottom" id="gkc-Vl-t8l"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Qq2-bn-edb" secondAttribute="trailing" id="heo-82-PiV"/>
+                            <constraint firstItem="4qn-bP-4qA" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="sJM-Nx-mvx"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="roundedButton" destination="wV5-OU-1pt" id="DGJ-e9-Zg5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="32.799999999999997" y="31.934032983508249"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="vCN-rf-w3W">
+            <objects>
+                <viewController id="mlI-PW-fpu" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Pkp-rT-BUb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="udx-5h-ngc"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7eT-F0-gmt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="742" y="32"/>
+        </scene>
+    </scenes>
+</document>

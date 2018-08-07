@@ -67,9 +67,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             self.displayAlert(title: "Failed to record", message: "Recording failed")
         }
     }
-    
-    
-    
+
     @objc func updateTimer(){
         if countingTime > 0{
             timeLabel.text="Starting in \(countingTime)"
@@ -83,8 +81,6 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     
     @IBOutlet weak var timeLabel: UILabel!
     
-    
-   
     @IBOutlet weak var startNewRecording: UIButton!
     @IBAction func startNewRecording(_ sender: Any) {
         if RecordMusicViewController.audioRecorder == nil{ //Starting a new one (not ending)
@@ -103,9 +99,6 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             RecordMusicViewController.audioRecorder.stop()
             
             RecordMusicViewController.timer.invalidate()
-            recording?.hours=Double(hours)
-            recording?.minutes=Double(minutes)
-            recording?.seconds=Double(seconds)
             RecordMusicViewController.audioRecorder = nil
             startNewRecording.setTitle("  Press To Start Over  ", for: .normal)
 
@@ -138,12 +131,26 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         
         switch identifier{
         case "save":
-           
+           hasSegued=true
             RecordMusicViewController.timer.invalidate()
             countingTime=3
             
             if recording == nil{
                 recording = CoreDataHelper.newRecording()
+            }
+            
+            if deleteAfterSaving.count>0{ //if they're editting and they DID make a new recording
+                recording?.hours=Double(hours)
+                recording?.minutes=Double(minutes)
+                recording?.seconds=Double(seconds)
+            } else if deleteAfterSaving.count==0 && recording?.lastModified != nil{//editting but did not change the recording
+                recording?.hours=Double((recording?.hours)!)
+                recording?.minutes=Double((recording?.minutes)!)
+                recording?.seconds=Double((recording?.seconds)!)
+            }else{
+                recording?.hours=Double(hours)
+                recording?.minutes=Double(minutes)
+                recording?.seconds=Double(seconds)
             }
             
             if deleteAfterSaving.count>0{
@@ -195,37 +202,37 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             
             RecordMusicViewController.timer.invalidate()
             countingTime=3
-            
-            if songLabel.text==""{
-                recording?.songTitle="No Title"
-            }else{
-                recording?.songTitle=songLabel.text
-            }
-            
-            if eventLabel.text==""{
-                recording?.songEvent="No Event"
-            }else{
-                recording?.songEvent=eventLabel.text
-            }
-            
-            if composerLabel.text==""{
-                recording?.songComposer="No Composer"
-            }else{
-                recording?.songComposer=composerLabel.text
-            }
-            
+           
+           if songLabel.text==""{
+            recording?.songTitle="No Title"
+           }else{
+            recording?.songTitle=songLabel.text
+           }
+           
+           if eventLabel.text==""{
+            recording?.songEvent="No Event"
+           }else{
+            recording?.songEvent=eventLabel.text
+           }
+           
+           if composerLabel.text==""{
+            recording?.songComposer="No Composer"
+           }else{
+            recording?.songComposer=composerLabel.text
+           }
+           
             if let datespace=recording?.dateSpace{
                 recording?.songDate=datespace
                 recording?.filename="\((recording?.songDate!.convertToString().removingWhitespacesAndNewlines.replacingOccurrences(of: ":", with: ""))!).m4a"
             }
             
-           recording?.lastModified=Date()
+            recording?.lastModified=Date()
             
            
             CoreDataHelper.saveRecording()
-            
+            hasSegued=false
         case "cancel":
-            
+            hasSegued=true
             if RecordMusicViewController.audioRecorder != nil{
                 RecordMusicViewController.audioRecorder.stop()
                 
@@ -275,7 +282,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
                 recording?.dateSpace=recording?.songDate
                 recording?.filename=recording?.filename
             }
-           
+           hasSegued=false
          
         default:
             print("unexpected segue!")
@@ -340,94 +347,96 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     }
     
     @objc func appMovedToBackground() {
+        if hasSegued==false{
+
         print("it should be working...")
+        RecordMusicViewController.timer.invalidate()
+                    countingTime=3
         
-            RecordMusicViewController.timer.invalidate()
-            countingTime=3
-            
-        if recording==nil{
-            recording = CoreDataHelper.newRecording()
-        }
-            
-            if deleteAfterSaving.count>0{
-                for toBeDeleted in deleteAfterSaving{
-                    var filePath = ""
-                    
-                    let dirs : [String] = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true)
-                    
-                    if dirs.count > 0 {
-                        let dir = dirs[0] //documents directory
-                        filePath = dir.appendingFormat("/" + toBeDeleted)
-                        print("Local path = \(filePath)")
-                        
-                    } else {
-                        print("Could not find local directory to store file")
-                        return
+                    if RecordMusicViewController.audioRecorder != nil{
+                        RecordMusicViewController.audioRecorder.stop()
+                        RecordMusicViewController.audioRecorder = nil
+                        startNewRecording.setTitle("  Press To Start Over  ", for: .normal)
                     }
-                    
-                    
-                    do {
-                        let fileManager = FileManager.default
-                        
-                        // Check if file exists
-                        if fileManager.fileExists(atPath: filePath) {
-                            // Delete file
-                            try fileManager.removeItem(atPath: filePath)
-                            print("got original to be deleted")
-                        } else {
-                            print("File does not exist for deleting after saving")
+        
+                    if recording == nil{
+                        recording = CoreDataHelper.newRecording()
+                    }
+        
+        
+                        recording?.hours=Double(hours)
+                        recording?.minutes=Double(minutes)
+                        recording?.seconds=Double(seconds)
+        
+        
+                    if deleteAfterSaving.count>0{
+                        for toBeDeleted in deleteAfterSaving{
+                            var filePath = ""
+        
+                            let dirs : [String] = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true)
+        
+                            if dirs.count > 0 {
+                                let dir = dirs[0] //documents directory
+                                filePath = dir.appendingFormat("/" + toBeDeleted)
+                                print("Local path = \(filePath)")
+        
+                            } else {
+                                print("Could not find local directory to store file")
+                                return
+                            }
+        
+        
+                            do {
+                                let fileManager = FileManager.default
+        
+                                // Check if file exists
+                                if fileManager.fileExists(atPath: filePath) {
+                                    // Delete file
+                                    try fileManager.removeItem(atPath: filePath)
+                                    print("got original to be deleted")
+                                } else {
+                                    print("File does not exist for deleting after saving")
+                                }
+        
+                            }
+                            catch let error as NSError {
+                                print("An error took place: \(error)")
+                            }
                         }
-                        
-                    }
-                    catch let error as NSError {
-                        print("An error took place: \(error)")
-                    }
-                }
-                
-            }
-            
-            if cancelOutArray.count>1{
-                everythingButLast()
-            }
-            
-            if RecordMusicViewController.audioRecorder != nil{
-                RecordMusicViewController.audioRecorder.stop()
-                RecordMusicViewController.audioRecorder = nil
-                startNewRecording.setTitle("  Press To Start Over  ", for: .normal)
-            }
-            
-            RecordMusicViewController.timer.invalidate()
-            countingTime=3
-            
-            if songLabel.text==""{
-                recording?.songTitle="No Title"
-            }else{
-                recording?.songTitle=songLabel.text
-            }
-            
-            if eventLabel.text==""{
-                recording?.songEvent="No Event"
-            }else{
-                recording?.songEvent=eventLabel.text
-            }
-            
-            if composerLabel.text==""{
-                recording?.songComposer="No Composer"
-            }else{
-                recording?.songComposer=composerLabel.text
-            }
-            
-            if let datespace=recording?.dateSpace{
-                recording?.songDate=datespace
-                recording?.filename="\((recording?.songDate!.convertToString().removingWhitespacesAndNewlines.replacingOccurrences(of: ":", with: ""))!).m4a"
-            }
-            
-            recording?.lastModified=Date()
-            
-            
-            CoreDataHelper.saveRecording()
         
-    } //end of function
+                    }
+        
+                    if cancelOutArray.count>1{
+                        everythingButLast()
+                    }
+        
+                    recording?.songTitle=songLabel.text ?? ""
+                    recording?.songEvent=eventLabel.text ?? ""
+                    recording?.songComposer=composerLabel.text ?? ""
+        
+                    if recording?.songTitle == ""{
+                        recording?.songTitle="No Title Entered"
+                    }
+        
+                    if recording?.songComposer == ""{
+                        recording?.songComposer="No Composer Entered"
+                    }
+        
+                    if recording?.songEvent == ""{
+                        recording?.songEvent="No Event Entered"
+                    }
+        
+                    if let datespace=recording?.dateSpace{
+                        recording?.songDate=datespace
+                        recording?.filename="\((recording?.songDate!.convertToString().removingWhitespacesAndNewlines.replacingOccurrences(of: ":", with: ""))!).m4a"
+                    }
+        
+                    recording?.lastModified=Date()
+        
+        
+                    CoreDataHelper.saveRecording()
+        } //end of function
+    }
     
     override func didReceiveMemoryWarning(){
         super.didReceiveMemoryWarning()
@@ -592,9 +601,6 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             alert.dismiss(animated: true, completion: nil)
             self.countingTime=3
             self.runTimer()
-            self.recording?.hours=Double(self.hours)
-            self.recording?.minutes=Double(self.minutes)
-            self.recording?.seconds=Double(self.seconds)
         }))
         
         alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default, handler: {(action) in

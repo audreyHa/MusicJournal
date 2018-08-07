@@ -12,6 +12,7 @@ import AVFoundation
 import MediaPlayer
 
 class MyRecordingsTableViewController: UITableViewController, UIDocumentInteractionControllerDelegate{
+    var newAudioPlayer: AVAudioPlayer!
     
     var arrayOfRecordingsInfo = [Recording](){
         didSet{
@@ -98,7 +99,7 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
                     if cell.newAudioPlayer.isPlaying==true{
                         cell.newAudioPlayer.pause()
                         cell.timer.invalidate()
-                        myRecordingsTableViewCell.isPaused=true
+                        //indicate that it's paused
                     }
                 }
                 
@@ -111,7 +112,7 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
                     if cell.newAudioPlayer.isPlaying==true{
                         cell.newAudioPlayer.pause()
                         cell.timer.invalidate()
-                         myRecordingsTableViewCell.isPaused=true
+                        
                     }
                 }
             }
@@ -171,15 +172,6 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         let cell=tableView.dequeueReusableCell(withIdentifier: "myRecordingsTableViewCell", for: indexPath) as! myRecordingsTableViewCell
         let currentRecording=arrayOfRecordingsInfo[indexPath.row]
         
-            cell.timer.invalidate()
-            cell.thisHours=0
-            cell.thisMinutes=0
-            cell.thisSeconds=0
-        
-        if cell.newAudioPlayer != nil{
-            cell.newAudioPlayer.stop()
-        }
-        
         cell.surrounding.layer.cornerRadius=8
         cell.playButton.layer.cornerRadius=8
         cell.editButton.layer.cornerRadius=8
@@ -188,6 +180,12 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         cell.songTitle.text=currentRecording.songTitle
         cell.pauseButton.layer.cornerRadius=8
         
+        if let thisDate = currentRecording.lastModified{
+            cell.lastModified.text="\(thisDate.convertToString())"
+        } else{
+            cell.lastModified.text="No Date"
+        }
+
         if MyRecordingsTableViewController.chosenNumber==1{
             cell.songTitle.text=currentRecording.songTitle
             cell.lastModified.text=("\(currentRecording.lastModified!.convertToString())")
@@ -213,12 +211,6 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
             cell.lastModified.text=("\(currentRecording.lastModified!.convertToString())")
             cell.songComposer.text=("\(currentRecording.songComposer!)")
             cell.songEvent.text=("\(currentRecording.songEvent!)")
-        }
-    
-        if let thing = currentRecording.filename{
-            cell.pressPlayFile = currentRecording.filename!
-        }else{
-            cell.pressPlayFile = currentRecording.filename
         }
         
         var totalTime = ""
@@ -285,46 +277,87 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         }
         
         cell.originalHours=Double(currentRecording.hours)
-        print(currentRecording.hours)
         cell.originalMinutes=Double(currentRecording.minutes)
-        print(currentRecording.minutes)
         cell.originalSeconds=Double(currentRecording.seconds)
-        print(currentRecording.seconds)
-//        cell.thisHours=currentRecording.hours
-//        cell.thisMinutes=currentRecording.minutes
-//        cell.thisSeconds=currentRecording.seconds
-        
+
         cell.onButtonTouched = {(theCell) in
-            guard let indexPath = tableView.indexPath(for: theCell) else{
-                return
-            }
+            guard let indexPath = tableView.indexPath(for: theCell) else{ return }
       
             self.newIndexPath=indexPath.row
             
-        }
+        } //end of edit
         
         cell.onDeleteTouched = {(theCell) in
-            guard let indexPath = tableView.indexPath(for: theCell) else{
-                return
-            }
+            guard let indexPath = tableView.indexPath(for: theCell) else {return}
             
             self.deleteIndexPath=indexPath.row
             self.createAlert(title: "Are you sure you want to delete this recording?", message: "You cannot undo this action")
-        }
+        } //end of delete
         
-        
+        cell.onPlayTouched = {(theCell) in
+            guard let indexPath = tableView.indexPath(for: theCell) else { return }
+            
+            do{
+                if (currentRecording.filename != nil){
+                    let fileManager = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask).first
+                    let newPlaying = fileManager!.appendingPathComponent("\(currentRecording.filename!)")
+                    
+                    try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, with:AVAudioSessionCategoryOptions.defaultToSpeaker)
+                    
+                    self.newAudioPlayer = try AVAudioPlayer(contentsOf: newPlaying)
+                    self.newAudioPlayer.play()
+                    print("now playing")
+                    
+                    cell.timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(cell.ascendingAction), userInfo: nil, repeats: true)
+                    
+                }
+                
+            } catch{
+                print("Failed to play, keep trying....")
+            }
+        } //end of play
 
+        
+        cell.onPauseTouched = {(theCell) in
+            guard let indexPath = tableView.indexPath(for: theCell) else{return}
+            
+            if (currentRecording.filename != nil){
+                    
+                    if cell.newAudioPlayer != nil && cell.newAudioPlayer.isPlaying==true{
+                        
+                        cell.timer.invalidate()
+                        self.newAudioPlayer.pause()
+                    }
+                    
+                    if ((cell.thisHours != cell.originalHours && cell.thisMinutes != cell.originalMinutes) && cell.thisSeconds != cell.originalSeconds){
+                        
+                        //Fixing how the invalidate timer makes it go one further
+                        if cell.thisSeconds != 59{
+                            cell.thisSeconds=cell.thisSeconds - 1
+                            cell.displaying()
+                        }
+                        if cell.thisSeconds==59 && cell.thisMinutes != 59{
+                            cell.thisSeconds=cell.thisSeconds+59
+                            cell.thisMinutes=cell.thisMinutes-1
+                            cell.displaying()
+                        }
+                        if cell.thisSeconds==59 && cell.thisMinutes==59{
+                            cell.thisSeconds=cell.thisSeconds+59
+                            cell.thisMinutes=cell.thisMinutes+59
+                            cell.thisHours=cell.thisHours-1
+                            cell.displaying()
+                        }
+                    }
+                    
+                
+            }
+        } //end of paused
+        
+        
         cell.onExportTouched = { (theCell) in
             guard let indexPath = tableView.indexPath(for: theCell) else { return }
             if self.arrayOfRecordingsInfo[indexPath.row].filename != nil{
-                
-//            let activityItem = URL.init(fileURLWithPath: Bundle.main.path(forResource: "\(self.arrayOfRecordingsInfo[indexPath.row].songDate!.convertToString().removingWhitespacesAndNewlines)", ofType: "m4a")!)
-//
-//                let activityVC = UIActivityViewController(activityItems: [activityItem],applicationActivities: nil)
-//                activityVC.popoverPresentationController?.sourceView = self.view
-//
-//                self.present(activityVC, animated: true, completion: nil)
-                
+            
                 self.controller.delegate = self
                 self.controller.presentPreview(animated: true)
                 let dirPath: String = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
@@ -339,10 +372,8 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
                 self.exportAlert(title: "Cannot Export Recording", message: "You did not make a recording here")
             }
         
-        }
-        
-        
-        
+        } //end of export
+
         return cell
         
     }//end of override func

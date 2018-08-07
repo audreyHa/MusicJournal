@@ -38,7 +38,7 @@ class myRecordingsTableViewCell: UITableViewCell{
     var thisMinutes: Double!
     var thisSeconds: Double!
     var timer = Timer()
-    var isPaused: Bool=false
+    static var isPaused: Bool=false
     var isStart: Bool = true
     var onButtonTouched: ((UITableViewCell) -> Void)? = nil
     var onDeleteTouched: ((UITableViewCell) -> Void)? = nil
@@ -66,17 +66,17 @@ class myRecordingsTableViewCell: UITableViewCell{
     
     @IBAction func pausePressed(_ sender: Any) {
         if (pressPlayFile != nil){
-            if isPaused==false{
+            if myRecordingsTableViewCell.isPaused==false{
                 
                 
                 if (isStart==false){
-                    isPaused=true
+                    myRecordingsTableViewCell.isPaused=true
                     timer.invalidate()
                     newAudioPlayer.pause()
                 }
                 
                 if ((thisHours != originalHours && thisMinutes != originalMinutes) && thisSeconds != originalSeconds)&&(isStart==false){
-                    isPaused=true
+                    myRecordingsTableViewCell.isPaused=true
                     //Fixing how the invalidate timer makes it go one further
                     if thisSeconds != 59{
                         thisSeconds=thisSeconds - 1
@@ -103,15 +103,11 @@ class myRecordingsTableViewCell: UITableViewCell{
     
     @IBAction func playPressed(_ sender: Any) {
         print("This is the press play file: \(pressPlayFile)")
-        if isPaused==false{//playing fresh, no pausing
+        if myRecordingsTableViewCell.isPaused==false{//playing fresh, no pausing
             isStart=false
             timer.invalidate()
-            thisHours=0
-            thisMinutes=0
-            thisSeconds=0
             displaying()
             
-
             do{
                 if (pressPlayFile != nil){
                     let fileManager = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask).first
@@ -139,7 +135,7 @@ class myRecordingsTableViewCell: UITableViewCell{
                 print("Failed to play, keep trying....")
             }
         }else{ //unpausing
-            isPaused=false
+            myRecordingsTableViewCell.isPaused=false
             
             print("now playing")
             if (thisHours != originalHours || thisMinutes != originalMinutes) || thisSeconds != originalSeconds{
