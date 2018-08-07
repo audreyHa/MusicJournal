@@ -103,9 +103,6 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             RecordMusicViewController.audioRecorder.stop()
             
             RecordMusicViewController.timer.invalidate()
-            recording?.hours=Double(hours)
-            recording?.minutes=Double(minutes)
-            recording?.seconds=Double(seconds)
             RecordMusicViewController.audioRecorder = nil
             startNewRecording.setTitle("  Press To Start Over  ", for: .normal)
 
@@ -138,7 +135,9 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         
         switch identifier{
         case "save":
-           
+            recording?.hours=Double(hours)
+            recording?.minutes=Double(minutes)
+            recording?.seconds=Double(seconds)
             RecordMusicViewController.timer.invalidate()
             countingTime=3
             
@@ -189,9 +188,9 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             
             if RecordMusicViewController.audioRecorder != nil{
                 RecordMusicViewController.audioRecorder.stop()
-                recording?.hours=Double(hours)
-                recording?.minutes=Double(minutes)
-                recording?.seconds=Double(seconds)
+//                recording?.hours=Double(hours)
+//                recording?.minutes=Double(minutes)
+//                recording?.seconds=Double(seconds)
                 RecordMusicViewController.audioRecorder = nil
                 startNewRecording.setTitle("  Press To Start Over  ", for: .normal)
             }
@@ -231,9 +230,6 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             
             if RecordMusicViewController.audioRecorder != nil{
                 RecordMusicViewController.audioRecorder.stop()
-                recording?.hours=Double(hours)
-                recording?.minutes=Double(minutes)
-                recording?.seconds=Double(seconds)
                 RecordMusicViewController.timer.invalidate()
                 RecordMusicViewController.audioRecorder = nil
                 startNewRecording.setTitle("  Press To Start Over  ", for: .normal)
@@ -345,12 +341,14 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     }
     
     @objc func appMovedToBackground() {
-        print("it should be working...")
+        print("hello")
         
         RecordMusicViewController.timer.invalidate()
+        
         recording?.hours=Double(hours)
         recording?.minutes=Double(minutes)
         recording?.seconds=Double(seconds)
+        
         countingTime=3
             
         if recording==nil{
