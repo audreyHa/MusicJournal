@@ -201,7 +201,7 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
         
         if MyRecordingsTableViewController.firstCancel==true{
-            
+            print("hit third")
             //find the most RECENT recording
             
             arrayOfRecordingsInfo = arrayOfRecordingsInfo.sorted(by: { $0.lastModified?.compare($1.lastModified!) == .orderedAscending})
@@ -209,8 +209,11 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
             //Delete from the array
             if let recordingToCancelOut=arrayOfRecordingsInfo.last{
                 CoreDataHelper.deleteRecording(recording: recordingToCancelOut)
+                print("Deleting confirmed")
                 arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
             }
+            
+            MyRecordingsTableViewController.firstCancel=false
         }
     
         if let number: Int = UserDefaults.standard.object(forKey: "myNumber") as? Int{
@@ -237,6 +240,10 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         cell.exportButton.layer.cornerRadius=8
         cell.songTitle.text=currentRecording.songTitle
         cell.pauseButton.layer.cornerRadius=8
+        
+        if currentRecording.lastModified==nil{
+            currentRecording.lastModified=Date()
+        }
         
         if MyRecordingsTableViewController.chosenNumber==1{
             cell.songTitle.text=currentRecording.songTitle
@@ -335,11 +342,11 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         }
         
         cell.originalHours=Double(currentRecording.hours)
-        print(currentRecording.hours)
+        
         cell.originalMinutes=Double(currentRecording.minutes)
-        print(currentRecording.minutes)
+        
         cell.originalSeconds=Double(currentRecording.seconds)
-        print(currentRecording.seconds)
+        
         cell.thisHours=0
         cell.thisMinutes=0
         cell.thisSeconds=0

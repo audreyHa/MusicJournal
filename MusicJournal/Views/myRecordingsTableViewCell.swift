@@ -73,7 +73,7 @@ class myRecordingsTableViewCell: UITableViewCell{
     
     @IBAction func pausePressed(_ sender: Any) {
         if (pressPlayFile != nil){
- 
+            if newAudioPlayer != nil{
                 if (newAudioPlayer.isPlaying==true){
                     timer.invalidate()
                     newAudioPlayer.pause()
@@ -95,7 +95,10 @@ class myRecordingsTableViewCell: UITableViewCell{
                             displaying()
                         }
                     }
+                }else{
+                    print("It should not do anything")
                 }
+            }
             }
         
         }
@@ -108,7 +111,10 @@ class myRecordingsTableViewCell: UITableViewCell{
         print("This is the press play file: \(pressPlayFile)")
         //playing fresh, no pausing
             displaying()
-            
+        
+        if newAudioPlayer != nil && newAudioPlayer.isPlaying==true{
+            print("DON'T DO ANYTHING")
+        }else{
             do{
                 if (pressPlayFile != nil){
                     
@@ -131,15 +137,14 @@ class myRecordingsTableViewCell: UITableViewCell{
                         displaying()
                         timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ascendingAction), userInfo: nil, repeats: true)
                         newAudioPlayer.play()
+                        
+                    }
                     
-                }
-                
                 }
             }catch{
                 print("Failed to play, keep trying....")
-        }
-      
-        
+            }
+        } 
     }//end of press play function
     
     var onExportTouched: ((UITableViewCell) -> Void)? = nil
