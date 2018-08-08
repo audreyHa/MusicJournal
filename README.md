@@ -7,5 +7,9 @@ Musicians of all levels can greatly improve their musical skills by recording th
 ## Features
 Users enter the app, and press “Add New” to create a new recording. They fill in the song title, composer, and event and then record themselves playing the song. After hitting save, they can play, edit, delete, and send the recording. The users can select one out of the four following categories (song, date, composer, and event), and the app will automatically sort the recordings based on the category that they chose to help users save time. 
 
+## Privacy Policy
+
+MusiCord does not share your data or keep records of your data. You are the owner and the individual in control of all your data and recordings. If you have any questions, please contact musicordmobileapp@gmail.com.
+
 ## Author
 Audrey Ha
