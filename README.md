@@ -1,4 +1,4 @@
-# MusiCorder
+# MusiCord
 MusiCord is a recording app targeted towards musicians of all levels. User record themselves playing a musical piece. After saving, they can play, edit, delete, and export their recordings and select whether they want the recordings to be sorted by title, date, composer, or event. Users can switch the method of organization at any time, and the app automatically sorts their recordings by the chosen category to help musicians stay organized and save time.
 
 ## Motivation
