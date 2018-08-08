@@ -200,22 +200,15 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     @IBAction func unwindToMyRecordingsCancel(_ segue: UIStoryboardSegue){
         arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
         
-        if MyRecordingsTableViewController.firstCancel==true{
-            print("hit third")
-            //find the most RECENT recording
-            
-            arrayOfRecordingsInfo = arrayOfRecordingsInfo.sorted(by: { $0.lastModified?.compare($1.lastModified!) == .orderedAscending})
-            
-            //Delete from the array
+        arrayOfRecordingsInfo = arrayOfRecordingsInfo.sorted(by: { $0.lastModified?.compare($1.lastModified!) == .orderedAscending})
+        if arrayOfRecordingsInfo.last?.songTitle==nil{
             if let recordingToCancelOut=arrayOfRecordingsInfo.last{
                 CoreDataHelper.deleteRecording(recording: recordingToCancelOut)
                 print("Deleting confirmed")
                 arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
             }
-            
-            MyRecordingsTableViewController.firstCancel=false
         }
-    
+        
         if let number: Int = UserDefaults.standard.object(forKey: "myNumber") as? Int{
             MyRecordingsTableViewController.chosenNumber=number
         }

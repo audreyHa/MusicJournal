@@ -242,37 +242,14 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             countingTime=3
             
             if recording?.lastModified==nil{ //If it's the first round and hasn't been saved yet
+                if recording==nil{
+                    recording=CoreDataHelper.newRecording()
+                }
                 print("hit the second one")
                 if cancelOutArray.count>0{
                     deleteEverything()
                 }
-                
-               
-                    recording?.songTitle=songLabel.text ?? ""
-                    recording?.songEvent=eventLabel.text ?? ""
-                    recording?.songComposer=composerLabel.text ?? ""
-                    
-                    if recording?.songTitle==""{
-                        recording?.songTitle="No Title Entered"
-                    }
-                    
-                    if recording?.songComposer==""{
-                        recording?.songComposer="No Composer Entered"
-                    }
-                    
-                    if recording?.songEvent==""{
-                        recording?.songEvent="No Event Entered"
-                    }
-                    recording?.songDate=recording?.dateSpace
-                if recording?.songDate != nil{
-                    recording?.filename="\((recording?.songDate?.convertToString().removingWhitespacesAndNewlines)!).m4a"
-                }else{
-                    recording?.filename="filename"
-                }
-                
-                    recording?.lastModified=Date()
-                    CoreDataHelper.saveRecording()
-                    MyRecordingsTableViewController.firstCancel=true
+                CoreDataHelper.saveRecording()
                 
             } else{
                 if cancelOutArray.count>0{
