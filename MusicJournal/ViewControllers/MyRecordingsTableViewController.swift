@@ -145,7 +145,7 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
                 if cell.newAudioPlayer != nil{
                     cell.timer.invalidate()
                     if cell.newAudioPlayer.isPlaying==true{
-                        cell.newAudioPlayer.pause()
+                        cell.newAudioPlayer.stop()
                     }
                 }
                 
@@ -157,7 +157,7 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
                 if cell.newAudioPlayer != nil{
                     cell.timer.invalidate()
                     if cell.newAudioPlayer.isPlaying==true{
-                        cell.newAudioPlayer.pause()
+                        cell.newAudioPlayer.stop()
                         
                     }
                 }
@@ -181,9 +181,7 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
                 
                 
                 try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, with:AVAudioSessionCategoryOptions.defaultToSpeaker)
-                
-                cell.newAudioPlayer = try? AVAudioPlayer(contentsOf: newPlaying)
-                cell.newAudioPlayer.play()
+
                 cell.newAudioPlayer.stop()
             }
         }
@@ -201,26 +199,12 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
         
         arrayOfRecordingsInfo = arrayOfRecordingsInfo.sorted(by: { $0.lastModified?.compare($1.lastModified!) == .orderedAscending})
-        if arrayOfRecordingsInfo.last?.songTitle==nil{
+        
+        if arrayOfRecordingsInfo.last?.lastModified==nil{ //it's new or it was canceled
             if let recordingToCancelOut=arrayOfRecordingsInfo.last{
                 CoreDataHelper.deleteRecording(recording: recordingToCancelOut)
                 print("Deleting confirmed")
                 arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
-            }
-        }else if arrayOfRecordingsInfo.last?.interrupted==true{
-            if arrayOfRecordingsInfo.last?.lastModified==nil{ //it was interrupted AND it hasn't been editted
-                if let recordingToCancelOut=arrayOfRecordingsInfo.last{
-                    CoreDataHelper.deleteRecording(recording: recordingToCancelOut)
-                    print("Deleting confirmed")
-                    arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
-                    
-                }
-            }else{
-                
-                arrayOfRecordingsInfo.last?.dateSpace=arrayOfRecordingsInfo.last?.songDate
-                arrayOfRecordingsInfo.last?.filename=arrayOfRecordingsInfo.last?.filename
-                arrayOfRecordingsInfo.last?.interrupted=false
-                arrayOfRecordingsInfo=CoreDataHelper.retrieveRecording()
             }
         }
         
