@@ -29,19 +29,21 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     @IBOutlet weak var eventButton: UIButton!
     var newIndexPath: Int!
     var deleteIndexPath: Int!
-    
+    var cells=[myRecordingsTableViewCell]()
     @IBAction func songButtonPressed(_ sender: Any) {
-        let cells = self.myTableView.visibleCells as? [myRecordingsTableViewCell]
-        for cell in cells!{
-                if cell.newAudioPlayer != nil{
-                    cell.timer.invalidate()
-                    cell.thisSeconds=0
-                    cell.thisMinutes=0
-                    cell.thisHours=0
-                    if cell.newAudioPlayer.isPlaying==true{
-                        cell.newAudioPlayer.stop()
-                    }
-                }
+        getAllCells()
+        
+        for cell in cells{
+            if cell.newAudioPlayer != nil{
+                cell.timer.invalidate()
+                cell.thisSeconds=0
+                cell.thisMinutes=0
+                cell.thisHours=0
+                
+                cell.newAudioPlayer.stop()
+                print("stopped")
+                
+            }
         }
         
         MyRecordingsTableViewController.chosenNumber=1
@@ -51,18 +53,21 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     }
     
     @IBAction func dateButtonPressed(_ sender: Any) {
-        let cells = self.myTableView.visibleCells as? [myRecordingsTableViewCell]
-        for cell in cells!{
+        getAllCells()
+        
+        for cell in cells{
             if cell.newAudioPlayer != nil{
                 cell.timer.invalidate()
                 cell.thisSeconds=0
                 cell.thisMinutes=0
                 cell.thisHours=0
-                if cell.newAudioPlayer.isPlaying==true{
-                    cell.newAudioPlayer.stop()
-                }
+                
+                cell.newAudioPlayer.stop()
+                print("stopped")
+                
             }
         }
+        
         MyRecordingsTableViewController.chosenNumber=2
         
         UserDefaults.standard.set(MyRecordingsTableViewController.chosenNumber,forKey: "myNumber")
@@ -70,18 +75,21 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     }
     
     @IBAction func composerButtonPressed(_ sender: Any) {
-        let cells = self.myTableView.visibleCells as? [myRecordingsTableViewCell]
-        for cell in cells!{
+        getAllCells()
+        
+        for cell in cells{
             if cell.newAudioPlayer != nil{
                 cell.timer.invalidate()
                 cell.thisSeconds=0
                 cell.thisMinutes=0
                 cell.thisHours=0
-                if cell.newAudioPlayer.isPlaying==true{
-                    cell.newAudioPlayer.stop()
-                }
+                
+                cell.newAudioPlayer.stop()
+                print("stopped")
+                
             }
         }
+        
         MyRecordingsTableViewController.chosenNumber=3
        
         UserDefaults.standard.set(MyRecordingsTableViewController.chosenNumber,forKey: "myNumber")
@@ -89,18 +97,27 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     }
     
     @IBAction func eventButtonPressed(_ sender: Any) {
-        let cells = self.myTableView.visibleCells as? [myRecordingsTableViewCell]
-        for cell in cells!{
+        getAllCells()
+        
+        for cell in cells{
             if cell.newAudioPlayer != nil{
                 cell.timer.invalidate()
                 cell.thisSeconds=0
                 cell.thisMinutes=0
                 cell.thisHours=0
-                if cell.newAudioPlayer.isPlaying==true{
-                    cell.newAudioPlayer.stop()
-                }
+                
+                cell.newAudioPlayer.stop()
+                print("stopped")
+                
             }
         }
+        
+//        if arrayOfRecordingsInfo.count>0{
+//            let indexPath = NSIndexPath(row: (cells.count), section: 0)
+//            cells.append(myTableView.cellForRow(at: indexPath as IndexPath) as! myRecordingsTableViewCell)
+//
+//        }
+        
         MyRecordingsTableViewController.chosenNumber=4
         
         UserDefaults.standard.set(MyRecordingsTableViewController.chosenNumber,forKey: "myNumber")
@@ -138,8 +155,8 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         switch interruptionType {
         case .began:
             print("began")
-            let cells = myTableView.visibleCells as? [myRecordingsTableViewCell]
-            for cell in cells!{
+            getAllCells()
+            for cell in cells{
                 if cell.newAudioPlayer != nil{
                     cell.timer.invalidate()
                     if cell.newAudioPlayer.isPlaying==true{
@@ -150,8 +167,8 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
             }
         default :
             print("ended")
-            let cells = myTableView.visibleCells as? [myRecordingsTableViewCell]
-            for cell in cells!{
+            getAllCells()
+            for cell in cells{
                 if cell.newAudioPlayer != nil{
                     cell.timer.invalidate()
                     if cell.newAudioPlayer.isPlaying==true{
@@ -164,8 +181,8 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     }
     
     @objc func appMovedToBackground() {
-        let cells = myTableView.visibleCells as? [myRecordingsTableViewCell]
-        for cell in cells!{
+        getAllCells()
+        for cell in cells{
             
             cell.timer.invalidate()
             cell.thisHours=0
@@ -391,8 +408,8 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         cell.onPlayTouched = {(theCell) in
             guard let indexPath = tableView.indexPath(for: theCell) else { return }
             
-            let cells = self.myTableView.visibleCells as? [myRecordingsTableViewCell]
-            for cell in cells!{
+            self.getAllCells()
+            for cell in self.cells{
                 if cell != theCell{
                     if cell.newAudioPlayer != nil{
                         cell.timer.invalidate()
@@ -405,6 +422,7 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
                     }
                 }
             }
+            
         }
         
         return cell
@@ -412,9 +430,8 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     }//end of override func
 
     override func viewWillDisappear(_ animated: Bool) {
-        let cells = myTableView.visibleCells as? [myRecordingsTableViewCell]
-        for cell in cells!{
-            
+        getAllCells()
+        for cell in cells{
             cell.timer.invalidate()
             cell.thisHours=0
             cell.thisMinutes=0
@@ -433,7 +450,7 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
                     cell.newAudioPlayer.play()
                     cell.newAudioPlayer.stop()
                 }
-               
+                
             }
         }
     }
@@ -668,6 +685,24 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         }))
         
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func getAllCells(){
+        
+        var theCells = [myRecordingsTableViewCell]()
+        // assuming tableView is your self.tableView defined somewhere
+        for i in 0...myTableView.numberOfSections-1
+        {
+            for j in 0...myTableView.numberOfRows(inSection: i)-1
+            {
+                if let cell = myTableView.cellForRow(at: NSIndexPath(row: j, section: i) as IndexPath) {
+                    
+                    theCells.append(cell as! myRecordingsTableViewCell)
+                }
+                
+            }
+        }
+        cells=theCells
     }
     
 }
