@@ -19,8 +19,6 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         }
     }
     
-    static var firstCancel: Bool = false
-    
     @IBOutlet var myTableView: UITableView!
     
     static var chosenNumber: Int!
