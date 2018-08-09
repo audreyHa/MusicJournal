@@ -6,6 +6,7 @@
 //  Copyright © 2018 Audrey Ha. All rights reserved.
 //
 
+//Use User defaults to store the first values for seconds, hours, minutes, title, event, composer, (last modified doesn't change), so that you can revert in that one section on My Recordings Table View Controller. Make user defaults static? I don't know if that's possible....
 import Foundation
 import UIKit
 import AVFoundation
@@ -328,8 +329,12 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     }
     
     @objc func appMovedToBackground() {
-        print("hello")
+        if recording==nil{
+            recording = CoreDataHelper.newRecording()
+        }
         
+        print("hello")
+        recording?.interrupted=true
         RecordMusicViewController.timer.invalidate()
         
         if hours != 100 && minutes != 100 && seconds != 100{
@@ -339,11 +344,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         }
 
         countingTime=3
-            
-        if recording==nil{
-            recording = CoreDataHelper.newRecording()
-        }
-        
+
             if deleteAfterSaving.count>0{
                 for toBeDeleted in deleteAfterSaving{
                     var filePath = ""
@@ -413,7 +414,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
                 recording?.songDate=datespace
                 recording?.filename="\((recording?.songDate!.convertToString().removingWhitespacesAndNewlines.replacingOccurrences(of: ":", with: ""))!).m4a"
             }
-            
+        
             CoreDataHelper.saveRecording()
         
     } //end of function
@@ -609,5 +610,3 @@ extension String {
         return components(separatedBy: .whitespacesAndNewlines).joined()
     }
 }
-
-

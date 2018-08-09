@@ -207,6 +207,21 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
                 print("Deleting confirmed")
                 arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
             }
+        }else if arrayOfRecordingsInfo.last?.interrupted==true{
+            if arrayOfRecordingsInfo.last?.lastModified==nil{ //it was interrupted AND it hasn't been editted
+                if let recordingToCancelOut=arrayOfRecordingsInfo.last{
+                    CoreDataHelper.deleteRecording(recording: recordingToCancelOut)
+                    print("Deleting confirmed")
+                    arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
+                    
+                }
+            }else{
+                
+                arrayOfRecordingsInfo.last?.dateSpace=arrayOfRecordingsInfo.last?.songDate
+                arrayOfRecordingsInfo.last?.filename=arrayOfRecordingsInfo.last?.filename
+                arrayOfRecordingsInfo.last?.interrupted=false
+                arrayOfRecordingsInfo=CoreDataHelper.retrieveRecording()
+            }
         }
         
         if let number: Int = UserDefaults.standard.object(forKey: "myNumber") as? Int{
