@@ -29,23 +29,10 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     @IBOutlet weak var eventButton: UIButton!
     var newIndexPath: Int!
     var deleteIndexPath: Int!
-    var cells=[myRecordingsTableViewCell]()
+    var myCells = [myRecordingsTableViewCell]()
+    
     @IBAction func songButtonPressed(_ sender: Any) {
         getAllCells()
-        
-        for cell in cells{
-            if cell.newAudioPlayer != nil{
-                cell.timer.invalidate()
-                cell.thisSeconds=0
-                cell.thisMinutes=0
-                cell.thisHours=0
-                
-                cell.newAudioPlayer.stop()
-                print("stopped")
-                
-            }
-        }
-        
         MyRecordingsTableViewController.chosenNumber=1
         
         UserDefaults.standard.set(MyRecordingsTableViewController.chosenNumber,forKey: "myNumber")
@@ -54,19 +41,6 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     
     @IBAction func dateButtonPressed(_ sender: Any) {
         getAllCells()
-        
-        for cell in cells{
-            if cell.newAudioPlayer != nil{
-                cell.timer.invalidate()
-                cell.thisSeconds=0
-                cell.thisMinutes=0
-                cell.thisHours=0
-                
-                cell.newAudioPlayer.stop()
-                print("stopped")
-                
-            }
-        }
         
         MyRecordingsTableViewController.chosenNumber=2
         
@@ -77,19 +51,6 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     @IBAction func composerButtonPressed(_ sender: Any) {
         getAllCells()
         
-        for cell in cells{
-            if cell.newAudioPlayer != nil{
-                cell.timer.invalidate()
-                cell.thisSeconds=0
-                cell.thisMinutes=0
-                cell.thisHours=0
-                
-                cell.newAudioPlayer.stop()
-                print("stopped")
-                
-            }
-        }
-        
         MyRecordingsTableViewController.chosenNumber=3
        
         UserDefaults.standard.set(MyRecordingsTableViewController.chosenNumber,forKey: "myNumber")
@@ -98,26 +59,7 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     
     @IBAction func eventButtonPressed(_ sender: Any) {
         getAllCells()
-        
-        for cell in cells{
-            if cell.newAudioPlayer != nil{
-                cell.timer.invalidate()
-                cell.thisSeconds=0
-                cell.thisMinutes=0
-                cell.thisHours=0
-                
-                cell.newAudioPlayer.stop()
-                print("stopped")
-                
-            }
-        }
-        
-//        if arrayOfRecordingsInfo.count>0{
-//            let indexPath = NSIndexPath(row: (cells.count), section: 0)
-//            cells.append(myTableView.cellForRow(at: indexPath as IndexPath) as! myRecordingsTableViewCell)
-//
-//        }
-        
+
         MyRecordingsTableViewController.chosenNumber=4
         
         UserDefaults.standard.set(MyRecordingsTableViewController.chosenNumber,forKey: "myNumber")
@@ -126,7 +68,7 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     
     override func viewDidLoad(){
         super.viewDidLoad()
-        
+        myCells=[]
         arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
         
         reorderArray()
@@ -156,50 +98,17 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         case .began:
             print("began")
             getAllCells()
-            for cell in cells{
-                if cell.newAudioPlayer != nil{
-                    cell.timer.invalidate()
-                    if cell.newAudioPlayer.isPlaying==true{
-                        cell.newAudioPlayer.stop()
-                    }
-                }
-                
-            }
+           
         default :
             print("ended")
             getAllCells()
-            for cell in cells{
-                if cell.newAudioPlayer != nil{
-                    cell.timer.invalidate()
-                    if cell.newAudioPlayer.isPlaying==true{
-                        cell.newAudioPlayer.stop()
-                        
-                    }
-                }
-            }
+            
         }
     }
     
     @objc func appMovedToBackground() {
         getAllCells()
-        for cell in cells{
-            
-            cell.timer.invalidate()
-            cell.thisHours=0
-            cell.thisMinutes=0
-            cell.thisSeconds=0
-            cell.displaying()
-            
-            if cell.newAudioPlayer != nil{
-                let fileManager = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask).first
-                let newPlaying = fileManager!.appendingPathComponent("\(cell.pressPlayFile!)")
-                
-                
-                try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, with:AVAudioSessionCategoryOptions.defaultToSpeaker)
 
-                cell.newAudioPlayer.stop()
-            }
-        }
     }
     
     @IBAction func unwindToMyRecordingsSave(_ segue: UIStoryboardSegue){
@@ -409,50 +318,16 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
             guard let indexPath = tableView.indexPath(for: theCell) else { return }
             
             self.getAllCells()
-            for cell in self.cells{
-                if cell != theCell{
-                    if cell.newAudioPlayer != nil{
-                        cell.timer.invalidate()
-                        cell.thisSeconds=0
-                        cell.thisMinutes=0
-                        cell.thisHours=0
-                        if cell.newAudioPlayer.isPlaying==true{
-                            cell.newAudioPlayer.stop()
-                        }
-                    }
-                }
-            }
             
         }
-        
+        myCells.append(cell)
         return cell
         
     }//end of override func
 
     override func viewWillDisappear(_ animated: Bool) {
         getAllCells()
-        for cell in cells{
-            cell.timer.invalidate()
-            cell.thisHours=0
-            cell.thisMinutes=0
-            cell.thisSeconds=0
-            cell.displaying()
-            
-            if cell.newAudioPlayer != nil{
-                if cell.pressPlayFile != nil{
-                    let fileManager = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask).first
-                    let newPlaying = fileManager!.appendingPathComponent("\(cell.pressPlayFile!)")
-                    
-                    
-                    try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, with:AVAudioSessionCategoryOptions.defaultToSpeaker)
-                    
-                    cell.newAudioPlayer = try? AVAudioPlayer(contentsOf: newPlaying)
-                    cell.newAudioPlayer.play()
-                    cell.newAudioPlayer.stop()
-                }
-                
-            }
-        }
+
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
@@ -688,21 +563,21 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     }
     
     func getAllCells(){
-        
-        var theCells = [myRecordingsTableViewCell]()
-        // assuming tableView is your self.tableView defined somewhere
-        for i in 0...myTableView.numberOfSections-1
-        {
-            for j in 0...myTableView.numberOfRows(inSection: i)-1
-            {
-                if let cell = myTableView.cellForRow(at: NSIndexPath(row: j, section: i) as IndexPath) {
+            for eachCell in myCells{
+                eachCell.timer.invalidate()
+                eachCell.thisHours=0
+                eachCell.thisMinutes=0
+                eachCell.thisSeconds=0
+                eachCell.displaying()
+                
+                if eachCell.newAudioPlayer != nil{
+                    if eachCell.newAudioPlayer.isPlaying==true{
+                        eachCell.newAudioPlayer.stop()
+                    }
                     
-                    theCells.append(cell as! myRecordingsTableViewCell)
                 }
                 
             }
-        }
-        cells=theCells
     }
     
 }

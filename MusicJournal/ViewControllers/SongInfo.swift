@@ -272,7 +272,10 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
                 CoreDataHelper.saveRecording()
                 
             } else{
-                recording?.filename=deleteSaving[0]
+                if deleteSaving.count>0{
+                    recording?.filename=deleteSaving[0]
+                }
+                
                 recording?.songTitle=titleArray[0]
                 recording?.songComposer=compArray[0]
                 recording?.songEvent=eventArray[0]
