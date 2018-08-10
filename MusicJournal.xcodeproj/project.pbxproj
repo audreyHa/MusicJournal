@@ -11,6 +11,8 @@
 		F6367A6C2103ED3800981216 /* SongInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6367A6B2103ED3800981216 /* SongInfo.swift */; };
 		F6367A762103FECC00981216 /* myRecordingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6367A752103FECC00981216 /* myRecordingsTableViewCell.swift */; };
 		F6367A782104005700981216 /* MyRecordingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6367A772104005700981216 /* MyRecordingsTableViewController.swift */; };
+		F67BEB9E211E09D100A26FF4 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F67BEB9C211E09D100A26FF4 /* Fabric.framework */; };
+		F67BEB9F211E09D100A26FF4 /* Answers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F67BEB9D211E09D100A26FF4 /* Answers.framework */; };
 		F6ABEE2C210446CC00143E67 /* convertToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6ABEE2B210446CC00143E67 /* convertToString.swift */; };
 		F6E6E66C2106427E00C47C2E /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E6E66B2106427E00C47C2E /* CoreDataHelper.swift */; };
 		F6EB02B32103D759006CD141 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6EB02B22103D759006CD141 /* AppDelegate.swift */; };
@@ -25,6 +27,8 @@
 		F6367A6B2103ED3800981216 /* SongInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongInfo.swift; sourceTree = "<group>"; };
 		F6367A752103FECC00981216 /* myRecordingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myRecordingsTableViewCell.swift; sourceTree = "<group>"; };
 		F6367A772104005700981216 /* MyRecordingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRecordingsTableViewController.swift; sourceTree = "<group>"; };
+		F67BEB9C211E09D100A26FF4 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		F67BEB9D211E09D100A26FF4 /* Answers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Answers.framework; sourceTree = "<group>"; };
 		F6ABEE2B210446CC00143E67 /* convertToString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = convertToString.swift; sourceTree = "<group>"; };
 		F6E6E66B2106427E00C47C2E /* CoreDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
 		F6EB02AF2103D759006CD141 /* MusicJournal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicJournal.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -41,6 +45,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F67BEB9F211E09D100A26FF4 /* Answers.framework in Frameworks */,
+				F67BEB9E211E09D100A26FF4 /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,6 +88,8 @@
 		F6EB02A62103D759006CD141 = {
 			isa = PBXGroup;
 			children = (
+				F67BEB9D211E09D100A26FF4 /* Answers.framework */,
+				F67BEB9C211E09D100A26FF4 /* Fabric.framework */,
 				F6E6E66A2106426D00C47C2E /* Helpers */,
 				F6ABEE2A210446AB00143E67 /* Extensions */,
 				F6367A6F2103F9CD00981216 /* Models */,
@@ -140,6 +148,8 @@
 				F6EB02AB2103D759006CD141 /* Sources */,
 				F6EB02AC2103D759006CD141 /* Frameworks */,
 				F6EB02AD2103D759006CD141 /* Resources */,
+				F67BEBA0211E09E600A26FF4 /* ShellScript */,
+				F63551D9211E126700925A7A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -195,6 +205,35 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		F63551D9211E126700925A7A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PROJECT_DIR}/Fabric.framework/run\" 15dd5c23cc3b381debb8ff81398509d3de4ef19b 57a27ccf74602ac5b6cc3ff0b64902296b7d1c08bb0e8722a256c02aac90c0d4\n";
+		};
+		F67BEBA0211E09E600A26FF4 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PROJECT_DIR}/Fabric.framework/run\" 15dd5c23cc3b381debb8ff81398509d3de4ef19b 57a27ccf74602ac5b6cc3ff0b64902296b7d1c08bb0e8722a256c02aac90c0d4";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F6EB02AB2103D759006CD141 /* Sources */ = {
@@ -354,6 +393,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X5ZKFR55NQ;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = MusicJournal/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -372,6 +415,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X5ZKFR55NQ;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = MusicJournal/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

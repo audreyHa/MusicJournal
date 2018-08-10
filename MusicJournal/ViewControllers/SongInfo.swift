@@ -10,6 +10,9 @@ import Foundation
 import UIKit
 import AVFoundation
 import MediaPlayer
+//import Crashlytics // If using Answers with Crashlytics
+import Answers // If using Answers without Crashlytics
+
 
 class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     
@@ -39,8 +42,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     }
     
     func newRecord(){
-       
-        
+
         if self.recording == nil{
             self.recording = CoreDataHelper.newRecording()
         }
@@ -98,6 +100,8 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
                 //if they're starting over
                 createAlert(title: "Are you sure you want to start over?", message: "You cannot undo this action")
             } else{
+                self.startNewRecording.addTarget(self, action: #selector(self.anImportantUserAction), for: UIControlEvents.touchUpInside)
+                
                 runTimer()
             }
 
@@ -567,6 +571,8 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: {(action) in
             alert.dismiss(animated: true, completion: nil)
             
+            self.startNewRecording.addTarget(self, action: #selector(self.anImportantUserAction), for: UIControlEvents.touchUpInside)
+            
             self.countingTime=3
             self.runTimer()
         }))
@@ -577,6 +583,15 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         }))
         self.present(alert, animated: true, completion: nil)
     }
+    
+    @objc func anImportantUserAction() {
+        
+        // TODO: Move this method and customize the name and parameters to track your key metrics
+        //       Use your own string attributes to track common values over time
+        //       Use your own number attributes to track median value over time
+        Answers.logCustomEvent(withName: "New Recording Made")
+    }
+
     
 } //end of class
 
