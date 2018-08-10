@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MusicJournal/ViewControllers/SongInfo.swift"
-            timestampString = "555621259.111069"
+            timestampString = "555627792.3038141"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "74"
-            endingLineNumber = "74"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
             landmarkName = "newRecord()"
             landmarkType = "7">
          </BreakpointContent>

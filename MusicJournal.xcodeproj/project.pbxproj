@@ -7,12 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		72C603E780A0C0561AE8D261 /* Pods_MusicJournal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 962D39997D9E1DEFCEE7E188 /* Pods_MusicJournal.framework */; };
 		F628826A21068AAE0010B15E /* MusicJournal.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F628826821068AAE0010B15E /* MusicJournal.xcdatamodeld */; };
 		F6367A6C2103ED3800981216 /* SongInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6367A6B2103ED3800981216 /* SongInfo.swift */; };
 		F6367A762103FECC00981216 /* myRecordingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6367A752103FECC00981216 /* myRecordingsTableViewCell.swift */; };
 		F6367A782104005700981216 /* MyRecordingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6367A772104005700981216 /* MyRecordingsTableViewController.swift */; };
-		F67BEB9E211E09D100A26FF4 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F67BEB9C211E09D100A26FF4 /* Fabric.framework */; };
-		F67BEB9F211E09D100A26FF4 /* Answers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F67BEB9D211E09D100A26FF4 /* Answers.framework */; };
 		F6ABEE2C210446CC00143E67 /* convertToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6ABEE2B210446CC00143E67 /* convertToString.swift */; };
 		F6E6E66C2106427E00C47C2E /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E6E66B2106427E00C47C2E /* CoreDataHelper.swift */; };
 		F6EB02B32103D759006CD141 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6EB02B22103D759006CD141 /* AppDelegate.swift */; };
@@ -23,12 +22,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		29624CEEB2F87A39D46F91DC /* Pods-MusicJournal.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MusicJournal.release.xcconfig"; path = "Pods/Target Support Files/Pods-MusicJournal/Pods-MusicJournal.release.xcconfig"; sourceTree = "<group>"; };
+		962D39997D9E1DEFCEE7E188 /* Pods_MusicJournal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MusicJournal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B997DB3BDDB6A4329227F6FD /* Pods-MusicJournal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MusicJournal.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MusicJournal/Pods-MusicJournal.debug.xcconfig"; sourceTree = "<group>"; };
 		F628826921068AAE0010B15E /* MusicJournal.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MusicJournal.xcdatamodel; sourceTree = "<group>"; };
 		F6367A6B2103ED3800981216 /* SongInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongInfo.swift; sourceTree = "<group>"; };
 		F6367A752103FECC00981216 /* myRecordingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myRecordingsTableViewCell.swift; sourceTree = "<group>"; };
 		F6367A772104005700981216 /* MyRecordingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRecordingsTableViewController.swift; sourceTree = "<group>"; };
-		F67BEB9C211E09D100A26FF4 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
-		F67BEB9D211E09D100A26FF4 /* Answers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Answers.framework; sourceTree = "<group>"; };
 		F6ABEE2B210446CC00143E67 /* convertToString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = convertToString.swift; sourceTree = "<group>"; };
 		F6E6E66B2106427E00C47C2E /* CoreDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
 		F6EB02AF2103D759006CD141 /* MusicJournal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicJournal.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -45,14 +45,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F67BEB9F211E09D100A26FF4 /* Answers.framework in Frameworks */,
-				F67BEB9E211E09D100A26FF4 /* Fabric.framework in Frameworks */,
+				72C603E780A0C0561AE8D261 /* Pods_MusicJournal.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C680EB251077640E0A6EFBD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				962D39997D9E1DEFCEE7E188 /* Pods_MusicJournal.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E0C2783E8FB7FDD45A8FE110 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B997DB3BDDB6A4329227F6FD /* Pods-MusicJournal.debug.xcconfig */,
+				29624CEEB2F87A39D46F91DC /* Pods-MusicJournal.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		F6367A6F2103F9CD00981216 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -88,13 +104,13 @@
 		F6EB02A62103D759006CD141 = {
 			isa = PBXGroup;
 			children = (
-				F67BEB9D211E09D100A26FF4 /* Answers.framework */,
-				F67BEB9C211E09D100A26FF4 /* Fabric.framework */,
 				F6E6E66A2106426D00C47C2E /* Helpers */,
 				F6ABEE2A210446AB00143E67 /* Extensions */,
 				F6367A6F2103F9CD00981216 /* Models */,
 				F6EB02B12103D759006CD141 /* MusicJournal */,
 				F6EB02B02103D759006CD141 /* Products */,
+				E0C2783E8FB7FDD45A8FE110 /* Pods */,
+				2C680EB251077640E0A6EFBD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -145,11 +161,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F6EB02C42103D75A006CD141 /* Build configuration list for PBXNativeTarget "MusicJournal" */;
 			buildPhases = (
+				4F0546E631AC14F0F46FD202 /* [CP] Check Pods Manifest.lock */,
 				F6EB02AB2103D759006CD141 /* Sources */,
 				F6EB02AC2103D759006CD141 /* Frameworks */,
 				F6EB02AD2103D759006CD141 /* Resources */,
-				F67BEBA0211E09E600A26FF4 /* ShellScript */,
-				F63551D9211E126700925A7A /* ShellScript */,
+				F6707CAE211E2EB500213869 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -207,20 +223,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		F63551D9211E126700925A7A /* ShellScript */ = {
+		4F0546E631AC14F0F46FD202 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MusicJournal-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PROJECT_DIR}/Fabric.framework/run\" 15dd5c23cc3b381debb8ff81398509d3de4ef19b 57a27ccf74602ac5b6cc3ff0b64902296b7d1c08bb0e8722a256c02aac90c0d4\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
-		F67BEBA0211E09E600A26FF4 /* ShellScript */ = {
+		F6707CAE211E2EB500213869 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -231,7 +252,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PROJECT_DIR}/Fabric.framework/run\" 15dd5c23cc3b381debb8ff81398509d3de4ef19b 57a27ccf74602ac5b6cc3ff0b64902296b7d1c08bb0e8722a256c02aac90c0d4";
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 704b97df301458252200f524d2ad4ee22de72e87 ae1335d6c10efa2decd4d0f8bf463bf0886c40f79b53409f5a2bb86a96df1324";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -389,14 +410,12 @@
 		};
 		F6EB02C52103D75A006CD141 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B997DB3BDDB6A4329227F6FD /* Pods-MusicJournal.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = X5ZKFR55NQ;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
 				INFOPLIST_FILE = MusicJournal/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -411,14 +430,11 @@
 		};
 		F6EB02C62103D75A006CD141 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 29624CEEB2F87A39D46F91DC /* Pods-MusicJournal.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X5ZKFR55NQ;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
 				INFOPLIST_FILE = MusicJournal/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
