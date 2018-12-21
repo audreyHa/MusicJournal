@@ -37,7 +37,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>MusiCord needs the microphone to record you playing songs so that you can listen back to your recordings later</string>
+	<string>MusiCord needs the microphone to record you when you playing songs, that way you can listen back to your recordings later</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
