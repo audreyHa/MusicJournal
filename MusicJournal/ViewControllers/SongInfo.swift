@@ -16,6 +16,7 @@ import Crashlytics // If using Answers with Crashlytics
 class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     
     static var recordingSession: AVAudioSession!
+    var isPaused = Bool()
     var audioRecorder: AVAudioRecorder!
     var audioPlayer: AVAudioPlayer!
     var recording: Recording?
@@ -32,6 +33,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     var eventArray = [String]()
     var compArray = [String]()
     var timeArray = [Int]()
+    @IBOutlet weak var pauseRecording: UIButton!
     
     func runTimer(){
         self.hours=0
@@ -93,14 +95,23 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     @IBOutlet weak var startNewRecording: UIButton!
     @IBAction func startNewRecording(_ sender: Any) {
          RecordMusicViewController.timer.invalidate()
-        if audioRecorder == nil{ //Starting a new one (not ending)
+        if isPaused==true{
+            startNewRecording.setTitle("  Stop Recording  ", for: .normal)
+            audioRecorder.record()
+            isPaused=false
+            RecordMusicViewController.timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(RecordMusicViewController.action), userInfo: nil, repeats: true)
+        }else if audioRecorder == nil{ //Starting a new one (not ending)
             
-            if recording?.filename != nil && cancelOutArray.count>0{
-                //if they're starting over
-                 startNewRecording.addTarget(self, action: #selector(self.anImportantUserAction), for: UIControlEvents.touchUpInside)
-                createAlert(title: "Are you sure you want to start over?", message: "You cannot undo this action")
+            if recording?.filename != nil{
+                if cancelOutArray.count>0{
+                    createAlert(title: "Are you sure you want to start over?", message: "You cannot undo this action")
+                    
+                }else{
+                    Answers.logCustomEvent(withName: "Started Over")
+                    runTimer()
+                }
             } else{
-                startNewRecording.addTarget(self, action: #selector(self.anImportantUserAction), for: UIControlEvents.touchUpInside)
+                Answers.logCustomEvent(withName: "Started New Recording")
                 runTimer()
             }
 
@@ -116,10 +127,10 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         }
     }
     
-    @objc func anImportantUserAction() {
-        
-        Answers.logCustomEvent(withName: "Started New Recording")
-    }
+//    @objc func anImportantUserAction() {
+//
+//        Answers.logCustomEvent(withName: "Saved New Recording")
+//    }
 
     
     @IBOutlet weak var eventText: UILabel!
@@ -130,7 +141,15 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     @IBOutlet weak var composerLabel: UITextField!
     @IBOutlet weak var eventLabel: UITextField!
     
-
+    @IBAction func pauseRecordingPressed(_ sender: Any) {
+        if audioRecorder != nil{
+            audioRecorder.pause()
+            RecordMusicViewController.timer.invalidate()
+            isPaused=true
+            startNewRecording.setTitle("  Press To Continue  ", for: .normal)
+        }
+    }
+    
     
     override func viewWillAppear(_ animated: Bool){
         super.viewWillAppear(animated)
@@ -177,6 +196,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             
             if recording == nil{
                 recording = CoreDataHelper.newRecording()
+                Answers.logCustomEvent(withName: "Saved New Recording")
             }
             
             if deleteSaving.count>0{
@@ -279,7 +299,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
                     deleteEverything()
                 }
                 CoreDataHelper.saveRecording()
-                
+                Answers.logCustomEvent(withName: "Canceled: 1st Round Not Saved")
             } else{
                 if deleteSaving.count>0{
                     recording?.filename=deleteSaving[0]
@@ -304,6 +324,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
                 compArray=[]
                 timeArray=[]
                 CoreDataHelper.saveRecording()
+                Answers.logCustomEvent(withName: "Canceled: Later Round Undid Changes")
             }
          
         default:
@@ -316,12 +337,12 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: Notification.Name.UIApplicationWillResignActive, object: nil)
-        
+        pauseRecording.layer.cornerRadius=8
         startNewRecording.layer.cornerRadius=8
-        startNewRecording.setTitle("  Press To Start New Recording  ", for: .normal)
+        startNewRecording.setTitle("  Press To Start NEW  ", for: .normal)
         
         if recording?.lastModified == nil{
-            startNewRecording.setTitle("  Press To Start New Recording  ", for: .normal)
+            startNewRecording.setTitle("  Press To Start NEW  ", for: .normal)
         } else{
             startNewRecording.setTitle("  Press To Start Over  ", for: .normal)
         }
@@ -575,7 +596,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: {(action) in
             alert.dismiss(animated: true, completion: nil)
-            
+            Answers.logCustomEvent(withName: "Started Over")
             self.countingTime=3
             self.runTimer()
         }))

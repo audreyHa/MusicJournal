@@ -12,6 +12,7 @@ import Foundation
 import UIKit
 import AVFoundation
 import MediaPlayer
+import Crashlytics
 
 class myRecordingsTableViewCell: UITableViewCell{
     @IBOutlet weak var songTitle: UILabel!
@@ -117,7 +118,7 @@ class myRecordingsTableViewCell: UITableViewCell{
         }else{
             do{
                 if (pressPlayFile != nil){
-                    
+                    Answers.logCustomEvent(withName: "Played Recording")
                     if (thisHours != 0 || thisMinutes != 0) || thisSeconds != 0{
                         timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ascendingAction), userInfo: nil, repeats: true)
                         newAudioPlayer.play()

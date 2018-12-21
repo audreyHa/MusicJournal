@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import AVFoundation
 import MediaPlayer
+import Crashlytics // If using Answers with Crashlytics
 
 class MyRecordingsTableViewController: UITableViewController, UIDocumentInteractionControllerDelegate{
     
@@ -307,7 +308,7 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
                 print("this is file Path String: \(filePathString)")
                 self.controller = UIDocumentInteractionController(url: NSURL(fileURLWithPath: filePathString) as URL)
                 self.controller.presentOptionsMenu(from: CGRect.zero, in: self.view, animated: true)
-            
+                Answers.logCustomEvent(withName: "Pressed Export")
             }else{
                 self.exportAlert(title: "Cannot Export Recording", message: "You did not make a recording here")
             }
@@ -501,7 +502,7 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: {(action) in
             alert.dismiss(animated: true, completion: nil)
-            
+            Answers.logCustomEvent(withName: "Deleted Recording")
             if self.arrayOfRecordingsInfo[self.deleteIndexPath].filename != nil{
                 // Got the following code from: swiftdeveloperblog.com/code-examples/delete-file-example-in-swift/
                 // Find documents directory on device
