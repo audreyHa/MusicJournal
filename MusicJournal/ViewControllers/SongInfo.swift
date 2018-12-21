@@ -122,7 +122,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             
             RecordMusicViewController.timer.invalidate()
             audioRecorder = nil
-            startNewRecording.setTitle("  Press To Start Over  ", for: .normal)
+            startNewRecording.setTitle("  Start Over  ", for: .normal)
 
         }
     }
@@ -146,7 +146,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             audioRecorder.pause()
             RecordMusicViewController.timer.invalidate()
             isPaused=true
-            startNewRecording.setTitle("  Press To Continue  ", for: .normal)
+            startNewRecording.setTitle("  Continue  ", for: .normal)
         }
     }
     
@@ -243,7 +243,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             if audioRecorder != nil{
                 audioRecorder.stop()
                 audioRecorder = nil
-                startNewRecording.setTitle("  Press To Start Over  ", for: .normal)
+                startNewRecording.setTitle("  Start Over  ", for: .normal)
             }
             
             RecordMusicViewController.timer.invalidate()
@@ -284,7 +284,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
                 audioRecorder.stop()
                 RecordMusicViewController.timer.invalidate()
                 audioRecorder = nil
-                startNewRecording.setTitle("  Press To Start Over  ", for: .normal)
+                startNewRecording.setTitle("  Start Over  ", for: .normal)
             }
             
             RecordMusicViewController.timer.invalidate()
@@ -339,12 +339,12 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: Notification.Name.UIApplicationWillResignActive, object: nil)
         pauseRecording.layer.cornerRadius=8
         startNewRecording.layer.cornerRadius=8
-        startNewRecording.setTitle("  Press To Start NEW  ", for: .normal)
+        startNewRecording.setTitle("  Start NEW  ", for: .normal)
         
         if recording?.lastModified == nil{
-            startNewRecording.setTitle("  Press To Start NEW  ", for: .normal)
+            startNewRecording.setTitle("  Start NEW  ", for: .normal)
         } else{
-            startNewRecording.setTitle("  Press To Start Over  ", for: .normal)
+            startNewRecording.setTitle("  Start Over  ", for: .normal)
         }
         //Setting up session
         RecordMusicViewController.recordingSession = AVAudioSession.sharedInstance()
@@ -380,7 +380,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             
             RecordMusicViewController.timer.invalidate()
             audioRecorder = nil
-            startNewRecording.setTitle("  Press To Start Over  ", for: .normal)
+            startNewRecording.setTitle("  Start Over  ", for: .normal)
            
             
         default :
@@ -390,7 +390,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             
             RecordMusicViewController.timer.invalidate()
             audioRecorder = nil
-            startNewRecording.setTitle("  Press To Start Over  ", for: .normal)
+            startNewRecording.setTitle("  Start Over  ", for: .normal)
         }
     }
     
@@ -411,7 +411,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         if audioRecorder != nil{
             audioRecorder.stop()
             audioRecorder = nil
-            startNewRecording.setTitle("  Press To Start Over  ", for: .normal)
+            startNewRecording.setTitle("  Start Over  ", for: .normal)
         }
         
         if songLabel.text==""{
