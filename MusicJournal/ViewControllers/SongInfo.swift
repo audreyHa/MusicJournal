@@ -67,7 +67,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             audioRecorder = try AVAudioRecorder(url: filename!, settings: settings)
             audioRecorder.delegate=self
             audioRecorder.record()
-            startNewRecording.setTitle("  Stop Recording  ", for: .normal)
+            startNewRecording.setTitle("  Stop  ", for: .normal)
         }
         catch{
             self.displayAlert(title: "Failed to record", message: "Recording failed")
@@ -96,7 +96,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     @IBAction func startNewRecording(_ sender: Any) {
          RecordMusicViewController.timer.invalidate()
         if isPaused==true{
-            startNewRecording.setTitle("  Stop Recording  ", for: .normal)
+            startNewRecording.setTitle("  Stop  ", for: .normal)
             audioRecorder.record()
             isPaused=false
             RecordMusicViewController.timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(RecordMusicViewController.action), userInfo: nil, repeats: true)
