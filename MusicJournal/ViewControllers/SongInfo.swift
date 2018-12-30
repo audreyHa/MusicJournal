@@ -357,9 +357,9 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             }
         }
        
-        self.songText.layer.cornerRadius=8
-        self.composerText.layer.cornerRadius=8
-        self.eventText.layer.cornerRadius=8
+        //self.songText.layer.cornerRadius=8
+        //self.composerText.layer.cornerRadius=8
+        //self.eventText.layer.cornerRadius=8
         self.hideKeyboardWhenTappedAround()
        
     }
