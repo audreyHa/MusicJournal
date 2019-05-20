@@ -108,9 +108,10 @@ class myRecordingsTableViewCell: UITableViewCell{
       
         
         }
-    
+
     
     @IBAction func playPressed(_ sender: Any) {
+        
         playButton.isSelected = !playButton.isSelected
         onPlayTouched?(self)
         
@@ -147,7 +148,7 @@ class myRecordingsTableViewCell: UITableViewCell{
                         try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, with:AVAudioSessionCategoryOptions.defaultToSpeaker)
                         
                         newAudioPlayer = try AVAudioPlayer(contentsOf: newPlaying)
-                        
+  
                         timer.invalidate()
                         thisHours=0
                         thisMinutes=0
@@ -187,6 +188,7 @@ class myRecordingsTableViewCell: UITableViewCell{
             thisSeconds=0
             thisMinutes=0
             thisHours=0
+            slider.value=0
         }else{
             thisSeconds = thisSeconds + 1
             if thisSeconds>59{ //more than 59 seconds
@@ -203,6 +205,7 @@ class myRecordingsTableViewCell: UITableViewCell{
             if thisSeconds<=59 && thisMinutes<=59{
                 displaying()
             }
+            slider.value+=1
         }
     }
     

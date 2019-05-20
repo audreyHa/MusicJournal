@@ -145,11 +145,6 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         return arrayOfRecordingsInfo.count
     }
     
-    @objc func handleSliderChange(){
-        for cell in myCells{
-            print(cell.slider.value)
-        }
-    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         
@@ -236,8 +231,9 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         
         cell.slider.minimumTrackTintColor = .red
         cell.slider.setThumbImage(UIImage(named:"redPlayBar"), for: [])
+        var totalSeconds=(Float(currentRecording.hours)*3600)+(Float(currentRecording.minutes)*60)+(Float(currentRecording.seconds))
+        cell.slider.maximumValue=totalSeconds
         
-        cell.slider.addTarget(self, action: #selector(handleSliderChange), for: .valueChanged)
 
         if currentRecording.hours==0{
             if currentRecording.minutes<10{
@@ -321,7 +317,7 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         
         cell.onPlayTouched = {(theCell) in
             guard let indexPath = tableView.indexPath(for: theCell) else { return }
-
+            self.getAllCells()
             
         }
         myCells.append(cell)
@@ -573,6 +569,7 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
                 eachCell.thisMinutes=eachCell.originalMinutes
                 eachCell.thisSeconds=eachCell.originalSeconds
                 eachCell.displaying()
+                eachCell.slider.value=0
                 
                 if eachCell.newAudioPlayer != nil{
                     eachCell.newAudioPlayer=nil
