@@ -317,7 +317,7 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         
         cell.onPlayTouched = {(theCell) in
             guard let indexPath = tableView.indexPath(for: theCell) else { return }
-            self.getAllCells()
+            self.stopPlayingAllCells(value: indexPath.row)
             
         }
         myCells.append(cell)
@@ -577,5 +577,27 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
                 
             }
     }
+    
+    func stopPlayingAllCells(value: Int){
+        print(value)
+        for i in 0...myCells.count-1{
+            print(i)
+            if(i != value){
+                if myCells[i].newAudioPlayer != nil{
+                    myCells[i].newAudioPlayer=nil
+                }
+                
+                myCells[i].timer.invalidate()
+                myCells[i].thisHours=myCells[i].originalHours
+                myCells[i].thisMinutes=myCells[i].originalMinutes
+                myCells[i].thisSeconds=myCells[i].originalSeconds
+                myCells[i].displaying()
+                myCells[i].slider.value=0
+            }
+        }
+    }
+    
+    
+    
     
 }
