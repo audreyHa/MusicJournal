@@ -25,7 +25,7 @@ class myRecordingsTableViewCell: UITableViewCell{
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var exportButton: UIButton!
     @IBOutlet weak var pauseButton: UIButton!
-    @IBOutlet weak var totalTimeLabel: UILabel!
+    @IBOutlet weak var slider: UISlider!
     
     @IBOutlet weak var surrounding: UIView!
     

@@ -226,8 +226,11 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
             }
         }
         
-        cell.totalTime=totalTime
-        cell.totalTimeLabel.text=totalTime
+        cell.showTime.text=totalTime
+        
+        cell.slider.minimumTrackTintColor = .red
+        cell.slider.setThumbImage(UIImage(named:"redPlayBar"), for: [])
+        
         
         if currentRecording.hours==0{
             if currentRecording.minutes<10{

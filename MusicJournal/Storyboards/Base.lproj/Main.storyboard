@@ -300,22 +300,13 @@
                                                                 <action selector="pausePressed:" destination="BgK-JY-kyI" eventType="touchUpInside" id="zNB-Of-0qk"/>
                                                             </connections>
                                                         </button>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00 : 00 : 00" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ua-QV-uei">
-                                                            <rect key="frame" x="76" y="0.0" width="66" height="30"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="66" id="LvI-D6-YUU"/>
-                                                            </constraints>
-                                                            <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="12"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
                                                         <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="fJb-U7-2uy">
-                                                            <rect key="frame" x="148" y="0.0" width="105" height="31"/>
+                                                            <rect key="frame" x="74" y="0.0" width="179" height="31"/>
                                                         </slider>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00 : 00 : 00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cw0-ZC-Wc9">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00 : 00 : 00" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ua-QV-uei">
                                                             <rect key="frame" x="259" y="0.0" width="66" height="30"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="66" id="TWt-Y9-Ouy"/>
+                                                                <constraint firstAttribute="width" constant="66" id="LvI-D6-YUU"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="12"/>
                                                             <nil key="textColor"/>
@@ -353,11 +344,11 @@
                                     <outlet property="pauseButton" destination="Jya-8K-JND" id="0K3-Zv-S3A"/>
                                     <outlet property="playButton" destination="J9u-MZ-Pe0" id="Rjx-g2-id6"/>
                                     <outlet property="showTime" destination="8Ua-QV-uei" id="6Yr-aL-dbo"/>
+                                    <outlet property="slider" destination="fJb-U7-2uy" id="Rek-Gn-lca"/>
                                     <outlet property="songComposer" destination="cho-Sw-wgm" id="PwE-Kw-vMc"/>
                                     <outlet property="songEvent" destination="VWS-Fq-Bzn" id="sAX-gn-inq"/>
                                     <outlet property="songTitle" destination="MFv-J5-eCq" id="8U3-y9-xnZ"/>
                                     <outlet property="surrounding" destination="V1A-8d-yvo" id="zAa-Px-Oha"/>
-                                    <outlet property="totalTimeLabel" destination="Cw0-ZC-Wc9" id="6sT-wQ-0vL"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
