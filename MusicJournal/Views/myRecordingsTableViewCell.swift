@@ -50,9 +50,9 @@ class myRecordingsTableViewCell: UITableViewCell{
         if newAudioPlayer != nil && newAudioPlayer.isPlaying==true{
             newAudioPlayer.stop()
             timer.invalidate()
-            thisHours=0
-            thisMinutes=0
-            thisSeconds=0
+            thisHours=originalHours
+            thisMinutes=originalMinutes
+            thisSeconds=originalSeconds
         }
        
         editButton.isSelected = !editButton.isSelected
@@ -64,14 +64,17 @@ class myRecordingsTableViewCell: UITableViewCell{
         if newAudioPlayer != nil && newAudioPlayer.isPlaying==true{
             newAudioPlayer.stop()
             timer.invalidate()
-            thisHours=0
-            thisMinutes=0
-            thisSeconds=0
+            thisHours=originalHours
+            thisMinutes=originalMinutes
+            thisSeconds=originalSeconds
         }
         
         deleteButton.isSelected = !deleteButton.isSelected
         onDeleteTouched?(self)
     }
+    
+
+
     
     @IBAction func pausePressed(_ sender: Any) {
         if (pressPlayFile != nil){
@@ -133,7 +136,7 @@ class myRecordingsTableViewCell: UITableViewCell{
             do{
                 if (pressPlayFile != nil){
                     Answers.logCustomEvent(withName: "Played Recording")
-                    if (thisHours != 0 || thisMinutes != 0) || thisSeconds != 0{
+                    if (thisHours != originalHours || thisMinutes != originalMinutes) || thisSeconds != originalSeconds{
                         timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ascendingAction), userInfo: nil, repeats: true)
                         newAudioPlayer.play()
                     }else{
@@ -167,9 +170,9 @@ class myRecordingsTableViewCell: UITableViewCell{
         if newAudioPlayer != nil && newAudioPlayer.isPlaying==true{
             newAudioPlayer.stop()
             timer.invalidate()
-            thisHours=0
-            thisMinutes=0
-            thisSeconds=0
+            thisHours=originalHours
+            thisMinutes=originalMinutes
+            thisSeconds=originalSeconds
         }
         
         exportButton.isSelected = !exportButton.isSelected

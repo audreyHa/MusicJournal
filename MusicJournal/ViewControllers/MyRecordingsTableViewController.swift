@@ -145,6 +145,12 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         return arrayOfRecordingsInfo.count
     }
     
+    @objc func handleSliderChange(){
+        for cell in myCells{
+            print(cell.slider.value)
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         
         let cell=tableView.dequeueReusableCell(withIdentifier: "myRecordingsTableViewCell", for: indexPath) as! myRecordingsTableViewCell
@@ -231,7 +237,8 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         cell.slider.minimumTrackTintColor = .red
         cell.slider.setThumbImage(UIImage(named:"redPlayBar"), for: [])
         
-        
+        cell.slider.addTarget(self, action: #selector(handleSliderChange), for: .valueChanged)
+
         if currentRecording.hours==0{
             if currentRecording.minutes<10{
                 if currentRecording.seconds<10{
@@ -268,9 +275,9 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         
         cell.originalSeconds=Double(currentRecording.seconds)
         
-        cell.thisHours=0
-        cell.thisMinutes=0
-        cell.thisSeconds=0
+        cell.thisHours=cell.originalHours
+        cell.thisMinutes=cell.originalMinutes
+        cell.thisSeconds=cell.originalSeconds
         
         cell.onButtonTouched = {(theCell) in
             guard let indexPath = tableView.indexPath(for: theCell) else{
@@ -296,13 +303,6 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
             guard let indexPath = tableView.indexPath(for: theCell) else { return }
             if self.arrayOfRecordingsInfo[indexPath.row].filename != nil{
                 
-//            let activityItem = URL.init(fileURLWithPath: Bundle.main.path(forResource: "\(self.arrayOfRecordingsInfo[indexPath.row].songDate!.convertToString().removingWhitespacesAndNewlines)", ofType: "m4a")!)
-//
-//                let activityVC = UIActivityViewController(activityItems: [activityItem],applicationActivities: nil)
-//                activityVC.popoverPresentationController?.sourceView = self.view
-//
-//                self.present(activityVC, animated: true, completion: nil)
-                
                 self.controller.delegate = self
                 self.controller.presentPreview(animated: true)
                 let dirPath: String = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
@@ -321,8 +321,7 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         
         cell.onPlayTouched = {(theCell) in
             guard let indexPath = tableView.indexPath(for: theCell) else { return }
-            
-//            self.getAllCells()
+
             
         }
         myCells.append(cell)
@@ -570,16 +569,13 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     func getAllCells(){
             for eachCell in myCells{
                 eachCell.timer.invalidate()
-                eachCell.thisHours=0
-                eachCell.thisMinutes=0
-                eachCell.thisSeconds=0
+                eachCell.thisHours=eachCell.originalHours
+                eachCell.thisMinutes=eachCell.originalMinutes
+                eachCell.thisSeconds=eachCell.originalSeconds
                 eachCell.displaying()
                 
                 if eachCell.newAudioPlayer != nil{
-                    if eachCell.newAudioPlayer.isPlaying==true{
-                        eachCell.newAudioPlayer.stop()
-                    }
-                    
+                    eachCell.newAudioPlayer=nil
                 }
                 
             }
