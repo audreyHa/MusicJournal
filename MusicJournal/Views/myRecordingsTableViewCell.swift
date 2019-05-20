@@ -12,6 +12,7 @@ import Foundation
 import UIKit
 import AVFoundation
 import MediaPlayer
+import Crashlytics
 
 class myRecordingsTableViewCell: UITableViewCell{
     @IBOutlet weak var songTitle: UILabel!
@@ -24,6 +25,7 @@ class myRecordingsTableViewCell: UITableViewCell{
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var exportButton: UIButton!
     @IBOutlet weak var pauseButton: UIButton!
+    @IBOutlet weak var totalTimeLabel: UILabel!
     
     @IBOutlet weak var surrounding: UIView!
     
@@ -100,6 +102,7 @@ class myRecordingsTableViewCell: UITableViewCell{
                 }
             }
             }
+      
         
         }
     
@@ -114,10 +117,22 @@ class myRecordingsTableViewCell: UITableViewCell{
         
         if newAudioPlayer != nil && newAudioPlayer.isPlaying==true{
             print("DON'T DO ANYTHING")
+            
+        }else if newAudioPlayer != nil && newAudioPlayer.isPlaying==false{
+            print("unpausing")
+            do{
+               
+                timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ascendingAction), userInfo: nil, repeats: true)
+                newAudioPlayer.play()
+            }catch{
+                print("Failed to play, keep trying....")
+            }
+            
         }else{
+            print("went to else")
             do{
                 if (pressPlayFile != nil){
-                    
+                    Answers.logCustomEvent(withName: "Played Recording")
                     if (thisHours != 0 || thisMinutes != 0) || thisSeconds != 0{
                         timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ascendingAction), userInfo: nil, repeats: true)
                         newAudioPlayer.play()
@@ -163,11 +178,12 @@ class myRecordingsTableViewCell: UITableViewCell{
     
     
     @objc func ascendingAction(){
+       
         if (thisHours==originalHours && thisMinutes==originalMinutes) && thisSeconds==originalSeconds{
             timer.invalidate()
-            thisHours=0
-            thisMinutes=0
             thisSeconds=0
+            thisMinutes=0
+            thisHours=0
         }else{
             thisSeconds = thisSeconds + 1
             if thisSeconds>59{ //more than 59 seconds
@@ -192,29 +208,29 @@ class myRecordingsTableViewCell: UITableViewCell{
         if thisHours==0{
             if thisMinutes<10{
                 if thisSeconds<10{
-                    showTime.text = String("0\(Int(thisHours!)) : 0\(Int(thisMinutes!)) : 0\(Int(thisSeconds!))/\(totalTime!)")
+                    showTime.text = String("0\(Int(thisHours!)) : 0\(Int(thisMinutes!)) : 0\(Int(thisSeconds!))")
                 } else{
-                    showTime.text = String("0\(Int(thisHours!)) : 0\(Int(thisMinutes!)) : \(Int(thisSeconds!))/\(totalTime!)")
+                    showTime.text = String("0\(Int(thisHours!)) : 0\(Int(thisMinutes!)) : \(Int(thisSeconds!))")
                 }
             } else{
                 if thisSeconds<10{
-                    showTime.text = String("0\(Int(thisHours!)) : \(Int(thisMinutes!)) : 0\(Int(thisSeconds!))/\(totalTime!)")
+                    showTime.text = String("0\(Int(thisHours!)) : \(Int(thisMinutes!)) : 0\(Int(thisSeconds!))")
                 } else{
-                    showTime.text = String("0\(Int(thisHours!)) : \(Int(thisMinutes!)) : \(Int(thisSeconds!))/\(totalTime!)")
+                    showTime.text = String("0\(Int(thisHours!)) : \(Int(thisMinutes!)) : \(Int(thisSeconds!))")
                 }
             }
         } else{
             if thisMinutes<10{
                 if thisSeconds<10{
-                    showTime.text = String("\(Int(thisHours!)) : 0\(Int(thisMinutes!)) : 0\(Int(thisSeconds!))/\(totalTime!)")
+                    showTime.text = String("\(Int(thisHours!)) : 0\(Int(thisMinutes!)) : 0\(Int(thisSeconds!))")
                 } else{
-                    showTime.text = String("\(Int(thisHours!)) : 0\(Int(thisMinutes!)) : \(Int(thisSeconds!))/\(totalTime!)")
+                    showTime.text = String("\(Int(thisHours!)) : 0\(Int(thisMinutes!)) : \(Int(thisSeconds!))")
                 }
             } else{
                 if thisSeconds<10{
-                    showTime.text = String("\(Int(thisHours!)) : \(Int(thisMinutes!)) : 0\(Int(thisSeconds!))/\(totalTime!)")
+                    showTime.text = String("\(Int(thisHours!)) : \(Int(thisMinutes!)) : 0\(Int(thisSeconds!))")
                 } else{
-                    showTime.text = String("\(Int(thisHours!)) : \(Int(thisMinutes!)) : \(Int(thisSeconds!))/\(totalTime!)")
+                    showTime.text = String("\(Int(thisHours!)) : \(Int(thisMinutes!)) : \(Int(thisSeconds!))")
                 }
             }
         }

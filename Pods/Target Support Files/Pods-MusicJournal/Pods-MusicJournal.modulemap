@@ -1,0 +1,6 @@
+framework module Pods_MusicJournal {
+  umbrella header "Pods-MusicJournal-umbrella.h"
+
+  export *
+  module * { export * }
+}
