@@ -29,6 +29,7 @@ class myRecordingsTableViewCell: UITableViewCell{
     
     @IBOutlet weak var surrounding: UIView!
     
+    var dateCreated: Date!
     var totalTime: String!
     var rowOfCellForRecording: Int = 0
     var newAudioPlayer: AVAudioPlayer!
@@ -104,7 +105,7 @@ class myRecordingsTableViewCell: UITableViewCell{
                     print("It should not do anything")
                 }
             }
-            }
+        }
       
         
         }
@@ -112,10 +113,10 @@ class myRecordingsTableViewCell: UITableViewCell{
     
     @IBAction func playPressed(_ sender: Any) {
         
+        
         playButton.isSelected = !playButton.isSelected
         onPlayTouched?(self)
         
-        print("This is the press play file: \(pressPlayFile)")
         //playing fresh, no pausing
             displaying()
         
@@ -134,6 +135,13 @@ class myRecordingsTableViewCell: UITableViewCell{
             
         }else{
             print("went to else")
+            
+//            if newAudioPlayer==nil{
+//                print("This cell has a nil audio player")
+//            }else{
+//                print("This cell has an existing audio player")
+//            }
+            
             do{
                 if (pressPlayFile != nil){
                     Answers.logCustomEvent(withName: "Played Recording")
@@ -205,6 +213,12 @@ class myRecordingsTableViewCell: UITableViewCell{
             if thisSeconds<=59 && thisMinutes<=59{
                 displaying()
             }
+            
+//            var minInSec=(thisMinutes)*60
+//            var hourInSec=(thisHours)*3600
+//            var totalSec=thisSeconds+minInSec+hourInSec
+//            slider.value=Float(totalSec)
+            
             slider.value+=1
         }
     }

@@ -34,6 +34,7 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     
     @IBAction func songButtonPressed(_ sender: Any) {
         getAllCells()
+        print("used get all cells for song button")
         MyRecordingsTableViewController.chosenNumber=1
         
         UserDefaults.standard.set(MyRecordingsTableViewController.chosenNumber,forKey: "myNumber")
@@ -42,7 +43,7 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     
     @IBAction func dateButtonPressed(_ sender: Any) {
         getAllCells()
-        
+        print("used get all cells for date button")
         MyRecordingsTableViewController.chosenNumber=2
         
         UserDefaults.standard.set(MyRecordingsTableViewController.chosenNumber,forKey: "myNumber")
@@ -51,7 +52,7 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     
     @IBAction func composerButtonPressed(_ sender: Any) {
         getAllCells()
-        
+        print("used get all cells for composer button")
         MyRecordingsTableViewController.chosenNumber=3
        
         UserDefaults.standard.set(MyRecordingsTableViewController.chosenNumber,forKey: "myNumber")
@@ -60,7 +61,7 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     
     @IBAction func eventButtonPressed(_ sender: Any) {
         getAllCells()
-
+        print("used get all cells for event button")
         MyRecordingsTableViewController.chosenNumber=4
         
         UserDefaults.standard.set(MyRecordingsTableViewController.chosenNumber,forKey: "myNumber")
@@ -70,6 +71,7 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     override func viewDidLoad(){
         super.viewDidLoad()
         myCells=[]
+        
         arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
         
         reorderArray()
@@ -99,16 +101,18 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         case .began:
             print("began")
             getAllCells()
+            print("used get all cells for interruption start")
            
         default :
             print("ended")
             getAllCells()
-            
+            print("used get all cells for interruption end")
         }
     }
     
     @objc func appMovedToBackground() {
         getAllCells()
+        print("used get all cells for app moved to background")
 
     }
     
@@ -228,6 +232,7 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         }
         
         cell.showTime.text=totalTime
+        cell.slider.value=0
         
         cell.slider.minimumTrackTintColor = .red
         cell.slider.setThumbImage(UIImage(named:"redPlayBar"), for: [])
@@ -274,7 +279,7 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         cell.thisHours=cell.originalHours
         cell.thisMinutes=cell.originalMinutes
         cell.thisSeconds=cell.originalSeconds
-        
+        cell.dateCreated=currentRecording.lastModified
         cell.onButtonTouched = {(theCell) in
             guard let indexPath = tableView.indexPath(for: theCell) else{
                 return
@@ -317,9 +322,20 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         
         cell.onPlayTouched = {(theCell) in
             guard let indexPath = tableView.indexPath(for: theCell) else { return }
-            self.stopPlayingAllCells(value: indexPath.row)
+            self.stopPlayingAllCells(cellValue: cell)
+            print("used stop playing for playing song")
+            print("Index Path Row that we're playing: \(indexPath.row)")
             
+//            for i in 0...self.myCells.count-1{
+//                if self.myCells[i].newAudioPlayer==nil{
+//                    print("Cell \(i) has a nil audio player")
+//                }else{
+//                    print("Cell \(i) has an existing audio player")
+//                }
+//
+//            }
         }
+        
         myCells.append(cell)
         return cell
         
@@ -327,7 +343,7 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
 
     override func viewWillDisappear(_ animated: Bool) {
         getAllCells()
-
+        print("used get all cells for view disappeared")
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
@@ -563,6 +579,8 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     }
     
     func getAllCells(){
+       
+
             for eachCell in myCells{
                 eachCell.timer.invalidate()
                 eachCell.thisHours=eachCell.originalHours
@@ -574,19 +592,19 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
                 if eachCell.newAudioPlayer != nil{
                     eachCell.newAudioPlayer=nil
                 }
-                
             }
     }
     
-    func stopPlayingAllCells(value: Int){
-        print(value)
+    func stopPlayingAllCells(cellValue: myRecordingsTableViewCell){
+
         for i in 0...myCells.count-1{
-            print(i)
-            if(i != value){
+
+            if(myCells[i] != cellValue){
                 if myCells[i].newAudioPlayer != nil{
+                    myCells[i].newAudioPlayer.stop()
                     myCells[i].newAudioPlayer=nil
                 }
-                
+
                 myCells[i].timer.invalidate()
                 myCells[i].thisHours=myCells[i].originalHours
                 myCells[i].thisMinutes=myCells[i].originalMinutes
@@ -596,8 +614,5 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
             }
         }
     }
-    
-    
-    
     
 }
