@@ -112,8 +112,6 @@ class myRecordingsTableViewCell: UITableViewCell{
 
     
     @IBAction func playPressed(_ sender: Any) {
-        
-        
         playButton.isSelected = !playButton.isSelected
         onPlayTouched?(self)
         

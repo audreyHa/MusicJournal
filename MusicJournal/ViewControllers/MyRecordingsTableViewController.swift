@@ -231,44 +231,12 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
             }
         }
         
-        cell.showTime.text=totalTime
-        cell.slider.value=0
+        
         
         cell.slider.minimumTrackTintColor = .red
         cell.slider.setThumbImage(UIImage(named:"redPlayBar"), for: [])
         var totalSeconds=(Float(currentRecording.hours)*3600)+(Float(currentRecording.minutes)*60)+(Float(currentRecording.seconds))
         cell.slider.maximumValue=totalSeconds
-        
-
-        if currentRecording.hours==0{
-            if currentRecording.minutes<10{
-                if currentRecording.seconds<10{
-                    cell.showTime.text = String("0\(Int(currentRecording.hours)) : 0\(Int(currentRecording.minutes)) : 0\(Int(currentRecording.seconds))")
-                } else{
-                    cell.showTime.text = String("0\(Int(currentRecording.hours)) : 0\(Int(currentRecording.minutes)) : \(Int(currentRecording.seconds))")
-                }
-            } else{
-                if currentRecording.seconds<10{
-                    cell.showTime.text = String("0\(Int(currentRecording.hours)) : \(Int(currentRecording.minutes)) : 0\(Int(currentRecording.seconds))")
-                } else{
-                    cell.showTime.text = String("0\(Int(currentRecording.hours)) : \(Int(currentRecording.minutes)) : \(Int(currentRecording.seconds))")
-                }
-            }
-        } else{
-            if currentRecording.minutes<10{
-                if currentRecording.seconds<10{
-                    cell.showTime.text = String("\(Int(currentRecording.hours)) : 0\(Int(currentRecording.minutes)) : 0\(Int(currentRecording.seconds))")
-                } else{
-                    cell.showTime.text = String("\(Int(currentRecording.hours)) : 0\(Int(currentRecording.minutes)) : \(Int(currentRecording.seconds))")
-                }
-            } else{
-                if currentRecording.seconds<10{
-                    cell.showTime.text = String("\(Int(currentRecording.hours)) : \(Int(currentRecording.minutes)) : 0\(Int(currentRecording.seconds))")
-                } else{
-                    cell.showTime.text = String("\(Int(currentRecording.hours)) : \(Int(currentRecording.minutes)) : \(Int(currentRecording.seconds))")
-                }
-            }
-        }
         
         cell.originalHours=Double(currentRecording.hours)
         
@@ -276,10 +244,20 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         
         cell.originalSeconds=Double(currentRecording.seconds)
         
-        cell.thisHours=cell.originalHours
-        cell.thisMinutes=cell.originalMinutes
-        cell.thisSeconds=cell.originalSeconds
+        if cell.newAudioPlayer != nil && cell.newAudioPlayer.isPlaying==true{
+            print("not changing any time values!!")
+        }else if cell.newAudioPlayer != nil && cell.newAudioPlayer.isPlaying==false{
+            print("not changing any time values!!")
+        }else{
+            cell.thisHours=cell.originalHours
+            cell.thisMinutes=cell.originalMinutes
+            cell.thisSeconds=cell.originalSeconds
+            cell.showTime.text=totalTime
+            cell.slider.value=0
+        }
+        
         cell.dateCreated=currentRecording.lastModified
+        
         cell.onButtonTouched = {(theCell) in
             guard let indexPath = tableView.indexPath(for: theCell) else{
                 return
