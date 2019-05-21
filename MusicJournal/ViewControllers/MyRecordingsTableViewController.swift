@@ -314,7 +314,13 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
 //            }
         }
         
-        myCells.append(cell)
+        if myCells.contains(cell){
+            print("myCells contains this cell")
+        }else{
+            myCells.append(cell)
+        }
+//        myCells.append(cell)
+        
         return cell
         
     }//end of override func
