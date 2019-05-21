@@ -46,7 +46,8 @@ class myRecordingsTableViewCell: UITableViewCell{
     var onPlayTouched: ((UITableViewCell) -> Void)? = nil
     let red = UIColor(red: 232/255, green: 90/255, blue: 69/255, alpha: 1)
     let white = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
-   
+    
+    
     @IBAction func editPressed(_ sender: Any) {
         if newAudioPlayer != nil && newAudioPlayer.isPlaying==true{
             newAudioPlayer.stop()
@@ -110,8 +111,23 @@ class myRecordingsTableViewCell: UITableViewCell{
         
         }
 
+    @objc func handleSliderChange(){
+        newAudioPlayer.currentTime=TimeInterval(slider.value)
+        var intSlider=Double(slider.value)
+        var updateHours=floor((intSlider)/3600)
+        var leftoverAfterHours=intSlider-(updateHours*3600)
+        var updateMinutes=floor((leftoverAfterHours)/60)
+        var leftoverAfterMinutes=leftoverAfterHours-(updateMinutes*60)
+        var updateSeconds=floor(leftoverAfterMinutes)
+        print("Update hours: \(updateHours). Update minutes: \(updateMinutes). Update seconds: \(updateSeconds)")
+        thisHours=updateHours
+        thisMinutes=updateMinutes
+        thisSeconds=updateSeconds
+        displaying()
+    }
     
     @IBAction func playPressed(_ sender: Any) {
+        slider.addTarget(self, action: #selector(handleSliderChange), for: .valueChanged)
         playButton.isSelected = !playButton.isSelected
         onPlayTouched?(self)
         
@@ -133,7 +149,7 @@ class myRecordingsTableViewCell: UITableViewCell{
             
         }else{
             print("went to else")
-            
+            slider.value=0
 //            if newAudioPlayer==nil{
 //                print("This cell has a nil audio player")
 //            }else{

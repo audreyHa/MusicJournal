@@ -314,10 +314,13 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
 //            }
         }
         
+
         if myCells.contains(cell){
             print("myCells contains this cell")
         }else{
             myCells.append(cell)
+            
+            
         }
 //        myCells.append(cell)
         
