@@ -43,9 +43,6 @@
                                                 <state key="normal" title="  Go To My Recordings!  ">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
-                                                <connections>
-                                                    <segue destination="Wkg-8k-kG2" kind="show" identifier="fromHome" id="Ifm-il-nwm"/>
-                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -70,11 +67,12 @@
                     </view>
                     <connections>
                         <outlet property="roundedButton" destination="wV5-OU-1pt" id="DGJ-e9-Zg5"/>
+                        <segue destination="B5h-L7-HDA" kind="show" identifier="showSecondViewController" id="GOu-1J-emU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="32.799999999999997" y="31.934032983508249"/>
+            <point key="canvasLocation" x="972" y="36"/>
         </scene>
         <!--My Recordings-->
         <scene sceneID="b6k-w4-y2t">
@@ -358,12 +356,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="My Recordings" id="mjp-Lm-Odc">
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="hqn-sB-4Ke">
-                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <connections>
-                                <segue destination="LF0-2u-pgf" kind="unwind" unwindAction="unwindToHome:" id="UKB-jB-phY"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Add New!" id="Ppk-ht-dQq">
                             <color key="tintColor" red="0.90980392160000001" green="0.35294117650000001" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>
@@ -380,9 +372,8 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wgt-Go-Z89" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="LF0-2u-pgf" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1781.5999999999999" y="35.532233883058474"/>
+            <point key="canvasLocation" x="2720.8000000000002" y="35.532233883058474"/>
         </scene>
         <!--Record-->
         <scene sceneID="sGK-qj-CYk">
@@ -587,25 +578,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZJ4-qb-9KS" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="YPF-QH-sNB" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2552.8000000000002" y="31.03448275862069"/>
+            <point key="canvasLocation" x="3492" y="31.03448275862069"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="dMf-Y2-TeT">
+        <scene sceneID="fZg-yy-lxY">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Wkg-8k-kG2" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="B5h-L7-HDA" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="AqC-3q-qbn">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Cch-1f-YLO">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="fVM-KZ-LoB" kind="relationship" relationship="rootViewController" id="e8v-J9-kas"/>
+                        <segue destination="fVM-KZ-LoB" kind="relationship" relationship="rootViewController" id="UEt-7F-oWE"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lmX-lj-LUf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="E8Y-Rp-RkA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="945" y="37"/>
+            <point key="canvasLocation" x="1852" y="36"/>
         </scene>
     </scenes>
     <resources>

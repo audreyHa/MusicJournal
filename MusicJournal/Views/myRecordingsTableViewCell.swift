@@ -119,7 +119,6 @@ class myRecordingsTableViewCell: UITableViewCell{
         var updateMinutes=floor((leftoverAfterHours)/60)
         var leftoverAfterMinutes=leftoverAfterHours-(updateMinutes*60)
         var updateSeconds=floor(leftoverAfterMinutes)
-        print("Update hours: \(updateHours). Update minutes: \(updateMinutes). Update seconds: \(updateSeconds)")
         thisHours=updateHours
         thisMinutes=updateMinutes
         thisSeconds=updateSeconds

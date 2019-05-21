@@ -32,12 +32,19 @@ class HomeViewController: UIViewController {
             
             print("Not first launch.")
             
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) { // Change `2.0` to the desired number of seconds.
+                self.performSegue(withIdentifier: "showSecondViewController", sender: self)
+            }
            
         }else{
             let alert = UIAlertController(title: "PRIVACY POLICY", message:"By clicking “Continue” or continuing to use this app, you acknowledge that MusiCord incorporates an analytical tool (Answers) tracking how many times users land on different screens to improve user experience and guide development for future features. Any identifiable information (name, contact information, location) will not be collected. Your recordings are stored locally on your phone; no third party (including me) has access to your content in this app. If you have any questions, please contact musicordmobileapp@gmail.com!", preferredStyle: UIAlertControllerStyle.alert)
             
             // add an action (button)
-            alert.addAction(UIAlertAction(title: "Continue", style: UIAlertActionStyle.default, handler: nil))
+            alert.addAction(UIAlertAction(title: "Continue", style: UIAlertActionStyle.default, handler: {(action) in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) { // Change `2.0` to the desired number of seconds.
+                    self.performSegue(withIdentifier: "showSecondViewController", sender: self)
+                }
+            }))
             // show the alert
             self.present(alert, animated: true, completion: nil)
             
