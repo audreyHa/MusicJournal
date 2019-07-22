@@ -70,11 +70,18 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             startNewRecording.setTitle("  Stop  ", for: .normal)
         }
         catch{
-            self.displayAlert(title: "Failed to record", message: "Recording failed")
+            UserDefaults.standard.set("failToRecord",forKey: "typeShortAlert")
+            makeShortAlert()
         }
     }
     
-    
+    func makeShortAlert(){
+        let vc = storyboard!.instantiateViewController(withIdentifier: "ShortAlertVC") as! ShortAlertVC
+        var transparentGrey=UIColor(red: 0.16, green: 0.16, blue: 0.16, alpha: 0.95)
+        vc.view.backgroundColor = transparentGrey
+        vc.modalPresentationStyle = .overCurrentContext
+        present(vc, animated: true, completion: nil)
+    }
     
     @objc func updateTimer(){
         
@@ -104,8 +111,8 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             
             if recording?.filename != nil{
                 if cancelOutArray.count>0{
-                    createAlert(title: "Are you sure you want to start over?", message: "You cannot undo this action")
-                    
+                    UserDefaults.standard.set("startOver",forKey: "typeYesNoAlert")
+                    makeYesNoAlert()
                 }else{
                     Answers.logCustomEvent(withName: "Started Over")
                     runTimer()
@@ -362,6 +369,14 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         //self.eventText.layer.cornerRadius=8
         self.hideKeyboardWhenTappedAround()
        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("startOver"), object: nil)
+    }
+    
+    //Function for handling receiving notification
+    @objc func methodOfReceivedNotification(notification: Notification) {
+        Answers.logCustomEvent(withName: "Started Over")
+        self.countingTime=3
+        self.runTimer()
     }
     
     @objc func handleInterruption(notification: NSNotification) {
@@ -447,14 +462,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         let documentDirectory = paths[0]
         return documentDirectory
     }
-    
-    //function that displays an alert
-    func displayAlert(title: String, message: String){
-        let alert=UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "dismiss", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
-    }
-    
+
     @objc func action(){
         seconds+=1
         if seconds>59{ //more than 60 seconds
@@ -590,24 +598,13 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         }
     }
     
-    
-    func createAlert(title: String, message: String){
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
-        
-        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: {(action) in
-            alert.dismiss(animated: true, completion: nil)
-            Answers.logCustomEvent(withName: "Started Over")
-            self.countingTime=3
-            self.runTimer()
-        }))
-        
-        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default, handler: {(action) in
-            alert.dismiss(animated: true, completion: nil)
-            print("They did not want to rerecord")
-        }))
-        self.present(alert, animated: true, completion: nil)
+    func makeYesNoAlert(){
+        let vc = storyboard!.instantiateViewController(withIdentifier: "YesNoAlertVC") as! YesNoAlertVC
+        var transparentGrey=UIColor(red: 0.16, green: 0.16, blue: 0.16, alpha: 0.95)
+        vc.view.backgroundColor = transparentGrey
+        vc.modalPresentationStyle = .overCurrentContext
+        present(vc, animated: true, completion: nil)
     }
-    
 } //end of class
 
 extension UIViewController {

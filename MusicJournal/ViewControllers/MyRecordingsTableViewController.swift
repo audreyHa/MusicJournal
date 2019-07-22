@@ -70,6 +70,16 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     
     override func viewDidLoad(){
         super.viewDidLoad()
+        
+        let hasChosenCategories=UserDefaults.standard.string(forKey: "3rdCategory")
+        if hasChosenCategories == nil{
+            let vc = storyboard!.instantiateViewController(withIdentifier: "pageViewController") as! PageTutorialViewController
+            vc.modalPresentationStyle = .overCurrentContext
+            present(vc, animated: true, completion: nil)
+
+        }
+        
+        
         myCells=[]
         
         arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
@@ -87,6 +97,12 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: Notification.Name.UIApplicationWillResignActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("delete"), object: nil)
+    }
+    
+    //Function for handling receiving notification
+    @objc func methodOfReceivedNotification(notification: Notification) {
+        deleteRecording()
     }
     
     @objc func handleInterruption(notification: NSNotification) {
@@ -273,10 +289,10 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
             }
             
             self.deleteIndexPath=indexPath.row
-            self.createAlert(title: "Are you sure you want to delete this recording?", message: "You cannot undo this action")
+            
+            UserDefaults.standard.set("delete",forKey: "typeYesNoAlert")
+            self.makeYesNoAlert()
         }
-        
-        
 
         cell.onExportTouched = { (theCell) in
             guard let indexPath = tableView.indexPath(for: theCell) else { return }
@@ -293,7 +309,8 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
                 self.controller.presentOptionsMenu(from: CGRect.zero, in: self.view, animated: true)
                 Answers.logCustomEvent(withName: "Pressed Export")
             }else{
-                self.exportAlert(title: "Cannot Export Recording", message: "You did not make a recording here")
+                UserDefaults.standard.set("exporting",forKey: "typeShortAlert")
+                self.makeShortAlert()
             }
         
         }
@@ -303,15 +320,6 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
             self.stopPlayingAllCells(cellValue: cell)
             print("used stop playing for playing song")
             print("Index Path Row that we're playing: \(indexPath.row)")
-            
-//            for i in 0...self.myCells.count-1{
-//                if self.myCells[i].newAudioPlayer==nil{
-//                    print("Cell \(i) has a nil audio player")
-//                }else{
-//                    print("Cell \(i) has an existing audio player")
-//                }
-//
-//            }
         }
         
 
@@ -322,12 +330,27 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
             
             
         }
-//        myCells.append(cell)
         
         return cell
         
     }//end of override func
 
+    func makeShortAlert(){
+        let vc = storyboard!.instantiateViewController(withIdentifier: "ShortAlertVC") as! ShortAlertVC
+        var transparentGrey=UIColor(red: 0.16, green: 0.16, blue: 0.16, alpha: 0.95)
+        vc.view.backgroundColor = transparentGrey
+        vc.modalPresentationStyle = .overCurrentContext
+        present(vc, animated: true, completion: nil)
+    }
+    
+    func makeYesNoAlert(){
+        let vc = storyboard!.instantiateViewController(withIdentifier: "YesNoAlertVC") as! YesNoAlertVC
+        var transparentGrey=UIColor(red: 0.16, green: 0.16, blue: 0.16, alpha: 0.95)
+        vc.view.backgroundColor = transparentGrey
+        vc.modalPresentationStyle = .overCurrentContext
+        present(vc, animated: true, completion: nil)
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         getAllCells()
         print("used get all cells for view disappeared")
@@ -498,71 +521,50 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         }
     } //end of Reorder
     
-    func createAlert(title: String, message: String){
-        
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
-        
-        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: {(action) in
-            alert.dismiss(animated: true, completion: nil)
-            Answers.logCustomEvent(withName: "Deleted Recording")
-            if self.arrayOfRecordingsInfo[self.deleteIndexPath].filename != nil{
-                // Got the following code from: swiftdeveloperblog.com/code-examples/delete-file-example-in-swift/
-                // Find documents directory on device
+    func deleteRecording(){
+        Answers.logCustomEvent(withName: "Deleted Recording")
+        if self.arrayOfRecordingsInfo[self.deleteIndexPath].filename != nil{
+            // Got the following code from: swiftdeveloperblog.com/code-examples/delete-file-example-in-swift/
+            // Find documents directory on device
+            
+            let fileNameToDelete = ("\(self.arrayOfRecordingsInfo[self.deleteIndexPath].filename!)")
+            var filePath = ""
+            
+            let dirs : [String] = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true)
+            
+            if dirs.count > 0 {
+                let dir = dirs[0] //documents directory
+                filePath = dir.appendingFormat("/" + fileNameToDelete)
+                print("Local path = \(filePath)")
                 
-                let fileNameToDelete = ("\(self.arrayOfRecordingsInfo[self.deleteIndexPath].filename!)")
-                var filePath = ""
-                
-                let dirs : [String] = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true)
-                
-                if dirs.count > 0 {
-                    let dir = dirs[0] //documents directory
-                    filePath = dir.appendingFormat("/" + fileNameToDelete)
-                    print("Local path = \(filePath)")
-                    
-                } else {
-                    print("Could not find local directory to store file")
-                    return
-                }
-                
-                
-                do {
-                    let fileManager = FileManager.default
-                    
-                    // Check if file exists
-                    if fileManager.fileExists(atPath: filePath) {
-                        // Delete file
-                        try fileManager.removeItem(atPath: filePath)
-                    } else {
-                        print("for deleting, File does not exist")
-                    }
-                    
-                }
-                catch let error as NSError {
-                    print("An error took place: \(error)")
-                }
-                // End of code for deleting from the document directory also
+            } else {
+                print("Could not find local directory to store file")
+                return
             }
             
-            let recordingToDelete=self.arrayOfRecordingsInfo[self.deleteIndexPath]
-            CoreDataHelper.deleteRecording(recording: recordingToDelete)
-            self.arrayOfRecordingsInfo=CoreDataHelper.retrieveRecording()
-            self.reorderArray()
-        }))
+            
+            do {
+                let fileManager = FileManager.default
+                
+                // Check if file exists
+                if fileManager.fileExists(atPath: filePath) {
+                    // Delete file
+                    try fileManager.removeItem(atPath: filePath)
+                } else {
+                    print("for deleting, File does not exist")
+                }
+                
+            }
+            catch let error as NSError {
+                print("An error took place: \(error)")
+            }
+            // End of code for deleting from the document directory also
+        }
         
-        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default, handler: {(action) in
-            alert.dismiss(animated: true, completion: nil)
-            print("They did not want to delete")
-        }))
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    func exportAlert(title: String, message: String){
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (action) in
-            alert.dismiss(animated: true, completion: nil)
-        }))
-        
-        self.present(alert, animated: true, completion: nil)
+        let recordingToDelete=self.arrayOfRecordingsInfo[self.deleteIndexPath]
+        CoreDataHelper.deleteRecording(recording: recordingToDelete)
+        self.arrayOfRecordingsInfo=CoreDataHelper.retrieveRecording()
+        self.reorderArray()
     }
     
     func getAllCells(){
