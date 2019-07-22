@@ -12,13 +12,6 @@
 		F6367A6C2103ED3800981216 /* SongInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6367A6B2103ED3800981216 /* SongInfo.swift */; };
 		F6367A762103FECC00981216 /* myRecordingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6367A752103FECC00981216 /* myRecordingsTableViewCell.swift */; };
 		F6367A782104005700981216 /* MyRecordingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6367A772104005700981216 /* MyRecordingsTableViewController.swift */; };
-		F65BA7CF22E0094A00785E38 /* PageTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65BA7CE22E0094A00785E38 /* PageTutorialViewController.swift */; };
-		F65BA80722E0AFF200785E38 /* Tutorial1.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65BA80622E0AFF200785E38 /* Tutorial1.swift */; };
-		F65BA80922E0B00300785E38 /* Tutorial2.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65BA80822E0B00300785E38 /* Tutorial2.swift */; };
-		F65BA80B22E0B01300785E38 /* Tutorial3.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65BA80A22E0B01300785E38 /* Tutorial3.swift */; };
-		F681E98A22E361CB00BA8F19 /* ShortAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F681E98922E361CB00BA8F19 /* ShortAlertVC.swift */; };
-		F681E98D22E3FE6300BA8F19 /* YesNoAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F681E98C22E3FE6300BA8F19 /* YesNoAlertVC.swift */; };
-		F681E98F22E4077000BA8F19 /* editCategoriesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F681E98E22E4077000BA8F19 /* editCategoriesVC.swift */; };
 		F6ABEE2C210446CC00143E67 /* convertToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6ABEE2B210446CC00143E67 /* convertToString.swift */; };
 		F6E6E66C2106427E00C47C2E /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E6E66B2106427E00C47C2E /* CoreDataHelper.swift */; };
 		F6EB02B32103D759006CD141 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6EB02B22103D759006CD141 /* AppDelegate.swift */; };
@@ -26,7 +19,6 @@
 		F6EB02B82103D759006CD141 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6EB02B62103D759006CD141 /* Main.storyboard */; };
 		F6EB02BD2103D75A006CD141 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F6EB02BC2103D75A006CD141 /* Assets.xcassets */; };
 		F6EB02C02103D75A006CD141 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6EB02BE2103D75A006CD141 /* LaunchScreen.storyboard */; };
-		F6EB8AEE22E196170024AC4C /* OKAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6EB8AED22E196170024AC4C /* OKAlertViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,13 +29,6 @@
 		F6367A6B2103ED3800981216 /* SongInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongInfo.swift; sourceTree = "<group>"; };
 		F6367A752103FECC00981216 /* myRecordingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myRecordingsTableViewCell.swift; sourceTree = "<group>"; };
 		F6367A772104005700981216 /* MyRecordingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRecordingsTableViewController.swift; sourceTree = "<group>"; };
-		F65BA7CE22E0094A00785E38 /* PageTutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PageTutorialViewController.swift; path = MusicJournal/ViewControllers/PageTutorialViewController.swift; sourceTree = SOURCE_ROOT; };
-		F65BA80622E0AFF200785E38 /* Tutorial1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tutorial1.swift; sourceTree = "<group>"; };
-		F65BA80822E0B00300785E38 /* Tutorial2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tutorial2.swift; sourceTree = "<group>"; };
-		F65BA80A22E0B01300785E38 /* Tutorial3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tutorial3.swift; sourceTree = "<group>"; };
-		F681E98922E361CB00BA8F19 /* ShortAlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortAlertVC.swift; sourceTree = "<group>"; };
-		F681E98C22E3FE6300BA8F19 /* YesNoAlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YesNoAlertVC.swift; sourceTree = "<group>"; };
-		F681E98E22E4077000BA8F19 /* editCategoriesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = editCategoriesVC.swift; sourceTree = "<group>"; };
 		F6ABEE2B210446CC00143E67 /* convertToString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = convertToString.swift; sourceTree = "<group>"; };
 		F6E6E66B2106427E00C47C2E /* CoreDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
 		F6EB02AF2103D759006CD141 /* MusicJournal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicJournal.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -53,7 +38,6 @@
 		F6EB02BC2103D75A006CD141 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F6EB02BF2103D75A006CD141 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F6EB02C12103D75A006CD141 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F6EB8AED22E196170024AC4C /* OKAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OKAlertViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,32 +77,12 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		F65BA80522E0AFDB00785E38 /* Tutorial */ = {
-			isa = PBXGroup;
-			children = (
-				F65BA80622E0AFF200785E38 /* Tutorial1.swift */,
-				F65BA80822E0B00300785E38 /* Tutorial2.swift */,
-				F65BA80A22E0B01300785E38 /* Tutorial3.swift */,
-			);
-			path = Tutorial;
-			sourceTree = "<group>";
-		};
 		F65CC04A210405AF00C8ABC2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				F6367A752103FECC00981216 /* myRecordingsTableViewCell.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		F681E98B22E3FE3F00BA8F19 /* AlertControllers */ = {
-			isa = PBXGroup;
-			children = (
-				F6EB8AED22E196170024AC4C /* OKAlertViewController.swift */,
-				F681E98922E361CB00BA8F19 /* ShortAlertVC.swift */,
-				F681E98C22E3FE6300BA8F19 /* YesNoAlertVC.swift */,
-			);
-			path = AlertControllers;
 			sourceTree = "<group>";
 		};
 		F6ABEE2A210446AB00143E67 /* Extensions */ = {
@@ -161,8 +125,6 @@
 		F6EB02B12103D759006CD141 /* MusicJournal */ = {
 			isa = PBXGroup;
 			children = (
-				F681E98B22E3FE3F00BA8F19 /* AlertControllers */,
-				F65BA80522E0AFDB00785E38 /* Tutorial */,
 				F65CC04A210405AF00C8ABC2 /* Views */,
 				F6EB02C92103D77E006CD141 /* ViewControllers */,
 				F6EB02C82103D76E006CD141 /* Storyboards */,
@@ -188,8 +150,6 @@
 				F6EB02B42103D759006CD141 /* HomeViewController.swift */,
 				F6367A6B2103ED3800981216 /* SongInfo.swift */,
 				F6367A772104005700981216 /* MyRecordingsTableViewController.swift */,
-				F65BA7CE22E0094A00785E38 /* PageTutorialViewController.swift */,
-				F681E98E22E4077000BA8F19 /* editCategoriesVC.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -302,21 +262,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				F6E6E66C2106427E00C47C2E /* CoreDataHelper.swift in Sources */,
-				F65BA80B22E0B01300785E38 /* Tutorial3.swift in Sources */,
-				F681E98A22E361CB00BA8F19 /* ShortAlertVC.swift in Sources */,
 				F6ABEE2C210446CC00143E67 /* convertToString.swift in Sources */,
 				F6367A782104005700981216 /* MyRecordingsTableViewController.swift in Sources */,
 				F628826A21068AAE0010B15E /* MusicJournal.xcdatamodeld in Sources */,
-				F681E98F22E4077000BA8F19 /* editCategoriesVC.swift in Sources */,
 				F6EB02B52103D759006CD141 /* HomeViewController.swift in Sources */,
-				F681E98D22E3FE6300BA8F19 /* YesNoAlertVC.swift in Sources */,
-				F65BA7CF22E0094A00785E38 /* PageTutorialViewController.swift in Sources */,
 				F6367A762103FECC00981216 /* myRecordingsTableViewCell.swift in Sources */,
 				F6367A6C2103ED3800981216 /* SongInfo.swift in Sources */,
-				F6EB8AEE22E196170024AC4C /* OKAlertViewController.swift in Sources */,
 				F6EB02B32103D759006CD141 /* AppDelegate.swift in Sources */,
-				F65BA80722E0AFF200785E38 /* Tutorial1.swift in Sources */,
-				F65BA80922E0B00300785E38 /* Tutorial2.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,7 +413,6 @@
 			baseConfigurationReference = B997DB3BDDB6A4329227F6FD /* Pods-MusicJournal.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = X5ZKFR55NQ;
@@ -472,7 +423,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.audrey-ha.MusicJournal";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -483,7 +433,6 @@
 			baseConfigurationReference = 29624CEEB2F87A39D46F91DC /* Pods-MusicJournal.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X5ZKFR55NQ;
 				INFOPLIST_FILE = MusicJournal/Info.plist;
@@ -493,7 +442,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.audrey-ha.MusicJournal";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -23,21 +23,13 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
 
         self.roundedButton.layer.cornerRadius=8
-        
-        //Receive notification
-        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("privacyPressed"), object: nil)
-    }
-    
-    //Function for handling receiving notification
-    @objc func methodOfReceivedNotification(notification: Notification) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { // Change `2.0` to the desired number of seconds.
-            self.performSegue(withIdentifier: "showSecondViewController", sender: self)
-        }
+        // Do any additional setup after loading the view, typically from a nib.
     }
     
     override func viewDidAppear(_ animated: Bool) {
         let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
         if launchedBefore{
+            
             print("Not first launch.")
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) { // Change `2.0` to the desired number of seconds.
@@ -45,14 +37,18 @@ class HomeViewController: UIViewController {
             }
            
         }else{
-            UserDefaults.standard.set("Privacy Policy",forKey: "typeOKAlert")
+            let alert = UIAlertController(title: "PRIVACY POLICY", message:"By clicking “Continue” or continuing to use this app, you acknowledge that MusiCord incorporates an analytical tool (Answers) tracking how many times users land on different screens to improve user experience and guide development for future features. Any identifiable information (name, contact information, location) will not be collected. Your recordings are stored locally on your phone; no third party (including me) has access to your content in this app. If you have any questions, please contact musicordmobileapp@gmail.com!", preferredStyle: UIAlertControllerStyle.alert)
             
-            let vc = storyboard!.instantiateViewController(withIdentifier: "OKAlertViewController") as! OKAlertViewController
-            var transparentGrey=UIColor(red: 0.16, green: 0.16, blue: 0.16, alpha: 0.95)
-            vc.view.backgroundColor = transparentGrey
-            vc.modalPresentationStyle = .overCurrentContext
-            present(vc, animated: true, completion: nil)
+            // add an action (button)
+            alert.addAction(UIAlertAction(title: "Continue", style: UIAlertActionStyle.default, handler: {(action) in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) { // Change `2.0` to the desired number of seconds.
+                    self.performSegue(withIdentifier: "showSecondViewController", sender: self)
+                }
+            }))
+            // show the alert
+            self.present(alert, animated: true, completion: nil)
             
+            print("First time")
             UserDefaults.standard.set(true, forKey: "launchedBefore")
             Answers.logCustomEvent(withName: "Privacy Policy: Clicked Continue")
         }
@@ -64,3 +60,4 @@ class HomeViewController: UIViewController {
     }
     
 }
+
