@@ -257,19 +257,22 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             countingTime=3
             
             if songLabel.text==""{
-                recording?.songTitle="No Title"
+                var firstCategory=UserDefaults.standard.string(forKey: "1stCategory") ?? "No Song Title"
+                recording?.songTitle="No \(firstCategory.capitalizingFirstLetter()) Entered"
             }else{
                 recording?.songTitle=songLabel.text
             }
             
             if eventLabel.text==""{
-                recording?.songEvent="No Event"
+                var thirdCategory=UserDefaults.standard.string(forKey: "3rdCategory") ?? "No Event"
+                recording?.songEvent="No \(thirdCategory.capitalizingFirstLetter()) Entered"
             }else{
                 recording?.songEvent=eventLabel.text
             }
             
             if composerLabel.text==""{
-                recording?.songComposer="No Composer"
+                var secondCategory=UserDefaults.standard.string(forKey: "2ndCategory") ?? "No Composer"
+                recording?.songComposer="No \(secondCategory.capitalizingFirstLetter()) Entered"
             }else{
                 recording?.songComposer=composerLabel.text
             }
@@ -364,12 +367,25 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             }
         }
        
-        //self.songText.layer.cornerRadius=8
-        //self.composerText.layer.cornerRadius=8
-        //self.eventText.layer.cornerRadius=8
+        songText.adjustsFontSizeToFitWidth=true
+        composerText.adjustsFontSizeToFitWidth=true
+        eventText.adjustsFontSizeToFitWidth=true
+        updateCategoryButtons()
+        
         self.hideKeyboardWhenTappedAround()
        
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("startOver"), object: nil)
+    }
+    
+    func updateCategoryButtons(){
+        print("updating buttons from song info")
+        var firstCategory="  \(UserDefaults.standard.string(forKey: "1stCategory")!):  "
+        var secondCategory="  \(UserDefaults.standard.string(forKey: "2ndCategory")!):  "
+        var thirdCategory="  \(UserDefaults.standard.string(forKey: "3rdCategory")!):  "
+        
+        songText.text=firstCategory
+        composerText.text=secondCategory
+        eventText.text=thirdCategory
     }
     
     //Function for handling receiving notification
@@ -430,19 +446,22 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         }
         
         if songLabel.text==""{
-            recording?.songTitle="No Title"
+            var firstCategory=UserDefaults.standard.string(forKey: "1stCategory") ?? "No Song Title"
+            recording?.songTitle="No \(firstCategory.capitalizingFirstLetter()) Entered"
         }else{
             recording?.songTitle=songLabel.text
         }
         
         if eventLabel.text==""{
-            recording?.songEvent="No Event"
+            var thirdCategory=UserDefaults.standard.string(forKey: "3rdCategory") ?? "No Event"
+            recording?.songEvent="No \(thirdCategory.capitalizingFirstLetter()) Entered"
         }else{
             recording?.songEvent=eventLabel.text
         }
         
         if composerLabel.text==""{
-            recording?.songComposer="No Composer"
+            var secondCategory=UserDefaults.standard.string(forKey: "2ndCategory") ?? "No Composer"
+            recording?.songComposer="No \(secondCategory.capitalizingFirstLetter()) Entered"
         }else{
             recording?.songComposer=composerLabel.text
         }
@@ -621,5 +640,15 @@ extension UIViewController {
 extension String {
     var removingWhitespacesAndNewlines: String {
         return components(separatedBy: .whitespacesAndNewlines).joined()
+    }
+    
+    func capitalizingFirstLetter() -> String{
+        var stringArray=self.characters.split(separator: " ")
+        for n in 0...stringArray.count-1{
+            stringArray[n]=stringArray[n].prefix(1).uppercased() + stringArray[n].lowercased().dropFirst()
+        }
+        
+        var combinedString=stringArray.joined(separator: " ")
+        return combinedString
     }
 }

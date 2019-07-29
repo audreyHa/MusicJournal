@@ -24,6 +24,7 @@ class ShortAlertVC: UIViewController {
         super.viewDidLoad()
         bigHeader.adjustsFontSizeToFitWidth = true
         label.adjustsFontSizeToFitWidth = true
+        okButton.setTitle("  Ok  ", for: .normal)
         
         switch (UserDefaults.standard.string(forKey: "typeShortAlert")) {
         case "fillFirst":
@@ -59,6 +60,9 @@ class ShortAlertVC: UIViewController {
         case "failToRecord":
             bigHeader.text="Failed to Record"
             label.text="Could not record."
+        case "fillAllCategories":
+            bigHeader.text="Please Fill All Categories!"
+            label.text="Cannot save your edited categories if you leave one blank."
         default:
             print("Error! Could not react to short alert!")
         }

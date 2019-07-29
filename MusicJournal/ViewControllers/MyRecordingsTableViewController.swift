@@ -76,10 +76,8 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
             let vc = storyboard!.instantiateViewController(withIdentifier: "pageViewController") as! PageTutorialViewController
             vc.modalPresentationStyle = .overCurrentContext
             present(vc, animated: true, completion: nil)
-
         }
-        
-        
+
         myCells=[]
         
         arrayOfRecordingsInfo = CoreDataHelper.retrieveRecording()
@@ -88,21 +86,49 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         
         tableView.delegate=self
         tableView.dataSource=self
-        self.songButton.layer.cornerRadius=8
-        self.dateButton.layer.cornerRadius=8
-        self.composerButton.layer.cornerRadius=8
-        self.eventButton.layer.cornerRadius=8
+        
+        updateCategoryButtons()
+        
+        dateButton.layer.cornerRadius=8
+
+        self.tableView.rowHeight=UITableViewAutomaticDimension
+        self.tableView.estimatedRowHeight=1000
         
         NotificationCenter.default.addObserver(self, selector: #selector(MyRecordingsTableViewController.handleInterruption(notification:)), name: NSNotification.Name.AVAudioSessionInterruption, object: RecordMusicViewController.recordingSession)
         
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: Notification.Name.UIApplicationWillResignActive, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("delete"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.updateCategoryButtons(notification:)), name: Notification.Name("updateCategoryButtons"), object: nil)
+    }
+    
+    func updateCategoryButtons(){
+        arrayOfRecordingsInfo=CoreDataHelper.retrieveRecording()
+        
+        var firstCategory="  \(UserDefaults.standard.string(forKey: "1stCategory")!)  " ?? "  Song Title  "
+        var secondCategory="  \(UserDefaults.standard.string(forKey: "2ndCategory")!)  " ?? "  Composer  "
+        var thirdCategory="  \(UserDefaults.standard.string(forKey: "3rdCategory")!)  " ?? "  Event  "
+        
+        var categoryNames=[firstCategory, secondCategory, thirdCategory]
+        var arrayOfButtons=[songButton, composerButton, eventButton]
+        
+        for n in 0...arrayOfButtons.count-1{
+            print(categoryNames[n])
+            var button=arrayOfButtons[n]
+            button!.layer.cornerRadius=8
+            button!.setTitle(categoryNames[n], for: .normal)
+            button!.titleLabel!.adjustsFontSizeToFitWidth=true
+        }
     }
     
     //Function for handling receiving notification
     @objc func methodOfReceivedNotification(notification: Notification) {
         deleteRecording()
+    }
+    
+    @objc func updateCategoryButtons(notification: Notification) {
+        updateCategoryButtons()
     }
     
     @objc func handleInterruption(notification: NSNotification) {

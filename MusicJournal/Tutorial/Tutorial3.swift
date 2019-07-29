@@ -50,6 +50,7 @@ class Tutorial3: UIViewController {
     
     @IBAction func donePressed(_ sender: Any) {
         if(UserDefaults.standard.string(forKey: "3rdCategory") != nil){
+            NotificationCenter.default.post(name: Notification.Name("updateCategoryButtons"), object: nil)
             navigationController?.popViewController(animated: true)
             dismiss(animated: true, completion: nil)
         }else{
