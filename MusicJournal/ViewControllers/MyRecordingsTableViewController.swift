@@ -106,10 +106,28 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     func updateCategoryButtons(){
         arrayOfRecordingsInfo=CoreDataHelper.retrieveRecording()
         
-        var firstCategory="  \(UserDefaults.standard.string(forKey: "1stCategory")!)  " ?? "  Song Title  "
-        var secondCategory="  \(UserDefaults.standard.string(forKey: "2ndCategory")!)  " ?? "  Composer  "
-        var thirdCategory="  \(UserDefaults.standard.string(forKey: "3rdCategory")!)  " ?? "  Event  "
+        var firstCategory: String
+        var secondCategory: String
+        var thirdCategory: String
         
+        if (UserDefaults.standard.string(forKey: "1stCategory")) != nil{
+            firstCategory="  \(UserDefaults.standard.string(forKey: "1stCategory")!)  "
+        }else{
+            firstCategory = "  Song Title  "
+        }
+        
+        if (UserDefaults.standard.string(forKey: "2ndCategory")) != nil{
+            secondCategory="  \(UserDefaults.standard.string(forKey: "2ndCategory")!)  "
+        }else{
+            secondCategory = "  Composer  "
+        }
+        
+        if (UserDefaults.standard.string(forKey: "3rdCategory")) != nil{
+            thirdCategory="  \(UserDefaults.standard.string(forKey: "3rdCategory")!)  "
+        }else{
+            thirdCategory = "  Event  "
+        }
+
         var categoryNames=[firstCategory, secondCategory, thirdCategory]
         var arrayOfButtons=[songButton, composerButton, eventButton]
         

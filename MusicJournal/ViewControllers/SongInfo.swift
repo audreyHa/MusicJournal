@@ -257,21 +257,24 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             countingTime=3
             
             if songLabel.text==""{
-                var firstCategory=UserDefaults.standard.string(forKey: "1stCategory") ?? "No Song Title"
+                var firstCategory=UserDefaults.standard.string(forKey: "1stCategory") ?? "Song Title"
+                
                 recording?.songTitle="No \(firstCategory.capitalizingFirstLetter()) Entered"
             }else{
                 recording?.songTitle=songLabel.text
             }
             
             if eventLabel.text==""{
-                var thirdCategory=UserDefaults.standard.string(forKey: "3rdCategory") ?? "No Event"
+                var thirdCategory=UserDefaults.standard.string(forKey: "3rdCategory") ?? "Event"
+                
                 recording?.songEvent="No \(thirdCategory.capitalizingFirstLetter()) Entered"
             }else{
                 recording?.songEvent=eventLabel.text
             }
             
             if composerLabel.text==""{
-                var secondCategory=UserDefaults.standard.string(forKey: "2ndCategory") ?? "No Composer"
+                var secondCategory=UserDefaults.standard.string(forKey: "2ndCategory") ?? "Composer"
+
                 recording?.songComposer="No \(secondCategory.capitalizingFirstLetter()) Entered"
             }else{
                 recording?.songComposer=composerLabel.text
@@ -379,9 +382,26 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     
     func updateCategoryButtons(){
         print("updating buttons from song info")
-        var firstCategory="  \(UserDefaults.standard.string(forKey: "1stCategory")!):  "
-        var secondCategory="  \(UserDefaults.standard.string(forKey: "2ndCategory")!):  "
-        var thirdCategory="  \(UserDefaults.standard.string(forKey: "3rdCategory")!):  "
+        var firstCategory="  \(UserDefaults.standard.string(forKey: "1stCategory")):  " ?? "Song"
+        if (UserDefaults.standard.string(forKey: "1stCategory")) != nil{
+            firstCategory="  \(UserDefaults.standard.string(forKey: "1stCategory")!):  "
+        }else{
+            firstCategory = "  Song Title:  "
+        }
+        
+        var secondCategory="  \(UserDefaults.standard.string(forKey: "2ndCategory")):  " ?? "Composer"
+        if (UserDefaults.standard.string(forKey: "2ndCategory")) != nil{
+            secondCategory="  \(UserDefaults.standard.string(forKey: "2ndCategory")!):  "
+        }else{
+            secondCategory = "  Composer:  "
+        }
+
+        var thirdCategory="  \(UserDefaults.standard.string(forKey: "3rdCategory")):  " ?? "Event"
+        if (UserDefaults.standard.string(forKey: "3rdCategory")) != nil{
+            thirdCategory="  \(UserDefaults.standard.string(forKey: "3rdCategory")!):  "
+        }else{
+            thirdCategory = "  Event:  "
+        }
         
         songText.text=firstCategory
         composerText.text=secondCategory
@@ -446,21 +466,21 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         }
         
         if songLabel.text==""{
-            var firstCategory=UserDefaults.standard.string(forKey: "1stCategory") ?? "No Song Title"
+            var firstCategory=UserDefaults.standard.string(forKey: "1stCategory") ?? "Song Title"
             recording?.songTitle="No \(firstCategory.capitalizingFirstLetter()) Entered"
         }else{
             recording?.songTitle=songLabel.text
         }
         
         if eventLabel.text==""{
-            var thirdCategory=UserDefaults.standard.string(forKey: "3rdCategory") ?? "No Event"
+            var thirdCategory=UserDefaults.standard.string(forKey: "3rdCategory") ?? "Event"
             recording?.songEvent="No \(thirdCategory.capitalizingFirstLetter()) Entered"
         }else{
             recording?.songEvent=eventLabel.text
         }
         
         if composerLabel.text==""{
-            var secondCategory=UserDefaults.standard.string(forKey: "2ndCategory") ?? "No Composer"
+            var secondCategory=UserDefaults.standard.string(forKey: "2ndCategory") ?? "Composer"
             recording?.songComposer="No \(secondCategory.capitalizingFirstLetter()) Entered"
         }else{
             recording?.songComposer=composerLabel.text

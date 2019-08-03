@@ -25,14 +25,16 @@ class YesNoAlertVC: UIViewController {
         super.viewDidLoad()
         bigHeader.adjustsFontSizeToFitWidth = true
         label.adjustsFontSizeToFitWidth = true
+        yesButton.titleLabel!.adjustsFontSizeToFitWidth = true
+        noButton.titleLabel!.adjustsFontSizeToFitWidth = true
         
         switch (UserDefaults.standard.string(forKey: "typeYesNoAlert")) {
         case "startOver":
-            bigHeader.text="Are you sure you want to start over?"
-            label.text="You cannot undo this action."
+            bigHeader.text="Confirm!"
+            label.text="Are you sure you want to start over? You cannot undo this action."
         case "delete":
-            bigHeader.text="Are you sure you want to delete this recording?"
-            label.text="You cannot undo this action."
+            bigHeader.text="Confirm!"
+            label.text="Are you sure you want to delete this recording? You cannot undo this action."
         default:
             print("Error! Could not react to short alert!")
         }
@@ -43,10 +45,10 @@ class YesNoAlertVC: UIViewController {
         bottomView.layer.cornerRadius = 10
         bottomView.clipsToBounds = true
         
-        yesButton.layer.cornerRadius = 10
+        yesButton.layer.cornerRadius = 5
         yesButton.clipsToBounds = true
         
-        noButton.layer.cornerRadius = 10
+        noButton.layer.cornerRadius = 5
         noButton.clipsToBounds = true
         
         centerView.superview?.bringSubview(toFront: centerView)

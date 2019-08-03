@@ -24,6 +24,7 @@ class OKAlertViewController: UIViewController {
         super.viewDidLoad()
         bigHeader.adjustsFontSizeToFitWidth = true
         label.adjustsFontSizeToFitWidth = true
+        okButton.titleLabel!.adjustsFontSizeToFitWidth = true
         
         if(UserDefaults.standard.string(forKey: "typeOKAlert")=="Privacy Policy"){
             bigHeader.text="PRIVACY POLICY"
@@ -43,7 +44,7 @@ class OKAlertViewController: UIViewController {
         bottomView.layer.cornerRadius = 10
         bottomView.clipsToBounds = true
         
-        okButton.layer.cornerRadius = 10
+        okButton.layer.cornerRadius = 5
         okButton.clipsToBounds = true
         
         centerView.superview?.bringSubview(toFront: centerView)

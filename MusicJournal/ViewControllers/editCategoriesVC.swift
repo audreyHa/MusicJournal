@@ -21,13 +21,13 @@ class editCategoriesVC: UIViewController {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
         
-        var firstCategory=UserDefaults.standard.string(forKey: "1stCategory")
-        var secondCategory=UserDefaults.standard.string(forKey: "2ndCategory")
-        var thirdCategory=UserDefaults.standard.string(forKey: "3rdCategory")
+        var firstCategory=UserDefaults.standard.string(forKey: "1stCategory") ?? "Song"
+        var secondCategory=UserDefaults.standard.string(forKey: "2ndCategory") ?? "Composer"
+        var thirdCategory=UserDefaults.standard.string(forKey: "3rdCategory") ?? "Event"
         
-        firstTextField.text=firstCategory!
-        secondTextField.text=secondCategory!
-        thirdTextField.text=thirdCategory!
+        firstTextField.text=firstCategory
+        secondTextField.text=secondCategory
+        thirdTextField.text=thirdCategory
         
         saveButton.layer.cornerRadius=8
         // Do any additional setup after loading the view.

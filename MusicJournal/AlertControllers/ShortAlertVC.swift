@@ -25,6 +25,7 @@ class ShortAlertVC: UIViewController {
         bigHeader.adjustsFontSizeToFitWidth = true
         label.adjustsFontSizeToFitWidth = true
         okButton.setTitle("  Ok  ", for: .normal)
+        okButton.titleLabel!.adjustsFontSizeToFitWidth = true
         
         switch (UserDefaults.standard.string(forKey: "typeShortAlert")) {
         case "fillFirst":
@@ -73,7 +74,7 @@ class ShortAlertVC: UIViewController {
         bottomView.layer.cornerRadius = 10
         bottomView.clipsToBounds = true
         
-        okButton.layer.cornerRadius = 10
+        okButton.layer.cornerRadius = 5
         okButton.clipsToBounds = true
         
         centerView.superview?.bringSubview(toFront: centerView)
