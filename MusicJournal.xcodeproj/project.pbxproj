@@ -16,6 +16,7 @@
 		F65BA80722E0AFF200785E38 /* Tutorial1.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65BA80622E0AFF200785E38 /* Tutorial1.swift */; };
 		F65BA80922E0B00300785E38 /* Tutorial2.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65BA80822E0B00300785E38 /* Tutorial2.swift */; };
 		F65BA80B22E0B01300785E38 /* Tutorial3.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65BA80A22E0B01300785E38 /* Tutorial3.swift */; };
+		F669988122F7C0E0004A525B /* CustomCategoryAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = F669988022F7C0E0004A525B /* CustomCategoryAlert.swift */; };
 		F681E98A22E361CB00BA8F19 /* ShortAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F681E98922E361CB00BA8F19 /* ShortAlertVC.swift */; };
 		F681E98D22E3FE6300BA8F19 /* YesNoAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F681E98C22E3FE6300BA8F19 /* YesNoAlertVC.swift */; };
 		F681E98F22E4077000BA8F19 /* editCategoriesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F681E98E22E4077000BA8F19 /* editCategoriesVC.swift */; };
@@ -41,6 +42,7 @@
 		F65BA80622E0AFF200785E38 /* Tutorial1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tutorial1.swift; sourceTree = "<group>"; };
 		F65BA80822E0B00300785E38 /* Tutorial2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tutorial2.swift; sourceTree = "<group>"; };
 		F65BA80A22E0B01300785E38 /* Tutorial3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tutorial3.swift; sourceTree = "<group>"; };
+		F669988022F7C0E0004A525B /* CustomCategoryAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCategoryAlert.swift; sourceTree = "<group>"; };
 		F681E98922E361CB00BA8F19 /* ShortAlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortAlertVC.swift; sourceTree = "<group>"; };
 		F681E98C22E3FE6300BA8F19 /* YesNoAlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YesNoAlertVC.swift; sourceTree = "<group>"; };
 		F681E98E22E4077000BA8F19 /* editCategoriesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = editCategoriesVC.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				F6EB8AED22E196170024AC4C /* OKAlertViewController.swift */,
 				F681E98922E361CB00BA8F19 /* ShortAlertVC.swift */,
 				F681E98C22E3FE6300BA8F19 /* YesNoAlertVC.swift */,
+				F669988022F7C0E0004A525B /* CustomCategoryAlert.swift */,
 			);
 			path = AlertControllers;
 			sourceTree = "<group>";
@@ -304,6 +307,7 @@
 				F6E6E66C2106427E00C47C2E /* CoreDataHelper.swift in Sources */,
 				F65BA80B22E0B01300785E38 /* Tutorial3.swift in Sources */,
 				F681E98A22E361CB00BA8F19 /* ShortAlertVC.swift in Sources */,
+				F669988122F7C0E0004A525B /* CustomCategoryAlert.swift in Sources */,
 				F6ABEE2C210446CC00143E67 /* convertToString.swift in Sources */,
 				F6367A782104005700981216 /* MyRecordingsTableViewController.swift in Sources */,
 				F628826A21068AAE0010B15E /* MusicJournal.xcdatamodeld in Sources */,

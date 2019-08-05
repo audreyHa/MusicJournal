@@ -46,13 +46,12 @@ class Tutorial2: UIViewController {
             button.backgroundColor=greyColor
         }
         if (UserDefaults.standard.string(forKey: "1stCategory") != nil){
-            setButtonRed(value: (UserDefaults.standard.string(forKey: "1stCategory"))!)
             firstCategory=UserDefaults.standard.string(forKey: "1stCategory")!
         }
         
         if (UserDefaults.standard.string(forKey: "2ndCategory") != nil){
-            setButtonRed(value: (UserDefaults.standard.string(forKey: "2ndCategory"))!)
             secondCategory=UserDefaults.standard.string(forKey: "2ndCategory")!
+            setButtonRed(value: secondCategory)
         }
         
         if (UserDefaults.standard.string(forKey: "3rdCategory") != nil){
@@ -65,7 +64,7 @@ class Tutorial2: UIViewController {
             makeShortAlert()
         }
     }
-    
+
     func setButtonRed(value: String){
         switch (value) {
         case ("Song Title"):
@@ -84,10 +83,8 @@ class Tutorial2: UIViewController {
             interviewer.backgroundColor=redColor
         case ("Interviewee"):
             interviewee.backgroundColor=redColor
-        case ("Custom"):
-            print("Not changing any buttons on second page")
         default:
-            print("Not changing any buttons on second page")
+            custom.backgroundColor=redColor
         }
     }
     
@@ -108,7 +105,6 @@ class Tutorial2: UIViewController {
                 }
             }
             UserDefaults.standard.set(title, forKey: "2ndCategory")
-            setButtonRed(value: firstCategory)
         }
     }
     
@@ -152,6 +148,14 @@ class Tutorial2: UIViewController {
         reactToButtonPressed(myButton: interviewee, title: "Interviewee")
     }
     
+    func makeCustomAlert(){
+        let vc = storyboard!.instantiateViewController(withIdentifier: "CustomCategoryAlert") as! CustomCategoryAlert
+        var transparentGrey=UIColor(red: 0.16, green: 0.16, blue: 0.16, alpha: 0.95)
+        vc.view.backgroundColor = transparentGrey
+        vc.modalPresentationStyle = .overCurrentContext
+        present(vc, animated: true, completion: nil)
+    }
+    
     @IBAction func customPressed(_ sender: Any) {
         custom.backgroundColor=redColor
         for button in buttons{
@@ -159,6 +163,9 @@ class Tutorial2: UIViewController {
                 button.backgroundColor=greyColor
             }
         }
+        
+        UserDefaults.standard.set("2ndCategory",forKey: "customType")
+        makeCustomAlert()
     }
     
 }

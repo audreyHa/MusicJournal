@@ -74,18 +74,16 @@ class Tutorial3: UIViewController {
         }
         
         if (UserDefaults.standard.string(forKey: "1stCategory") != nil){
-            setButtonRed(value: (UserDefaults.standard.string(forKey: "1stCategory"))!)
             firstCategory=UserDefaults.standard.string(forKey: "1stCategory")!
         }
         
         if (UserDefaults.standard.string(forKey: "2ndCategory") != nil){
-            setButtonRed(value: (UserDefaults.standard.string(forKey: "2ndCategory"))!)
             secondCategory=UserDefaults.standard.string(forKey: "2ndCategory")!
         }
         
         if (UserDefaults.standard.string(forKey: "3rdCategory") != nil){
-            setButtonRed(value: (UserDefaults.standard.string(forKey: "3rdCategory"))!)
             thirdCategory=UserDefaults.standard.string(forKey: "3rdCategory")!
+            setButtonRed(value: thirdCategory)
         }
         
         if (UserDefaults.standard.string(forKey: "2ndCategory") == nil){
@@ -98,7 +96,7 @@ class Tutorial3: UIViewController {
             present(vc, animated: true, completion: nil)
         }
     }
-    
+
     func setButtonRed(value: String){
         switch (value) {
         case ("Song Title"):
@@ -117,10 +115,8 @@ class Tutorial3: UIViewController {
             interviewer.backgroundColor=redColor
         case ("Interviewee"):
             interviewee.backgroundColor=redColor
-        case ("Custom"):
-            print("Not changing any buttons on second page")
         default:
-            print("Not changing any buttons on second page")
+            custom.backgroundColor=redColor
         }
     }
     
@@ -133,8 +129,6 @@ class Tutorial3: UIViewController {
                 }
             }
             UserDefaults.standard.set(title, forKey: "3rdCategory")
-            setButtonRed(value: firstCategory)
-            setButtonRed(value: secondCategory)
         }else if(firstCategory==title){
             UserDefaults.standard.set("didAsFirst",forKey: "typeShortAlert")
             UserDefaults.standard.set(title,forKey: "valueToInclude")
@@ -178,8 +172,24 @@ class Tutorial3: UIViewController {
         reactToButtonPressed(myButton: interviewee, title: "Interviewee")
     }
     
+    func makeCustomAlert(){
+        let vc = storyboard!.instantiateViewController(withIdentifier: "CustomCategoryAlert") as! CustomCategoryAlert
+        var transparentGrey=UIColor(red: 0.16, green: 0.16, blue: 0.16, alpha: 0.95)
+        vc.view.backgroundColor = transparentGrey
+        vc.modalPresentationStyle = .overCurrentContext
+        present(vc, animated: true, completion: nil)
+    }
+
     @IBAction func customPressed(_ sender: Any) {
-        //don't do anything yet
+        custom.backgroundColor=redColor
+        for button in buttons{
+            if button != custom{
+                button.backgroundColor=greyColor
+            }
+        }
+        
+        UserDefaults.standard.set("3rdCategory",forKey: "customType")
+        makeCustomAlert()
     }
     
 }
