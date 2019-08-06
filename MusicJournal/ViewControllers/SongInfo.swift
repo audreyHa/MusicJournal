@@ -403,9 +403,9 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             thirdCategory = "  Event:  "
         }
         
-        songText.text=firstCategory
-        composerText.text=secondCategory
-        eventText.text=thirdCategory
+        songText.text="  \(firstCategory.capitalizingFirstLetter())  "
+        composerText.text="  \(secondCategory.capitalizingFirstLetter())  "
+        eventText.text="  \(thirdCategory.capitalizingFirstLetter())  "
     }
     
     //Function for handling receiving notification

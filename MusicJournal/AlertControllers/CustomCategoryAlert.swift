@@ -25,6 +25,8 @@ class CustomCategoryAlert: UIViewController {
         bigHeader.adjustsFontSizeToFitWidth = true
         okButton.titleLabel!.adjustsFontSizeToFitWidth = true
         
+        self.hideKeyboardWhenTappedAround()
+        
         topView.layer.cornerRadius = 10
         topView.clipsToBounds = true
         
@@ -40,7 +42,7 @@ class CustomCategoryAlert: UIViewController {
     }
     
     @IBAction func okPressed(_ sender: Any) {
-        if textField.text != nil{
+        if textField.text != ""{
             switch (UserDefaults.standard.string(forKey: "customType")) {
             case "1stCategory":
                 UserDefaults.standard.set(textField.text,forKey: "1stCategory")

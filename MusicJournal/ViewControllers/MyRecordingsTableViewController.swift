@@ -24,6 +24,8 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     
     static var chosenNumber: Int!
     var controller = UIDocumentInteractionController()
+    var redColor=UIColor(red: 0.91, green: 0.35, blue: 0.27, alpha: 1.00)
+    
     @IBOutlet weak var songButton: UIButton!
     @IBOutlet weak var dateButton: UIButton!
     @IBOutlet weak var composerButton: UIButton!
@@ -135,7 +137,7 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
             print(categoryNames[n])
             var button=arrayOfButtons[n]
             button!.layer.cornerRadius=8
-            button!.setTitle(categoryNames[n], for: .normal)
+            button!.setTitle("  \(categoryNames[n].capitalizingFirstLetter())  ", for: .normal)
             button!.titleLabel!.adjustsFontSizeToFitWidth=true
         }
     }
@@ -338,6 +340,15 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
             self.makeYesNoAlert()
         }
 
+        var indicator = UIActivityIndicatorView()
+        
+        func activityIndicator() {
+            indicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+            indicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+            indicator.center = self.view.center
+            self.view.addSubview(indicator)
+        }
+        
         cell.onExportTouched = { (theCell) in
             guard let indexPath = tableView.indexPath(for: theCell) else { return }
             if self.arrayOfRecordingsInfo[indexPath.row].filename != nil{
@@ -349,9 +360,21 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
                 let pathArray: [String] = [dirPath, recordingName]
                 let filePathString: String = pathArray.joined(separator: "/")
                 print("this is file Path String: \(filePathString)")
+                
                 self.controller = UIDocumentInteractionController(url: NSURL(fileURLWithPath: filePathString) as URL)
+                
+                activityIndicator()
+                indicator.startAnimating()
+                indicator.color=self.redColor
+                indicator.backgroundColor = UIColor.white
+                
                 self.controller.presentOptionsMenu(from: CGRect.zero, in: self.view, animated: true)
                 Answers.logCustomEvent(withName: "Pressed Export")
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+                    indicator.stopAnimating()
+                    indicator.hidesWhenStopped = true
+                })
             }else{
                 UserDefaults.standard.set("exporting",forKey: "typeShortAlert")
                 self.makeShortAlert()

@@ -1766,29 +1766,32 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rv7-C4-mCQ">
-                                <rect key="frame" x="32" y="180.5" width="256" height="227"/>
+                                <rect key="frame" x="32" y="80" width="256" height="227"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Image" translatesAutoresizingMaskIntoConstraints="NO" id="D91-Rm-Dgc">
                                         <rect key="frame" x="96" y="-32" width="64" height="62"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Cs-nx-imm">
-                                        <rect key="frame" x="0.0" y="0.0" width="256" height="61.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="256" height="62"/>
                                         <color key="backgroundColor" red="0.84705882349999995" green="0.38823529410000002" blue="0.30980392159999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t0g-GX-pSe">
-                                        <rect key="frame" x="0.0" y="51.5" width="256" height="124"/>
+                                        <rect key="frame" x="0.0" y="52" width="256" height="123.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="GEU-ck-eEC">
-                                                <rect key="frame" x="30" y="10" width="196" height="94"/>
+                                                <rect key="frame" x="30" y="10" width="196" height="93.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Enter Custom Category:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CWw-0s-LEV">
-                                                        <rect key="frame" x="0.0" y="0.0" width="196" height="56"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="196" height="28.5"/>
                                                         <fontDescription key="fontDescription" name="PingFangHK-Semibold" family="PingFang HK" pointSize="20"/>
                                                         <color key="textColor" red="0.84705882349999995" green="0.38823529410000002" blue="0.30980392159999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HzC-vQ-6EQ">
-                                                        <rect key="frame" x="0.0" y="61" width="196" height="33"/>
+                                                        <rect key="frame" x="0.0" y="33.5" width="196" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="60" id="y8Y-Pc-TMl"/>
+                                                        </constraints>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
@@ -1853,10 +1856,10 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.3652611301" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Rv7-C4-mCQ" firstAttribute="centerX" secondItem="gCD-Ab-myt" secondAttribute="centerX" id="C5l-DR-sMf"/>
                             <constraint firstItem="Rv7-C4-mCQ" firstAttribute="height" secondItem="Qd5-Am-6T7" secondAttribute="height" multiplier="0.4" id="Inl-3x-qGj"/>
                             <constraint firstItem="Rv7-C4-mCQ" firstAttribute="width" secondItem="Qd5-Am-6T7" secondAttribute="width" multiplier="0.8" id="Mbz-be-zqB"/>
-                            <constraint firstItem="Rv7-C4-mCQ" firstAttribute="centerY" secondItem="gCD-Ab-myt" secondAttribute="centerY" id="bew-wH-mFl"/>
+                            <constraint firstItem="Rv7-C4-mCQ" firstAttribute="centerX" secondItem="gCD-Ab-myt" secondAttribute="centerX" id="fHK-sa-czF"/>
+                            <constraint firstItem="Rv7-C4-mCQ" firstAttribute="top" secondItem="gCD-Ab-myt" secondAttribute="top" constant="60" id="gb6-1L-hbf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="gCD-Ab-myt"/>
                     </view>
