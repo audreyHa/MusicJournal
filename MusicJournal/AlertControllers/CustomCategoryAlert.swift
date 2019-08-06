@@ -39,6 +39,8 @@ class CustomCategoryAlert: UIViewController {
         centerView.superview?.bringSubview(toFront: centerView)
         
         musiCordImage.superview?.bringSubview(toFront: musiCordImage)
+        
+        wholeAlertView.frame=CGRect(x: wholeAlertView.frame.minX, y: 500, width: wholeAlertView.frame.width, height: wholeAlertView.frame.height)
     }
     
     @IBAction func okPressed(_ sender: Any) {

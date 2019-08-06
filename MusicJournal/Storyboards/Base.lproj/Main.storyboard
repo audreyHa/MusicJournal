@@ -1815,7 +1815,7 @@
                                         <rect key="frame" x="0.0" y="165.5" width="256" height="61.5"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RpJ-gc-htZ">
-                                                <rect key="frame" x="105" y="20" width="46" height="26.5"/>
+                                                <rect key="frame" x="96" y="20" width="64" height="26.5"/>
                                                 <color key="backgroundColor" red="0.84705882349999995" green="0.38823529410000002" blue="0.30980392159999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" name="PingFangHK-Semibold" family="PingFang HK" pointSize="17"/>
                                                 <state key="normal" title="  Ok  ">
@@ -1843,6 +1843,7 @@
                                     <constraint firstItem="D91-Rm-Dgc" firstAttribute="centerX" secondItem="Rv7-C4-mCQ" secondAttribute="centerX" id="EW2-rO-ub1"/>
                                     <constraint firstItem="t0g-GX-pSe" firstAttribute="leading" secondItem="Rv7-C4-mCQ" secondAttribute="leading" id="O4g-dd-3nZ"/>
                                     <constraint firstItem="D91-Rm-Dgc" firstAttribute="bottom" secondItem="7Cs-nx-imm" secondAttribute="top" constant="30" id="OIQ-GT-RiY"/>
+                                    <constraint firstItem="RpJ-gc-htZ" firstAttribute="width" secondItem="D91-Rm-Dgc" secondAttribute="width" id="gvr-Mz-adz"/>
                                     <constraint firstItem="D91-Rm-Dgc" firstAttribute="width" secondItem="7Cs-nx-imm" secondAttribute="width" multiplier="0.25" id="jBC-kJ-yoF"/>
                                     <constraint firstItem="Eap-pS-Rbu" firstAttribute="top" secondItem="t0g-GX-pSe" secondAttribute="bottom" constant="-10" id="oiZ-pL-FfI"/>
                                     <constraint firstItem="Eap-pS-Rbu" firstAttribute="leading" secondItem="Rv7-C4-mCQ" secondAttribute="leading" id="ouR-RX-0rb"/>
@@ -1856,10 +1857,10 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.3652611301" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="Rv7-C4-mCQ" firstAttribute="top" secondItem="gCD-Ab-myt" secondAttribute="top" constant="60" id="9S4-YO-J6R"/>
                             <constraint firstItem="Rv7-C4-mCQ" firstAttribute="height" secondItem="Qd5-Am-6T7" secondAttribute="height" multiplier="0.4" id="Inl-3x-qGj"/>
                             <constraint firstItem="Rv7-C4-mCQ" firstAttribute="width" secondItem="Qd5-Am-6T7" secondAttribute="width" multiplier="0.8" id="Mbz-be-zqB"/>
                             <constraint firstItem="Rv7-C4-mCQ" firstAttribute="centerX" secondItem="gCD-Ab-myt" secondAttribute="centerX" id="fHK-sa-czF"/>
-                            <constraint firstItem="Rv7-C4-mCQ" firstAttribute="top" secondItem="gCD-Ab-myt" secondAttribute="top" constant="60" id="gb6-1L-hbf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="gCD-Ab-myt"/>
                     </view>
