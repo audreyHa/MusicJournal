@@ -20,7 +20,16 @@ class Tutorial2: UIViewController {
     @IBOutlet weak var interviewee: UIButton!
     @IBOutlet weak var custom: UIButton!
     
+    @IBOutlet weak var instructionsLabel: UILabel!
+    @IBOutlet weak var instructionsSubLabel: UILabel!
+    
+    @IBOutlet weak var fullStack: UIStackView!
+    @IBOutlet weak var horizontalOne: UIStackView!
+    @IBOutlet weak var horizontalTwo: UIStackView!
+    @IBOutlet weak var horizontalThree: UIStackView!
+    
     var buttons=[UIButton]()
+    var stacks=[UIStackView]()
     var redColor=UIColor(red: 0.91, green: 0.35, blue: 0.27, alpha: 1.00)
     var greyColor=UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1.00)
     
@@ -31,6 +40,7 @@ class Tutorial2: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        stacks=[fullStack, horizontalOne, horizontalTwo, horizontalThree]
         buttons=[song, composer, artist, album, event, instrument, interviewer, interviewee, custom]
         for button in buttons{
             button.layer.cornerRadius = 10
@@ -39,6 +49,38 @@ class Tutorial2: UIViewController {
             button.titleLabel!.adjustsFontSizeToFitWidth = true
         }
         
+        switch UIDevice.current.userInterfaceIdiom {
+        case .phone:
+            for button in buttons{
+                button.titleLabel!.font=UIFont.systemFont(ofSize: 20)
+            }
+            
+            instructionsLabel.setSizeFont(sizeFont: 17)
+            instructionsSubLabel.setSizeFont(sizeFont: 20)
+            
+            for stack in stacks{
+                stack.spacing = 15
+            }
+            
+        case .pad:
+            for button in buttons{
+                button.titleLabel!.font=UIFont.systemFont(ofSize: 30)
+            }
+            
+            instructionsLabel.setSizeFont(sizeFont: 30)
+            instructionsSubLabel.setSizeFont(sizeFont: 25)
+            
+            for stack in stacks{
+                stack.spacing = 50
+            }
+            
+        case .unspecified:
+            print("Unspecified device shouldn't be the case")
+        case .tv:
+            print("TV shouldn't be the case")
+        case .carPlay:
+            print("Car Play shouldn't be the case")
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

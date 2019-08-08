@@ -19,8 +19,16 @@ class Tutorial1: UIViewController {
     @IBOutlet weak var interviewer: UIButton!
     @IBOutlet weak var interviewee: UIButton!
     @IBOutlet weak var custom: UIButton!
+    @IBOutlet weak var instructionsLabel: UILabel!
+    @IBOutlet weak var instructionsSubLabel: UILabel!
+    
+    @IBOutlet weak var fullStack: UIStackView!
+    @IBOutlet weak var horizontalOne: UIStackView!
+    @IBOutlet weak var horizontalTwo: UIStackView!
+    @IBOutlet weak var horizontalThree: UIStackView!
     
     var buttons=[UIButton]()
+    var stacks=[UIStackView]()
     var firstCategory=String()
     var secondCategory=String()
     var thirdCategory=String()
@@ -31,11 +39,47 @@ class Tutorial1: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         buttons=[song, composer, artist, album, event, instrument, interviewer, interviewee, custom]
+        
+        stacks=[fullStack, horizontalOne, horizontalTwo, horizontalThree]
+        
         for button in buttons{
             button.layer.cornerRadius = 10
             button.clipsToBounds = true
             button.backgroundColor=greyColor
             button.titleLabel!.adjustsFontSizeToFitWidth = true
+        }
+        
+        switch UIDevice.current.userInterfaceIdiom {
+        case .phone:
+            for button in buttons{
+                button.titleLabel!.font=UIFont.systemFont(ofSize: 20)
+            }
+            
+            instructionsLabel.setSizeFont(sizeFont: 17)
+            instructionsSubLabel.setSizeFont(sizeFont: 20)
+            
+            for stack in stacks{
+                stack.spacing = 15
+            }
+            
+        case .pad:
+            for button in buttons{
+                button.titleLabel!.font=UIFont.systemFont(ofSize: 30)
+            }
+            
+            instructionsLabel.setSizeFont(sizeFont: 30)
+            instructionsSubLabel.setSizeFont(sizeFont: 25)
+            
+            for stack in stacks{
+                stack.spacing = 50
+            }
+            
+        case .unspecified:
+            print("Unspecified device shouldn't be the case")
+        case .tv:
+            print("TV shouldn't be the case")
+        case .carPlay:
+            print("Car Play shouldn't be the case")
         }
     }
     
@@ -157,4 +201,10 @@ class Tutorial1: UIViewController {
         makeCustomAlert()
     }
     
+}
+
+extension UILabel {
+    func setSizeFont (sizeFont: Double) {
+        self.font =  UIFont(name: self.font.fontName, size: CGFloat(sizeFont))!
+    }
 }

@@ -20,6 +20,10 @@ class CustomCategoryAlert: UIViewController {
     @IBOutlet weak var bigHeader: UILabel!
     @IBOutlet weak var textField: UITextField!
     
+    @IBOutlet weak var wholeAlertWidth: NSLayoutConstraint!
+    @IBOutlet weak var wholeAlertHeight: NSLayoutConstraint!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         bigHeader.adjustsFontSizeToFitWidth = true
@@ -40,7 +44,21 @@ class CustomCategoryAlert: UIViewController {
         
         musiCordImage.superview?.bringSubview(toFront: musiCordImage)
         
-        wholeAlertView.frame=CGRect(x: wholeAlertView.frame.minX, y: 500, width: wholeAlertView.frame.width, height: wholeAlertView.frame.height)
+        switch UIDevice.current.userInterfaceIdiom {
+        case .phone:
+            print("not doing anything because it's a phone")
+            
+        case .pad:
+            wholeAlertWidth.constant=500
+            wholeAlertHeight.constant=300
+            
+        case .unspecified:
+            print("Unspecified device shouldn't be the case")
+        case .tv:
+            print("TV shouldn't be the case")
+        case .carPlay:
+            print("Car Play shouldn't be the case")
+        }
     }
     
     @IBAction func okPressed(_ sender: Any) {
