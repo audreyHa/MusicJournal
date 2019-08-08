@@ -35,6 +35,8 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     var timeArray = [Int]()
     @IBOutlet weak var pauseRecording: UIButton!
     
+    @IBOutlet weak var heightMultiplierConstraint: NSLayoutConstraint!
+    
     func runTimer(){
         self.hours=0
         self.seconds = 0

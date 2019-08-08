@@ -583,6 +583,7 @@
                         <outlet property="composerText" destination="Fmo-1A-xlT" id="nX2-1s-W05"/>
                         <outlet property="eventLabel" destination="LaA-mQ-wt2" id="8sf-nA-0ea"/>
                         <outlet property="eventText" destination="P1N-Qn-sOB" id="OR0-Ov-8WP"/>
+                        <outlet property="heightMultiplierConstraint" destination="AXz-8K-SiX" id="dEY-h9-DDs"/>
                         <outlet property="pauseRecording" destination="qJq-oY-TZm" id="URZ-Dm-Qk4"/>
                         <outlet property="songLabel" destination="Rq2-su-zzc" id="wxR-gg-Jhg"/>
                         <outlet property="songText" destination="DFD-i8-OGO" id="fhG-nk-787"/>
