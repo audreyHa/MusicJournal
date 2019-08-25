@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 import AVFoundation
 import MediaPlayer
-import Crashlytics // If using Answers with Crashlytics
 
 
 class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
@@ -116,11 +115,9 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
                     UserDefaults.standard.set("startOver",forKey: "typeYesNoAlert")
                     makeYesNoAlert()
                 }else{
-                    Answers.logCustomEvent(withName: "Started Over")
                     runTimer()
                 }
             } else{
-                Answers.logCustomEvent(withName: "Started New Recording")
                 runTimer()
             }
 
@@ -135,12 +132,6 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
 
         }
     }
-    
-//    @objc func anImportantUserAction() {
-//
-//        Answers.logCustomEvent(withName: "Saved New Recording")
-//    }
-
     
     @IBOutlet weak var eventText: UILabel!
     @IBOutlet weak var composerText: UILabel!
@@ -205,7 +196,6 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             
             if recording == nil{
                 recording = CoreDataHelper.newRecording()
-                Answers.logCustomEvent(withName: "Saved New Recording")
             }
             
             if deleteSaving.count>0{
@@ -314,7 +304,6 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
                     deleteEverything()
                 }
                 CoreDataHelper.saveRecording()
-                Answers.logCustomEvent(withName: "Canceled: 1st Round Not Saved")
             } else{
                 if deleteSaving.count>0{
                     recording?.filename=deleteSaving[0]
@@ -339,7 +328,6 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
                 compArray=[]
                 timeArray=[]
                 CoreDataHelper.saveRecording()
-                Answers.logCustomEvent(withName: "Canceled: Later Round Undid Changes")
             }
          
         default:
@@ -352,6 +340,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: Notification.Name.UIApplicationWillResignActive, object: nil)
+        
         pauseRecording.layer.cornerRadius=8
         startNewRecording.layer.cornerRadius=8
         startNewRecording.setTitle("  Start NEW  ", for: .normal)
@@ -412,7 +401,6 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     
     //Function for handling receiving notification
     @objc func methodOfReceivedNotification(notification: Notification) {
-        Answers.logCustomEvent(withName: "Started Over")
         self.countingTime=3
         self.runTimer()
     }

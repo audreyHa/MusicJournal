@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import Crashlytics
 
 
 class HomeViewController: UIViewController {
@@ -54,7 +53,6 @@ class HomeViewController: UIViewController {
             present(vc, animated: true, completion: nil)
             
             UserDefaults.standard.set(true, forKey: "launchedBefore")
-            Answers.logCustomEvent(withName: "Privacy Policy: Clicked Continue")
         }
     }
     

@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 import AVFoundation
 import MediaPlayer
-import Crashlytics // If using Answers with Crashlytics
 
 class MyRecordingsTableViewController: UITableViewController, UIDocumentInteractionControllerDelegate{
     
@@ -369,7 +368,6 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
                 indicator.backgroundColor = UIColor.white
                 
                 self.controller.presentOptionsMenu(from: CGRect.zero, in: self.view, animated: true)
-                Answers.logCustomEvent(withName: "Pressed Export")
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
                     indicator.stopAnimating()
@@ -589,7 +587,6 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     } //end of Reorder
     
     func deleteRecording(){
-        Answers.logCustomEvent(withName: "Deleted Recording")
         if self.arrayOfRecordingsInfo[self.deleteIndexPath].filename != nil{
             // Got the following code from: swiftdeveloperblog.com/code-examples/delete-file-example-in-swift/
             // Find documents directory on device
