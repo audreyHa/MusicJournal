@@ -12,6 +12,7 @@ import Foundation
 import UIKit
 import AVFoundation
 import MediaPlayer
+import Firebase
 
 class myRecordingsTableViewCell: UITableViewCell{
     @IBOutlet weak var songTitle: UILabel!
@@ -141,6 +142,7 @@ class myRecordingsTableViewCell: UITableViewCell{
                
                 timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ascendingAction), userInfo: nil, repeats: true)
                 newAudioPlayer.play()
+                Analytics.logEvent("unpausingRecording", parameters: nil)
             }catch{
                 print("Failed to play, keep trying....")
             }
@@ -148,17 +150,13 @@ class myRecordingsTableViewCell: UITableViewCell{
         }else{
             print("went to else")
             slider.value=0
-//            if newAudioPlayer==nil{
-//                print("This cell has a nil audio player")
-//            }else{
-//                print("This cell has an existing audio player")
-//            }
-            
+
             do{
                 if (pressPlayFile != nil){
                     if (thisHours != originalHours || thisMinutes != originalMinutes) || thisSeconds != originalSeconds{
                         timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ascendingAction), userInfo: nil, repeats: true)
                         newAudioPlayer.play()
+                        Analytics.logEvent("movedPlaySlider", parameters: nil)
                     }else{
                         let fileManager = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask).first
                         let newPlaying = fileManager!.appendingPathComponent("\(pressPlayFile!)")
@@ -175,7 +173,7 @@ class myRecordingsTableViewCell: UITableViewCell{
                         displaying()
                         timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ascendingAction), userInfo: nil, repeats: true)
                         newAudioPlayer.play()
-                        
+                        Analytics.logEvent("playingRecording", parameters: nil)
                     }
                     
                 }

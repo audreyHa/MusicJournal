@@ -6,5 +6,6 @@ target 'MusicJournal' do
   use_frameworks!
 
   # Pods for MusicJournal
+  pod 'Firebase/Analytics'
 
 end

@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import AVFoundation
 import MediaPlayer
+import Firebase
 
 class MyRecordingsTableViewController: UITableViewController, UIDocumentInteractionControllerDelegate{
     
@@ -99,7 +100,7 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: Notification.Name.UIApplicationWillResignActive, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("delete"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.deleteRecording(notification:)), name: Notification.Name("delete"), object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateCategoryButtons(notification:)), name: Notification.Name("updateCategoryButtons"), object: nil)
     }
@@ -142,7 +143,8 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     }
     
     //Function for handling receiving notification
-    @objc func methodOfReceivedNotification(notification: Notification) {
+    @objc func deleteRecording(notification: Notification) {
+        Analytics.logEvent("deleteRecording", parameters: nil)
         deleteRecording()
     }
     
@@ -373,6 +375,8 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
                     indicator.stopAnimating()
                     indicator.hidesWhenStopped = true
                 })
+                
+                Analytics.logEvent("exportingRecording", parameters: nil)
             }else{
                 UserDefaults.standard.set("exporting",forKey: "typeShortAlert")
                 self.makeShortAlert()
@@ -439,6 +443,7 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     }
     
     func reorderArray(){
+        Analytics.logEvent("reorderArray", parameters: nil)
         if let number: Int = UserDefaults.standard.object(forKey: "myNumber") as? Int{
             MyRecordingsTableViewController.chosenNumber=number
         }

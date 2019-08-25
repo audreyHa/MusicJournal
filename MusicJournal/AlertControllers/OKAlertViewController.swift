@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class OKAlertViewController: UIViewController {
 
@@ -28,7 +29,7 @@ class OKAlertViewController: UIViewController {
         
         if(UserDefaults.standard.string(forKey: "typeOKAlert")=="Privacy Policy"){
             bigHeader.text="PRIVACY POLICY"
-            label.text="By clicking “Continue” or continuing to use this app, you acknowledge that MusiCord incorporates an analytical tool (Answers) tracking how many times users land on different screens to improve user experience and guide development for future features. Any identifiable information (name, contact information, location) will not be collected. Your recordings are stored locally on your phone; no third party (including me) has access to your content in this app. If you have any questions, please contact musicordmobileapp@gmail.com!"
+            label.text="By clicking “Continue” or continuing to use this app, you acknowledge that MusiCord incorporates Google Firebase Analytics to track how many times users land on different screens in order to improve user experience and guide development for future features. Any identifiable information (name, contact information, location) will not be collected. Your recordings are stored locally on your phone; no third party (including me) has access to your content in this app. If you have any questions, please contact musicordmobileapp@gmail.com!"
             
             okButton.setTitle("  Continue  ", for: .normal)
         }else if(UserDefaults.standard.string(forKey: "typeOKAlert")=="fillFirst"){
@@ -56,6 +57,7 @@ class OKAlertViewController: UIViewController {
         if(UserDefaults.standard.string(forKey: "typeOKAlert")=="Privacy Policy"){
             //Post notification
             NotificationCenter.default.post(name: Notification.Name("privacyPressed"), object: nil)
+            Analytics.logEvent("privacyPolicyPressed", parameters: nil)
         }
         navigationController?.popViewController(animated: true)
         dismiss(animated: true, completion: nil)

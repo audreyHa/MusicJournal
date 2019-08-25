@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import AVFoundation
 import MediaPlayer
+import Firebase
 
 
 class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
@@ -43,6 +44,13 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         RecordMusicViewController.timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(RecordMusicViewController.updateTimer)), userInfo: nil, repeats: true)
     }
     
+    func getAlphaNumericValue(yourString: String) -> String{
+        let unsafeChars = CharacterSet.alphanumerics.inverted  // Remove the .inverted to get the opposite result.
+        
+        let cleanChars  = yourString.components(separatedBy: unsafeChars).joined(separator: "")
+        return cleanChars
+    }
+    
     func newRecord(){
         
         if self.recording == nil{
@@ -53,7 +61,16 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             deleteSaving.append((self.recording?.filename!)!)
         }
         
-        self.recording?.filename="\((Date().convertToString().removingWhitespacesAndNewlines.replacingOccurrences(of: ":", with: ""))).m4a"
+        var finalString=""
+        if songText.text != nil{
+            var songTitle=songLabel.text!.removingWhitespacesAndNewlines
+            songTitle=getAlphaNumericValue(yourString: songTitle)
+            var datePortion="\((Date().convertToString().removingWhitespacesAndNewlines.replacingOccurrences(of: ":", with: "_")))"
+            finalString="\(songTitle)\(datePortion)"
+        }else{
+            finalString="\((Date().convertToString().removingWhitespacesAndNewlines.replacingOccurrences(of: ":", with: "_")))"
+        }
+        self.recording?.filename="\(finalString).m4a"
         self.cancelOutArray.append((self.recording?.filename)!)
         var filename: URL?
         
@@ -196,6 +213,9 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
             
             if recording == nil{
                 recording = CoreDataHelper.newRecording()
+                Analytics.logEvent("savingNewRecording", parameters: nil)
+            }else{
+                Analytics.logEvent("reSavingRecording", parameters: nil)
             }
             
             if deleteSaving.count>0{
@@ -304,6 +324,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
                     deleteEverything()
                 }
                 CoreDataHelper.saveRecording()
+                Analytics.logEvent("cancelUnsavedRecording", parameters: nil)
             } else{
                 if deleteSaving.count>0{
                     recording?.filename=deleteSaving[0]
@@ -328,6 +349,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
                 compArray=[]
                 timeArray=[]
                 CoreDataHelper.saveRecording()
+                Analytics.logEvent("cancelSavedRecording", parameters: nil)
             }
          
         default:

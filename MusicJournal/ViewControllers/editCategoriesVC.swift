@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class editCategoriesVC: UIViewController {
 
@@ -43,6 +44,8 @@ class editCategoriesVC: UIViewController {
     
     @IBAction func saveButtonPressed(_ sender: Any) {
         if (firstTextField.text != "")&&(secondTextField.text != "")&&(thirdTextField.text != ""){
+            Analytics.logEvent("editedSortingCategories", parameters: ["first_value": firstTextField.text, "second_value": secondTextField.text, "third_value": thirdTextField.text])
+            
             for recording in arrayOfRecordingsInfo{
                 var firstCategory=UserDefaults.standard.string(forKey: "1stCategory")
                 var noMessage = "No \(firstCategory!.capitalizingFirstLetter()) Entered"

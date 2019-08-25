@@ -21,6 +21,7 @@
 		F681E98A22E361CB00BA8F19 /* ShortAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F681E98922E361CB00BA8F19 /* ShortAlertVC.swift */; };
 		F681E98D22E3FE6300BA8F19 /* YesNoAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F681E98C22E3FE6300BA8F19 /* YesNoAlertVC.swift */; };
 		F681E98F22E4077000BA8F19 /* editCategoriesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F681E98E22E4077000BA8F19 /* editCategoriesVC.swift */; };
+		F68B8FF523131D35003FE093 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F68B8FF423131D35003FE093 /* GoogleService-Info.plist */; };
 		F6ABEE2C210446CC00143E67 /* convertToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6ABEE2B210446CC00143E67 /* convertToString.swift */; };
 		F6E6E66C2106427E00C47C2E /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E6E66B2106427E00C47C2E /* CoreDataHelper.swift */; };
 		F6EB02B32103D759006CD141 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6EB02B22103D759006CD141 /* AppDelegate.swift */; };
@@ -48,6 +49,7 @@
 		F681E98922E361CB00BA8F19 /* ShortAlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortAlertVC.swift; sourceTree = "<group>"; };
 		F681E98C22E3FE6300BA8F19 /* YesNoAlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YesNoAlertVC.swift; sourceTree = "<group>"; };
 		F681E98E22E4077000BA8F19 /* editCategoriesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = editCategoriesVC.swift; sourceTree = "<group>"; };
+		F68B8FF423131D35003FE093 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F6ABEE2B210446CC00143E67 /* convertToString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = convertToString.swift; sourceTree = "<group>"; };
 		F6E6E66B2106427E00C47C2E /* CoreDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
 		F6EB02AF2103D759006CD141 /* MusicJournal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicJournal.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -175,6 +177,7 @@
 				F6EB02BC2103D75A006CD141 /* Assets.xcassets */,
 				F6EB02BE2103D75A006CD141 /* LaunchScreen.storyboard */,
 				F6EB02C12103D75A006CD141 /* Info.plist */,
+				F68B8FF423131D35003FE093 /* GoogleService-Info.plist */,
 			);
 			path = MusicJournal;
 			sourceTree = "<group>";
@@ -212,6 +215,7 @@
 				F6EB02AC2103D759006CD141 /* Frameworks */,
 				F6EB02AD2103D759006CD141 /* Resources */,
 				F6707CAE211E2EB500213869 /* ShellScript */,
+				7C92FF8D67B73FB250241755 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -262,6 +266,7 @@
 			files = (
 				F6EB02C02103D75A006CD141 /* LaunchScreen.storyboard in Resources */,
 				F60419F422F96BA50066D831 /* revisediPadStoryboard.storyboard in Resources */,
+				F68B8FF523131D35003FE093 /* GoogleService-Info.plist in Resources */,
 				F6EB02BD2103D75A006CD141 /* Assets.xcassets in Resources */,
 				F6EB02B82103D759006CD141 /* Main.storyboard in Resources */,
 			);
@@ -286,6 +291,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7C92FF8D67B73FB250241755 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-MusicJournal/Pods-MusicJournal-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MusicJournal/Pods-MusicJournal-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F6707CAE211E2EB500213869 /* ShellScript */ = {
