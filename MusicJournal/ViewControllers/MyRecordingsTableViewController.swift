@@ -129,18 +129,6 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateCategoryButtons(notification:)), name: Notification.Name("updateCategoryButtons"), object: nil)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        UserDefaults.standard.set("Privacy Policy",forKey: "typeOKAlert")
-        
-        let vc = storyboard!.instantiateViewController(withIdentifier: "OKAlertViewController") as! OKAlertViewController
-        var transparentGrey=UIColor(red: 0.16, green: 0.16, blue: 0.16, alpha: 0.95)
-        vc.view.backgroundColor = transparentGrey
-        vc.modalPresentationStyle = .overCurrentContext
-        present(vc, animated: true, completion: nil)
-        
-        UserDefaults.standard.set(true, forKey: "launchedBefore")
-    }
-    
     func updateCategoryButtons(){
         arrayOfRecordingsInfo=CoreDataHelper.retrieveRecording()
         
