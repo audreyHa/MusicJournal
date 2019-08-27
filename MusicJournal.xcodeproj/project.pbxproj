@@ -13,6 +13,7 @@
 		F6367A6C2103ED3800981216 /* SongInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6367A6B2103ED3800981216 /* SongInfo.swift */; };
 		F6367A762103FECC00981216 /* myRecordingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6367A752103FECC00981216 /* myRecordingsTableViewCell.swift */; };
 		F6367A782104005700981216 /* MyRecordingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6367A772104005700981216 /* MyRecordingsTableViewController.swift */; };
+		F64AF5EF2314BF0B0030FC50 /* privacyPolicyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64AF5EE2314BF0B0030FC50 /* privacyPolicyCell.swift */; };
 		F65BA7CF22E0094A00785E38 /* PageTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65BA7CE22E0094A00785E38 /* PageTutorialViewController.swift */; };
 		F65BA80722E0AFF200785E38 /* Tutorial1.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65BA80622E0AFF200785E38 /* Tutorial1.swift */; };
 		F65BA80922E0B00300785E38 /* Tutorial2.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65BA80822E0B00300785E38 /* Tutorial2.swift */; };
@@ -41,6 +42,7 @@
 		F6367A6B2103ED3800981216 /* SongInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongInfo.swift; sourceTree = "<group>"; };
 		F6367A752103FECC00981216 /* myRecordingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myRecordingsTableViewCell.swift; sourceTree = "<group>"; };
 		F6367A772104005700981216 /* MyRecordingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRecordingsTableViewController.swift; sourceTree = "<group>"; };
+		F64AF5EE2314BF0B0030FC50 /* privacyPolicyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = privacyPolicyCell.swift; sourceTree = "<group>"; };
 		F65BA7CE22E0094A00785E38 /* PageTutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PageTutorialViewController.swift; path = MusicJournal/ViewControllers/PageTutorialViewController.swift; sourceTree = SOURCE_ROOT; };
 		F65BA80622E0AFF200785E38 /* Tutorial1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tutorial1.swift; sourceTree = "<group>"; };
 		F65BA80822E0B00300785E38 /* Tutorial2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tutorial2.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 				F681E98922E361CB00BA8F19 /* ShortAlertVC.swift */,
 				F681E98C22E3FE6300BA8F19 /* YesNoAlertVC.swift */,
 				F669988022F7C0E0004A525B /* CustomCategoryAlert.swift */,
+				F64AF5EE2314BF0B0030FC50 /* privacyPolicyCell.swift */,
 			);
 			path = AlertControllers;
 			sourceTree = "<group>";
@@ -324,7 +327,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\n";
+			shellScript = "
+";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -337,6 +341,7 @@
 				F65BA80B22E0B01300785E38 /* Tutorial3.swift in Sources */,
 				F681E98A22E361CB00BA8F19 /* ShortAlertVC.swift in Sources */,
 				F669988122F7C0E0004A525B /* CustomCategoryAlert.swift in Sources */,
+				F64AF5EF2314BF0B0030FC50 /* privacyPolicyCell.swift in Sources */,
 				F6ABEE2C210446CC00143E67 /* convertToString.swift in Sources */,
 				F6367A782104005700981216 /* MyRecordingsTableViewController.swift in Sources */,
 				F628826A21068AAE0010B15E /* MusicJournal.xcdatamodeld in Sources */,

@@ -37,6 +37,12 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     @IBAction func songButtonPressed(_ sender: Any) {
         getAllCells()
         print("used get all cells for song button")
+        
+        if MyRecordingsTableViewController.chosenNumber != 1{
+            Analytics.logEvent("reorderArray", parameters: nil)
+            print("going to log analytics!")
+        }
+        
         MyRecordingsTableViewController.chosenNumber=1
         
         UserDefaults.standard.set(MyRecordingsTableViewController.chosenNumber,forKey: "myNumber")
@@ -46,6 +52,12 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     @IBAction func dateButtonPressed(_ sender: Any) {
         getAllCells()
         print("used get all cells for date button")
+        
+        if MyRecordingsTableViewController.chosenNumber != 2{
+            Analytics.logEvent("reorderArray", parameters: nil)
+            print("going to log analytics!")
+        }
+        
         MyRecordingsTableViewController.chosenNumber=2
         
         UserDefaults.standard.set(MyRecordingsTableViewController.chosenNumber,forKey: "myNumber")
@@ -55,6 +67,12 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     @IBAction func composerButtonPressed(_ sender: Any) {
         getAllCells()
         print("used get all cells for composer button")
+        
+        if MyRecordingsTableViewController.chosenNumber != 3{
+            Analytics.logEvent("reorderArray", parameters: nil)
+            print("going to log analytics!")
+        }
+        
         MyRecordingsTableViewController.chosenNumber=3
        
         UserDefaults.standard.set(MyRecordingsTableViewController.chosenNumber,forKey: "myNumber")
@@ -64,6 +82,12 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     @IBAction func eventButtonPressed(_ sender: Any) {
         getAllCells()
         print("used get all cells for event button")
+        
+        if MyRecordingsTableViewController.chosenNumber != 4{
+            Analytics.logEvent("reorderArray", parameters: nil)
+            print("going to log analytics!")
+        }
+        
         MyRecordingsTableViewController.chosenNumber=4
         
         UserDefaults.standard.set(MyRecordingsTableViewController.chosenNumber,forKey: "myNumber")
@@ -103,6 +127,18 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         NotificationCenter.default.addObserver(self, selector: #selector(self.deleteRecording(notification:)), name: Notification.Name("delete"), object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateCategoryButtons(notification:)), name: Notification.Name("updateCategoryButtons"), object: nil)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        UserDefaults.standard.set("Privacy Policy",forKey: "typeOKAlert")
+        
+        let vc = storyboard!.instantiateViewController(withIdentifier: "OKAlertViewController") as! OKAlertViewController
+        var transparentGrey=UIColor(red: 0.16, green: 0.16, blue: 0.16, alpha: 0.95)
+        vc.view.backgroundColor = transparentGrey
+        vc.modalPresentationStyle = .overCurrentContext
+        present(vc, animated: true, completion: nil)
+        
+        UserDefaults.standard.set(true, forKey: "launchedBefore")
     }
     
     func updateCategoryButtons(){
@@ -443,7 +479,6 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     }
     
     func reorderArray(){
-        Analytics.logEvent("reorderArray", parameters: nil)
         if let number: Int = UserDefaults.standard.object(forKey: "myNumber") as? Int{
             MyRecordingsTableViewController.chosenNumber=number
         }
