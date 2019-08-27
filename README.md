@@ -11,15 +11,15 @@ MusiCord incorporates Google Analytics for Firebase or Firebase Analytics: an an
 Firebase Analytics may share Data with other tools provided by Firebase, such as Crash Reporting, Authentication, Remote Config or Notifications.
  
 Personal Data collected by MusiCord through Firebase:
--Geography/region
--Usage data
--Number of users
-*Number of sessions
-*Session duration
-*iPhone type
-*Application opens
-*Application updates
-*First launches
+- Geography/region\n
+- Usage data\n
+- Number of users\n
+- Number of sessions
+- Session duration
+- iPhone type
+- Application opens
+- Application updates
+- First launches
 
 The only purpose of MusiCord collecting user behavior data for this version is to improve user experience and guide development for the next release. If you do not wish to participate and help the app (and me) better understand your needs, you are always welcome to come back and install a later version.
  
