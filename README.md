@@ -11,9 +11,9 @@ MusiCord incorporates Google Analytics for Firebase or Firebase Analytics: an an
 Firebase Analytics may share Data with other tools provided by Firebase, such as Crash Reporting, Authentication, Remote Config or Notifications.
  
 Personal Data collected by MusiCord through Firebase:
-- Geography/region\n
-- Usage data\n
-- Number of users\n
+- Geography/region
+- Usage data
+- Number of users
 - Number of sessions
 - Session duration
 - iPhone type
