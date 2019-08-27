@@ -6,14 +6,14 @@ Musicians of all levels can greatly improve their musical skills by recording th
 
 ## Privacy Policy
 MusiCord incorporates Google Analytics for Firebase or Firebase Analytics: an analytics service provided by Google LLC. In order to understand Google's use of Data, see Google's policy on
-[“How Google uses data when you use our partners' sites or apps"] (https://www.google.com/policies/privacy/partners/)
+[“How Google uses data when you use our partners' sites or apps"](https://www.google.com/policies/privacy/partners/)
  
 Firebase Analytics may share Data with other tools provided by Firebase, such as Crash Reporting, Authentication, Remote Config or Notifications.
  
 Personal Data collected by MusiCord through Firebase:
-*Geography/region
-*Usage data
-*Number of users
+-Geography/region
+-Usage data
+-Number of users
 *Number of sessions
 *Session duration
 *iPhone type
