@@ -97,6 +97,8 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     override func viewDidLoad(){
         super.viewDidLoad()
         
+        myTableView.allowsSelection=false
+        
         let hasChosenCategories=UserDefaults.standard.string(forKey: "3rdCategory")
         if hasChosenCategories == nil{
             let vc = storyboard!.instantiateViewController(withIdentifier: "pageViewController") as! PageTutorialViewController
