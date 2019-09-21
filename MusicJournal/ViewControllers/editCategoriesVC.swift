@@ -44,7 +44,7 @@ class editCategoriesVC: UIViewController {
     
     @IBAction func saveButtonPressed(_ sender: Any) {
         if (firstTextField.text != "")&&(secondTextField.text != "")&&(thirdTextField.text != ""){
-            Analytics.logEvent("editedSortingCategories", parameters: ["first_value": firstTextField.text, "second_value": secondTextField.text, "third_value": thirdTextField.text])
+            Analytics.logEvent("editedSortingCategories", parameters: nil)
             
             for recording in arrayOfRecordingsInfo{
                 var firstCategory=UserDefaults.standard.string(forKey: "1stCategory")
