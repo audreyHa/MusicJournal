@@ -23,12 +23,8 @@ class Tutorial1: UIViewController {
     @IBOutlet weak var instructionsSubLabel: UILabel!
     
     @IBOutlet weak var fullStack: UIStackView!
-    @IBOutlet weak var horizontalOne: UIStackView!
-    @IBOutlet weak var horizontalTwo: UIStackView!
-    @IBOutlet weak var horizontalThree: UIStackView!
     
     var buttons=[UIButton]()
-    var stacks=[UIStackView]()
     var firstCategory=String()
     var secondCategory=String()
     var thirdCategory=String()
@@ -39,9 +35,7 @@ class Tutorial1: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         buttons=[song, composer, artist, album, event, instrument, interviewer, interviewee, custom]
-        
-        stacks=[fullStack, horizontalOne, horizontalTwo, horizontalThree]
-        
+
         for button in buttons{
             button.layer.cornerRadius = 10
             button.clipsToBounds = true
@@ -57,10 +51,7 @@ class Tutorial1: UIViewController {
             
             instructionsLabel.setSizeFont(sizeFont: 17)
             instructionsSubLabel.setSizeFont(sizeFont: 20)
-            
-            for stack in stacks{
-                stack.spacing = 15
-            }
+
             
         case .pad:
             for button in buttons{
@@ -69,10 +60,7 @@ class Tutorial1: UIViewController {
             
             instructionsLabel.setSizeFont(sizeFont: 30)
             instructionsSubLabel.setSizeFont(sizeFont: 25)
-            
-            for stack in stacks{
-                stack.spacing = 50
-            }
+
             
         case .unspecified:
             print("Unspecified device shouldn't be the case")
