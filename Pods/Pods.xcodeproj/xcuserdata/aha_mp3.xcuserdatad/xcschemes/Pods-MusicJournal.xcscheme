@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "02F5B4F9645CEDC455AE796F0B75FF8A"
+               BlueprintIdentifier = "B5978049E6C430E363D68B11B4C1295D"
                BuildableName = "Pods_MusicJournal.framework"
                BlueprintName = "Pods-MusicJournal"
                ReferencedContainer = "container:Pods.xcodeproj">

@@ -11,9 +11,13 @@ import UIKit
 import AVFoundation
 import MediaPlayer
 import Firebase
+import IRLDocumentScanner
 
 
-class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
+class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLScannerViewControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource{
+    
+    @IBOutlet weak var scanButton: UIButton!
+    @IBOutlet weak var sheetCollectionView: UICollectionView!
     
     static var recordingSession: AVAudioSession!
     var isPaused = Bool()
@@ -33,6 +37,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
     var eventArray = [String]()
     var compArray = [String]()
     var timeArray = [Int]()
+    
     @IBOutlet weak var pauseRecording: UIButton!
     
     @IBOutlet weak var heightMultiplierConstraint: NSLayoutConstraint!
@@ -357,15 +362,84 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         }
     }
     
+    //scanning sheet music!
+    
+    var sheetImages: [UIImage]!
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print("sheet images count: \(sheetImages?.count)")
+        
+        if sheetImages==nil{
+            return 0
+        }else{
+            return sheetImages!.count
+        }
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath)->UICollectionViewCell{
+        let cell=sheetCollectionView.dequeueReusableCell(withReuseIdentifier: "SheetMusicCell", for: indexPath) as! SheetMusicCell
+       
+        if sheetImages != nil{
+            var imageToResize=sheetImages![indexPath.row]
+            imageToResize=self.resizeImage(image: imageToResize, targetSize: CGSize(width: (sheetCollectionView.frame.size.width-15)/2, height: (sheetCollectionView.frame.size.width-15)/2))
+            cell.sheetMusicImageView.image=imageToResize
+        }
+        
+        print("cell height: \(cell.frame.height)")
+        print("image height: \(cell.sheetMusicImageView.frame.height)")
+        
+        return cell
+    }
+    
+    
+    @IBAction func scanPressed(_ sender: Any) {
+        let scanner = IRLScannerViewController.standardCameraView(with: self)
+        scanner.showControls = true
+        scanner.showAutoFocusWhiteRectangle = true
+        present(scanner, animated: true, completion: nil)
+    }
+    
+    func pageSnapped(_ page_image: UIImage!, from controller: IRLScannerViewController!) {
+        controller.dismiss(animated: true) { () -> Void in
+            
+            if self.sheetImages==nil{
+                self.sheetImages=[page_image]
+            }else{
+                self.sheetImages.append(page_image)
+            }
+                
+            print("array count: \(self.sheetImages.count)")
+            
+            DispatchQueue.main.async {
+                self.sheetCollectionView.reloadData()
+            }
+            
+        }
+    }
+    
+    func didCancel(_ cameraView: IRLScannerViewController) {
+        cameraView.dismiss(animated: true) {}
+    }
+    
     override func viewDidLoad(){
         super.viewDidLoad()
         
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: Notification.Name.UIApplicationWillResignActive, object: nil)
         
+        scanButton.layer.cornerRadius=8
         pauseRecording.layer.cornerRadius=8
         startNewRecording.layer.cornerRadius=8
         startNewRecording.setTitle("  Start NEW  ", for: .normal)
+        
+        sheetCollectionView.delegate=self
+        sheetCollectionView.dataSource=self
+        
+        var layout=sheetCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        layout.sectionInset=UIEdgeInsets(top: 5,left: 5,bottom: 5,right: 5)
+        layout.minimumInteritemSpacing=5
+        layout.itemSize=CGSize(width: (sheetCollectionView.frame.size.width-15)/2, height: (sheetCollectionView.frame.size.width-15)/2)
         
         if recording?.lastModified == nil{
             startNewRecording.setTitle("  Start NEW  ", for: .normal)
@@ -391,6 +465,32 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate{
         self.hideKeyboardWhenTappedAround()
        
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("startOver"), object: nil)
+    }
+    
+    func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+        let size = image.size
+
+        let widthRatio  = targetSize.width  / size.width
+        let heightRatio = targetSize.height / size.height
+
+        // Figure out what our orientation is, and use that to form the rectangle
+        var newSize: CGSize
+        if(widthRatio > heightRatio) {
+            newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
+        } else {
+            newSize = CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
+        }
+
+        // This is the rect that we've calculated out and this is what is actually used below
+        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+
+        // Actually do the resizing to the rect using the ImageContext stuff
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        image.draw(in: rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return newImage!
     }
     
     func updateCategoryButtons(){

@@ -46,14 +46,21 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (5.5.0):
     - GoogleUtilities/Logger
+  - IRLDocumentScanner (0.3.1):
+    - IRLDocumentScanner/Default (= 0.3.1)
+    - TOCropViewController (~> 2.3)
+  - IRLDocumentScanner/Default (0.3.1):
+    - TOCropViewController (~> 2.3)
   - nanopb (0.3.901):
     - nanopb/decode (= 0.3.901)
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
+  - TOCropViewController (2.4.0)
 
 DEPENDENCIES:
   - Firebase/Analytics
+  - IRLDocumentScanner
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -63,7 +70,9 @@ SPEC REPOS:
     - FirebaseInstanceID
     - GoogleAppMeasurement
     - GoogleUtilities
+    - IRLDocumentScanner
     - nanopb
+    - TOCropViewController
 
 SPEC CHECKSUMS:
   Firebase: 5090da4bb82900179004133bb2b2178919387fd9
@@ -72,8 +81,10 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: a122b0c258720cf250551bb2bedf48c699f80d90
   GoogleAppMeasurement: 1624046ab1bcc5e170061a56ef5679000b079c8e
   GoogleUtilities: 6481e6318c5fcabaaa8513ef8120f329055d7c10
+  IRLDocumentScanner: 8a110e4bae712036dcd98061d046b1bee497c76d
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  TOCropViewController: 368d8df3ea43b62c3dc5a61f11b9048274d240bd
 
-PODFILE CHECKSUM: 780dd6690c610efa9d4f14e80e6dd257d7a56deb
+PODFILE CHECKSUM: cf5a309bca4efb2b5b5e01d9687ca6a01a7c8b28
 
 COCOAPODS: 1.5.3

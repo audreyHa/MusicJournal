@@ -7,5 +7,6 @@ target 'MusicJournal' do
 
   # Pods for MusicJournal
   pod 'Firebase/Analytics'
-
+  pod 'IRLDocumentScanner'
+  
 end
