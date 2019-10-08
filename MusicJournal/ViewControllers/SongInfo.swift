@@ -435,10 +435,11 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
         
         sheetCollectionView.delegate=self
         sheetCollectionView.dataSource=self
+        sheetCollectionView.layer.cornerRadius=8
         
         var layout=sheetCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
-        layout.sectionInset=UIEdgeInsets(top: 5,left: 5,bottom: 5,right: 5)
-        layout.minimumInteritemSpacing=5
+        layout.sectionInset=UIEdgeInsets(top: 8,left: 8,bottom: 8,right: 8)
+        layout.minimumInteritemSpacing=8
         layout.itemSize=CGSize(width: (sheetCollectionView.frame.size.width-15)/2, height: (sheetCollectionView.frame.size.width-15)/2)
         
         if recording?.lastModified == nil{
