@@ -17,6 +17,7 @@ import PDFKit
 class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLScannerViewControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource{
     
     @IBOutlet weak var scanButton: UIButton!
+    @IBOutlet weak var pdfButton: UIButton!
     @IBOutlet weak var sheetCollectionView: UICollectionView!
     
     static var recordingSession: AVAudioSession!
@@ -230,27 +231,15 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
             }else{
                 Analytics.logEvent("reSavingRecording", parameters: nil)
                 
-                //get the sheet music images that have the same date as the recording. Delete them all. Then save the current ones
-                
-//                var allSheets=CoreDataHelper.retrieveSheetMusic()
-//                for sheet in allSheets{
-//                    if sheet.dateModified==recording!.lastModified{ //the old sheet is for this recording
-//                        deleteFromDocumentsDirectory(myFilename: sheet.filename!)
-//                        CoreDataHelper.deleteSheetMusic(sheetMusic: sheet)
-//                    }
-//                }
+                //get the PDF that has the same date as the recording. Delete it.
+                deleteFromDocumentsDirectory(myFilename: dateFormatter.string(from: recording!.lastModified!))
             }
             
-//            var count=0
-//            //save each individual image
-//            for sheetImage in sheetImages{
-//                var newSheet=CoreDataHelper.newSheetMusic()
-//                newSheet.dateModified=dateToUse
-//
-//                var filename="\(dateString)File\(count)"
-//                saveImageToDocuments(myFilename: filename, imageToSave: sheetImage)
-//                newSheet.filename=filename
-//            }
+            //save current images into new PDF
+            var newSheet=CoreDataHelper.newSheetMusic()
+            newSheet.dateModified=dateToUse
+            saveIntoPDF(filename: dateString)
+            newSheet.filename=dateString
             
             if deleteSaving.count>0{
                 for toBeDeleted in deleteSaving{
@@ -405,7 +394,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
                 try fileManager.removeItem(atPath: filePath)
                 print("got original to be deleted")
             } else {
-                print("File does not exist for deleting after saving")
+                print("File does not exist for deleting")
             }
             
         }
@@ -461,55 +450,115 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
                 
             print("array count: \(self.sheetImages.count)")
             
-            if self.sheetImages.count>1{
-                    // Create an empty PDF document
-                    let pdfDocument = PDFDocument()
-                    
-                for sheetImage in self.sheetImages{
-                        // Load or create your UIImage
-                    var multiplyingFactor=self.view.frame.width/sheetImage.size.width
-                    let image = self.resizeImage(image: sheetImage, targetSize: CGSize(width: self.view.frame.width, height: self.view.frame.height))
-                        
-                        // Create a PDF page instance from your image
-                        let pdfPage = PDFPage(image: image)
-                        
-                        // Insert the PDF page into your document
-                        pdfDocument.insert(pdfPage!, at: 0)
-                    }
-
-                    // Get the raw data of your PDF document
-                    let data = pdfDocument.dataRepresentation()
-                    
-                    let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-                    
-                    // choose a name for your image
-                    var dateToUse=Date()
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "MMddyyhhmmss"
-                    var dateString=dateFormatter.string(from: dateToUse)
-            
-                    let fileName = "\(dateString).pdf"
-                    
-                    // create the destination file url to save your image
-                    let fileURL = documentsDirectory.appendingPathComponent(fileName)
-                    
-                    // Save the data to the url
-                    try! data!.write(to: fileURL)
-                    
-                    let pdfView = PDFView()
-
-                    // add pdfView to the view hierarchy and possibly add auto-layout constraints
-
-                    pdfView.document = PDFDocument(data: data!)
-                pdfView.frame=CGRect(x: 0, y: self.view.frame.height*0.2, width: self.view.frame.width, height: self.view.frame.height*0.8)
-                    self.view.addSubview(pdfView)
-            }else{
-                DispatchQueue.main.async {
-                    self.sheetCollectionView.reloadData()
-                }
+            DispatchQueue.main.async {
+                self.sheetCollectionView.reloadData()
             }
+        }
+    }
+    
+    @IBAction func viewAsPDF(_ sender: Any) {
+        if self.sheetImages != nil && self.sheetImages.count>0{
+            let pdfDocument = PDFDocument()
+            var reversedArray=self.sheetImages.reversed()
+            for sheetImage in reversedArray{
+            // Load or create your UIImage
+                var multiplyingFactor=self.view.frame.width/sheetImage.size.width
+                let image = self.resizeImage(image: sheetImage, targetSize: CGSize(width: self.view.frame.width, height: self.view.frame.height))
+                
+                // Create a PDF page instance from your image
+                let pdfPage = PDFPage(image: image)
+                
+                // Insert the PDF page into your document
+                pdfDocument.insert(pdfPage!, at: 0)
+            }
+
+            // Get the raw data of your PDF document
+            let data = pdfDocument.dataRepresentation()
             
+            addPDFView(data: data!)
+        }
+    }
+    
+    
+    func saveIntoPDF(filename: String){
+        // Create an empty PDF document
+        let pdfDocument = PDFDocument()
+        
+        if self.sheetImages.count>0{
+            var reversedSheets=self.sheetImages.reversed()
             
+            for sheetImage in reversedSheets{
+            // Load or create your UIImage
+                var multiplyingFactor=self.view.frame.width/sheetImage.size.width
+                let image = self.resizeImage(image: sheetImage, targetSize: CGSize(width: self.view.frame.width, height: self.view.frame.height))
+                
+                // Create a PDF page instance from your image
+                let pdfPage = PDFPage(image: image)
+                
+                // Insert the PDF page into your document
+                pdfDocument.insert(pdfPage!, at: 0)
+            }
+
+            // Get the raw data of your PDF document
+            let data = pdfDocument.dataRepresentation()
+            
+            let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+            
+            // choose a name for your PDF
+            let fileName = "\(filename).pdf"
+            
+            // create the destination file url to save your image
+            let fileURL = documentsDirectory.appendingPathComponent(fileName)
+            
+            // Save the data to the url
+            try! data!.write(to: fileURL)
+        }
+    }
+    
+    func addPDFView(data: Data){
+        let whiteBackground=UIView()
+        whiteBackground.backgroundColor=UIColor.white
+        whiteBackground.frame=CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+        whiteBackground.tag=4321
+        self.view.addSubview(whiteBackground)
+        
+        let pdfView = PDFView()
+
+        // add pdfView to the view hierarchy and possibly add auto-layout constraints
+
+        pdfView.document = PDFDocument(data: data)
+        pdfView.frame=CGRect(x: 0, y: self.view.frame.height*0.15, width: self.view.frame.width, height: self.view.frame.height*0.85)
+        pdfView.tag=1234
+        self.view.addSubview(pdfView)
+        
+        //add close button to PDF so that user can close it
+        let closeButton: UIButton = UIButton(frame: CGRect(x: 20, y: self.view.frame.height*0.12, width: 100, height: 50))
+        var redColor=UIColor(red: 0.91, green: 0.35, blue: 0.27, alpha: 1.00)
+        closeButton.tag=1111
+        closeButton.backgroundColor = redColor
+        closeButton.layer.cornerRadius=10
+        closeButton.setTitle("Close", for: .normal)
+        closeButton.addTarget(self, action: #selector(removePDFView), for: .touchUpInside)
+        self.view.addSubview(closeButton)
+    }
+    
+    @objc func removePDFView(){
+        if let viewWithTag = self.view.viewWithTag(1234) {
+            viewWithTag.removeFromSuperview()
+        }else{
+            print("Don't remove this subview from superview")
+        }
+        
+        if let viewWithTag = self.view.viewWithTag(4321) {
+            viewWithTag.removeFromSuperview()
+        }else{
+            print("Don't remove this subview from superview")
+        }
+        
+        if let viewWithTag = self.view.viewWithTag(1111) {
+            viewWithTag.removeFromSuperview()
+        }else{
+            print("Don't remove this subview from superview")
         }
     }
     
@@ -524,6 +573,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
         notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: Notification.Name.UIApplicationWillResignActive, object: nil)
         
         scanButton.layer.cornerRadius=8
+        pdfButton.layer.cornerRadius=8
         pauseRecording.layer.cornerRadius=8
         startNewRecording.layer.cornerRadius=8
         startNewRecording.setTitle("  Start NEW  ", for: .normal)

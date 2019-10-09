@@ -571,7 +571,7 @@
                                         </constraints>
                                     </stackView>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="eoI-qt-4si">
-                                        <rect key="frame" x="15" y="423" width="384" height="333"/>
+                                        <rect key="frame" x="15" y="456" width="384" height="300"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="wGY-JZ-h5h">
                                             <size key="itemSize" width="100" height="100"/>
@@ -605,17 +605,31 @@
                                             </collectionViewCell>
                                         </cells>
                                     </collectionView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="udN-pL-FGa">
+                                        <rect key="frame" x="304" y="418" width="90" height="28"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="90" id="qhw-fH-xBB"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <state key="normal" title="  View as PDF  "/>
+                                        <connections>
+                                            <action selector="viewAsPDF:" destination="RTW-Ln-REg" eventType="touchUpInside" id="fW8-tW-aAV"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.14999999999999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="eoI-qt-4si" firstAttribute="top" secondItem="p5P-xS-PZX" secondAttribute="bottom" constant="15" id="6be-3H-XVp"/>
                                     <constraint firstAttribute="bottom" secondItem="eoI-qt-4si" secondAttribute="bottom" constant="30" id="A2b-Km-SU8"/>
+                                    <constraint firstItem="udN-pL-FGa" firstAttribute="top" secondItem="p5P-xS-PZX" secondAttribute="bottom" constant="10" id="COw-ux-kwB"/>
                                     <constraint firstItem="p5P-xS-PZX" firstAttribute="top" secondItem="JBR-bx-R9t" secondAttribute="top" constant="15" id="Vm8-ej-Vr6"/>
                                     <constraint firstItem="p5P-xS-PZX" firstAttribute="leading" secondItem="JBR-bx-R9t" secondAttribute="leading" constant="15" id="aBp-bN-mND"/>
                                     <constraint firstItem="p5P-xS-PZX" firstAttribute="height" secondItem="JBR-bx-R9t" secondAttribute="height" multiplier="0.5" id="d5Y-wG-NLe"/>
                                     <constraint firstAttribute="trailing" secondItem="eoI-qt-4si" secondAttribute="trailing" constant="15" id="eVD-vn-w3u"/>
                                     <constraint firstAttribute="trailing" secondItem="p5P-xS-PZX" secondAttribute="trailing" constant="15" id="em6-Qt-Usg"/>
+                                    <constraint firstAttribute="trailing" secondItem="udN-pL-FGa" secondAttribute="trailing" constant="20" id="f8f-6Q-KBM"/>
                                     <constraint firstItem="eoI-qt-4si" firstAttribute="leading" secondItem="JBR-bx-R9t" secondAttribute="leading" constant="15" id="i4L-e1-oJb"/>
+                                    <constraint firstItem="eoI-qt-4si" firstAttribute="top" secondItem="udN-pL-FGa" secondAttribute="bottom" constant="10" id="mGd-Du-RRJ"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -648,6 +662,7 @@
                         <outlet property="eventLabel" destination="PRE-B3-Qnh" id="T0k-49-Okr"/>
                         <outlet property="eventText" destination="zrs-ox-fVA" id="oLF-dc-hB8"/>
                         <outlet property="pauseRecording" destination="LhE-as-hKx" id="Hah-It-VjR"/>
+                        <outlet property="pdfButton" destination="udN-pL-FGa" id="vEb-LS-E4v"/>
                         <outlet property="scanButton" destination="MJn-ma-RHA" id="DDG-c6-EkE"/>
                         <outlet property="sheetCollectionView" destination="eoI-qt-4si" id="8gN-as-Qg6"/>
                         <outlet property="songLabel" destination="m9F-Ae-DYy" id="XQ0-pg-jr6"/>
