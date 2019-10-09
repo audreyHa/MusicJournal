@@ -26,6 +26,11 @@ struct CoreDataHelper{
         return myRecording
     }
     
+    static func newSheetMusic() -> SheetMusic{
+        var mySheet = NSEntityDescription.insertNewObject(forEntityName: "SheetMusic", into: context) as! SheetMusic
+        return mySheet
+    }
+    
     static func saveRecording(){
         do{
             try context.save()
@@ -40,9 +45,26 @@ struct CoreDataHelper{
         saveRecording()
     }
     
+    static func deleteSheetMusic(sheetMusic: SheetMusic){
+       
+        context.delete(sheetMusic)
+        saveRecording()
+    }
+    
     static func retrieveRecording() -> [Recording]{
         do{
             let fetchRequest = NSFetchRequest<Recording>(entityName: "Recording")
+            let results = try context.fetch(fetchRequest)
+            return results
+        } catch let error{
+            print("Could not fetch \(error.localizedDescription)")
+            return []
+        }
+    }
+    
+    static func retrieveSheetMusic() -> [SheetMusic]{
+        do{
+            let fetchRequest = NSFetchRequest<SheetMusic>(entityName: "SheetMusic")
             let results = try context.fetch(fetchRequest)
             return results
         } catch let error{

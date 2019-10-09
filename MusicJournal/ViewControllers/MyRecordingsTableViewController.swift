@@ -459,6 +459,9 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
             let recording=self.arrayOfRecordingsInfo[newIndexPath]
             let destination=segue.destination as! RecordMusicViewController
             destination.recording=recording
+            
+            //set the destination's sheet images to all the image files in documents directory using filenames in core data
+//            destination.sheetImages=
         case "new":
             print("create note bar button item tapped")
 

@@ -12,7 +12,7 @@ import AVFoundation
 import MediaPlayer
 import Firebase
 import IRLDocumentScanner
-
+import PDFKit
 
 class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLScannerViewControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource{
     
@@ -207,6 +207,13 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
         
         switch identifier{
         case "save":
+            var dateToUse=Date()
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MMddyyhhmmss"
+            
+            var dateString=dateFormatter.string(from: dateToUse)
+            
             if hours != 100 && minutes != 100 && seconds != 100{
                 recording?.hours=Double(hours)
                 recording?.minutes=Double(minutes)
@@ -219,43 +226,35 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
             if recording == nil{
                 recording = CoreDataHelper.newRecording()
                 Analytics.logEvent("savingNewRecording", parameters: nil)
+                
             }else{
                 Analytics.logEvent("reSavingRecording", parameters: nil)
+                
+                //get the sheet music images that have the same date as the recording. Delete them all. Then save the current ones
+                
+//                var allSheets=CoreDataHelper.retrieveSheetMusic()
+//                for sheet in allSheets{
+//                    if sheet.dateModified==recording!.lastModified{ //the old sheet is for this recording
+//                        deleteFromDocumentsDirectory(myFilename: sheet.filename!)
+//                        CoreDataHelper.deleteSheetMusic(sheetMusic: sheet)
+//                    }
+//                }
             }
+            
+//            var count=0
+//            //save each individual image
+//            for sheetImage in sheetImages{
+//                var newSheet=CoreDataHelper.newSheetMusic()
+//                newSheet.dateModified=dateToUse
+//
+//                var filename="\(dateString)File\(count)"
+//                saveImageToDocuments(myFilename: filename, imageToSave: sheetImage)
+//                newSheet.filename=filename
+//            }
             
             if deleteSaving.count>0{
                 for toBeDeleted in deleteSaving{
-                    var filePath = ""
-                    
-                    let dirs : [String] = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true)
-                    
-                    if dirs.count > 0 {
-                        let dir = dirs[0] //documents directory
-                        filePath = dir.appendingFormat("/" + toBeDeleted)
-                        print("Local path = \(filePath)")
-                        
-                    } else {
-                        print("Could not find local directory to store file")
-                        return
-                    }
-                    
-                    
-                    do {
-                        let fileManager = FileManager.default
-                        
-                        // Check if file exists
-                        if fileManager.fileExists(atPath: filePath) {
-                            // Delete file
-                            try fileManager.removeItem(atPath: filePath)
-                            print("got original to be deleted")
-                        } else {
-                            print("File does not exist for deleting after saving")
-                        }
-                        
-                    }
-                    catch let error as NSError {
-                        print("An error took place: \(error)")
-                    }
+                    deleteFromDocumentsDirectory(myFilename: toBeDeleted)
                 }
                 
             }
@@ -297,8 +296,8 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
                 recording?.songComposer=composerLabel.text
             }
             
-            recording?.lastModified=Date()
-
+            recording?.lastModified=dateToUse
+            
             CoreDataHelper.saveRecording()
             
             cancelOutArray=[]
@@ -362,8 +361,60 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
         }
     }
     
-    //scanning sheet music!
+    func saveImageToDocuments(myFilename: String, imageToSave: UIImage){
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        // choose a name for your image
+        let fileName = "\(myFilename).jpg"
+        // create the destination file url to save your image
+        let fileURL = documentsDirectory.appendingPathComponent(fileName)
+        // get your UIImage jpeg data representation and check if the destination file url already exists
+        if let data = UIImageJPEGRepresentation(imageToSave, 0.75),
+            !FileManager.default.fileExists(atPath: fileURL.path) {
+            do {
+                // writes the image data to disk
+                try data.write(to: fileURL)
+                print("file saved")
+            } catch {
+                print("error saving file:", error)
+            }
+        }
+    }
     
+    func deleteFromDocumentsDirectory(myFilename: String){
+        var filePath = ""
+        
+        let dirs : [String] = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true)
+        
+        if dirs.count > 0 {
+            let dir = dirs[0] //documents directory
+            filePath = dir.appendingFormat("/" + myFilename)
+            print("Local path = \(filePath)")
+            
+        } else {
+            print("Could not find local directory to store file")
+            return
+        }
+        
+        
+        do {
+            let fileManager = FileManager.default
+            
+            // Check if file exists
+            if fileManager.fileExists(atPath: filePath) {
+                // Delete file
+                try fileManager.removeItem(atPath: filePath)
+                print("got original to be deleted")
+            } else {
+                print("File does not exist for deleting after saving")
+            }
+            
+        }
+        catch let error as NSError {
+            print("An error took place: \(error)")
+        }
+    }
+    
+    //scanning sheet music!
     var sheetImages: [UIImage]!
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -374,7 +425,6 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
         }else{
             return sheetImages!.count
         }
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath)->UICollectionViewCell{
@@ -411,9 +461,54 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
                 
             print("array count: \(self.sheetImages.count)")
             
-            DispatchQueue.main.async {
-                self.sheetCollectionView.reloadData()
+            if self.sheetImages.count>1{
+                    // Create an empty PDF document
+                    let pdfDocument = PDFDocument()
+                    
+                for sheetImage in self.sheetImages{
+                        // Load or create your UIImage
+                    var multiplyingFactor=self.view.frame.width/sheetImage.size.width
+                    let image = self.resizeImage(image: sheetImage, targetSize: CGSize(width: self.view.frame.width, height: self.view.frame.height))
+                        
+                        // Create a PDF page instance from your image
+                        let pdfPage = PDFPage(image: image)
+                        
+                        // Insert the PDF page into your document
+                        pdfDocument.insert(pdfPage!, at: 0)
+                    }
+
+                    // Get the raw data of your PDF document
+                    let data = pdfDocument.dataRepresentation()
+                    
+                    let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+                    
+                    // choose a name for your image
+                    var dateToUse=Date()
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "MMddyyhhmmss"
+                    var dateString=dateFormatter.string(from: dateToUse)
+            
+                    let fileName = "\(dateString).pdf"
+                    
+                    // create the destination file url to save your image
+                    let fileURL = documentsDirectory.appendingPathComponent(fileName)
+                    
+                    // Save the data to the url
+                    try! data!.write(to: fileURL)
+                    
+                    let pdfView = PDFView()
+
+                    // add pdfView to the view hierarchy and possibly add auto-layout constraints
+
+                    pdfView.document = PDFDocument(data: data!)
+                pdfView.frame=CGRect(x: 0, y: self.view.frame.height*0.2, width: self.view.frame.width, height: self.view.frame.height*0.8)
+                    self.view.addSubview(pdfView)
+            }else{
+                DispatchQueue.main.async {
+                    self.sheetCollectionView.reloadData()
+                }
             }
+            
             
         }
     }
