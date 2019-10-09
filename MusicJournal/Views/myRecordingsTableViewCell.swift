@@ -13,6 +13,7 @@ import UIKit
 import AVFoundation
 import MediaPlayer
 import Firebase
+import PDFKit
 
 class myRecordingsTableViewCell: UITableViewCell{
     @IBOutlet weak var songTitle: UILabel!
@@ -28,6 +29,7 @@ class myRecordingsTableViewCell: UITableViewCell{
     @IBOutlet weak var slider: UISlider!
     
     @IBOutlet weak var surrounding: UIView!
+    @IBOutlet weak var PDFButton: UIButton!
     
     var dateCreated: Date!
     var totalTime: String!
@@ -197,6 +199,25 @@ class myRecordingsTableViewCell: UITableViewCell{
         onExportTouched?(self)
     }
     
+    @IBAction func pdfButtonPressed(_ sender: Any) {
+        var indexPath=getIndexPath()
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMddyyhhmmss"
+        var dateString=dateFormatter.string(from: dateCreated)
+        
+        UserDefaults.standard.set(dateString, forKey: "sheetMusicDateString")
+        NotificationCenter.default.post(name: Notification.Name("showSheetMusic"), object: nil)
+    }
+    
+    func getIndexPath() -> IndexPath? {
+        guard let superView = self.superview as? UITableView else {
+            print("superview is not a UITableView - getIndexPath")
+            return nil
+        }
+        var myIndexPath = superView.indexPath(for: self)
+        return myIndexPath
+    }
     
     @objc func ascendingAction(){
        

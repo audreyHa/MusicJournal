@@ -484,7 +484,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
         // Create an empty PDF document
         let pdfDocument = PDFDocument()
         
-        if self.sheetImages.count>0{
+        if self.sheetImages != nil && self.sheetImages.count>0{
             var reversedSheets=self.sheetImages.reversed()
             
             for sheetImage in reversedSheets{

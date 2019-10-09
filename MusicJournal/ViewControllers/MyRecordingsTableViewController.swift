@@ -11,6 +11,7 @@ import UIKit
 import AVFoundation
 import MediaPlayer
 import Firebase
+import PDFKit
 
 class MyRecordingsTableViewController: UITableViewController, UIDocumentInteractionControllerDelegate{
     
@@ -129,6 +130,93 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         NotificationCenter.default.addObserver(self, selector: #selector(self.deleteRecording(notification:)), name: Notification.Name("delete"), object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateCategoryButtons(notification:)), name: Notification.Name("updateCategoryButtons"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.showSheetMusic(notification:)), name: Notification.Name("showSheetMusic"), object: nil)
+    }
+    
+    @objc func showSheetMusic(notification: Notification) {
+        var allSheets=CoreDataHelper.retrieveSheetMusic()
+        var myPDF=PDFDocument()
+        
+        for sheet in allSheets{
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MMddyyhhmmss"
+            var dateStringOriginal=dateFormatter.string(from: sheet.dateModified!)
+            
+            if dateStringOriginal==UserDefaults.standard.string(forKey: "sheetMusicDateString"){
+                var sheetFilename=sheet.filename!
+                //make sure to include .PDF
+                myPDF=getPDFFile(correctFilename: "\(sheetFilename)")
+                var correctData=myPDF.dataRepresentation()
+                addPDFView(data: correctData!)
+            }
+        }
+    }
+    
+    func getPDFFile(correctFilename: String)->PDFDocument{
+        let nsDocumentDirectory = FileManager.SearchPathDirectory.documentDirectory
+        let nsUserDomainMask = FileManager.SearchPathDomainMask.userDomainMask
+        let paths = NSSearchPathForDirectoriesInDomains(nsDocumentDirectory, nsUserDomainMask, true)
+        
+        var myPDF: PDFDocument?
+        
+        if let dirPath = paths.first{
+            print("got to dirPath")
+            let PDFURL = URL(fileURLWithPath: dirPath).appendingPathComponent("/\(correctFilename).pdf")
+            let correctPDF=PDFDocument(url: PDFURL)
+            let correctData=correctPDF!.dataRepresentation()
+            myPDF = PDFDocument(data: correctData!)
+        }
+        
+        print("correct filename: \(correctFilename)")
+        return myPDF!
+    }
+    
+    func addPDFView(data: Data){
+        let whiteBackground=UIView()
+        whiteBackground.backgroundColor=UIColor.white
+        whiteBackground.frame=CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+        whiteBackground.tag=4321
+        self.view.addSubview(whiteBackground)
+        
+        let pdfView = PDFView()
+
+        // add pdfView to the view hierarchy and possibly add auto-layout constraints
+
+        pdfView.document = PDFDocument(data: data)
+        pdfView.frame=CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+        pdfView.tag=1234
+        self.view.addSubview(pdfView)
+        
+        //add close button to PDF so that user can close it
+        let closeButton: UIButton = UIButton(frame: CGRect(x: 20, y: 20, width: 100, height: 50))
+        var redColor=UIColor(red: 0.91, green: 0.35, blue: 0.27, alpha: 1.00)
+        closeButton.tag=1111
+        closeButton.backgroundColor = redColor
+        closeButton.layer.cornerRadius=10
+        closeButton.setTitle("Close", for: .normal)
+        closeButton.addTarget(self, action: #selector(removePDFView), for: .touchUpInside)
+        self.view.addSubview(closeButton)
+    }
+    
+    @objc func removePDFView(){
+        if let viewWithTag = self.view.viewWithTag(1234) {
+            viewWithTag.removeFromSuperview()
+        }else{
+            print("Don't remove this subview from superview")
+        }
+        
+        if let viewWithTag = self.view.viewWithTag(4321) {
+            viewWithTag.removeFromSuperview()
+        }else{
+            print("Don't remove this subview from superview")
+        }
+        
+        if let viewWithTag = self.view.viewWithTag(1111) {
+            viewWithTag.removeFromSuperview()
+        }else{
+            print("Don't remove this subview from superview")
+        }
     }
     
     func updateCategoryButtons(){
@@ -243,7 +331,7 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         
         let cell=tableView.dequeueReusableCell(withIdentifier: "myRecordingsTableViewCell", for: indexPath) as! myRecordingsTableViewCell
         let currentRecording=arrayOfRecordingsInfo[indexPath.row]
-        
+
         cell.surrounding.layer.cornerRadius=8
         cell.playButton.layer.cornerRadius=8
         cell.editButton.layer.cornerRadius=8
