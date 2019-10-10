@@ -214,32 +214,32 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
             dateFormatter.dateFormat = "MMddyyhhmmss"
             
             var dateString=dateFormatter.string(from: dateToUse)
+
+            RecordMusicViewController.timer.invalidate()
+            countingTime=3
+            
+            if (recording == nil)||(recording?.lastModified == nil){ //making a new recording
+                recording = CoreDataHelper.newRecording()
+                Analytics.logEvent("savingNewRecording", parameters: nil)
+                
+            }else{ //old recording
+                Analytics.logEvent("reSavingRecording", parameters: nil)
+                
+                //get the PDF that has the same date as the recording. Delete it.
+                deleteFromDocumentsDirectory(myFilename: "\(dateFormatter.string(from: recording!.lastModified!)).pdf")
+            }
+
+            //save current images into new PDF
+            var newSheet=CoreDataHelper.newSheetMusic()
+            newSheet.dateModified=dateToUse
+            saveIntoPDF(filename: "\(dateString).pdf")
+            newSheet.filename="\(dateString).pdf"
             
             if hours != 100 && minutes != 100 && seconds != 100{
                 recording?.hours=Double(hours)
                 recording?.minutes=Double(minutes)
                 recording?.seconds=Double(seconds)
             }
-
-            RecordMusicViewController.timer.invalidate()
-            countingTime=3
-            
-            if recording == nil{
-                recording = CoreDataHelper.newRecording()
-                Analytics.logEvent("savingNewRecording", parameters: nil)
-                
-            }else{
-                Analytics.logEvent("reSavingRecording", parameters: nil)
-                
-                //get the PDF that has the same date as the recording. Delete it.
-                deleteFromDocumentsDirectory(myFilename: "\(dateFormatter.string(from: recording!.lastModified!)).pdf")
-            }
-            
-            //save current images into new PDF
-            var newSheet=CoreDataHelper.newSheetMusic()
-            newSheet.dateModified=dateToUse
-            saveIntoPDF(filename: "\(dateString).pdf")
-            newSheet.filename="\(dateString).pdf"
             
             if deleteSaving.count>0{
                 for toBeDeleted in deleteSaving{

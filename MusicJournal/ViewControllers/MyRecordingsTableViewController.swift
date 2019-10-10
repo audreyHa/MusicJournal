@@ -36,60 +36,31 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     var myCells = [myRecordingsTableViewCell]()
     
     @IBAction func songButtonPressed(_ sender: Any) {
-        getAllCells()
-        print("used get all cells for song button")
-        
-        if MyRecordingsTableViewController.chosenNumber != 1{
-            Analytics.logEvent("reorderArray", parameters: nil)
-            print("going to log analytics!")
-        }
-        
-        MyRecordingsTableViewController.chosenNumber=1
-        
-        UserDefaults.standard.set(MyRecordingsTableViewController.chosenNumber,forKey: "myNumber")
-        reorderArray()
+        customReorderToButton(myInteger: 1)
     }
     
     @IBAction func dateButtonPressed(_ sender: Any) {
-        getAllCells()
-        print("used get all cells for date button")
-        
-        if MyRecordingsTableViewController.chosenNumber != 2{
-            Analytics.logEvent("reorderArray", parameters: nil)
-            print("going to log analytics!")
-        }
-        
-        MyRecordingsTableViewController.chosenNumber=2
-        
-        UserDefaults.standard.set(MyRecordingsTableViewController.chosenNumber,forKey: "myNumber")
-        reorderArray()
+        customReorderToButton(myInteger: 2)
     }
     
     @IBAction func composerButtonPressed(_ sender: Any) {
-        getAllCells()
-        print("used get all cells for composer button")
-        
-        if MyRecordingsTableViewController.chosenNumber != 3{
-            Analytics.logEvent("reorderArray", parameters: nil)
-            print("going to log analytics!")
-        }
-        
-        MyRecordingsTableViewController.chosenNumber=3
-       
-        UserDefaults.standard.set(MyRecordingsTableViewController.chosenNumber,forKey: "myNumber")
-        reorderArray()
+        customReorderToButton(myInteger: 3)
     }
     
     @IBAction func eventButtonPressed(_ sender: Any) {
+        customReorderToButton(myInteger: 4)
+    }
+    
+    func customReorderToButton(myInteger: Int){
         getAllCells()
         print("used get all cells for event button")
         
-        if MyRecordingsTableViewController.chosenNumber != 4{
+        if MyRecordingsTableViewController.chosenNumber != myInteger{
             Analytics.logEvent("reorderArray", parameters: nil)
             print("going to log analytics!")
         }
         
-        MyRecordingsTableViewController.chosenNumber=4
+        MyRecordingsTableViewController.chosenNumber=myInteger
         
         UserDefaults.standard.set(MyRecordingsTableViewController.chosenNumber,forKey: "myNumber")
         reorderArray()
@@ -127,11 +98,13 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: Notification.Name.UIApplicationWillResignActive, object: nil)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(self.deleteRecording(notification:)), name: Notification.Name("delete"), object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateCategoryButtons(notification:)), name: Notification.Name("updateCategoryButtons"), object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.showSheetMusic(notification:)), name: Notification.Name("showSheetMusic"), object: nil)
+        
     }
     
     @objc func showSheetMusic(notification: Notification) {
@@ -340,31 +313,38 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
             currentRecording.lastModified=Date()
         }
         
+        func orderToChosenNumber(firstString: String, secondString: String, thirdString: String, fourthString: String){
+            cell.songTitle.text=firstString
+            cell.lastModified.text=secondString
+            cell.songComposer.text=thirdString
+            cell.songEvent.text=fourthString
+        }
+        
         if MyRecordingsTableViewController.chosenNumber==1{
-            cell.songTitle.text=currentRecording.songTitle
-            cell.lastModified.text=("\(currentRecording.lastModified!.convertToString())")
-            cell.songComposer.text=("\(currentRecording.songComposer!)")
-            cell.songEvent.text=("\(currentRecording.songEvent!)")
+            orderToChosenNumber(firstString: currentRecording.songTitle!,
+                                secondString: ("\(currentRecording.lastModified!.convertToString())"),
+                                thirdString: ("\(currentRecording.songComposer!)"),
+                                fourthString: ("\(currentRecording.songEvent!)"))
         } else if MyRecordingsTableViewController.chosenNumber==2{
-            cell.lastModified.text=("\(currentRecording.songTitle!)")
-            cell.songTitle.text=currentRecording.lastModified?.convertToString()
-            cell.songComposer.text=("\(currentRecording.songComposer!)")
-            cell.songEvent.text=("\(currentRecording.songEvent!)")
+            orderToChosenNumber(firstString: (currentRecording.lastModified?.convertToString())!,
+                                secondString: ("\(currentRecording.songTitle!)"),
+                                thirdString: ("\(currentRecording.songComposer!)"),
+                                fourthString: ("\(currentRecording.songEvent!)"))
         } else if MyRecordingsTableViewController.chosenNumber==3{
-            cell.lastModified.text=("\(currentRecording.songTitle!)")
-            cell.songComposer.text=("\(currentRecording.lastModified!.convertToString())")
-            cell.songTitle.text=currentRecording.songComposer
-            cell.songEvent.text=("\(currentRecording.songEvent!)")
+            orderToChosenNumber(firstString: currentRecording.songComposer!,
+                                secondString: ("\(currentRecording.songTitle!)"),
+                                thirdString: ("\(currentRecording.lastModified!.convertToString())"),
+                                fourthString: ("\(currentRecording.songEvent!)"))
         } else if MyRecordingsTableViewController.chosenNumber==4{
-            cell.lastModified.text=("\(currentRecording.songTitle!)")
-            cell.songComposer.text=("\(currentRecording.lastModified!.convertToString())")
-            cell.songEvent.text=("\(currentRecording.songComposer!)")
-            cell.songTitle.text=currentRecording.songEvent
+            orderToChosenNumber(firstString: currentRecording.songEvent!,
+                                secondString: ("\(currentRecording.songTitle!)"),
+                                thirdString: ("\(currentRecording.lastModified!.convertToString())"),
+                                fourthString: ("\(currentRecording.songComposer!)"))
         }else{
-            cell.songTitle.text=currentRecording.songTitle
-            cell.lastModified.text=("\(currentRecording.lastModified!.convertToString())")
-            cell.songComposer.text=("\(currentRecording.songComposer!)")
-            cell.songEvent.text=("\(currentRecording.songEvent!)")
+            orderToChosenNumber(firstString: currentRecording.songTitle!,
+            secondString: ("\(currentRecording.lastModified!.convertToString())"),
+            thirdString: ("\(currentRecording.songComposer!)"),
+            fourthString: ("\(currentRecording.songEvent!)"))
         }
     
         if currentRecording.filename != nil{
@@ -403,8 +383,6 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
                 }
             }
         }
-        
-        
         
         cell.slider.minimumTrackTintColor = .red
         cell.slider.setThumbImage(UIImage(named:"redPlayBar"), for: [])
@@ -466,6 +444,8 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
                 
                 self.controller.delegate = self
                 self.controller.presentPreview(animated: true)
+                
+                //get the file name
                 let dirPath: String = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
                 let recordingName = self.arrayOfRecordingsInfo[indexPath.row].filename!
                 let pathArray: [String] = [dirPath, recordingName]
@@ -608,25 +588,32 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         }
     }
     
+    func setButtonColors(correctButton: UIButton){
+        let redColor = UIColor(red: 232/255, green: 90/255, blue: 69/255, alpha: 1)
+        let white = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
+        
+        correctButton.backgroundColor=white
+        correctButton.setTitleColor(redColor, for: .normal)
+        
+        //reset other buttons
+        var allButtons=[songButton, eventButton, composerButton, dateButton]
+        for button in allButtons{
+            if button != correctButton{
+                button?.backgroundColor=redColor
+                button!.setTitleColor(white, for: .normal)
+            }
+        }
+    }
+    
     func reorderArray(){
         if let number: Int = UserDefaults.standard.object(forKey: "myNumber") as? Int{
             MyRecordingsTableViewController.chosenNumber=number
         }
         
-        let redColor = UIColor(red: 232/255, green: 90/255, blue: 69/255, alpha: 1)
-        let white = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
+        setButtonColors(correctButton: songButton)
         
         if MyRecordingsTableViewController.chosenNumber==1{
-            songButton.backgroundColor=white
-            songButton.setTitleColor(redColor, for: .normal)
             
-            //reset other buttons
-            eventButton.backgroundColor=redColor
-            eventButton.setTitleColor(white, for: .normal)
-            composerButton.backgroundColor=redColor
-            composerButton.setTitleColor(white, for: .normal)
-            dateButton.backgroundColor=redColor
-            dateButton.setTitleColor(white, for: .normal)
             
             if arrayOfRecordingsInfo.count>0{
                 arrayOfRecordingsInfo=arrayOfRecordingsInfo.sorted{
@@ -647,16 +634,7 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
             }
             
         } else if MyRecordingsTableViewController.chosenNumber==2{
-            dateButton.backgroundColor=white
-            dateButton.setTitleColor(redColor, for: .normal)
-            
-            //reset other buttons
-            eventButton.backgroundColor=redColor
-            eventButton.setTitleColor(white, for: .normal)
-            composerButton.backgroundColor=redColor
-            composerButton.setTitleColor(white, for: .normal)
-            songButton.backgroundColor=redColor
-            songButton.setTitleColor(white, for: .normal)
+            setButtonColors(correctButton: dateButton)
             
             if arrayOfRecordingsInfo.count>0{
                 let dateFormatter = DateFormatter()
@@ -665,16 +643,7 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
                 arrayOfRecordingsInfo = arrayOfRecordingsInfo.sorted(by: { $0.lastModified?.compare($1.lastModified!) == .orderedDescending})
             }
         } else if MyRecordingsTableViewController.chosenNumber==3{
-            composerButton.backgroundColor=white
-            composerButton.setTitleColor(redColor, for: .normal)
-            
-            //reset other buttons
-            eventButton.backgroundColor=redColor
-            eventButton.setTitleColor(white, for: .normal)
-            songButton.backgroundColor=redColor
-            songButton.setTitleColor(white, for: .normal)
-            dateButton.backgroundColor=redColor
-            dateButton.setTitleColor(white, for: .normal)
+            setButtonColors(correctButton: composerButton)
             
             if arrayOfRecordingsInfo.count>0{
                
@@ -696,16 +665,7 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
             }
             
         } else if MyRecordingsTableViewController.chosenNumber==4{
-            eventButton.backgroundColor=white
-            eventButton.setTitleColor(redColor, for: .normal)
-            
-            //reset other buttons
-            songButton.backgroundColor=redColor
-            songButton.setTitleColor(white, for: .normal)
-            dateButton.backgroundColor=redColor
-            dateButton.setTitleColor(white, for: .normal)
-            composerButton.backgroundColor=redColor
-            composerButton.setTitleColor(white, for: .normal)
+            setButtonColors(correctButton: eventButton)
             
             if arrayOfRecordingsInfo.count>0{
                 arrayOfRecordingsInfo=arrayOfRecordingsInfo.sorted{
@@ -725,16 +685,7 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
                 }
             }
         } else{
-            songButton.backgroundColor=white
-            songButton.setTitleColor(redColor, for: .normal)
-            
-            //reset other buttons
-            eventButton.backgroundColor=redColor
-            eventButton.setTitleColor(white, for: .normal)
-            composerButton.backgroundColor=redColor
-            composerButton.setTitleColor(white, for: .normal)
-            dateButton.backgroundColor=redColor
-            dateButton.setTitleColor(white, for: .normal)
+            setButtonColors(correctButton: songButton)
             
             if arrayOfRecordingsInfo.count>0{
                 arrayOfRecordingsInfo=arrayOfRecordingsInfo.sorted{
@@ -783,8 +734,6 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     }
     
     func getAllCells(){
-       
-
             for eachCell in myCells{
                 eachCell.timer.invalidate()
                 eachCell.thisHours=eachCell.originalHours
