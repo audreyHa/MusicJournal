@@ -183,17 +183,14 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         // add pdfView to the view hierarchy and possibly add auto-layout constraints
 
         pdfView.document = PDFDocument(data: data)
-        pdfView.frame=CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+        pdfView.frame=CGRect(x: 0, y: 35, width: self.view.frame.width, height: self.view.frame.height*0.8)
         pdfView.tag=1234
         self.view.addSubview(pdfView)
         
         //add close button to PDF so that user can close it
-        let closeButton: UIButton = UIButton(frame: CGRect(x: 20, y: 20, width: 100, height: 50))
-        var redColor=UIColor(red: 0.91, green: 0.35, blue: 0.27, alpha: 1.00)
+        let closeButton: UIButton = UIButton(frame: CGRect(x: 10, y: 10, width: 25, height: 25))
         closeButton.tag=1111
-        closeButton.backgroundColor = redColor
-        closeButton.layer.cornerRadius=10
-        closeButton.setTitle("Close", for: .normal)
+        closeButton.setImage(UIImage(imageLiteralResourceName: "closeIcon"), for: .normal)
         closeButton.addTarget(self, action: #selector(removePDFView), for: .touchUpInside)
         self.view.addSubview(closeButton)
     }

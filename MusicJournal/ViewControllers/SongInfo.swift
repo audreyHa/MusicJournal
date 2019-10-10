@@ -232,7 +232,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
                 Analytics.logEvent("reSavingRecording", parameters: nil)
                 
                 //get the PDF that has the same date as the recording. Delete it.
-                deleteFromDocumentsDirectory(myFilename: dateFormatter.string(from: recording!.lastModified!))
+                deleteFromDocumentsDirectory(myFilename: "\(dateFormatter.string(from: recording!.lastModified!)).pdf")
             }
             
             //save current images into new PDF
@@ -329,7 +329,6 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
                 recording?.hours=Double(timeArray[0])
                 recording?.minutes=Double(timeArray[1])
                 recording?.seconds=Double(timeArray[2])
-                recording?.lastModified=Date()
                 
                 if cancelOutArray.count>0{
                     deleteEverything()
@@ -493,17 +492,15 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
         // add pdfView to the view hierarchy and possibly add auto-layout constraints
 
         pdfView.document = PDFDocument(data: data)
-        pdfView.frame=CGRect(x: 0, y: self.view.frame.height*0.15, width: self.view.frame.width, height: self.view.frame.height*0.85)
+        pdfView.frame=CGRect(x: 0, y: self.view.frame.height*0.13+30, width: self.view.frame.width, height: self.view.frame.height*0.75)
         pdfView.tag=1234
         self.view.addSubview(pdfView)
-        
+
         //add close button to PDF so that user can close it
-        let closeButton: UIButton = UIButton(frame: CGRect(x: 20, y: self.view.frame.height*0.12, width: 100, height: 50))
-        var redColor=UIColor(red: 0.91, green: 0.35, blue: 0.27, alpha: 1.00)
+        let closeButton: UIButton = UIButton(frame: CGRect(x: 10, y: self.view.frame.height*0.13, width: 25, height: 25))
         closeButton.tag=1111
-        closeButton.backgroundColor = redColor
-        closeButton.layer.cornerRadius=10
-        closeButton.setTitle("Close", for: .normal)
+        closeButton.setImage(UIImage(imageLiteralResourceName: "closeIcon"), for: .normal)
+        
         closeButton.addTarget(self, action: #selector(removePDFView), for: .touchUpInside)
         self.view.addSubview(closeButton)
     }
