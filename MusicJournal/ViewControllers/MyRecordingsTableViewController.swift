@@ -145,7 +145,6 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
             
             if dateStringOriginal==UserDefaults.standard.string(forKey: "sheetMusicDateString"){
                 var sheetFilename=sheet.filename!
-                //make sure to include .PDF
                 myPDF=getPDFFile(correctFilename: "\(sheetFilename)")
                 var correctData=myPDF.dataRepresentation()
                 addPDFView(data: correctData!)
@@ -162,7 +161,7 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         
         if let dirPath = paths.first{
             print("got to dirPath")
-            let PDFURL = URL(fileURLWithPath: dirPath).appendingPathComponent("/\(correctFilename).pdf")
+            let PDFURL = URL(fileURLWithPath: dirPath).appendingPathComponent("/\(correctFilename)")
             let correctPDF=PDFDocument(url: PDFURL)
             let correctData=correctPDF!.dataRepresentation()
             myPDF = PDFDocument(data: correctData!)
@@ -549,13 +548,66 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
             destination.recording=recording
             
             //set the destination's sheet images to all the image files in documents directory using filenames in core data
-//            destination.sheetImages=
+            var allSheets=CoreDataHelper.retrieveSheetMusic()
+            for sheet in allSheets{
+                if sheet.dateModified==recording.lastModified{
+                    var correctPDF=getPDFFile(correctFilename: sheet.filename!)
+                    var arrayOfImages=[UIImage]()
+                    
+                    for int in 1...correctPDF.pageCount{
+                        arrayOfImages.append(convertPDFPageToImage(page: int, filename: sheet.filename!))
+                    }
+                    
+                    destination.sheetImages=arrayOfImages
+                }
+            }
         case "new":
             print("create note bar button item tapped")
 
         default:
             print("unexpected segue identifier")
 
+        }
+    }
+    
+    func convertPDFPageToImage(page:Int, filename: String)->UIImage{
+        var correctPDF=getPDFFile(correctFilename: filename)
+
+        do {
+            let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            let filePath = documentsURL.appendingPathComponent("\(filename)").path
+            
+            let pdfdata = try NSData(contentsOfFile: filePath, options: NSData.ReadingOptions.init(rawValue: 0))
+
+            let pdfData = pdfdata as CFData
+            let provider:CGDataProvider = CGDataProvider(data: pdfData)!
+            let pdfDoc:CGPDFDocument = CGPDFDocument(provider)!
+            print("page int: \(page)")
+            print("pdf doc total pages: \(pdfDoc.numberOfPages)")
+            let pdfPage:CGPDFPage = pdfDoc.page(at: page)!
+            var pageRect:CGRect = pdfPage.getBoxRect(.mediaBox)
+            pageRect.size = CGSize(width:pageRect.size.width, height:pageRect.size.height)
+
+            print("\(pageRect.width) by \(pageRect.height)")
+
+            UIGraphicsBeginImageContext(pageRect.size)
+            let context:CGContext = UIGraphicsGetCurrentContext()!
+            context.saveGState()
+            context.translateBy(x: 0.0, y: pageRect.size.height)
+            context.scaleBy(x: 1.0, y: -1.0)
+            context.concatenate(pdfPage.getDrawingTransform(.mediaBox, rect: pageRect, rotate: 0, preserveAspectRatio: true))
+            context.drawPDFPage(pdfPage)
+            context.restoreGState()
+            let pdfImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+            UIGraphicsEndImageContext()
+
+            return pdfImage
+        }
+        catch {
+            print("error in trying to get the data from PDF url!")
+
+            var placeHolderImage=UIImage(imageLiteralResourceName: "cameraIcon")
+            return placeHolderImage
         }
     }
     
@@ -713,40 +765,21 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
             // Find documents directory on device
             
             let fileNameToDelete = ("\(self.arrayOfRecordingsInfo[self.deleteIndexPath].filename!)")
-            var filePath = ""
-            
-            let dirs : [String] = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true)
-            
-            if dirs.count > 0 {
-                let dir = dirs[0] //documents directory
-                filePath = dir.appendingFormat("/" + fileNameToDelete)
-                print("Local path = \(filePath)")
-                
-            } else {
-                print("Could not find local directory to store file")
-                return
-            }
-            
-            
-            do {
-                let fileManager = FileManager.default
-                
-                // Check if file exists
-                if fileManager.fileExists(atPath: filePath) {
-                    // Delete file
-                    try fileManager.removeItem(atPath: filePath)
-                } else {
-                    print("for deleting, File does not exist")
-                }
-                
-            }
-            catch let error as NSError {
-                print("An error took place: \(error)")
-            }
-            // End of code for deleting from the document directory also
+            deleteFromDocumentsDirectory(myFilename: fileNameToDelete)
         }
         
+        //get correct recording object from core data
         let recordingToDelete=self.arrayOfRecordingsInfo[self.deleteIndexPath]
+        
+        //delete any sheets that have same date as recording object
+        var allSheets=CoreDataHelper.retrieveSheetMusic()
+        for sheet in allSheets{
+            if sheet.dateModified==recordingToDelete.lastModified{
+                deleteFromDocumentsDirectory(myFilename: sheet.filename!)
+            }
+        }
+        
+        //delete recording from core data and reorder array of recordings
         CoreDataHelper.deleteRecording(recording: recordingToDelete)
         self.arrayOfRecordingsInfo=CoreDataHelper.retrieveRecording()
         self.reorderArray()

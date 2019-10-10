@@ -238,8 +238,8 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
             //save current images into new PDF
             var newSheet=CoreDataHelper.newSheetMusic()
             newSheet.dateModified=dateToUse
-            saveIntoPDF(filename: dateString)
-            newSheet.filename=dateString
+            saveIntoPDF(filename: "\(dateString).pdf")
+            newSheet.filename="\(dateString).pdf"
             
             if deleteSaving.count>0{
                 for toBeDeleted in deleteSaving{
@@ -369,40 +369,6 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
         }
     }
     
-    func deleteFromDocumentsDirectory(myFilename: String){
-        var filePath = ""
-        
-        let dirs : [String] = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true)
-        
-        if dirs.count > 0 {
-            let dir = dirs[0] //documents directory
-            filePath = dir.appendingFormat("/" + myFilename)
-            print("Local path = \(filePath)")
-            
-        } else {
-            print("Could not find local directory to store file")
-            return
-        }
-        
-        
-        do {
-            let fileManager = FileManager.default
-            
-            // Check if file exists
-            if fileManager.fileExists(atPath: filePath) {
-                // Delete file
-                try fileManager.removeItem(atPath: filePath)
-                print("got original to be deleted")
-            } else {
-                print("File does not exist for deleting")
-            }
-            
-        }
-        catch let error as NSError {
-            print("An error took place: \(error)")
-        }
-    }
-    
     //scanning sheet music!
     var sheetImages: [UIImage]!
     
@@ -505,7 +471,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
             let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
             
             // choose a name for your PDF
-            let fileName = "\(filename).pdf"
+            let fileName = "\(filename)"
             
             // create the destination file url to save your image
             let fileURL = documentsDirectory.appendingPathComponent(fileName)
@@ -912,6 +878,40 @@ extension UIViewController {
     }
     @objc func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    func deleteFromDocumentsDirectory(myFilename: String){
+        var filePath = ""
+        
+        let dirs : [String] = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true)
+        
+        if dirs.count > 0 {
+            let dir = dirs[0] //documents directory
+            filePath = dir.appendingFormat("/" + myFilename)
+            print("Local path = \(filePath)")
+            
+        } else {
+            print("Could not find local directory to store file")
+            return
+        }
+        
+        
+        do {
+            let fileManager = FileManager.default
+            
+            // Check if file exists
+            if fileManager.fileExists(atPath: filePath) {
+                // Delete file
+                try fileManager.removeItem(atPath: filePath)
+                print("got original to be deleted")
+            } else {
+                print("File does not exist for deleting")
+            }
+            
+        }
+        catch let error as NSError {
+            print("An error took place: \(error)")
+        }
     }
 }
 
