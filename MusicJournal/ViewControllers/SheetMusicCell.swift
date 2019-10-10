@@ -9,6 +9,17 @@
 import UIKit
 
 class SheetMusicCell: UICollectionViewCell {
+    @IBOutlet weak var deleteButton: UIButton!
+    
     @IBOutlet weak var sheetMusicImageView: UIImageView!
+    
+    @IBAction func deleteButtonPressed(_ sender: Any) {
+        guard let superView = self.superview as? UICollectionView else {return}
+
+        var myIndexPath = superView.indexPath(for: self)
+        UserDefaults.standard.set(myIndexPath!.row, forKey: "possiblyDeletePDFImageRow")
+        
+        NotificationCenter.default.post(name: Notification.Name("possiblyDeletePDFImage"), object: nil)
+    }
     
 }

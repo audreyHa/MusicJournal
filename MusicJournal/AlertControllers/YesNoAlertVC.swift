@@ -35,6 +35,9 @@ class YesNoAlertVC: UIViewController {
         case "delete":
             bigHeader.text="Confirm!"
             label.text="Are you sure you want to delete this recording? You cannot undo this action."
+        case "possiblyDeletePDFImage":
+            bigHeader.text="Confirm!"
+            label.text="Are you sure you want to delete this image?"
         default:
             print("Error! Could not react to short alert!")
         }
@@ -64,6 +67,8 @@ class YesNoAlertVC: UIViewController {
             NotificationCenter.default.post(name: Notification.Name("startOver"), object: nil, userInfo: nil)
         case "delete":
             NotificationCenter.default.post(name: Notification.Name("delete"), object: nil, userInfo: nil)
+        case "possiblyDeletePDFImage":
+            NotificationCenter.default.post(name: Notification.Name("permanentlyDeletePDFImage"), object: nil)
         default:
             print("Error! Could not react to short alert!")
         }

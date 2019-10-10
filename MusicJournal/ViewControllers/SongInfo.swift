@@ -383,7 +383,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath)->UICollectionViewCell{
         let cell=sheetCollectionView.dequeueReusableCell(withReuseIdentifier: "SheetMusicCell", for: indexPath) as! SheetMusicCell
-       
+        
         if sheetImages != nil{
             var imageToResize=sheetImages![indexPath.row]
             imageToResize=self.resizeImage(image: imageToResize, targetSize: CGSize(width: (sheetCollectionView.frame.size.width-15)/2, height: (sheetCollectionView.frame.size.width-15)/2))
@@ -392,6 +392,9 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
         
         print("cell height: \(cell.frame.height)")
         print("image height: \(cell.sheetMusicImageView.frame.height)")
+        
+        cell.deleteButton.superview?.bringSubview(toFront: cell.deleteButton)
+        cell.deleteButton.layer.cornerRadius=5
         
         return cell
     }
@@ -574,6 +577,25 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
         self.hideKeyboardWhenTappedAround()
        
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("startOver"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.possiblyDeletePDFImage(notification:)), name: Notification.Name("possiblyDeletePDFImage"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.permanentlyDeletePDFImage), name: Notification.Name("permanentlyDeletePDFImage"), object: nil)
+    }
+    
+    @objc func permanentlyDeletePDFImage(notification: Notification){
+        sheetImages.remove(at: UserDefaults.standard.integer(forKey: "possiblyDeletePDFImage"))
+        sheetCollectionView.reloadData()
+    }
+    
+    @objc func possiblyDeletePDFImage(notification: Notification){
+        UserDefaults.standard.set("possiblyDeletePDFImage",forKey: "typeYesNoAlert")
+        
+        let vc = storyboard!.instantiateViewController(withIdentifier: "YesNoAlertVC") as! YesNoAlertVC
+        var transparentGrey=UIColor(red: 0.16, green: 0.16, blue: 0.16, alpha: 0.95)
+        vc.view.backgroundColor = transparentGrey
+        vc.modalPresentationStyle = .overCurrentContext
+        present(vc, animated: true, completion: nil)
     }
     
     func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
