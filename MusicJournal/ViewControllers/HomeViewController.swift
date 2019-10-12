@@ -25,6 +25,23 @@ class HomeViewController: UIViewController {
         
         //Receive notification
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("privacyPressed"), object: nil)
+        
+        var allRecordings=CoreDataHelper.retrieveRecording()
+        for recording in allRecordings{
+            if recording.songTitle==nil{
+                recording.songTitle="Temporary title"
+            }
+            
+            if recording.songEvent==nil{
+                recording.songEvent="Temporary event"
+            }
+            
+            if recording.songComposer==nil{
+                recording.songComposer="Temporary composer"
+            }
+            
+            CoreDataHelper.saveRecording()
+        }
     }
     
     //Function for handling receiving notification

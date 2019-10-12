@@ -538,6 +538,11 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
                     destination.sheetImages=arrayOfImages
                 }
             }
+            
+            destination.titleToUse=recording.songTitle ?? ""
+            destination.eventToUse=recording.songEvent ?? ""
+            destination.composerToUse=recording.songComposer ?? ""
+            destination.timeArray=[Int(recording.hours) ?? 0,Int(recording.minutes) ?? 0,Int(recording.seconds) ?? 0]
         case "new":
             print("create note bar button item tapped")
 

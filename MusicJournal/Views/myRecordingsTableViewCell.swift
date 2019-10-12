@@ -114,17 +114,20 @@ class myRecordingsTableViewCell: UITableViewCell{
         }
 
     @objc func handleSliderChange(){
-        newAudioPlayer.currentTime=TimeInterval(slider.value)
-        var intSlider=Double(slider.value)
-        var updateHours=floor((intSlider)/3600)
-        var leftoverAfterHours=intSlider-(updateHours*3600)
-        var updateMinutes=floor((leftoverAfterHours)/60)
-        var leftoverAfterMinutes=leftoverAfterHours-(updateMinutes*60)
-        var updateSeconds=floor(leftoverAfterMinutes)
-        thisHours=updateHours
-        thisMinutes=updateMinutes
-        thisSeconds=updateSeconds
-        displaying()
+        if slider.maximumValue != nil && slider.maximumValue != 0{
+            newAudioPlayer.currentTime=TimeInterval(slider.value)
+            var intSlider=Double(slider.value)
+            var updateHours=floor((intSlider)/3600)
+            var leftoverAfterHours=intSlider-(updateHours*3600)
+            var updateMinutes=floor((leftoverAfterHours)/60)
+            var leftoverAfterMinutes=leftoverAfterHours-(updateMinutes*60)
+            var updateSeconds=floor(leftoverAfterMinutes)
+            thisHours=updateHours
+            thisMinutes=updateMinutes
+            thisSeconds=updateSeconds
+            displaying()
+        }
+        
     }
     
     @IBAction func playPressed(_ sender: Any) {

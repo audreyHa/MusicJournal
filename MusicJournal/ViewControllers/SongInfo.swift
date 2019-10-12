@@ -24,6 +24,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
     var isPaused = Bool()
     var audioRecorder: AVAudioRecorder!
     var audioPlayer: AVAudioPlayer!
+    
     var recording: Recording?
 
     var hasSegued = false
@@ -34,10 +35,13 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
     var countingTime=3
     var cancelOutArray = [String]()
     var deleteSaving = [String]()
-    var titleArray = [String]()
-    var eventArray = [String]()
-    var compArray = [String]()
+
     var timeArray = [Int]()
+    var currentFilename: String?
+    
+    var titleToUse: String?
+    var eventToUse: String?
+    var composerToUse: String?
     
     @IBOutlet weak var pauseRecording: UIButton!
     
@@ -63,8 +67,8 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
             self.recording = CoreDataHelper.newRecording()
         }
         
-        if self.recording?.filename != nil && cancelOutArray.count==0{
-            deleteSaving.append((self.recording?.filename!)!)
+        if currentFilename != nil && cancelOutArray.count==0{
+            deleteSaving.append((currentFilename)!)
         }
         
         var finalString=""
@@ -76,14 +80,14 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
         }else{
             finalString="\((Date().convertToString().removingWhitespacesAndNewlines.replacingOccurrences(of: ":", with: "_")))"
         }
-        self.recording?.filename="\(finalString).m4a"
-        self.cancelOutArray.append((self.recording?.filename)!)
+        currentFilename="\(finalString).m4a"
+        self.cancelOutArray.append(currentFilename!)
         var filename: URL?
         
         let fileManager = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask).first
         
         
-        filename = fileManager!.appendingPathComponent((self.recording?.filename)!)
+        filename = fileManager!.appendingPathComponent(currentFilename!)
         let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC), AVSampleRateKey: 12000, AVNumberOfChannelsKey: 1, AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue]
         do{
             try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
@@ -120,10 +124,9 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
     }
     
     @IBOutlet weak var timeLabel: UILabel!
-    
-    
    
     @IBOutlet weak var startNewRecording: UIButton!
+    
     @IBAction func startNewRecording(_ sender: Any) {
          RecordMusicViewController.timer.invalidate()
         if isPaused==true{
@@ -133,7 +136,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
             RecordMusicViewController.timer=Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(RecordMusicViewController.action), userInfo: nil, repeats: true)
         }else if audioRecorder == nil{ //Starting a new one (not ending)
             
-            if recording?.filename != nil{
+            if currentFilename != nil{
                 if cancelOutArray.count>0{
                     UserDefaults.standard.set("startOver",forKey: "typeYesNoAlert")
                     makeYesNoAlert()
@@ -173,34 +176,6 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
         }
     }
     
-    
-    override func viewWillAppear(_ animated: Bool){
-        super.viewWillAppear(animated)
-        
-        songLabel.text=recording?.songTitle
-        eventLabel.text=recording?.songEvent
-        composerLabel.text=recording?.songComposer
-        
-        if recording?.songTitle != nil{
-            titleArray.append((recording?.songTitle)!)
-        }
-        
-        if recording?.songComposer != nil{
-            compArray.append((recording?.songComposer)!)
-        }
-        
-        if recording?.songEvent != nil{
-            eventArray.append((recording?.songEvent)!)
-        }
-        
-        if recording?.hours != nil{
-            timeArray.append(Int((recording?.hours)!))
-            timeArray.append(Int((recording?.minutes)!))
-            timeArray.append(Int((recording?.seconds)!))
-        }
-        
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         guard let identifier = segue.identifier,
             let destination=segue.destination as? MyRecordingsTableViewController
@@ -214,11 +189,12 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
             dateFormatter.dateFormat = "MMddyyhhmmss"
             
             var dateString=dateFormatter.string(from: dateToUse)
-
+            recording?.lastModified=dateToUse
+            
             RecordMusicViewController.timer.invalidate()
             countingTime=3
             
-            if (recording == nil)||(recording?.lastModified == nil){ //making a new recording
+            if (recording == nil){ //making a new recording
                 recording = CoreDataHelper.newRecording()
                 Analytics.logEvent("savingNewRecording", parameters: nil)
                 
@@ -229,11 +205,13 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
                 deleteFromDocumentsDirectory(myFilename: "\(dateFormatter.string(from: recording!.lastModified!)).pdf")
             }
 
-            //save current images into new PDF
-            var newSheet=CoreDataHelper.newSheetMusic()
-            newSheet.dateModified=dateToUse
-            saveIntoPDF(filename: "\(dateString).pdf")
-            newSheet.filename="\(dateString).pdf"
+            if sheetImages != nil && sheetImages.count>0{ //only create sheet music if user actually entered images
+                //save current images into new PDF
+                var newSheet=CoreDataHelper.newSheetMusic()
+                newSheet.dateModified=dateToUse
+                saveIntoPDF(filename: "\(dateString).pdf")
+                newSheet.filename="\(dateString).pdf"
+            }
             
             if hours != 100 && minutes != 100 && seconds != 100{
                 recording?.hours=Double(hours)
@@ -285,15 +263,15 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
                 recording?.songComposer=composerLabel.text
             }
             
-            recording?.lastModified=dateToUse
+            
+            if currentFilename != nil{
+                recording?.filename=currentFilename
+            }
             
             CoreDataHelper.saveRecording()
             
             cancelOutArray=[]
             deleteSaving=[]
-            titleArray=[]
-            eventArray=[]
-            compArray=[]
             timeArray=[]
             
         case "cancel":
@@ -318,14 +296,14 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
                 }
                 CoreDataHelper.saveRecording()
                 Analytics.logEvent("cancelUnsavedRecording", parameters: nil)
-            } else{
+            }else{
                 if deleteSaving.count>0{
                     recording?.filename=deleteSaving[0]
                 }
                 
-                recording?.songTitle=titleArray[0]
-                recording?.songComposer=compArray[0]
-                recording?.songEvent=eventArray[0]
+                recording?.songTitle=titleToUse
+                recording?.songComposer=composerToUse
+                recording?.songEvent=eventToUse
                 recording?.hours=Double(timeArray[0])
                 recording?.minutes=Double(timeArray[1])
                 recording?.seconds=Double(timeArray[2])
@@ -336,9 +314,6 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
                 
                 cancelOutArray=[]
                 deleteSaving=[]
-                titleArray=[]
-                eventArray=[]
-                compArray=[]
                 timeArray=[]
                 CoreDataHelper.saveRecording()
                 Analytics.logEvent("cancelSavedRecording", parameters: nil)
@@ -553,7 +528,7 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
         layout.minimumInteritemSpacing=8
         layout.itemSize=CGSize(width: (sheetCollectionView.frame.size.width-15)/2, height: (sheetCollectionView.frame.size.width-15)/2)
         
-        if recording?.lastModified == nil{
+        if currentFilename == nil{
             startNewRecording.setTitle("  Start NEW  ", for: .normal)
         } else{
             startNewRecording.setTitle("  Start Over  ", for: .normal)
@@ -581,6 +556,24 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
         NotificationCenter.default.addObserver(self, selector: #selector(self.possiblyDeletePDFImage(notification:)), name: Notification.Name("possiblyDeletePDFImage"), object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.permanentlyDeletePDFImage), name: Notification.Name("permanentlyDeletePDFImage"), object: nil)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        songLabel.text=titleToUse ?? ""
+        composerLabel.text=composerToUse ?? ""
+        eventLabel.text=eventToUse ?? ""
+        
+        if titleToUse=="No Song Title Entered"{
+            songLabel.text=""
+        }
+        
+        if composerToUse=="No Composer Entered"{
+            composerLabel.text=""
+        }
+        
+        if eventToUse=="No Event Entered"{
+            eventLabel.text=""
+        }
     }
     
     @objc func permanentlyDeletePDFImage(notification: Notification){
@@ -688,50 +681,31 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
         }
     }
     
+    //when app is moved to background, stop timer and audioRecorder, but don't save anything
     @objc func appMovedToBackground() {
-        if hours != 100 && minutes != 100 && seconds != 100{
-            recording?.hours=Double(hours)
-            recording?.minutes=Double(minutes)
-            recording?.seconds=Double(seconds)
-        }
-        
+        print("app went to background")
         RecordMusicViewController.timer.invalidate()
         countingTime=3
-        
-        if recording == nil{
-            recording = CoreDataHelper.newRecording()
-        }
         
         if audioRecorder != nil{
             audioRecorder.stop()
             audioRecorder = nil
             startNewRecording.setTitle("  Start Over  ", for: .normal)
         }
-        
-        if songLabel.text==""{
-            var firstCategory=UserDefaults.standard.string(forKey: "1stCategory") ?? "Song Title"
-            recording?.songTitle="No \(firstCategory.capitalizingFirstLetter()) Entered"
-        }else{
-            recording?.songTitle=songLabel.text
-        }
-        
-        if eventLabel.text==""{
-            var thirdCategory=UserDefaults.standard.string(forKey: "3rdCategory") ?? "Event"
-            recording?.songEvent="No \(thirdCategory.capitalizingFirstLetter()) Entered"
-        }else{
-            recording?.songEvent=eventLabel.text
-        }
-        
-        if composerLabel.text==""{
-            var secondCategory=UserDefaults.standard.string(forKey: "2ndCategory") ?? "Composer"
-            recording?.songComposer="No \(secondCategory.capitalizingFirstLetter()) Entered"
-        }else{
-            recording?.songComposer=composerLabel.text
-        }
-        
-        CoreDataHelper.saveRecording()
-        
     } //end of function
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        print("view disappeared")
+        
+        RecordMusicViewController.timer.invalidate()
+        countingTime=3
+        
+        if audioRecorder != nil{
+            audioRecorder.stop()
+            audioRecorder = nil
+            startNewRecording.setTitle("  Start Over  ", for: .normal)
+        }
+    }
     
     override func didReceiveMemoryWarning(){
         super.didReceiveMemoryWarning()
