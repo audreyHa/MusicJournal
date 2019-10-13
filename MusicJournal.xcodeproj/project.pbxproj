@@ -30,6 +30,7 @@
 		F6EB02BD2103D75A006CD141 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F6EB02BC2103D75A006CD141 /* Assets.xcassets */; };
 		F6EB02C02103D75A006CD141 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6EB02BE2103D75A006CD141 /* LaunchScreen.storyboard */; };
 		F6EB8AEE22E196170024AC4C /* OKAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6EB8AED22E196170024AC4C /* OKAlertViewController.swift */; };
+		F6F081A523529B97003A6E89 /* iPadStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6F081A423529B97003A6E89 /* iPadStoryboard.storyboard */; };
 		F6F73BFE234C54B900090946 /* SheetMusicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F73BFD234C54B900090946 /* SheetMusicCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +61,7 @@
 		F6EB02BF2103D75A006CD141 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F6EB02C12103D75A006CD141 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F6EB8AED22E196170024AC4C /* OKAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OKAlertViewController.swift; sourceTree = "<group>"; };
+		F6F081A423529B97003A6E89 /* iPadStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = iPadStoryboard.storyboard; sourceTree = "<group>"; };
 		F6F73BFD234C54B900090946 /* SheetMusicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetMusicCell.swift; sourceTree = "<group>"; };
 		FF6E27112EF0AEC392ABB0B7 /* Pods-MusicJournal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MusicJournal.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MusicJournal/Pods-MusicJournal.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -189,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				F6EB02B62103D759006CD141 /* Main.storyboard */,
+				F6F081A423529B97003A6E89 /* iPadStoryboard.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -271,6 +274,7 @@
 				F68B8FF523131D35003FE093 /* GoogleService-Info.plist in Resources */,
 				F6EB02BD2103D75A006CD141 /* Assets.xcassets in Resources */,
 				F6EB02B82103D759006CD141 /* Main.storyboard in Resources */,
+				F6F081A523529B97003A6E89 /* iPadStoryboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -509,7 +513,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = X5ZKFR55NQ;
 				INFOPLIST_FILE = MusicJournal/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -532,7 +536,7 @@
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = X5ZKFR55NQ;
 				INFOPLIST_FILE = MusicJournal/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
