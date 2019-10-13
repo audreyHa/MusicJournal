@@ -347,8 +347,6 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
     var sheetImages: [UIImage]!
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("sheet images count: \(sheetImages?.count)")
-        
         if sheetImages==nil{
             return 0
         }else{
@@ -559,9 +557,17 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        songLabel.text=titleToUse ?? ""
-        composerLabel.text=composerToUse ?? ""
-        eventLabel.text=eventToUse ?? ""
+        if titleToUse != nil{
+            songLabel.text=titleToUse
+        }
+        
+        if composerToUse != nil{
+            composerLabel.text=composerToUse
+        }
+        
+        if eventToUse != nil{
+            eventLabel.text=eventToUse
+        }
         
         if titleToUse=="No Song Title Entered"{
             songLabel.text=""
@@ -577,7 +583,8 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
     }
     
     @objc func permanentlyDeletePDFImage(notification: Notification){
-        sheetImages.remove(at: UserDefaults.standard.integer(forKey: "possiblyDeletePDFImage"))
+        print("removing sheet image at: \(UserDefaults.standard.integer(forKey: "possiblyDeletePDFImageRow"))")
+        sheetImages.remove(at: UserDefaults.standard.integer(forKey: "possiblyDeletePDFImageRow"))
         sheetCollectionView.reloadData()
     }
     

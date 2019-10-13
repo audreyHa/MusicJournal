@@ -44,33 +44,6 @@ class Tutorial1: UIViewController {
             button.backgroundColor=greyColor
             button.titleLabel!.adjustsFontSizeToFitWidth = true
         }
-        
-        switch UIDevice.current.userInterfaceIdiom {
-        case .phone:
-            for button in buttons{
-                button.titleLabel!.font=UIFont.systemFont(ofSize: 20)
-            }
-            
-            instructionsLabel.setSizeFont(sizeFont: 17)
-            instructionsSubLabel.setSizeFont(sizeFont: 20)
-
-            
-        case .pad:
-            for button in buttons{
-                button.titleLabel!.font=UIFont.systemFont(ofSize: 30)
-            }
-            
-            instructionsLabel.setSizeFont(sizeFont: 30)
-            instructionsSubLabel.setSizeFont(sizeFont: 25)
-
-            
-        case .unspecified:
-            print("Unspecified device shouldn't be the case")
-        case .tv:
-            print("TV shouldn't be the case")
-        case .carPlay:
-            print("Car Play shouldn't be the case")
-        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

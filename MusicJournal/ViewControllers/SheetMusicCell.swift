@@ -18,6 +18,7 @@ class SheetMusicCell: UICollectionViewCell {
 
         var myIndexPath = superView.indexPath(for: self)
         UserDefaults.standard.set(myIndexPath!.row, forKey: "possiblyDeletePDFImageRow")
+        print("possibly delete row: \(myIndexPath!.row)")
         
         NotificationCenter.default.post(name: Notification.Name("possiblyDeletePDFImage"), object: nil)
     }

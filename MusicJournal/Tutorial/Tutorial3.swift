@@ -52,34 +52,6 @@ class Tutorial3: UIViewController {
         
         doneButton.layer.cornerRadius=10
         doneButton.clipsToBounds=true
-        
-        switch UIDevice.current.userInterfaceIdiom {
-        case .phone:
-            for button in buttons{
-                button.titleLabel!.font=UIFont.systemFont(ofSize: 20)
-            }
-            
-            instructionsLabel.setSizeFont(sizeFont: 17)
-            instructionsSubLabel.setSizeFont(sizeFont: 20)
-            
-        case .pad:
-            for button in buttons{
-                button.titleLabel!.font=UIFont.systemFont(ofSize: 30)
-            }
-            
-            instructionsLabel.setSizeFont(sizeFont: 30)
-            instructionsSubLabel.setSizeFont(sizeFont: 25)
-            
-            doneWidth.constant=120
-            doneHeight.constant=80
-            doneButton.titleLabel!.font=UIFont.systemFont(ofSize: 30)
-        case .unspecified:
-            print("Unspecified device shouldn't be the case")
-        case .tv:
-            print("TV shouldn't be the case")
-        case .carPlay:
-            print("Car Play shouldn't be the case")
-        }
     }
     
     @IBAction func donePressed(_ sender: Any) {
