@@ -456,6 +456,39 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
         }
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        if UIDevice.current.orientation.isLandscape {
+            print("Landscape")
+        } else {
+            print("Portrait")
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3){
+            if let viewWithTag = self.view.viewWithTag(1234) { //PDF View
+                if let closeButton = self.view.viewWithTag(1111){
+                    if let whiteBackground = self.view.viewWithTag(4321){
+                        whiteBackground.frame=CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+                        
+                        switch UIDevice.current.userInterfaceIdiom {
+                        case .phone:
+                            viewWithTag.frame=CGRect(x: 0, y: 25, width: self.view.frame.width, height: self.view.frame.height*0.8)
+                        case .pad:
+                            closeButton.frame=CGRect(x: 10, y: 75, width: 20, height: 20)
+                            viewWithTag.frame=CGRect(x: 0, y: 95, width: self.view.frame.width, height: self.view.frame.height*0.9)
+                        case .unspecified:
+                            print("Unspecified device shouldn't be the case")
+                        case .tv:
+                            print("TV shouldn't be the case")
+                        case .carPlay:
+                            print("Car Play shouldn't be the case")
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     func addPDFView(data: Data){
         let whiteBackground=UIView()
         whiteBackground.backgroundColor=UIColor.white
@@ -468,12 +501,28 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
         // add pdfView to the view hierarchy and possibly add auto-layout constraints
 
         pdfView.document = PDFDocument(data: data)
-        pdfView.frame=CGRect(x: 0, y: self.view.frame.height*0.13+30, width: self.view.frame.width, height: self.view.frame.height*0.75)
+        var closeButton: UIButton = UIButton(frame: CGRect(x: 10, y: self.view.frame.height*0.13, width: 25, height: 25))
+        
+        switch UIDevice.current.userInterfaceIdiom {
+        case .phone:
+            pdfView.frame=CGRect(x: 0, y: self.view.frame.height*0.13+30, width: self.view.frame.width, height: self.view.frame.height*0.75)
+        case .pad:
+            closeButton = UIButton(frame: CGRect(x: 10, y: 75, width: 20, height: 20))
+            pdfView.frame=CGRect(x: 0, y: 95, width: self.view.frame.width, height: self.view.frame.height*0.9)
+        case .unspecified:
+            print("Unspecified device shouldn't be the case")
+        case .tv:
+            print("TV shouldn't be the case")
+        case .carPlay:
+            print("Car Play shouldn't be the case")
+        }
+        
+        
         pdfView.tag=1234
         self.view.addSubview(pdfView)
 
         //add close button to PDF so that user can close it
-        let closeButton: UIButton = UIButton(frame: CGRect(x: 10, y: self.view.frame.height*0.13, width: 25, height: 25))
+        
         closeButton.tag=1111
         closeButton.setImage(UIImage(imageLiteralResourceName: "closeIcon"), for: .normal)
         

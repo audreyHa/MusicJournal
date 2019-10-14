@@ -35,6 +35,8 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
     var deleteIndexPath: Int!
     var myCells = [myRecordingsTableViewCell]()
     
+    var hasPDFView=false
+    
     @IBAction func songButtonPressed(_ sender: Any) {
         customReorderToButton(myInteger: 1)
     }
@@ -121,6 +123,8 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
                 myPDF=getPDFFile(correctFilename: "\(sheetFilename)")
                 var correctData=myPDF.dataRepresentation()
                 addPDFView(data: correctData!)
+                
+                UserDefaults.standard.set(sheetFilename, forKey: "PDFfileToUpload")
             }
         }
     }
@@ -144,7 +148,44 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         return myPDF!
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        if UIDevice.current.orientation.isLandscape {
+            print("Landscape")
+        } else {
+            print("Portrait")
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3){
+            if let viewWithTag = self.view.viewWithTag(1234) { //PDF View
+                if let closeButton = self.view.viewWithTag(1111){
+                    if let whiteBackground = self.view.viewWithTag(4321){
+                        if let uploadPDFButton = self.view.viewWithTag(1112){
+                            whiteBackground.frame=CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+                            
+                            switch UIDevice.current.userInterfaceIdiom {
+                            case .phone:
+                                viewWithTag.frame=CGRect(x: 0, y: 25, width: self.view.frame.width, height: self.view.frame.height*0.8)
+                            case .pad:
+                                viewWithTag.frame=CGRect(x: 0, y: 30, width: self.view.frame.width, height: self.view.frame.height*0.9)
+                                closeButton.frame = CGRect(x: 10, y: 10, width: 20, height: 20)
+                                uploadPDFButton.frame=CGRect(x: self.view.frame.width-35, y: 10, width: 20, height: 20)
+                            case .unspecified:
+                                print("Unspecified device shouldn't be the case")
+                            case .tv:
+                                print("TV shouldn't be the case")
+                            case .carPlay:
+                                print("Car Play shouldn't be the case")
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     func addPDFView(data: Data){
+        hasPDFView=true
         let whiteBackground=UIView()
         whiteBackground.backgroundColor=UIColor.white
         whiteBackground.frame=CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
@@ -156,32 +197,92 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         // add pdfView to the view hierarchy and possibly add auto-layout constraints
 
         pdfView.document = PDFDocument(data: data)
-        pdfView.frame=CGRect(x: 0, y: 35, width: self.view.frame.width, height: self.view.frame.height*0.8)
+        var closeButton: UIButton = UIButton(frame: CGRect(x: 15, y: 15, width: 25, height: 25))
+        var uploadPDFButton: UIButton = UIButton(frame: CGRect(x: self.view.frame.width-35, y: 15, width: 25, height: 25))
+        
+        switch UIDevice.current.userInterfaceIdiom {
+        case .phone:
+            pdfView.frame=CGRect(x: 0, y: 20, width: self.view.frame.width, height: self.view.frame.height*0.8)
+        case .pad:
+            pdfView.frame=CGRect(x: 0, y: 30, width: self.view.frame.width, height: self.view.frame.height*0.9)
+            closeButton = UIButton(frame: CGRect(x: 10, y: 10, width: 20, height: 20))
+            uploadPDFButton = UIButton(frame: CGRect(x: self.view.frame.width-35, y: 10, width: 20, height: 20))
+        case .unspecified:
+            print("Unspecified device shouldn't be the case")
+        case .tv:
+            print("TV shouldn't be the case")
+        case .carPlay:
+            print("Car Play shouldn't be the case")
+        }
+        
+        
         pdfView.tag=1234
         self.view.addSubview(pdfView)
         
         //add close button to PDF so that user can close it
-        let closeButton: UIButton = UIButton(frame: CGRect(x: 10, y: 10, width: 25, height: 25))
+        
         closeButton.tag=1111
         closeButton.setImage(UIImage(imageLiteralResourceName: "closeIcon"), for: .normal)
         closeButton.addTarget(self, action: #selector(removePDFView), for: .touchUpInside)
         self.view.addSubview(closeButton)
+        
+        uploadPDFButton.tag=1112
+        uploadPDFButton.setImage(UIImage(imageLiteralResourceName: "exportV2"), for: .normal)
+        uploadPDFButton.addTarget(self, action: #selector(uploadPDF), for: .touchUpInside)
+        self.view.addSubview(uploadPDFButton)
+    }
+    
+    @objc func uploadPDF(){
+        //get filename from userdefaults
+        var filename=UserDefaults.standard.string(forKey: "PDFfileToUpload")
+        
+        self.controller.delegate = self
+        self.controller.presentPreview(animated: true)
+        
+        //get the file name
+        let dirPath: String = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+        let pathArray: [String] = [dirPath, filename!]
+        let filePathString: String = pathArray.joined(separator: "/")
+        print("this is file Path String: \(filePathString)")
+        
+        self.controller = UIDocumentInteractionController(url: NSURL(fileURLWithPath: filePathString) as URL)
+        
+        activityIndicator()
+        indicator.startAnimating()
+        indicator.color=self.redColor
+        indicator.backgroundColor = UIColor.white
+        
+        self.controller.presentOptionsMenu(from: CGRect.zero, in: self.view, animated: true)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+            self.indicator.stopAnimating()
+            self.indicator.hidesWhenStopped = true
+        })
+        
+        Analytics.logEvent("exportingPDF", parameters: nil)
     }
     
     @objc func removePDFView(){
-        if let viewWithTag = self.view.viewWithTag(1234) {
+        if let viewWithTag = self.view.viewWithTag(1234) { //PDF View
+            viewWithTag.removeFromSuperview()
+            hasPDFView=false
+        }else{
+            print("Don't remove this subview from superview")
+        }
+        
+        if let viewWithTag = self.view.viewWithTag(4321) { //white background
             viewWithTag.removeFromSuperview()
         }else{
             print("Don't remove this subview from superview")
         }
         
-        if let viewWithTag = self.view.viewWithTag(4321) {
+        if let viewWithTag = self.view.viewWithTag(1111) { //close button
             viewWithTag.removeFromSuperview()
         }else{
             print("Don't remove this subview from superview")
         }
         
-        if let viewWithTag = self.view.viewWithTag(1111) {
+        if let viewWithTag = self.view.viewWithTag(1112) { //upload PDF button
             viewWithTag.removeFromSuperview()
         }else{
             print("Don't remove this subview from superview")
@@ -295,6 +396,14 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         return arrayOfRecordingsInfo.count
     }
     
+    var indicator = UIActivityIndicatorView()
+    
+    func activityIndicator() {
+        indicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        indicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        indicator.center = self.view.center
+        self.view.addSubview(indicator)
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         
@@ -428,15 +537,6 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
             UserDefaults.standard.set("delete",forKey: "typeYesNoAlert")
             self.makeYesNoAlert()
         }
-
-        var indicator = UIActivityIndicatorView()
-        
-        func activityIndicator() {
-            indicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
-            indicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
-            indicator.center = self.view.center
-            self.view.addSubview(indicator)
-        }
         
         cell.onExportTouched = { (theCell) in
             guard let indexPath = tableView.indexPath(for: theCell) else { return }
@@ -454,16 +554,16 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
                 
                 self.controller = UIDocumentInteractionController(url: NSURL(fileURLWithPath: filePathString) as URL)
                 
-                activityIndicator()
-                indicator.startAnimating()
-                indicator.color=self.redColor
-                indicator.backgroundColor = UIColor.white
+                self.activityIndicator()
+                self.indicator.startAnimating()
+                self.indicator.color=self.redColor
+                self.indicator.backgroundColor = UIColor.white
                 
                 self.controller.presentOptionsMenu(from: CGRect.zero, in: self.view, animated: true)
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
-                    indicator.stopAnimating()
-                    indicator.hidesWhenStopped = true
+                    self.indicator.stopAnimating()
+                    self.indicator.hidesWhenStopped = true
                 })
                 
                 Analytics.logEvent("exportingRecording", parameters: nil)
