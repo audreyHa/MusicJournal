@@ -3,7 +3,7 @@ With MusiCord, users can quickly organize recordings according to their own cust
 
 After recording themselves playing a musical piece, users can select which of their 4 custom categories they will sort by, and the app will automatically reorder their recordings. While creating their recordings, users can also scan the sheet music for that song in order to keep their music organized.
 
-Users can edit their category names and switch the method of organization at any time. They can also export your sheet music and/or recordings to family and friends.
+Users can edit their category names and switch the method of organization at any time. They can also export their sheet music and/or recordings to family and friends.
 
 ## Motivation
 Musicians of all levels can greatly improve their musical skills by recording themselves playing a song and listening back to it. However, when musicians have many recordings and a busy schedule, organizing and finding recordings or sheet music can be a difficult and time-consuming task. 
