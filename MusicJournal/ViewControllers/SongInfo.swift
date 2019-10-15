@@ -209,8 +209,8 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
                 //save current images into new PDF
                 var newSheet=CoreDataHelper.newSheetMusic()
                 newSheet.dateModified=dateToUse
-                saveIntoPDF(filename: "\(dateString).pdf")
-                newSheet.filename="\(dateString).pdf"
+                saveIntoPDF(filename: "MusiCord\(dateString).pdf")
+                newSheet.filename="MusiCord\(dateString).pdf"
             }
             
             if hours != 100 && minutes != 100 && seconds != 100{
@@ -606,15 +606,15 @@ class RecordMusicViewController: UIViewController, AVAudioRecorderDelegate, IRLS
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if titleToUse != nil{
+        if titleToUse != nil && songLabel.text == ""{
             songLabel.text=titleToUse
         }
         
-        if composerToUse != nil{
+        if composerToUse != nil && composerLabel.text == ""{
             composerLabel.text=composerToUse
         }
         
-        if eventToUse != nil{
+        if eventToUse != nil && eventLabel.text == ""{
             eventLabel.text=eventToUse
         }
         

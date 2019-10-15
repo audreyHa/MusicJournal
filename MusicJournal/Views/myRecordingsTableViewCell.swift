@@ -114,7 +114,7 @@ class myRecordingsTableViewCell: UITableViewCell{
         }
 
     @objc func handleSliderChange(){
-        if slider.maximumValue != nil && slider.maximumValue != 0{
+        if slider.maximumValue != nil && slider.maximumValue != 0 && newAudioPlayer != nil{
             newAudioPlayer.currentTime=TimeInterval(slider.value)
             var intSlider=Double(slider.value)
             var updateHours=floor((intSlider)/3600)

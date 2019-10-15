@@ -29,15 +29,15 @@ class HomeViewController: UIViewController {
         var allRecordings=CoreDataHelper.retrieveRecording()
         for recording in allRecordings{
             if recording.songTitle==nil{
-                recording.songTitle="Temporary title"
+                recording.songTitle="No Song Title Entered"
             }
             
             if recording.songEvent==nil{
-                recording.songEvent="Temporary event"
+                recording.songEvent="No Event Entered"
             }
             
             if recording.songComposer==nil{
-                recording.songComposer="Temporary composer"
+                recording.songComposer="No Composer Entered"
             }
             
             CoreDataHelper.saveRecording()
