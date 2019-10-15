@@ -37,6 +37,7 @@ class Tutorial1: UIViewController {
         buttons=[song, composer, artist, album, event, instrument, interviewer, interviewee, custom]
 
         instructionsLabel.adjustsFontSizeToFitWidth=true
+        instructionsSubLabel.adjustsFontSizeToFitWidth=true
         
         for button in buttons{
             button.layer.cornerRadius = 10

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="PMu-Dg-cLr">
-    <device id="ipad12_9rounded" orientation="landscape" layout="fullscreen" appearance="light"/>
+    <device id="ipad12_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
@@ -14,29 +14,29 @@
             <objects>
                 <viewController id="PMu-Dg-cLr" customClass="HomeViewController" customModule="MusicJournal" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cca-cA-ZHq">
-                        <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jaj-ch-uwM">
-                                <rect key="frame" x="0.0" y="0.0" width="1366" height="1004"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="1346"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="lF5-c4-Boc">
-                                        <rect key="frame" x="30" y="403" width="1306" height="198"/>
+                                        <rect key="frame" x="30" y="574" width="964" height="198"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MusiCord" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dl1-jn-3IJ">
-                                                <rect key="frame" x="538" y="0.0" width="230" height="70"/>
+                                                <rect key="frame" x="367" y="0.0" width="230" height="70"/>
                                                 <fontDescription key="fontDescription" name="PingFangHK-Semibold" family="PingFang HK" pointSize="50"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Record, Organize, and Share!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CcG-g4-uie">
-                                                <rect key="frame" x="516" y="100" width="274" height="28"/>
+                                                <rect key="frame" x="345" y="100" width="274" height="28"/>
                                                 <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hjt-P9-uGu">
-                                                <rect key="frame" x="534.5" y="158" width="237" height="40"/>
+                                                <rect key="frame" x="363.5" y="158" width="237" height="40"/>
                                                 <color key="backgroundColor" red="0.90980392160000001" green="0.35294117650000001" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="20"/>
                                                 <state key="normal" title="  Go To My Recordings!  ">
@@ -81,7 +81,7 @@
             <objects>
                 <tableViewController id="I7B-9D-JmU" customClass="MyRecordingsTableViewController" customModule="MusicJournal" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="pMW-yZ-PtH">
-                        <rect key="frame" x="0.0" y="0.0" width="712" height="984"/>
+                        <rect key="frame" x="0.0" y="0.0" width="712" height="1006.5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.14999999999999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="sectionIndexBackgroundColor" white="0.14999999999999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -97,7 +97,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="45" id="ALQ-SW-4MD"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" name="PingFangHK-Semibold" family="PingFang HK" pointSize="19"/>
+                                            <fontDescription key="fontDescription" name="PingFangHK-Semibold" family="PingFang HK" pointSize="25"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -107,7 +107,7 @@
                                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IbY-VU-lQo">
                                                     <rect key="frame" x="0.0" y="0.0" width="316" height="45"/>
                                                     <color key="backgroundColor" red="0.90980392160000001" green="0.35294117650000001" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                     <state key="normal" title="Song Title">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -118,7 +118,7 @@
                                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ctL-zf-m8n">
                                                     <rect key="frame" x="336" y="0.0" width="316" height="45"/>
                                                     <color key="backgroundColor" red="0.90980392160000001" green="0.35294117650000001" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                     <state key="normal" title="Composer">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
@@ -144,7 +144,7 @@
                                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I0K-HW-hDt">
                                                     <rect key="frame" x="0.0" y="0.0" width="316" height="45"/>
                                                     <color key="backgroundColor" red="0.90980392160000001" green="0.35294117650000001" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                     <state key="normal" title="Date">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -155,7 +155,7 @@
                                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gqk-bV-DvH">
                                                     <rect key="frame" x="336" y="0.0" width="316" height="45"/>
                                                     <color key="backgroundColor" red="0.90980392160000001" green="0.35294117650000001" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                     <state key="normal" title="Event">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
@@ -208,29 +208,29 @@
                                                     <rect key="frame" x="15" y="15" width="652" height="119"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="x8W-lt-QI2" userLabel="songInfo">
-                                                            <rect key="frame" x="0.0" y="0.0" width="617" height="106.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="617" height="119"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Song Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ckj-qG-Cj5">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="617" height="22.5"/>
-                                                                    <fontDescription key="fontDescription" name="PingFangHK-Semibold" family="PingFang HK" pointSize="16"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="617" height="28"/>
+                                                                    <fontDescription key="fontDescription" name="PingFangHK-Semibold" family="PingFang HK" pointSize="20"/>
                                                                     <color key="textColor" red="0.90980392160000001" green="0.35294117650000001" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Date" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7cY-lo-fP6">
-                                                                    <rect key="frame" x="0.0" y="32.5" width="617" height="18"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                    <rect key="frame" x="0.0" y="38" width="617" height="18"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Composer" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2aW-96-08q">
-                                                                    <rect key="frame" x="0.0" y="60.5" width="617" height="18"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                    <rect key="frame" x="0.0" y="66" width="617" height="21.5"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Event" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pNe-cJ-sst">
-                                                                    <rect key="frame" x="0.0" y="88.5" width="617" height="18"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                    <rect key="frame" x="0.0" y="97.5" width="617" height="21.5"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -331,15 +331,15 @@
                                                             </connections>
                                                         </button>
                                                         <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="8uW-ue-vtT">
-                                                            <rect key="frame" x="74" y="0.0" width="516" height="31"/>
+                                                            <rect key="frame" x="74" y="0.0" width="482" height="31"/>
                                                             <color key="tintColor" red="0.84705882349999995" green="0.38823529410000002" blue="0.30980392159999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         </slider>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00 : 00 : 00" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KuA-jQ-Sun">
-                                                            <rect key="frame" x="596" y="0.0" width="66" height="30"/>
+                                                            <rect key="frame" x="562" y="0.0" width="100" height="30"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="66" id="P7u-em-G0z"/>
+                                                                <constraint firstAttribute="width" constant="100" id="P7u-em-G0z"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="12"/>
+                                                            <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="16"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -423,34 +423,34 @@
             <objects>
                 <viewController storyboardIdentifier="secondViewController" id="0kR-EO-w37" customClass="RecordMusicViewController" customModule="MusicJournal" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="E2Z-Er-fEm">
-                        <rect key="frame" x="0.0" y="0.0" width="712" height="984"/>
+                        <rect key="frame" x="0.0" y="0.0" width="712" height="1006.5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="04l-0r-9fU">
-                                <rect key="frame" x="0.0" y="56" width="712" height="928"/>
+                                <rect key="frame" x="0.0" y="56" width="712" height="950.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ove-XC-ve8" userLabel="A">
-                                        <rect key="frame" x="15" y="15" width="682" height="371"/>
+                                        <rect key="frame" x="15" y="15" width="682" height="380"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Info:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e64-m3-VS7">
-                                                <rect key="frame" x="0.0" y="0.0" width="682" height="45"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="682" height="46.5"/>
                                                 <fontDescription key="fontDescription" name="PingFangHK-Semibold" family="PingFang HK" pointSize="25"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="X8T-3V-wvN" userLabel="song">
-                                                <rect key="frame" x="0.0" y="65" width="682" height="45.5"/>
+                                                <rect key="frame" x="0.0" y="66.5" width="682" height="47"/>
                                                 <subviews>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Song: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DV8-vO-91e">
-                                                        <rect key="frame" x="0.0" y="0.0" width="56.5" height="45.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="56.5" height="47"/>
                                                         <color key="backgroundColor" red="0.90980392160000001" green="0.35294117650000001" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="17"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="igW-xe-r68">
-                                                        <rect key="frame" x="71.5" y="0.0" width="610.5" height="45.5"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <rect key="frame" x="71.5" y="0.0" width="610.5" height="47"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
                                                 </subviews>
@@ -463,18 +463,18 @@
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="qvn-C3-Iuv" userLabel="composer">
-                                                <rect key="frame" x="0.0" y="130.5" width="682" height="45"/>
+                                                <rect key="frame" x="0.0" y="133.5" width="682" height="46.5"/>
                                                 <subviews>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Composer: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lGl-NJ-9Z0">
-                                                        <rect key="frame" x="0.0" y="0.0" width="97" height="45"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="97" height="46.5"/>
                                                         <color key="backgroundColor" red="0.90980392160000001" green="0.35294117650000001" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="17"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GvB-yT-x1e">
-                                                        <rect key="frame" x="112" y="0.0" width="570" height="45"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <rect key="frame" x="112" y="0.0" width="570" height="46.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
                                                 </subviews>
@@ -485,18 +485,18 @@
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="1ru-rL-daF" userLabel="event">
-                                                <rect key="frame" x="0.0" y="195.5" width="682" height="45.5"/>
+                                                <rect key="frame" x="0.0" y="200" width="682" height="47"/>
                                                 <subviews>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Interviewee: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b25-VI-9YN">
-                                                        <rect key="frame" x="0.0" y="0.0" width="105" height="45.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="105" height="47"/>
                                                         <color key="backgroundColor" red="0.90980392160000001" green="0.35294117650000001" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="17"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="68O-Fk-Ui3">
-                                                        <rect key="frame" x="120" y="0.0" width="562" height="45.5"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <rect key="frame" x="120" y="0.0" width="562" height="47"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
                                                 </subviews>
@@ -507,12 +507,12 @@
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="4Lp-9c-7Q6" userLabel="recording buttons">
-                                                <rect key="frame" x="0.0" y="261" width="682" height="45"/>
+                                                <rect key="frame" x="0.0" y="267" width="682" height="46.5"/>
                                                 <subviews>
                                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5s6-Ud-EcG">
-                                                        <rect key="frame" x="0.0" y="0.0" width="592" height="45"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="592" height="46.5"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <fontDescription key="fontDescription" name="PingFangHK-Semibold" family="PingFang HK" pointSize="15"/>
+                                                        <fontDescription key="fontDescription" name="PingFangHK-Semibold" family="PingFang HK" pointSize="20"/>
                                                         <state key="normal" title="Start NEW">
                                                             <color key="titleColor" red="0.90980392160000001" green="0.35294117650000001" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         </state>
@@ -521,7 +521,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uhl-21-hfj">
-                                                        <rect key="frame" x="622" y="0.0" width="60" height="45"/>
+                                                        <rect key="frame" x="622" y="0.0" width="60" height="46.5"/>
                                                         <color key="backgroundColor" red="0.90980392160000001" green="0.35294117650000001" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="60" id="WnL-KL-b4o"/>
@@ -536,16 +536,16 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Kdm-IL-lxR">
-                                                <rect key="frame" x="0.0" y="326" width="682" height="45"/>
+                                                <rect key="frame" x="0.0" y="333.5" width="682" height="46.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rEE-f0-TPO">
-                                                        <rect key="frame" x="0.0" y="0.0" width="401" height="45"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="401" height="46.5"/>
                                                         <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="25"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z9R-zD-Sjn">
-                                                        <rect key="frame" x="409" y="0.0" width="273" height="45"/>
+                                                        <rect key="frame" x="409" y="0.0" width="273" height="46.5"/>
                                                         <color key="backgroundColor" red="0.91764705879999997" green="0.90588235289999997" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="15"/>
                                                         <state key="normal" title="  Scan Sheet Music  ">
@@ -583,7 +583,7 @@
                                         </constraints>
                                     </stackView>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="SjM-xc-Hwi">
-                                        <rect key="frame" x="20" y="466" width="672" height="442"/>
+                                        <rect key="frame" x="20" y="475" width="672" height="455.5"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="uj8-jQ-O5s">
                                             <size key="itemSize" width="100" height="100"/>
@@ -633,7 +633,7 @@
                                         </cells>
                                     </collectionView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="14l-cF-6xh">
-                                        <rect key="frame" x="572" y="406" width="120" height="40"/>
+                                        <rect key="frame" x="572" y="415" width="120" height="40"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="120" id="hpy-on-h8J"/>
@@ -709,7 +709,7 @@
             <objects>
                 <viewController id="XaX-ZA-bXG" customClass="editCategoriesVC" customModule="MusicJournal" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="X3U-y9-ft6">
-                        <rect key="frame" x="0.0" y="0.0" width="712" height="984"/>
+                        <rect key="frame" x="0.0" y="0.0" width="712" height="1006.5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="kVD-5k-hqH">
@@ -864,11 +864,11 @@
             <objects>
                 <viewController storyboardIdentifier="tutorialOne" id="VfR-ld-CeC" customClass="Tutorial1" customModule="MusicJournal" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pJ9-sZ-0QR">
-                        <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circleHighRes" translatesAutoresizingMaskIntoConstraints="NO" id="mVV-Uo-aVk">
-                                <rect key="frame" x="620.5" y="20" width="125" height="125"/>
+                                <rect key="frame" x="449.5" y="20" width="125" height="125"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="125" id="GrI-q6-hkZ"/>
                                     <constraint firstAttribute="width" constant="125" id="aPq-fj-Zw8"/>
@@ -876,10 +876,10 @@
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="dSw-d3-hAy">
-                                <rect key="frame" x="30" y="281.5" width="1306" height="692.5"/>
+                                <rect key="frame" x="30" y="319.5" width="964" height="996.5"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OY3-0r-bSv">
-                                        <rect key="frame" x="0.0" y="0.0" width="1306" height="59"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="964" height="93"/>
                                         <color key="backgroundColor" white="0.14999999999999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="25"/>
                                         <state key="normal" title="    Song Title ">
@@ -891,7 +891,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fMN-2t-U8e">
-                                        <rect key="frame" x="0.0" y="79" width="1306" height="59.5"/>
+                                        <rect key="frame" x="0.0" y="113" width="964" height="93"/>
                                         <color key="backgroundColor" white="0.14999999999999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="25"/>
                                         <state key="normal" title="    Composer ">
@@ -903,7 +903,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HJA-hk-dKi">
-                                        <rect key="frame" x="0.0" y="158.5" width="1306" height="59"/>
+                                        <rect key="frame" x="0.0" y="226" width="964" height="93"/>
                                         <color key="backgroundColor" white="0.14999999999999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="25"/>
                                         <state key="normal" title="    Artist ">
@@ -915,7 +915,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Q1-46-fbE">
-                                        <rect key="frame" x="0.0" y="237.5" width="1306" height="59"/>
+                                        <rect key="frame" x="0.0" y="339" width="964" height="93"/>
                                         <color key="backgroundColor" white="0.14999999999999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="25"/>
                                         <state key="normal" title="    Album ">
@@ -927,7 +927,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="beP-uf-cqU">
-                                        <rect key="frame" x="0.0" y="316.5" width="1306" height="59.5"/>
+                                        <rect key="frame" x="0.0" y="452" width="964" height="92.5"/>
                                         <color key="backgroundColor" white="0.14999999999999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="25"/>
                                         <state key="normal" title="    Event ">
@@ -939,7 +939,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IsF-G1-IyG">
-                                        <rect key="frame" x="0.0" y="396" width="1306" height="59"/>
+                                        <rect key="frame" x="0.0" y="564.5" width="964" height="93"/>
                                         <color key="backgroundColor" white="0.14999999999999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="25"/>
                                         <state key="normal" title="    Instrument ">
@@ -951,7 +951,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LBx-4f-E8U">
-                                        <rect key="frame" x="0.0" y="475" width="1306" height="59"/>
+                                        <rect key="frame" x="0.0" y="677.5" width="964" height="93"/>
                                         <color key="backgroundColor" white="0.14999999999999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="25"/>
                                         <state key="normal" title="    Interviewer ">
@@ -963,7 +963,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fTQ-sB-D6b">
-                                        <rect key="frame" x="0.0" y="554" width="1306" height="59.5"/>
+                                        <rect key="frame" x="0.0" y="790.5" width="964" height="93"/>
                                         <color key="backgroundColor" white="0.14999999999999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="25"/>
                                         <state key="normal" title="    Interviewee ">
@@ -975,7 +975,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5XA-WK-6nY">
-                                        <rect key="frame" x="0.0" y="633.5" width="1306" height="59"/>
+                                        <rect key="frame" x="0.0" y="903.5" width="964" height="93"/>
                                         <color key="backgroundColor" white="0.14999999999999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="25"/>
                                         <state key="normal" title="    Custom ">
@@ -1000,16 +1000,16 @@
                                 </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="0da-0W-KSE" userLabel="InstructionsStack">
-                                <rect key="frame" x="30" y="165" width="1306" height="86.5"/>
+                                <rect key="frame" x="30" y="165" width="964" height="124.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="With MusiCord, you can sort your recordings by 3 categories of your choice." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lqd-Si-GUs">
-                                        <rect key="frame" x="0.0" y="0.0" width="1306" height="33.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="964" height="52.5"/>
                                         <fontDescription key="fontDescription" name="PingFangHK-Semibold" family="PingFang HK" pointSize="25"/>
                                         <color key="textColor" red="0.90980392160000001" green="0.34901960780000002" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Select the 1st Category!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Om-Sc-ccS">
-                                        <rect key="frame" x="0.0" y="53.5" width="1306" height="33"/>
+                                        <rect key="frame" x="0.0" y="72.5" width="964" height="52"/>
                                         <fontDescription key="fontDescription" name="PingFangHK-Semibold" family="PingFang HK" pointSize="30"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -1063,20 +1063,20 @@
             <objects>
                 <viewController storyboardIdentifier="tutorialTwo" id="ebS-bf-cdi" customClass="Tutorial2" customModule="MusicJournal" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="O9G-5f-Hdx">
-                        <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="gET-95-dvR" userLabel="InstructionsStack">
-                                <rect key="frame" x="30" y="165" width="1306" height="86.5"/>
+                                <rect key="frame" x="30" y="165" width="964" height="124.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Please Select the 2nd Category!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zwq-m6-acP">
-                                        <rect key="frame" x="0.0" y="0.0" width="1306" height="33.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="964" height="52.5"/>
                                         <fontDescription key="fontDescription" name="PingFangHK-Semibold" family="PingFang HK" pointSize="30"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Don't worry, you can edit these categories later)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m4n-Z8-HUk">
-                                        <rect key="frame" x="0.0" y="53.5" width="1306" height="33"/>
+                                        <rect key="frame" x="0.0" y="72.5" width="964" height="52"/>
                                         <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="25"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -1089,10 +1089,10 @@
                                 </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="vdi-c9-GEP">
-                                <rect key="frame" x="30" y="281.5" width="1306" height="692.5"/>
+                                <rect key="frame" x="30" y="319.5" width="964" height="996.5"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FX0-Ic-GkW">
-                                        <rect key="frame" x="0.0" y="0.0" width="1306" height="55"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="964" height="88.5"/>
                                         <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                         <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="25"/>
                                         <state key="normal" title="    Song Title ">
@@ -1105,7 +1105,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9qi-SM-jzr">
-                                        <rect key="frame" x="0.0" y="80" width="1306" height="54.5"/>
+                                        <rect key="frame" x="0.0" y="113.5" width="964" height="88.5"/>
                                         <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                         <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="25"/>
                                         <state key="normal" title="    Composer ">
@@ -1118,7 +1118,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tG0-Pl-SJq">
-                                        <rect key="frame" x="0.0" y="159.5" width="1306" height="54.5"/>
+                                        <rect key="frame" x="0.0" y="227" width="964" height="88.5"/>
                                         <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                         <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="25"/>
                                         <state key="normal" title="    Artist ">
@@ -1131,7 +1131,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pD6-qQ-eQ6">
-                                        <rect key="frame" x="0.0" y="239" width="1306" height="55"/>
+                                        <rect key="frame" x="0.0" y="340.5" width="964" height="88.5"/>
                                         <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                         <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="25"/>
                                         <state key="normal" title="    Album ">
@@ -1144,7 +1144,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wwt-CO-dgq">
-                                        <rect key="frame" x="0.0" y="319" width="1306" height="54.5"/>
+                                        <rect key="frame" x="0.0" y="454" width="964" height="88.5"/>
                                         <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                         <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="25"/>
                                         <state key="normal" title="    Event ">
@@ -1157,7 +1157,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Q3-kj-29k">
-                                        <rect key="frame" x="0.0" y="398.5" width="1306" height="55"/>
+                                        <rect key="frame" x="0.0" y="567.5" width="964" height="88.5"/>
                                         <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                         <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="25"/>
                                         <state key="normal" title="    Instrument ">
@@ -1170,7 +1170,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xpb-fV-xd1">
-                                        <rect key="frame" x="0.0" y="478.5" width="1306" height="54.5"/>
+                                        <rect key="frame" x="0.0" y="681" width="964" height="88.5"/>
                                         <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                         <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="25"/>
                                         <state key="normal" title="    Interviewer ">
@@ -1183,7 +1183,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VAB-OK-YMv">
-                                        <rect key="frame" x="0.0" y="558" width="1306" height="55"/>
+                                        <rect key="frame" x="0.0" y="794.5" width="964" height="88.5"/>
                                         <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                         <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="25"/>
                                         <state key="normal" title="    Interviewee ">
@@ -1196,7 +1196,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uic-FT-7WM">
-                                        <rect key="frame" x="0.0" y="638" width="1306" height="54.5"/>
+                                        <rect key="frame" x="0.0" y="908" width="964" height="88.5"/>
                                         <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                         <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="25"/>
                                         <state key="normal" title="    Custom ">
@@ -1222,7 +1222,7 @@
                                 </constraints>
                             </stackView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circleHighRes" translatesAutoresizingMaskIntoConstraints="NO" id="16j-Kl-Pf0">
-                                <rect key="frame" x="620.5" y="20" width="125" height="125"/>
+                                <rect key="frame" x="449.5" y="20" width="125" height="125"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="16j-Kl-Pf0" secondAttribute="height" multiplier="1:1" id="AGz-Hk-5mI"/>
                                     <constraint firstAttribute="height" constant="125" id="acQ-el-lyu"/>
@@ -1269,11 +1269,11 @@
             <objects>
                 <viewController storyboardIdentifier="tutorialThree" id="s8t-zq-iBx" customClass="Tutorial3" customModule="MusicJournal" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jTE-f9-MyO">
-                        <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circleHighRes" translatesAutoresizingMaskIntoConstraints="NO" id="fz3-wn-uQN">
-                                <rect key="frame" x="620.5" y="20" width="125" height="125"/>
+                                <rect key="frame" x="449.5" y="20" width="125" height="125"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="125" id="CEC-v8-Mcg"/>
                                     <constraint firstAttribute="width" secondItem="fz3-wn-uQN" secondAttribute="height" multiplier="1:1" id="GjJ-0P-XU8"/>
@@ -1281,15 +1281,15 @@
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="mng-7f-oL9" userLabel="InstructionsStack">
-                                <rect key="frame" x="30" y="165" width="1306" height="81.5"/>
+                                <rect key="frame" x="30" y="165" width="964" height="119.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Please Select the 3rd Category!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jo4-fV-x4V">
-                                        <rect key="frame" x="0.0" y="0.0" width="1306" height="33.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="964" height="52.5"/>
                                         <fontDescription key="fontDescription" name="PingFangHK-Semibold" family="PingFang HK" pointSize="30"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Don't worry, you can edit these categories later)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5rc-rV-ghd">
-                                        <rect key="frame" x="0.0" y="48.5" width="1306" height="33"/>
+                                        <rect key="frame" x="0.0" y="67.5" width="964" height="52"/>
                                         <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="25"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -1301,10 +1301,10 @@
                                 </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="RVW-DQ-hxq">
-                                <rect key="frame" x="30" y="261.5" width="1306" height="652.5"/>
+                                <rect key="frame" x="30" y="299.5" width="964" height="956.5"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AMZ-vx-Sbu">
-                                        <rect key="frame" x="0.0" y="0.0" width="1306" height="50.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="964" height="84"/>
                                         <color key="backgroundColor" white="0.14999999999999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="25"/>
                                         <state key="normal" title="    Song Title ">
@@ -1317,7 +1317,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9in-Jj-oFH">
-                                        <rect key="frame" x="0.0" y="75.5" width="1306" height="50"/>
+                                        <rect key="frame" x="0.0" y="109" width="964" height="84"/>
                                         <color key="backgroundColor" white="0.14999999999999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="25"/>
                                         <state key="normal" title="    Composer ">
@@ -1330,7 +1330,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AxD-bM-j7p">
-                                        <rect key="frame" x="0.0" y="150.5" width="1306" height="50.5"/>
+                                        <rect key="frame" x="0.0" y="218" width="964" height="84"/>
                                         <color key="backgroundColor" white="0.14999999999999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="25"/>
                                         <state key="normal" title="    Artist ">
@@ -1343,7 +1343,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uOJ-dV-fDr">
-                                        <rect key="frame" x="0.0" y="226" width="1306" height="50"/>
+                                        <rect key="frame" x="0.0" y="327" width="964" height="84.5"/>
                                         <color key="backgroundColor" white="0.14999999999999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="25"/>
                                         <state key="normal" title="    Album ">
@@ -1356,7 +1356,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xOX-XF-dVJ">
-                                        <rect key="frame" x="0.0" y="301" width="1306" height="50.5"/>
+                                        <rect key="frame" x="0.0" y="436.5" width="964" height="84"/>
                                         <color key="backgroundColor" white="0.14999999999999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="25"/>
                                         <state key="normal" title="    Event ">
@@ -1369,7 +1369,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NR3-NR-Kru">
-                                        <rect key="frame" x="0.0" y="376.5" width="1306" height="50"/>
+                                        <rect key="frame" x="0.0" y="545.5" width="964" height="84"/>
                                         <color key="backgroundColor" white="0.14999999999999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="25"/>
                                         <state key="normal" title="    Instrument ">
@@ -1382,7 +1382,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a8e-2i-BX2">
-                                        <rect key="frame" x="0.0" y="451.5" width="1306" height="50.5"/>
+                                        <rect key="frame" x="0.0" y="654.5" width="964" height="84"/>
                                         <color key="backgroundColor" white="0.14999999999999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="25"/>
                                         <state key="normal" title="    Interviewer ">
@@ -1395,7 +1395,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4wh-WJ-vxD">
-                                        <rect key="frame" x="0.0" y="527" width="1306" height="50"/>
+                                        <rect key="frame" x="0.0" y="763.5" width="964" height="84"/>
                                         <color key="backgroundColor" white="0.14999999999999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="25"/>
                                         <state key="normal" title="    Interviewee ">
@@ -1408,7 +1408,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uIc-ub-ybZ">
-                                        <rect key="frame" x="0.0" y="602" width="1306" height="50.5"/>
+                                        <rect key="frame" x="0.0" y="872.5" width="964" height="84"/>
                                         <color key="backgroundColor" white="0.14999999999999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="PingFangHK-Regular" family="PingFang HK" pointSize="25"/>
                                         <state key="normal" title="    Custom ">
@@ -1434,7 +1434,7 @@
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eIP-eN-u5r">
-                                <rect key="frame" x="1186" y="929" width="150" height="60"/>
+                                <rect key="frame" x="844" y="1271" width="150" height="60"/>
                                 <color key="backgroundColor" red="0.84705882349999995" green="0.38823529410000002" blue="0.30980392159999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="v3z-1y-yvf"/>
@@ -1493,11 +1493,11 @@
             <objects>
                 <viewController storyboardIdentifier="OKAlertViewController" id="RUa-yv-etP" customClass="OKAlertViewController" customModule="MusicJournal" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PD7-rr-4H9">
-                        <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lQy-N6-UuP">
-                                <rect key="frame" x="458" y="277" width="450" height="450"/>
+                                <rect key="frame" x="287" y="448" width="450" height="450"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circleHighRes" translatesAutoresizingMaskIntoConstraints="NO" id="Rsc-CF-bLu">
                                         <rect key="frame" x="169" y="-37.5" width="112.5" height="67.5"/>
@@ -1631,11 +1631,11 @@
             <objects>
                 <viewController storyboardIdentifier="ShortAlertVC" id="Wfx-aM-B4m" customClass="ShortAlertVC" customModule="MusicJournal" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bO8-a6-zgu">
-                        <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zaN-cd-Ntx">
-                                <rect key="frame" x="508" y="327" width="350" height="350"/>
+                                <rect key="frame" x="337" y="498" width="350" height="350"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circleHighRes" translatesAutoresizingMaskIntoConstraints="NO" id="Aja-tF-h3r">
                                         <rect key="frame" x="131.5" y="-44" width="87.5" height="74"/>
@@ -1743,11 +1743,11 @@
             <objects>
                 <viewController storyboardIdentifier="YesNoAlertVC" id="3da-Dm-6UI" customClass="YesNoAlertVC" customModule="MusicJournal" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5mo-6C-z5N">
-                        <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Ez-Lx-RSq">
-                                <rect key="frame" x="508" y="327" width="350" height="350"/>
+                                <rect key="frame" x="337" y="498" width="350" height="350"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circleHighRes" translatesAutoresizingMaskIntoConstraints="NO" id="K0v-ac-UPS">
                                         <rect key="frame" x="131.5" y="-44" width="87.5" height="74"/>
@@ -1875,11 +1875,11 @@
             <objects>
                 <viewController storyboardIdentifier="CustomCategoryAlert" id="4V1-fM-cgr" customClass="CustomCategoryAlert" customModule="MusicJournal" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hyU-RS-gCM">
-                        <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GXY-Ci-bO8">
-                                <rect key="frame" x="555" y="80" width="256" height="250"/>
+                                <rect key="frame" x="384" y="80" width="256" height="250"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circleHighRes" translatesAutoresizingMaskIntoConstraints="NO" id="16w-RV-8SC">
                                         <rect key="frame" x="96" y="-24" width="64" height="54"/>

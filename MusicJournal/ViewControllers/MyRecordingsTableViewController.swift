@@ -165,7 +165,9 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
                             
                             switch UIDevice.current.userInterfaceIdiom {
                             case .phone:
-                                viewWithTag.frame=CGRect(x: 0, y: 25, width: self.view.frame.width, height: self.view.frame.height*0.8)
+                                viewWithTag.frame=CGRect(x: 0, y: 30, width: self.view.frame.width, height: self.view.frame.height*0.8)
+                                closeButton.frame = CGRect(x: 5, y: 5, width: 20, height: 20)
+                                uploadPDFButton.frame=CGRect(x: self.view.frame.width-35, y: 5, width: 20, height: 20)
                             case .pad:
                                 viewWithTag.frame=CGRect(x: 0, y: 30, width: self.view.frame.width, height: self.view.frame.height*0.9)
                                 closeButton.frame = CGRect(x: 10, y: 10, width: 20, height: 20)
@@ -197,12 +199,14 @@ class MyRecordingsTableViewController: UITableViewController, UIDocumentInteract
         // add pdfView to the view hierarchy and possibly add auto-layout constraints
 
         pdfView.document = PDFDocument(data: data)
-        var closeButton: UIButton = UIButton(frame: CGRect(x: 15, y: 15, width: 25, height: 25))
-        var uploadPDFButton: UIButton = UIButton(frame: CGRect(x: self.view.frame.width-35, y: 15, width: 25, height: 25))
+        var closeButton: UIButton = UIButton(frame: CGRect(x: 5, y: 5, width: 15, height: 15))
+        var uploadPDFButton: UIButton = UIButton(frame: CGRect(x: self.view.frame.width-35, y: 5, width: 15, height: 15))
         
         switch UIDevice.current.userInterfaceIdiom {
         case .phone:
-            pdfView.frame=CGRect(x: 0, y: 20, width: self.view.frame.width, height: self.view.frame.height*0.8)
+            pdfView.frame=CGRect(x: 0, y: 30, width: self.view.frame.width, height: self.view.frame.height*0.8)
+            closeButton.frame = CGRect(x: 5, y: 5, width: 20, height: 20)
+            uploadPDFButton.frame=CGRect(x: self.view.frame.width-35, y: 5, width: 20, height: 20)
         case .pad:
             pdfView.frame=CGRect(x: 0, y: 30, width: self.view.frame.width, height: self.view.frame.height*0.9)
             closeButton = UIButton(frame: CGRect(x: 10, y: 10, width: 20, height: 20))

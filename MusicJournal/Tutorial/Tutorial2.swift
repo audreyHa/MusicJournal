@@ -36,7 +36,10 @@ class Tutorial2: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        
+        instructionsLabel.adjustsFontSizeToFitWidth=true
+        instructionsSubLabel.adjustsFontSizeToFitWidth=true
+        
         buttons=[song, composer, artist, album, event, instrument, interviewer, interviewee, custom]
         for button in buttons{
             button.layer.cornerRadius = 10
