@@ -1,14 +1,14 @@
 # MusiCord
-With MusiCord, users can quickly organize recordings according to their own custom categories! 
+With MusiCord, users can quickly organize recordings according to their own custom categories! When entering the app for the first time, users are presented with 8 different categories (song, composer, artist, instrument, album, etc.) to choose from, or they can create their own. 
 
-When entering the app for the first time, users are presented with 8 different categories (song, composer, artist, instrument, album, etc.) to choose from, or they can create their own. 
+After recording themselves playing a musical piece, users can select which of their 4 custom categories they will sort by, and the app will automatically reorder their recordings. While creating their recordings, users can also scan the sheet music for that song in order to keep their music organized.
 
-After recording themselves playing a musical piece, users can select which of their 4 custom categories they will sort by, and the app will automatically reorder their recordings. Users can edit their category names and switch the method of organization at any time. They can also export their recordings to family and friends.
+Users can edit their category names and switch the method of organization at any time. They can also export your sheet music and/or recordings to family and friends.
 
 ## Motivation
-Musicians of all levels can greatly improve their musical skills by recording themselves playing a song and listening back to it. However, when musicians have many recordings and a busy schedule, organizing and finding recordings can be a difficult and time-consuming task. 
+Musicians of all levels can greatly improve their musical skills by recording themselves playing a song and listening back to it. However, when musicians have many recordings and a busy schedule, organizing and finding recordings or sheet music can be a difficult and time-consuming task. 
 
-MusiCord is an app designed for all musicians, whether they’re students, teachers, or professionals, who wish to record themselves playing musical pieces and also organize them quickly and easily according to their preferred categories.
+MusiCord is an app designed for all musicians, whether they’re students, teachers, or professionals, who wish to record themselves playing musical pieces and organize them quickly according to their preferred categories. The app also allows users to scan the sheet music for each song, helping them organize their papers as well.
 
 ## Privacy Policy
 MusiCord incorporates Google Analytics for Firebase or Firebase Analytics: an analytics service provided by Google LLC. In order to understand Google's use of Data, see Google's policy on
