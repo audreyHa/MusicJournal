@@ -35,7 +35,9 @@ All of your recordings are stored locally on your phone. No third party (includi
 If you have any questions, please feel free to contact me at musicordmobileapp@gmail.com!
 
 Happy MusiCording!
+
 Sincerely, 
+
 Audrey Ha
 
 ## Author
