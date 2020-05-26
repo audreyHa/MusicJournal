@@ -37,7 +37,6 @@ If you have any questions, please feel free to contact me at musicordmobileapp@g
 Happy MusiCording!
 
 Sincerely, 
-
 Audrey Ha
 
 ## Author
